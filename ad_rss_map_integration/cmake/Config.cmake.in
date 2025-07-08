@@ -10,15 +10,23 @@
 ##
 # Generated file
 #
-# Generator Version : 11.0.0-1988
+# Generator Version : 11.0.0-2046
 ##
 
 @PACKAGE_INIT@
 
 include(CMakeFindDependencyMacro)
 
+find_library(TBB_LIB tbb)
+if(NOT TBB_LIB)
+  message(FATAL "Required library tbb was not found.")
+endif()
+list(APPEND LIBRARIES ${TBB_LIB})
+
+find_dependency(ad_physics @CARLA-MAP_VERSION@)
 find_dependency(ad_map_access @CARLA-MAP_VERSION@)
 find_dependency(ad_rss @AD-RSS-LIB_VERSION@)
+find_dependency(spdlog)
 
 include("${CMAKE_CURRENT_LIST_DIR}/@PROJECT_NAME@Targets.cmake")
 

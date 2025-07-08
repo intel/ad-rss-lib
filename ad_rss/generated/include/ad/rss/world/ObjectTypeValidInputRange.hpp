@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2020 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1997
+ * Generator Version : 11.0.0-2046
  */
 
 #pragma once
@@ -37,7 +37,10 @@ inline bool withinValidInputRange(::ad::rss::world::ObjectType const &input, boo
 {
   bool inValidInputRange = (input == ::ad::rss::world::ObjectType::Invalid)
     || (input == ::ad::rss::world::ObjectType::EgoVehicle) || (input == ::ad::rss::world::ObjectType::OtherVehicle)
-    || (input == ::ad::rss::world::ObjectType::Pedestrian) || (input == ::ad::rss::world::ObjectType::ArtificialObject);
+    || (input == ::ad::rss::world::ObjectType::Pedestrian) || (input == ::ad::rss::world::ObjectType::ArtificialObject)
+    || (input == ::ad::rss::world::ObjectType::ArtificialVehicle)
+    || (input == ::ad::rss::world::ObjectType::ArtificialPedestrian) || (input == ::ad::rss::world::ObjectType::Bicycle)
+    || (input == ::ad::rss::world::ObjectType::OtherObject);
   if (!inValidInputRange && logErrors)
   {
     spdlog::error("withinValidInputRange(::ad::rss::world::ObjectType)>> {}, raw value: {} ",

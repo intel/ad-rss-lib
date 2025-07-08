@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2020 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1997
+ * Generator Version : 11.0.0-2046
  */
 
 #pragma once
@@ -24,7 +24,6 @@
 #include "ad/physics/MetricRange.hpp"
 #include "ad/rss/world/LaneDrivingDirection.hpp"
 #include "ad/rss/world/LaneSegmentId.hpp"
-#include "ad/rss/world/LaneSegmentType.hpp"
 /*!
  * @brief namespace ad
  */
@@ -102,8 +101,8 @@ struct LaneSegment
    */
   bool operator==(const LaneSegment &other) const
   {
-    return (id == other.id) && (type == other.type) && (drivingDirection == other.drivingDirection)
-      && (length == other.length) && (width == other.width);
+    return (id == other.id) && (driving_direction == other.driving_direction) && (length == other.length)
+      && (width == other.width);
   }
 
   /**
@@ -124,14 +123,9 @@ struct LaneSegment
   ::ad::rss::world::LaneSegmentId id;
 
   /*!
-   * The type of this lane segment in context of the RssArea it belongs to.
-   */
-  ::ad::rss::world::LaneSegmentType type{::ad::rss::world::LaneSegmentType::Normal};
-
-  /*!
    * The nominal direction of the traffic flow of this lane segment in context of the RssArea it belongs to.
    */
-  ::ad::rss::world::LaneDrivingDirection drivingDirection{::ad::rss::world::LaneDrivingDirection::Bidirectional};
+  ::ad::rss::world::LaneDrivingDirection driving_direction{::ad::rss::world::LaneDrivingDirection::Bidirectional};
 
   /*!
    * The metric range of the lane segments length.
@@ -181,11 +175,8 @@ inline std::ostream &operator<<(std::ostream &os, LaneSegment const &_value)
   os << "id:";
   os << _value.id;
   os << ",";
-  os << "type:";
-  os << _value.type;
-  os << ",";
-  os << "drivingDirection:";
-  os << _value.drivingDirection;
+  os << "driving_direction:";
+  os << _value.driving_direction;
   os << ",";
   os << "length:";
   os << _value.length;
@@ -211,4 +202,16 @@ inline std::string to_string(::ad::rss::world::LaneSegment const &value)
   return sstream.str();
 }
 } // namespace std
+
+/*!
+ * \brief overload of fmt::formatter calling std::to_string
+ */
+template <> struct fmt::formatter<::ad::rss::world::LaneSegment> : formatter<string_view>
+{
+  template <typename FormatContext> auto format(::ad::rss::world::LaneSegment const &value, FormatContext &ctx)
+  {
+    return formatter<string_view>::format(std::to_string(value), ctx);
+  }
+};
+
 #endif // GEN_GUARD_AD_RSS_WORLD_LANESEGMENT

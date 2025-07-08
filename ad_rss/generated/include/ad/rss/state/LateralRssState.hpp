@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2020 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1997
+ * Generator Version : 11.0.0-2046
  */
 
 #pragma once
@@ -100,8 +100,8 @@ struct LateralRssState
    */
   bool operator==(const LateralRssState &other) const
   {
-    return (isSafe == other.isSafe) && (response == other.response) && (alphaLat == other.alphaLat)
-      && (rssStateInformation == other.rssStateInformation);
+    return (is_safe == other.is_safe) && (response == other.response) && (alpha_lat == other.alpha_lat)
+      && (rss_state_information == other.rss_state_information);
   }
 
   /**
@@ -119,7 +119,7 @@ struct LateralRssState
   /*!
    * Flag to indicate if the state is lateral safe.
    */
-  bool isSafe{false};
+  bool is_safe{false};
 
   /*!
    * required response in lateral direction
@@ -129,12 +129,12 @@ struct LateralRssState
   /*!
    * RSS dynamics values along lateral coordinate system axis.
    */
-  ::ad::rss::world::LateralRssAccelerationValues alphaLat;
+  ::ad::rss::world::LateralRssAccelerationValues alpha_lat;
 
   /*!
    * Information on the evaluation of the Rss state.
    */
-  ::ad::rss::state::RssStateInformation rssStateInformation;
+  ::ad::rss::state::RssStateInformation rss_state_information;
 };
 
 } // namespace state
@@ -171,17 +171,17 @@ namespace state {
 inline std::ostream &operator<<(std::ostream &os, LateralRssState const &_value)
 {
   os << "LateralRssState(";
-  os << "isSafe:";
-  os << _value.isSafe;
+  os << "is_safe:";
+  os << _value.is_safe;
   os << ",";
   os << "response:";
   os << _value.response;
   os << ",";
-  os << "alphaLat:";
-  os << _value.alphaLat;
+  os << "alpha_lat:";
+  os << _value.alpha_lat;
   os << ",";
-  os << "rssStateInformation:";
-  os << _value.rssStateInformation;
+  os << "rss_state_information:";
+  os << _value.rss_state_information;
   os << ")";
   return os;
 }
@@ -201,4 +201,16 @@ inline std::string to_string(::ad::rss::state::LateralRssState const &value)
   return sstream.str();
 }
 } // namespace std
+
+/*!
+ * \brief overload of fmt::formatter calling std::to_string
+ */
+template <> struct fmt::formatter<::ad::rss::state::LateralRssState> : formatter<string_view>
+{
+  template <typename FormatContext> auto format(::ad::rss::state::LateralRssState const &value, FormatContext &ctx)
+  {
+    return formatter<string_view>::format(std::to_string(value), ctx);
+  }
+};
+
 #endif // GEN_GUARD_AD_RSS_STATE_LATERALRSSSTATE

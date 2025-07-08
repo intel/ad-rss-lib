@@ -26,7 +26,27 @@ namespace rss {
  */
 namespace map {
 
+/**
+ * @brief get the ad::rss::map logger
+ */
 std::shared_ptr<spdlog::logger> getLogger();
+
+/**
+ * @brief get the log level of the ad::rss::map logger
+ */
+spdlog::level::level_enum getLogLevel();
+
+/**
+ * @brief set the log level of the ad::rss::map logger
+ */
+void setLogLevel(spdlog::level::level_enum const logLevel);
+
+/**
+ * @brief set the log level of the ad::rss::map logger from string
+ *
+ * uses spdlog::level::from_str() to convert to spdlog::level::level_enum
+ */
+void setLogLevel(std::string const &logLevel);
 
 } // namespace map
 } // namespace rss

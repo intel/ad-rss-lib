@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2020 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1997
+ * Generator Version : 11.0.0-2046
  */
 
 #pragma once
@@ -98,8 +98,8 @@ struct AccelerationRestriction
    */
   bool operator==(const AccelerationRestriction &other) const
   {
-    return (lateralLeftRange == other.lateralLeftRange) && (longitudinalRange == other.longitudinalRange)
-      && (lateralRightRange == other.lateralRightRange);
+    return (lateral_left_range == other.lateral_left_range) && (longitudinal_range == other.longitudinal_range)
+      && (lateral_right_range == other.lateral_right_range);
   }
 
   /**
@@ -117,17 +117,17 @@ struct AccelerationRestriction
   /*!
    * The range of the acceleration restriction in lateral left direction.
    */
-  ::ad::physics::AccelerationRange lateralLeftRange;
+  ::ad::physics::AccelerationRange lateral_left_range;
 
   /*!
    * The range of the acceleration restriction in longitudinal direction.
    */
-  ::ad::physics::AccelerationRange longitudinalRange;
+  ::ad::physics::AccelerationRange longitudinal_range;
 
   /*!
    * The range of the acceleration restriction in lateral right direction.
    */
-  ::ad::physics::AccelerationRange lateralRightRange;
+  ::ad::physics::AccelerationRange lateral_right_range;
 };
 
 } // namespace state
@@ -164,14 +164,14 @@ namespace state {
 inline std::ostream &operator<<(std::ostream &os, AccelerationRestriction const &_value)
 {
   os << "AccelerationRestriction(";
-  os << "lateralLeftRange:";
-  os << _value.lateralLeftRange;
+  os << "lateral_left_range:";
+  os << _value.lateral_left_range;
   os << ",";
-  os << "longitudinalRange:";
-  os << _value.longitudinalRange;
+  os << "longitudinal_range:";
+  os << _value.longitudinal_range;
   os << ",";
-  os << "lateralRightRange:";
-  os << _value.lateralRightRange;
+  os << "lateral_right_range:";
+  os << _value.lateral_right_range;
   os << ")";
   return os;
 }
@@ -191,4 +191,17 @@ inline std::string to_string(::ad::rss::state::AccelerationRestriction const &va
   return sstream.str();
 }
 } // namespace std
+
+/*!
+ * \brief overload of fmt::formatter calling std::to_string
+ */
+template <> struct fmt::formatter<::ad::rss::state::AccelerationRestriction> : formatter<string_view>
+{
+  template <typename FormatContext>
+  auto format(::ad::rss::state::AccelerationRestriction const &value, FormatContext &ctx)
+  {
+    return formatter<string_view>::format(std::to_string(value), ctx);
+  }
+};
+
 #endif // GEN_GUARD_AD_RSS_STATE_ACCELERATIONRESTRICTION

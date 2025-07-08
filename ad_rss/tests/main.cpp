@@ -9,14 +9,13 @@
  */
 
 #include "gtest/gtest.h"
-#include "spdlog/sinks/null_sink.h"
+#include <ad/rss/core/Logging.hpp>
 #include "spdlog/spdlog.h"
 
 int main(int argc, char **argv)
 {
-  auto logger = spdlog::create<spdlog::sinks::null_sink_st>("null_logger");
-  spdlog::set_default_logger(logger);
-
+  ad::rss::core::getLogger()->set_level(spdlog::level::off);
+  spdlog::set_default_logger(ad::rss::core::getLogger());
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

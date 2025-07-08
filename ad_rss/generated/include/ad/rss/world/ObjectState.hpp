@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2020 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1997
+ * Generator Version : 11.0.0-2046
  */
 
 #pragma once
@@ -25,7 +25,7 @@
 #include "ad/physics/AngularVelocity.hpp"
 #include "ad/physics/Dimension2D.hpp"
 #include "ad/physics/Distance2D.hpp"
-#include "ad/physics/Speed.hpp"
+#include "ad/physics/SpeedRange.hpp"
 /*!
  * @brief namespace ad
  */
@@ -43,9 +43,9 @@ namespace world {
  * \brief DataType ObjectState
  *
  * State of an object in the reference coordinate system (e.g. ENU).
- * As the evaluation results of multiple scenes have to be merged, this reference system
- * has to be the same for all entries at a specific time.
- * The proper response, i.e. the headingRanges of the unstructured scene response,
+ * As the evaluation results of multiple constellation have to be merged, this reference
+ * system has to be the same for all entries at a specific time.
+ * The proper response, i.e. the heading_ranges of the unstructured constellation response,
  * refers to this reference coodinate system.
  */
 struct ObjectState
@@ -107,8 +107,9 @@ struct ObjectState
    */
   bool operator==(const ObjectState &other) const
   {
-    return (yaw == other.yaw) && (dimension == other.dimension) && (yawRate == other.yawRate)
-      && (centerPoint == other.centerPoint) && (speed == other.speed) && (steeringAngle == other.steeringAngle);
+    return (yaw == other.yaw) && (dimension == other.dimension) && (yaw_rate == other.yaw_rate)
+      && (center_point == other.center_point) && (speed_range == other.speed_range)
+      && (steering_angle == other.steering_angle);
   }
 
   /**
@@ -136,22 +137,22 @@ struct ObjectState
   /*!
    * The angular velocity of the object in the reference coordinate system (e.g. ENU).
    */
-  ::ad::physics::AngularVelocity yawRate;
+  ::ad::physics::AngularVelocity yaw_rate;
 
   /*!
    * The center point of the object in the reference coordinate system (e.g. ENU).
    */
-  ::ad::physics::Distance2D centerPoint;
+  ::ad::physics::Distance2D center_point;
 
   /*!
-   * The speed of the object in the reference coordinate system (e.g. ENU).
+   * The speed of the object in the reference coordinate system (e.g. ENU) with its range.
    */
-  ::ad::physics::Speed speed;
+  ::ad::physics::SpeedRange speed_range;
 
   /*!
    * The steering angle of the object in the object frame.
    */
-  ::ad::physics::Angle steeringAngle;
+  ::ad::physics::Angle steering_angle;
 };
 
 } // namespace world
@@ -194,17 +195,17 @@ inline std::ostream &operator<<(std::ostream &os, ObjectState const &_value)
   os << "dimension:";
   os << _value.dimension;
   os << ",";
-  os << "yawRate:";
-  os << _value.yawRate;
+  os << "yaw_rate:";
+  os << _value.yaw_rate;
   os << ",";
-  os << "centerPoint:";
-  os << _value.centerPoint;
+  os << "center_point:";
+  os << _value.center_point;
   os << ",";
-  os << "speed:";
-  os << _value.speed;
+  os << "speed_range:";
+  os << _value.speed_range;
   os << ",";
-  os << "steeringAngle:";
-  os << _value.steeringAngle;
+  os << "steering_angle:";
+  os << _value.steering_angle;
   os << ")";
   return os;
 }
@@ -224,4 +225,16 @@ inline std::string to_string(::ad::rss::world::ObjectState const &value)
   return sstream.str();
 }
 } // namespace std
+
+/*!
+ * \brief overload of fmt::formatter calling std::to_string
+ */
+template <> struct fmt::formatter<::ad::rss::world::ObjectState> : formatter<string_view>
+{
+  template <typename FormatContext> auto format(::ad::rss::world::ObjectState const &value, FormatContext &ctx)
+  {
+    return formatter<string_view>::format(std::to_string(value), ctx);
+  }
+};
+
 #endif // GEN_GUARD_AD_RSS_WORLD_OBJECTSTATE

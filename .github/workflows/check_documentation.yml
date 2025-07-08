@@ -7,7 +7,7 @@ on:
     branches: main
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   documentationjob:
@@ -36,6 +36,7 @@ jobs:
 
     - name: Build Documentation and Test
       run: |
+        source ad-rss-build-venv/bin/activate
         GTEST_OUTPUT="xml:test_results"
         colcon build --event-handlers console_direct+ --executor sequential --packages-up-to ad_rss ad_rss_map_integration --cmake-args -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=ON -DBUILD_COVERAGE=ON -DBUILD_APIDOC=ON
         colcon test --event-handlers console_direct+ --packages-select ad_rss ad_rss_map_integration
@@ -55,5 +56,6 @@ jobs:
 
     - name: Documentation Deployment (Test)
       run: |
+        source ad-rss-build-venv/bin/activate
         mkdocs build
         if [ ${{ github.event_name }} != 'pull_request' ]; then bash .github/workflows/deploy_documentation.sh true; else bash .github/workflows/deploy_documentation.sh false; fi

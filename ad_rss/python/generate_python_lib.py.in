@@ -31,13 +31,15 @@ def main():
 
     declarations={"toString", "fromString", "std::to_string", "std::sqrt", "std::fabs", "std::numeric_limits"}
 
-    additional_replacements = {
+    additional_replacements = [
         # RoadSegment: vector<vector>>, set name manually, tool doesn't understand correctly
         ("\"vector_less__ad_scope_rss_scope_world_scope_LaneSegment__greater_\"", "\"RoadSegment\""),
-        ("\"vector_less_ad_scope_rss_scope_world_scope_LaneSegment_greater_\"", "\"RoadSegment\"")
-    }
+        ("\"vector_less_ad_scope_rss_scope_world_scope_LaneSegment_greater_\"", "\"RoadSegment\""),
+        ("\"vector_less__ad_scope_rss_scope_unstructured_scope_TrajectoryPoint__greater_\"", "\"Trajectory\""),
+        ("\"vector_less_ad_scope_rss_scope_unstructured_scope_TrajectoryPoint_greater_\"", "\"Trajectory\"")
+    ]
 
-    for component in ["core", "situation", "state", "unstructured", "world"]:
+    for component in ["core", "state", "structured", "unstructured", "world"]:
         main_namespace="ad::rss::{}".format(component)
 
         declarations_component=declarations.copy()
@@ -51,7 +53,7 @@ def main():
                 "ObjectIdVector"
             }
 
-        if component == "core":
+        if component == "structured":
             header_dirs = {
                 "@CMAKE_CURRENT_LIST_DIR@/../include/ad/rss/{}".format(component)
             }
@@ -78,7 +80,7 @@ def main():
                                 ignore_declarations=ignore_declarations)
 
         additional_replacements_component = additional_replacements.copy()
-        additional_replacements_component.add(
+        additional_replacements_component.append(
                 ("BOOST_PYTHON_MODULE({}){{".format(component),
                  "void export_ad_rss_{}(){{\n\n".format(component) +
                  "  bp::object ad_rss_{}_module(bp::handle<>(bp::borrowed(PyImport_AddModule(\"{}\"))));\n".format(component, component) +

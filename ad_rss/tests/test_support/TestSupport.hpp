@@ -7,18 +7,18 @@
 // ----------------- END LICENSE BLOCK -----------------------------------
 #pragma once
 
+#include <ad/geometry/Types.hpp>
+#include <ad/physics/Operation.hpp>
 #include <cmath>
 #include <gtest/gtest.h>
 #include <limits>
 #include "RssTestParameters.hpp"
-#include "ad/physics/Operation.hpp"
-#include "ad/rss/situation/Physics.hpp"
-#include "ad/rss/situation/RelativePosition.hpp"
-#include "ad/rss/situation/Situation.hpp"
-#include "ad/rss/situation/VehicleState.hpp"
+#include "ad/rss/core/Physics.hpp"
+#include "ad/rss/core/RelativeConstellation.hpp"
+#include "ad/rss/core/RelativeObjectState.hpp"
+#include "ad/rss/core/RelativePosition.hpp"
 #include "ad/rss/state/ProperResponse.hpp"
 #include "ad/rss/state/RssState.hpp"
-#include "ad/rss/unstructured/Geometry.hpp"
 #include "ad/rss/world/Object.hpp"
 #include "ad/rss/world/RoadSegment.hpp"
 
@@ -55,20 +55,20 @@ void resetRssState(state::LateralRssState &state);
  *
  * @param[in/out] state the unstructured RSS state to be reset
  */
-void resetRssState(state::UnstructuredSceneRssState &state);
+void resetRssState(state::UnstructuredConstellationRssState &state);
 
 /**
  * @brief resets the RSS state within the RssState to it's safe state
  *
  * @param[in/out] rssState the response state to be reset
- * @param[in] situationId the situation id to be set within the RssState
- * @param[in] objectId the object id to be set within the RssState
- * @param[in] situationType the situation type to be set within the RssState
+ * @param[in] constellation_id the constellation id to be set within the RssState
+ * @param[in] object_id the object id to be set within the RssState
+ * @param[in] constellation_type the constellation type to be set within the RssState
  */
 void resetRssState(state::RssState &rssState,
-                   situation::SituationId const situationId,
-                   world::ObjectId const objectId,
-                   situation::SituationType const situationType);
+                   core::RelativeConstellationId const constellation_id,
+                   world::ObjectId const object_id,
+                   world::ConstellationType const constellation_type);
 
 /**
  * @brief resets the RSS state of the proper response to it's safe state
@@ -87,7 +87,7 @@ template <typename RSSState, typename RSSStateLiteral>
 void setRssStateUnsafe(RSSState &state, RSSStateLiteral const literal)
 {
   state.response = literal;
-  state.isSafe = false;
+  state.is_safe = false;
 }
 
 /**
@@ -112,7 +112,7 @@ inline physics::Speed kmhToMeterPerSec(double const speed)
 inline world::Object objectAsEgo(world::Object const &iObject)
 {
   world::Object object(iObject);
-  object.objectType = world::ObjectType::EgoVehicle;
+  object.object_type = world::ObjectType::EgoVehicle;
   return object;
 }
 
@@ -141,14 +141,14 @@ world::Object createObject(double const lonVelocity, double const latVelocity);
 /**
  * @brief create a vehicle state
  *
- * @param[in] objectType type of object
+ * @param[in] object_type type of object
  * @param[in] lonVelocity the longitudinal velocity to be applied
  * @param[in] latVelocity the lateral velocity to be applied
  *
  * @returns a vehicle state with applied lon/lat velocities
  */
-situation::VehicleState
-createVehicleState(world::ObjectType const objectType, double const lonVelocity, double const latVelocity);
+core::RelativeObjectState
+createRelativeVehicleState(world::ObjectType const object_type, double const lonVelocity, double const latVelocity);
 
 /**
  * @brief create an object state
@@ -169,9 +169,9 @@ world::ObjectState createObjectState(double const lonVelocity, double const latV
  *
  * @returns a vehicle state with applied lon velocity
  */
-inline situation::VehicleState createVehicleStateForLongitudinalMotion(double const lonVelocity)
+inline core::RelativeObjectState createRelativeVehicleStateForLongitudinalMotion(double const lonVelocity)
 {
-  return createVehicleState(world::ObjectType::OtherVehicle, lonVelocity, 0.);
+  return createRelativeVehicleState(world::ObjectType::OtherVehicle, lonVelocity, 0.);
 }
 
 /**
@@ -183,9 +183,9 @@ inline situation::VehicleState createVehicleStateForLongitudinalMotion(double co
  *
  * @returns a vehicle state with applied lat velocity
  */
-inline situation::VehicleState createVehicleStateForLateralMotion(double const latVelocity)
+inline core::RelativeObjectState createRelativeVehicleStateForLateralMotion(double const latVelocity)
 {
-  return createVehicleState(world::ObjectType::OtherVehicle, 0., latVelocity);
+  return createRelativeVehicleState(world::ObjectType::OtherVehicle, 0., latVelocity);
 }
 
 /**
@@ -196,8 +196,8 @@ inline situation::VehicleState createVehicleStateForLateralMotion(double const l
  *
  * @returns a relative longitudinal position object
  */
-situation::RelativePosition createRelativeLongitudinalPosition(situation::LongitudinalRelativePosition const &position,
-                                                               Distance const &distance = Distance(0.));
+core::RelativePosition createRelativeLongitudinalPosition(core::LongitudinalRelativePosition const &position,
+                                                          Distance const &distance = Distance(0.));
 
 /**
  * @brief create a relative lateral position object
@@ -207,8 +207,8 @@ situation::RelativePosition createRelativeLongitudinalPosition(situation::Longit
  *
  * @returns a relative lateral position object
  */
-situation::RelativePosition createRelativeLateralPosition(situation::LateralRelativePosition const &position,
-                                                          Distance const &distance = Distance(0.));
+core::RelativePosition createRelativeLateralPosition(core::LateralRelativePosition const &position,
+                                                     Distance const &distance = Distance(0.));
 
 /**
  * @brief calculate the longitudinal stopping distance
@@ -217,15 +217,16 @@ situation::RelativePosition createRelativeLateralPosition(situation::LateralRela
  * @param[in] objectSpeed the object maximum speed used for the calculation
  * @param[in] acceleration the acceleration to be applied for acceleration within response time
  * @param[in] deceleration the deceleration to be applied for braking
- * @param[in] responseTime the responseTime to be applied before braking
+ * @param[in] response_time the response_time to be applied before braking
  *
- * @returns the distance required to stop when applying accelMax during the responseTime and then brake to the full stop
+ * @returns the distance required to stop when applying accel_max during the response_time and then brake to the full
+ * stop
  */
 Distance calculateLongitudinalStoppingDistance(Speed const &objectSpeed,
                                                Speed const &objectMaxSpeedOnAcceleration,
                                                Acceleration const &acceleration,
                                                Acceleration const &deceleration,
-                                               Duration const &responseTime);
+                                               Duration const &response_time);
 
 /**
  * @brief calculate the longitudinal min safe distance in following >>> leading configuration
@@ -236,8 +237,8 @@ Distance calculateLongitudinalStoppingDistance(Speed const &objectSpeed,
  * @param[in] leadingObjectRssDynamics the object leading in front: RSS dynamics
  *
  * @returns the minimum safe distance required that the following object does not crash into the leading object
- *  in case the leading object performs a brake with brakeMax and following object performs a stated braking pattern
- *  with (see calculateLongitudinalStoppingDistance) with brakeMin
+ *  in case the leading object performs a brake with brake_max and following object performs a stated braking pattern
+ *  with (see calculateLongitudinalStoppingDistance) with brake_min
  */
 Distance calculateLongitudinalMinSafeDistance(physics::Speed const &followingObjectSpeed,
                                               world::RssDynamics const &followingObjectRssDynamics,
@@ -255,8 +256,8 @@ Distance calculateLongitudinalMinSafeDistance(physics::Speed const &followingObj
  *
  * @returns the minimum safe distance required that both objects are still able to break and not crash into each other.
  *  The object in correct lane performs a stated braking pattern (see calculateLongitudinalStoppingDistance) with
- * brakeMinCorrect;
- *  the object in wrong lane performs a stated braking pattern with brakeMin.
+ * brake_min_correct;
+ *  the object in wrong lane performs a stated braking pattern with brake_min.
  */
 Distance
 calculateLongitudinalMinSafeDistanceOppositeDirection(physics::Speed const &objectInCorrectLaneSpeed,
@@ -273,7 +274,7 @@ calculateLongitudinalMinSafeDistanceOppositeDirection(physics::Speed const &obje
  * @param[in] rightObjectRssDynamics the object driving on the right side: RSS dynamics
  *
  * @returns the minimum safe distance required that both objects are still able to break and not crash into each other.
- *  Both objects perform a stated braking pattern with brakeMin in lateral direction.
+ *  Both objects perform a stated braking pattern with brake_min in lateral direction.
  */
 Distance calculateLateralMinSafeDistance(physics::Speed const &leftObjectSpeed,
                                          world::RssDynamics const &leftObjectRssDynamics,
@@ -281,22 +282,22 @@ Distance calculateLateralMinSafeDistance(physics::Speed const &leftObjectSpeed,
                                          world::RssDynamics const &rightObjectRssDynamics);
 
 /**
- * @brief update the vehicle state and unstructured scene state info
+ * @brief update the vehicle state and unstructured constellation state info
  *
  * @param[in] backLeft position of the vehicle
  * @param[in] positiveDirection direction selection
  * @param[out] stateInfo unstructured state info
  * @param[out] vehicleState resulting vehicle state
  */
-void getUnstructuredVehicle(unstructured::Point const &centerPoint,
+void getUnstructuredVehicle(::ad::geometry::Point const &center_point,
                             bool positiveDirection,
-                            state::UnstructuredSceneStateInformation &stateInfo,
-                            situation::VehicleState &vehicleState);
+                            state::UnstructuredConstellationStateInformation &stateInfo,
+                            core::RelativeObjectState &vehicleState);
 
 /**
  * @brief class providing constants for longitudinal/lateral RSS states
  *
- * The respective states can be augmented with expected situation specific ResponseInformation data (see
+ * The respective states can be augmented with expected constellation specific ResponseInformation data (see
  * stateWithInformation() calls).
  */
 class TestSupport
@@ -308,26 +309,26 @@ public:
   TestSupport();
 
   /**
-   * @brief augment a lateral RSS state with situation specific ResponseInformation data
+   * @brief augment a lateral RSS state with constellation specific ResponseInformation data
    *
    * @param[in] lateralState the lateral RSS state to be augmented by ResponseInformation
-   * @param[in] situation the situation used as basis for calculation of expected ResponseInformation data
+   * @param[in] constellation the constellation used as basis for calculation of expected ResponseInformation data
    *
    * @returns the augmented RSS state is returned
    */
   static state::LateralRssState stateWithInformation(state::LateralRssState const &lateralState,
-                                                     situation::Situation const &situation);
+                                                     core::RelativeConstellation const &constellation);
 
   /**
-   * @brief augment a longitudinal RSS state with situation specific ResponseInformation data
+   * @brief augment a longitudinal RSS state with constellation specific ResponseInformation data
    *
-   * @param[in] longitudinalState the longitudinal RSS state to be augmented by ResponseInformation
-   * @param[in] situation the situation used as basis for calculation of expected ResponseInformation data
+   * @param[in] longitudinal_state the longitudinal RSS state to be augmented by ResponseInformation
+   * @param[in] constellation the constellation used as basis for calculation of expected ResponseInformation data
    *
    * @returns the augmented RSS state is returned
    */
-  static state::LongitudinalRssState stateWithInformation(state::LongitudinalRssState const &longitudinalState,
-                                                          situation::Situation const &situation);
+  static state::LongitudinalRssState stateWithInformation(state::LongitudinalRssState const &longitudinal_state,
+                                                          core::RelativeConstellation const &constellation);
 
   state::LongitudinalRssState cLongitudinalSafe;
   state::LongitudinalRssState cLongitudinalNone;
@@ -352,7 +353,7 @@ inline world::RoadSegment longitudinalNoDifferenceRoadSegment()
   laneSegment.width.minimum = Distance(5);
   laneSegment.width.maximum = Distance(5);
 
-  roadSegment.push_back(laneSegment);
+  roadSegment.lane_segments.push_back(laneSegment);
   return roadSegment;
 }
 
@@ -367,7 +368,8 @@ inline world::RoadSegment longitudinalDifferenceRoadSegment()
 
   laneSegment.width.minimum = Distance(5);
   laneSegment.width.maximum = Distance(5);
-  roadSegment.push_back(laneSegment);
+
+  roadSegment.lane_segments.push_back(laneSegment);
   return roadSegment;
 }
 

@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2020 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1997
+ * Generator Version : 11.0.0-2046
  */
 
 #pragma once
@@ -21,11 +21,11 @@
 #include <limits>
 #include <memory>
 #include <sstream>
-#include "ad/rss/situation/SituationId.hpp"
-#include "ad/rss/situation/SituationType.hpp"
+#include "ad/rss/core/RelativeConstellationId.hpp"
 #include "ad/rss/state/LateralRssState.hpp"
 #include "ad/rss/state/LongitudinalRssState.hpp"
-#include "ad/rss/state/UnstructuredSceneRssState.hpp"
+#include "ad/rss/state/UnstructuredConstellationRssState.hpp"
+#include "ad/rss/world/ConstellationType.hpp"
 #include "ad/rss/world/ObjectId.hpp"
 /*!
  * @brief namespace ad
@@ -104,10 +104,11 @@ struct RssState
    */
   bool operator==(const RssState &other) const
   {
-    return (objectId == other.objectId) && (situationId == other.situationId)
-      && (longitudinalState == other.longitudinalState) && (lateralStateRight == other.lateralStateRight)
-      && (lateralStateLeft == other.lateralStateLeft) && (unstructuredSceneState == other.unstructuredSceneState)
-      && (situationType == other.situationType);
+    return (ego_id == other.ego_id) && (object_id == other.object_id) && (constellation_id == other.constellation_id)
+      && (longitudinal_state == other.longitudinal_state) && (lateral_state_right == other.lateral_state_right)
+      && (lateral_state_left == other.lateral_state_left)
+      && (unstructured_constellation_state == other.unstructured_constellation_state)
+      && (constellation_type == other.constellation_type);
   }
 
   /**
@@ -123,43 +124,48 @@ struct RssState
   }
 
   /*!
-   * Defines the unique id of an object. This id has to be constant over time for the same object.
+   * Defines the unique id of the ego. This id has to be constant over time.
    */
-  ::ad::rss::world::ObjectId objectId;
+  ::ad::rss::world::ObjectId ego_id{0};
 
   /*!
-   * Id of the situation this state refers to.
-   * The id has to remain unique over time representing the situation (ego-vehicle /
-   * object pair) under investigation.
+   * Defines the unique id of an object. This id has to be constant over time for the same object.
+   */
+  ::ad::rss::world::ObjectId object_id;
+
+  /*!
+   * Id of the constellation this state refers to.
+   * The id has to remain unique over time representing the constellation (ego-vehicle
+   * / object pair) under investigation.
    * It is used to track the state of the ego-vehicle / object constellation i.e. at
    * point of danger threshold time.
    */
-  ::ad::rss::situation::SituationId situationId{0u};
+  ::ad::rss::core::RelativeConstellationId constellation_id{0u};
 
   /*!
    * The current longitudinal rss state.
    */
-  ::ad::rss::state::LongitudinalRssState longitudinalState;
+  ::ad::rss::state::LongitudinalRssState longitudinal_state;
 
   /*!
    * The current lateral rss state at right side in respect to ego-vehicle driving direction.
    */
-  ::ad::rss::state::LateralRssState lateralStateRight;
+  ::ad::rss::state::LateralRssState lateral_state_right;
 
   /*!
    * The current lateral rss state at left side in respect to ego-vehicle driving direction.
    */
-  ::ad::rss::state::LateralRssState lateralStateLeft;
+  ::ad::rss::state::LateralRssState lateral_state_left;
 
   /*!
-   * The state of the unstructured scene.
+   * The state of the unstructured constellation.
    */
-  ::ad::rss::state::UnstructuredSceneRssState unstructuredSceneState;
+  ::ad::rss::state::UnstructuredConstellationRssState unstructured_constellation_state;
 
   /*!
-   * This type of situation this RssState was calculated on.
+   * This type of constellation this RssState was calculated on.
    */
-  ::ad::rss::situation::SituationType situationType;
+  ::ad::rss::world::ConstellationType constellation_type;
 };
 
 } // namespace state
@@ -196,26 +202,29 @@ namespace state {
 inline std::ostream &operator<<(std::ostream &os, RssState const &_value)
 {
   os << "RssState(";
-  os << "objectId:";
-  os << _value.objectId;
+  os << "ego_id:";
+  os << _value.ego_id;
   os << ",";
-  os << "situationId:";
-  os << _value.situationId;
+  os << "object_id:";
+  os << _value.object_id;
   os << ",";
-  os << "longitudinalState:";
-  os << _value.longitudinalState;
+  os << "constellation_id:";
+  os << _value.constellation_id;
   os << ",";
-  os << "lateralStateRight:";
-  os << _value.lateralStateRight;
+  os << "longitudinal_state:";
+  os << _value.longitudinal_state;
   os << ",";
-  os << "lateralStateLeft:";
-  os << _value.lateralStateLeft;
+  os << "lateral_state_right:";
+  os << _value.lateral_state_right;
   os << ",";
-  os << "unstructuredSceneState:";
-  os << _value.unstructuredSceneState;
+  os << "lateral_state_left:";
+  os << _value.lateral_state_left;
   os << ",";
-  os << "situationType:";
-  os << _value.situationType;
+  os << "unstructured_constellation_state:";
+  os << _value.unstructured_constellation_state;
+  os << ",";
+  os << "constellation_type:";
+  os << _value.constellation_type;
   os << ")";
   return os;
 }
@@ -235,4 +244,16 @@ inline std::string to_string(::ad::rss::state::RssState const &value)
   return sstream.str();
 }
 } // namespace std
+
+/*!
+ * \brief overload of fmt::formatter calling std::to_string
+ */
+template <> struct fmt::formatter<::ad::rss::state::RssState> : formatter<string_view>
+{
+  template <typename FormatContext> auto format(::ad::rss::state::RssState const &value, FormatContext &ctx)
+  {
+    return formatter<string_view>::format(std::to_string(value), ctx);
+  }
+};
+
 #endif // GEN_GUARD_AD_RSS_STATE_RSSSTATE

@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2021 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -23,10 +23,8 @@ TEST(LaneSegmentValidInputRangeTests, testValidInputRange)
   ::ad::rss::world::LaneSegment value;
   ::ad::rss::world::LaneSegmentId valueId(std::numeric_limits<::ad::rss::world::LaneSegmentId>::lowest());
   value.id = valueId;
-  ::ad::rss::world::LaneSegmentType valueType(::ad::rss::world::LaneSegmentType::Normal);
-  value.type = valueType;
-  ::ad::rss::world::LaneDrivingDirection valueDrivingDirection(::ad::rss::world::LaneDrivingDirection::Bidirectional);
-  value.drivingDirection = valueDrivingDirection;
+  ::ad::rss::world::LaneDrivingDirection valueDriving_direction(::ad::rss::world::LaneDrivingDirection::Bidirectional);
+  value.driving_direction = valueDriving_direction;
   ::ad::physics::MetricRange valueLength;
   ::ad::physics::Distance valueLengthMinimum(-1e9);
   valueLengthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
@@ -48,83 +46,13 @@ TEST(LaneSegmentValidInputRangeTests, testValidInputRange)
   ASSERT_TRUE(withinValidInputRange(value));
 }
 
-TEST(LaneSegmentValidInputRangeTests, testValidInputRangeTypeTooSmall)
+TEST(LaneSegmentValidInputRangeTests, testValidInputRangeDriving_directionTooSmall)
 {
   ::ad::rss::world::LaneSegment value;
   ::ad::rss::world::LaneSegmentId valueId(std::numeric_limits<::ad::rss::world::LaneSegmentId>::lowest());
   value.id = valueId;
-  ::ad::rss::world::LaneSegmentType valueType(::ad::rss::world::LaneSegmentType::Normal);
-  value.type = valueType;
-  ::ad::rss::world::LaneDrivingDirection valueDrivingDirection(::ad::rss::world::LaneDrivingDirection::Bidirectional);
-  value.drivingDirection = valueDrivingDirection;
-  ::ad::physics::MetricRange valueLength;
-  ::ad::physics::Distance valueLengthMinimum(-1e9);
-  valueLengthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
-  valueLength.minimum = valueLengthMinimum;
-  ::ad::physics::Distance valueLengthMaximum(-1e9);
-  valueLength.maximum = valueLengthMaximum;
-  valueLength.maximum = valueLength.minimum;
-  valueLength.minimum = valueLength.maximum;
-  value.length = valueLength;
-  ::ad::physics::MetricRange valueWidth;
-  ::ad::physics::Distance valueWidthMinimum(-1e9);
-  valueWidthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
-  valueWidth.minimum = valueWidthMinimum;
-  ::ad::physics::Distance valueWidthMaximum(-1e9);
-  valueWidth.maximum = valueWidthMaximum;
-  valueWidth.maximum = valueWidth.minimum;
-  valueWidth.minimum = valueWidth.maximum;
-  value.width = valueWidth;
-
-  // override member with data type value below input range minimum
-  ::ad::rss::world::LaneSegmentType invalidInitializedMember(static_cast<::ad::rss::world::LaneSegmentType>(-1));
-  value.type = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
-}
-
-TEST(LaneSegmentValidInputRangeTests, testValidInputRangeTypeTooBig)
-{
-  ::ad::rss::world::LaneSegment value;
-  ::ad::rss::world::LaneSegmentId valueId(std::numeric_limits<::ad::rss::world::LaneSegmentId>::lowest());
-  value.id = valueId;
-  ::ad::rss::world::LaneSegmentType valueType(::ad::rss::world::LaneSegmentType::Normal);
-  value.type = valueType;
-  ::ad::rss::world::LaneDrivingDirection valueDrivingDirection(::ad::rss::world::LaneDrivingDirection::Bidirectional);
-  value.drivingDirection = valueDrivingDirection;
-  ::ad::physics::MetricRange valueLength;
-  ::ad::physics::Distance valueLengthMinimum(-1e9);
-  valueLengthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
-  valueLength.minimum = valueLengthMinimum;
-  ::ad::physics::Distance valueLengthMaximum(-1e9);
-  valueLength.maximum = valueLengthMaximum;
-  valueLength.maximum = valueLength.minimum;
-  valueLength.minimum = valueLength.maximum;
-  value.length = valueLength;
-  ::ad::physics::MetricRange valueWidth;
-  ::ad::physics::Distance valueWidthMinimum(-1e9);
-  valueWidthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
-  valueWidth.minimum = valueWidthMinimum;
-  ::ad::physics::Distance valueWidthMaximum(-1e9);
-  valueWidth.maximum = valueWidthMaximum;
-  valueWidth.maximum = valueWidth.minimum;
-  valueWidth.minimum = valueWidth.maximum;
-  value.width = valueWidth;
-
-  // override member with data type value above input range maximum
-  ::ad::rss::world::LaneSegmentType invalidInitializedMember(static_cast<::ad::rss::world::LaneSegmentType>(-1));
-  value.type = invalidInitializedMember;
-  ASSERT_FALSE(withinValidInputRange(value));
-}
-
-TEST(LaneSegmentValidInputRangeTests, testValidInputRangeDrivingDirectionTooSmall)
-{
-  ::ad::rss::world::LaneSegment value;
-  ::ad::rss::world::LaneSegmentId valueId(std::numeric_limits<::ad::rss::world::LaneSegmentId>::lowest());
-  value.id = valueId;
-  ::ad::rss::world::LaneSegmentType valueType(::ad::rss::world::LaneSegmentType::Normal);
-  value.type = valueType;
-  ::ad::rss::world::LaneDrivingDirection valueDrivingDirection(::ad::rss::world::LaneDrivingDirection::Bidirectional);
-  value.drivingDirection = valueDrivingDirection;
+  ::ad::rss::world::LaneDrivingDirection valueDriving_direction(::ad::rss::world::LaneDrivingDirection::Bidirectional);
+  value.driving_direction = valueDriving_direction;
   ::ad::physics::MetricRange valueLength;
   ::ad::physics::Distance valueLengthMinimum(-1e9);
   valueLengthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
@@ -147,19 +75,17 @@ TEST(LaneSegmentValidInputRangeTests, testValidInputRangeDrivingDirectionTooSmal
   // override member with data type value below input range minimum
   ::ad::rss::world::LaneDrivingDirection invalidInitializedMember(
     static_cast<::ad::rss::world::LaneDrivingDirection>(-1));
-  value.drivingDirection = invalidInitializedMember;
+  value.driving_direction = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(LaneSegmentValidInputRangeTests, testValidInputRangeDrivingDirectionTooBig)
+TEST(LaneSegmentValidInputRangeTests, testValidInputRangeDriving_directionTooBig)
 {
   ::ad::rss::world::LaneSegment value;
   ::ad::rss::world::LaneSegmentId valueId(std::numeric_limits<::ad::rss::world::LaneSegmentId>::lowest());
   value.id = valueId;
-  ::ad::rss::world::LaneSegmentType valueType(::ad::rss::world::LaneSegmentType::Normal);
-  value.type = valueType;
-  ::ad::rss::world::LaneDrivingDirection valueDrivingDirection(::ad::rss::world::LaneDrivingDirection::Bidirectional);
-  value.drivingDirection = valueDrivingDirection;
+  ::ad::rss::world::LaneDrivingDirection valueDriving_direction(::ad::rss::world::LaneDrivingDirection::Bidirectional);
+  value.driving_direction = valueDriving_direction;
   ::ad::physics::MetricRange valueLength;
   ::ad::physics::Distance valueLengthMinimum(-1e9);
   valueLengthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
@@ -182,7 +108,7 @@ TEST(LaneSegmentValidInputRangeTests, testValidInputRangeDrivingDirectionTooBig)
   // override member with data type value above input range maximum
   ::ad::rss::world::LaneDrivingDirection invalidInitializedMember(
     static_cast<::ad::rss::world::LaneDrivingDirection>(-1));
-  value.drivingDirection = invalidInitializedMember;
+  value.driving_direction = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
@@ -191,10 +117,8 @@ TEST(LaneSegmentValidInputRangeTests, testValidInputRangeLengthTooSmall)
   ::ad::rss::world::LaneSegment value;
   ::ad::rss::world::LaneSegmentId valueId(std::numeric_limits<::ad::rss::world::LaneSegmentId>::lowest());
   value.id = valueId;
-  ::ad::rss::world::LaneSegmentType valueType(::ad::rss::world::LaneSegmentType::Normal);
-  value.type = valueType;
-  ::ad::rss::world::LaneDrivingDirection valueDrivingDirection(::ad::rss::world::LaneDrivingDirection::Bidirectional);
-  value.drivingDirection = valueDrivingDirection;
+  ::ad::rss::world::LaneDrivingDirection valueDriving_direction(::ad::rss::world::LaneDrivingDirection::Bidirectional);
+  value.driving_direction = valueDriving_direction;
   ::ad::physics::MetricRange valueLength;
   ::ad::physics::Distance valueLengthMinimum(-1e9);
   valueLengthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
@@ -227,10 +151,8 @@ TEST(LaneSegmentValidInputRangeTests, testValidInputRangeLengthTooBig)
   ::ad::rss::world::LaneSegment value;
   ::ad::rss::world::LaneSegmentId valueId(std::numeric_limits<::ad::rss::world::LaneSegmentId>::lowest());
   value.id = valueId;
-  ::ad::rss::world::LaneSegmentType valueType(::ad::rss::world::LaneSegmentType::Normal);
-  value.type = valueType;
-  ::ad::rss::world::LaneDrivingDirection valueDrivingDirection(::ad::rss::world::LaneDrivingDirection::Bidirectional);
-  value.drivingDirection = valueDrivingDirection;
+  ::ad::rss::world::LaneDrivingDirection valueDriving_direction(::ad::rss::world::LaneDrivingDirection::Bidirectional);
+  value.driving_direction = valueDriving_direction;
   ::ad::physics::MetricRange valueLength;
   ::ad::physics::Distance valueLengthMinimum(-1e9);
   valueLengthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
@@ -263,10 +185,8 @@ TEST(LaneSegmentValidInputRangeTests, testValidInputRangeWidthTooSmall)
   ::ad::rss::world::LaneSegment value;
   ::ad::rss::world::LaneSegmentId valueId(std::numeric_limits<::ad::rss::world::LaneSegmentId>::lowest());
   value.id = valueId;
-  ::ad::rss::world::LaneSegmentType valueType(::ad::rss::world::LaneSegmentType::Normal);
-  value.type = valueType;
-  ::ad::rss::world::LaneDrivingDirection valueDrivingDirection(::ad::rss::world::LaneDrivingDirection::Bidirectional);
-  value.drivingDirection = valueDrivingDirection;
+  ::ad::rss::world::LaneDrivingDirection valueDriving_direction(::ad::rss::world::LaneDrivingDirection::Bidirectional);
+  value.driving_direction = valueDriving_direction;
   ::ad::physics::MetricRange valueLength;
   ::ad::physics::Distance valueLengthMinimum(-1e9);
   valueLengthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
@@ -299,10 +219,8 @@ TEST(LaneSegmentValidInputRangeTests, testValidInputRangeWidthTooBig)
   ::ad::rss::world::LaneSegment value;
   ::ad::rss::world::LaneSegmentId valueId(std::numeric_limits<::ad::rss::world::LaneSegmentId>::lowest());
   value.id = valueId;
-  ::ad::rss::world::LaneSegmentType valueType(::ad::rss::world::LaneSegmentType::Normal);
-  value.type = valueType;
-  ::ad::rss::world::LaneDrivingDirection valueDrivingDirection(::ad::rss::world::LaneDrivingDirection::Bidirectional);
-  value.drivingDirection = valueDrivingDirection;
+  ::ad::rss::world::LaneDrivingDirection valueDriving_direction(::ad::rss::world::LaneDrivingDirection::Bidirectional);
+  value.driving_direction = valueDriving_direction;
   ::ad::physics::MetricRange valueLength;
   ::ad::physics::Distance valueLengthMinimum(-1e9);
   valueLengthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct

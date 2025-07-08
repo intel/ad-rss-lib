@@ -81,38 +81,35 @@ of the _Plan Subsystem_.
 | Output | rssProperResponse | The proper response calculated by RSS |
 | Output | rssAccelerationRestrictions | The restrictions on the vehicle acceleration calculated by RSS |
 
-#### Extract Situations
+#### Extract Situation
 
-The _Extract Situations_ entity transforms the world model data into individual RssSituations between
-the ego vehicle and each of the objects. For every scene [ad::rss::world::Scene](https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1Scene.html) of the input world model data the individual
-(relative) situation [ad::rss::situation::Situation](https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1situation_1_1Situation.html) is calculated.
-
-| Port  | Name | Explanation |
-|-------|------|------|
-| Input | rssWorldModelData | Lane based world model scenes on the surrounding environment required to create the situation based coordinate system. Requires local map data (i.e. lane segments and semantics on intersections and priority rules), ego vehicle and object (i.e. position, velocity and RSS dynamics) information. |
-| Output| rssSituations | A list of individual RSS Situations between the ego vehicle and each of the objects. Each situation is formulated within its own situation based coordinate system. EgoVehicle and Objects: i.e. (relative) position, velocity, priority flag, situation specific RSS acceleration values. |
-
-#### Check Situations
-
-The _Check Situations_ entity performs the RSS check on all incoming individual RssSituations and creates the
-RssStates [ad::rss::state::RssState](https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1RssState.html) containing the required responses if dangerous situations are detected.
+The _Extract Situation_ entity transforms the world model data into relative constellations between
+the ego vehicle and each of the objects for RSS internal calculations. For every constellation [ad::rss::world::Constellation](https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1Constellation.html) of the input world model data the relative constellation [ad::rss::core::RelativeConstellation](https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1core_1_1RelativeConstellation.html) is calculated.
 
 | Port  | Name | Explanation |
 |-------|------|------|
-| Input| rssSituations | A list of individual RSS Situations between the ego vehicle and each of the objects. |
-| Output | rssStates | A list of RSS states in respect to the individual RSS Situations including situation specific responses. |
+| Input | rssWorldModelData | Lane based world model constellations on the surrounding environment required to create the relative constellations. Requires local map data (i.e. lane segments and semantics on intersections and priority rules), ego vehicle and object (i.e. position, velocity and RSS dynamics) information. |
+| Output| rssSituationSnapshot | A list of relative RSS constellations between the ego vehicle and each of the objects. Each relative constellation is formulated within its own constellation based coordinate system. EgoVehicle and Objects: i.e. relative position, velocity, priority flag, constellation specific RSS acceleration values. |
+
+#### Check Situation
+
+The _Check Situation_ entity performs the RSS check on all incoming relative constellations and creates the
+RssStateSnapshot [ad::rss::state::RssState](https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1RssStateSnapshot.html) containing the required individual responses for the detected dangerous constellations.
+
+| Port  | Name | Explanation |
+|-------|------|------|
+| Input| rssSituationSnapshot | A list of relative RSS constellations between the ego vehicle and each of the objects. |
+| Output | rssStateSnapshot | A list of RSS states in respect to the relative RSS constellations including the constellation specific responses. |
 
 #### Resolve and Transform Responses
 
-The _Resolve and Transform Responses_ entity handles conflicts of the incoming RssStates. It combines the individual
-situation specific responses into one single overall RssProperResponse [ad::rss::state::ProperResponse](https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1ProperResponse.html) and transforms
-these into RssAccelerationRestrictions [ad::rss::world::AccelerationRestriction](https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1AccelerationRestriction.html) for the actuator commands.
+The _Resolve and Transform Responses_ entity handles conflicts of the incoming RSS states of the RssStateSnapshot. It combines the individual
+constellation specific responses into one single overall ProperResponse [ad::rss::state::ProperResponse](https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1ProperResponse.html) and provides the related AccelerationRestrictions [ad::rss::world::AccelerationRestriction](https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1AccelerationRestriction.html) for the actuator commands.
 
 | Port  | Name | Explanation |
 |-------|------|------|
-| Input | rssStates | A list of RssStates in respect to the individual RssSituations |
-| Output | rssProperResponse | Resulting combined overall proper response |
-| Output | rssAccelerationRestrictions | The resulting restrictions of the actuator control command |
+| Input | rssStateSnapshot | A list of RSS states in respect to the relative constellations |
+| Output | rssProperResponse | Resulting combined overall proper response including the resulting restrictions of the actuator control command |
 
 ## Plan Subsystem
 
@@ -133,7 +130,7 @@ acceleration, braking and steering to execute the plan.
 | Port  | Name | Explanation |
 |-------|------|------|
 | Input | actuatorControlCommand  | The control commands to realize the next moves within the current plan.  |
-| Input | rssAccelerationRestrictions | The restrictions on the acceleration for the vehicle calculated by RSS. |
+| Input | rssProperResponse | The proper resonse including the restrictions on the acceleration for the vehicle calculated by RSS. |
 | Output| controlData | The control output for the real vehicle or connected simulation |
 
 #### Enforce RSS Restrictions
@@ -146,6 +143,6 @@ the RSS integration efforts into the ADS.
 
 | Port  | Name | Explanation |
 |-------|------|------|
-| Input | rssAccelerationRestrictions | The restrictions on the acceleration for the vehicle calculated by RSS. |
+| Input | rssProperResponse | The proper resonse including the restrictions on the acceleration for the vehicle calculated by RSS. |
 | Input | actuatorControlCommandIn  | The control commands from the _Plan Subsystem_ to control the vehicle actuator system |
 | Output| actuatorControlCommandOut | The adapted control commands from the _Plan Subsystem_ to control the vehicle actuator system in a RSS safe manner |

@@ -19,7 +19,7 @@ template <class TESTBASE> class RssCheckLateralEgoRightTestBase : public TESTBAS
     return TESTBASE::objectOnSegment5;
   }
 
-  world::Object &getSceneObject(uint32_t) override
+  world::Object &getConstellationObject(uint32_t) override
   {
     return TESTBASE::objectOnSegment3;
   }
@@ -43,28 +43,30 @@ TEST_F(RssCheckLateralEgoRightTest, Lateral_Velocity_Towards_Each_Other)
 
   for (uint32_t i = 0; i <= 90; i++)
   {
-    for (auto &scene : worldModel.scenes)
+    for (auto &constellation : worldModel.constellations)
     {
-      scene.egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(1 - (0.01 * i));
-      scene.egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(1 - (0.01 * i + 0.1));
+      constellation.ego_vehicle.occupied_regions[0].lat_range.maximum = ParametricValue(1 - (0.01 * i));
+      constellation.ego_vehicle.occupied_regions[0].lat_range.minimum = ParametricValue(1 - (0.01 * i + 0.1));
     }
-    worldModel.timeIndex++;
+    worldModel.time_index++;
 
-    Distance const dMin = calculateLateralMinSafeDistance(worldModel.scenes[0].object.velocity.speedLatMax,
-                                                          worldModel.scenes[0].objectRssDynamics,
-                                                          worldModel.scenes[0].egoVehicle.velocity.speedLatMax,
-                                                          worldModel.scenes[0].egoVehicleRssDynamics);
+    Distance const dMin
+      = calculateLateralMinSafeDistance(worldModel.constellations[0].object.velocity.speed_lat_max,
+                                        worldModel.constellations[0].object_rss_dynamics,
+                                        worldModel.constellations[0].ego_vehicle.velocity.speed_lat_max,
+                                        worldModel.constellations[0].ego_vehicle_rss_dynamics);
 
     ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));
 
-    if (dMin < Distance(6) + worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.minimum * Distance(5)
-          - Distance(0.5))
+    Distance const dCur = Distance(6)
+      + worldModel.constellations[0].ego_vehicle.occupied_regions[0].lat_range.minimum * Distance(5) - Distance(0.5);
+    if (dMin < dCur)
     {
-      testRestrictions(properResponse.accelerationRestrictions);
+      testRestrictions(properResponse.acceleration_restrictions);
     }
     else
     {
-      testRestrictions(properResponse.accelerationRestrictions,
+      testRestrictions(properResponse.acceleration_restrictions,
                        state::LongitudinalResponse::None,
                        state::LateralResponse::BrakeMin,
                        state::LateralResponse::None);
@@ -74,48 +76,49 @@ TEST_F(RssCheckLateralEgoRightTest, Lateral_Velocity_Towards_Each_Other)
 
 TEST_F(RssCheckLateralEgoRightTest, No_Lateral_Velocity)
 {
-  for (auto &scene : worldModel.scenes)
+  for (auto &constellation : worldModel.constellations)
   {
-    scene.egoVehicle.velocity.speedLatMin = kmhToMeterPerSec(0);
-    scene.egoVehicle.velocity.speedLatMax = kmhToMeterPerSec(0);
+    constellation.ego_vehicle.velocity.speed_lat_min = kmhToMeterPerSec(0);
+    constellation.ego_vehicle.velocity.speed_lat_max = kmhToMeterPerSec(0);
   }
   state::ProperResponse properResponse;
   core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i <= 90; i++)
   {
-    for (auto &scene : worldModel.scenes)
+    for (auto &constellation : worldModel.constellations)
     {
-      scene.egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.01 * i);
-      scene.egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.01 * i + 0.1);
+      constellation.ego_vehicle.occupied_regions[0].lat_range.minimum = ParametricValue(0.01 * i);
+      constellation.ego_vehicle.occupied_regions[0].lat_range.maximum = ParametricValue(0.01 * i + 0.1);
     }
-    worldModel.timeIndex++;
+    worldModel.time_index++;
 
     ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));
 
-    testRestrictions(properResponse.accelerationRestrictions);
+    testRestrictions(properResponse.acceleration_restrictions);
   }
 }
 
 TEST_F(RssCheckLateralEgoRightTest, Lateral_Velocity_Aways_From_Each_Other)
 {
-  worldModel.scenes[0].egoVehicle.velocity.speedLatMin = kmhToMeterPerSec(5);
-  worldModel.scenes[0].egoVehicle.velocity.speedLatMax = kmhToMeterPerSec(5);
-  worldModel.scenes[0].object.velocity.speedLatMin = kmhToMeterPerSec(-5);
-  worldModel.scenes[0].object.velocity.speedLatMax = kmhToMeterPerSec(-5);
+  worldModel.constellations[0].ego_vehicle.velocity.speed_lat_min = kmhToMeterPerSec(5);
+  worldModel.constellations[0].ego_vehicle.velocity.speed_lat_max = kmhToMeterPerSec(5);
+  worldModel.constellations[0].object.velocity.speed_lat_min = kmhToMeterPerSec(-5);
+  worldModel.constellations[0].object.velocity.speed_lat_max = kmhToMeterPerSec(-5);
 
   state::ProperResponse properResponse;
   core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i <= 90; i++)
   {
-    worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(1 - (0.01 * i));
-    worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(1 - (0.01 * i + 0.1));
-    worldModel.timeIndex++;
+    worldModel.constellations[0].ego_vehicle.occupied_regions[0].lat_range.maximum = ParametricValue(1 - (0.01 * i));
+    worldModel.constellations[0].ego_vehicle.occupied_regions[0].lat_range.minimum
+      = ParametricValue(1 - (0.01 * i + 0.1));
+    worldModel.time_index++;
 
     ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));
 
-    testRestrictions(properResponse.accelerationRestrictions);
+    testRestrictions(properResponse.acceleration_restrictions);
   }
 }
 
@@ -126,7 +129,7 @@ template <class TESTBASE> class RssCheckLateralEgoLeftTestBase : public TESTBASE
     return TESTBASE::objectOnSegment3;
   }
 
-  world::Object &getSceneObject(uint32_t) override
+  world::Object &getConstellationObject(uint32_t) override
   {
     return TESTBASE::objectOnSegment5;
   }
@@ -149,28 +152,31 @@ TEST_F(RssCheckLateralEgoLeftTest, Lateral_Velocity_Towards_Each_Other)
   core::RssCheck rssCheck;
 
   // increase lateral speed to enforce unsafe cases
-  worldModel.scenes[0].egoVehicle.velocity.speedLatMax += ad::physics::Speed(0.5);
-  worldModel.scenes[0].object.velocity.speedLatMin -= ad::physics::Speed(0.5);
+  worldModel.constellations[0].ego_vehicle.velocity.speed_lat_max += ad::physics::Speed(0.5);
+  worldModel.constellations[0].object.velocity.speed_lat_min -= ad::physics::Speed(0.5);
   for (uint32_t i = 0; i <= 90; i++)
   {
-    worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.01 * i);
-    worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.01 * i + 0.1);
-    worldModel.timeIndex++;
+    worldModel.constellations[0].ego_vehicle.occupied_regions[0].lat_range.minimum = ParametricValue(0.01 * i);
+    worldModel.constellations[0].ego_vehicle.occupied_regions[0].lat_range.maximum = ParametricValue(0.01 * i + 0.1);
+    worldModel.time_index++;
 
-    Distance const dMin = calculateLateralMinSafeDistance(worldModel.scenes[0].egoVehicle.velocity.speedLatMax,
-                                                          worldModel.scenes[0].egoVehicleRssDynamics,
-                                                          worldModel.scenes[0].object.velocity.speedLatMin,
-                                                          worldModel.scenes[0].objectRssDynamics);
+    Distance const dMin
+      = calculateLateralMinSafeDistance(worldModel.constellations[0].ego_vehicle.velocity.speed_lat_max,
+                                        worldModel.constellations[0].ego_vehicle_rss_dynamics,
+                                        worldModel.constellations[0].object.velocity.speed_lat_min,
+                                        worldModel.constellations[0].object_rss_dynamics);
 
     ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));
 
-    if (dMin < Distance(10) - worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.maximum * Distance(5))
+    auto const dCur
+      = Distance(10) - worldModel.constellations[0].ego_vehicle.occupied_regions[0].lat_range.maximum * Distance(5);
+    if (dMin < dCur)
     {
-      testRestrictions(properResponse.accelerationRestrictions);
+      testRestrictions(properResponse.acceleration_restrictions);
     }
     else
     {
-      testRestrictions(properResponse.accelerationRestrictions,
+      testRestrictions(properResponse.acceleration_restrictions,
                        state::LongitudinalResponse::None,
                        state::LateralResponse::None,
                        state::LateralResponse::BrakeMin);
@@ -187,11 +193,11 @@ protected:
   void SetUp() override
   {
     TESTBASE::SetUp();
-    // now we have to shorten the road areas for the two scenes
+    // now we have to shorten the road areas for the two constellations
     // to make left and right side behave the same
     // otherwise we are more cautious on the left side
-    worldModel.scenes[0].egoVehicleRoad.erase(worldModel.scenes[0].egoVehicleRoad.begin() + 2);
-    worldModel.scenes[1].egoVehicleRoad.erase(worldModel.scenes[1].egoVehicleRoad.begin() + 2);
+    worldModel.constellations[0].ego_vehicle_road.erase(worldModel.constellations[0].ego_vehicle_road.begin() + 2);
+    worldModel.constellations[1].ego_vehicle_road.erase(worldModel.constellations[1].ego_vehicle_road.begin() + 2);
   }
 
   world::Object &getEgoObject() override
@@ -199,12 +205,12 @@ protected:
     return TESTBASE::objectOnSegment4;
   }
 
-  uint32_t getNumberOfSceneObjects() override
+  uint32_t getNumberOfConstellationObjects() override
   {
     return 2u;
   }
 
-  world::Object &getSceneObject(uint32_t index) override
+  world::Object &getConstellationObject(uint32_t index) override
   {
     if (index == 0u)
     {
@@ -220,13 +226,13 @@ protected:
   {
     for (uint32_t j = 1; j <= 9; j++)
     {
-      if (worldModel.scenes[0].object.occupiedRegions[0].latRange.maximum < ParametricValue(0.9))
+      if (worldModel.constellations[0].object.occupied_regions[0].lat_range.maximum < ParametricValue(0.9))
       {
-        worldModel.scenes[0].object.occupiedRegions[0].latRange.maximum += ParametricValue(0.1);
+        worldModel.constellations[0].object.occupied_regions[0].lat_range.maximum += ParametricValue(0.1);
       }
-      if (worldModel.scenes[1].object.occupiedRegions[0].latRange.minimum > ParametricValue(0.08))
+      if (worldModel.constellations[1].object.occupied_regions[0].lat_range.minimum > ParametricValue(0.08))
       {
-        worldModel.scenes[1].object.occupiedRegions[0].latRange.minimum -= ParametricValue(0.08);
+        worldModel.constellations[1].object.occupied_regions[0].lat_range.minimum -= ParametricValue(0.08);
       }
       state::ProperResponse properResponse;
       core::RssCheck rssCheck;
@@ -234,30 +240,31 @@ protected:
       bool safeRightStateExists = false;
       for (uint32_t i = 0; i <= 9; i++)
       {
-        for (auto &scene : worldModel.scenes)
+        for (auto &constellation : worldModel.constellations)
         {
-          if (scene.egoVehicle.velocity.speedLatMax >= Speed(0.))
+          if (constellation.ego_vehicle.velocity.speed_lat_max >= Speed(0.))
           {
-            scene.egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.1 * i);
-            scene.egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.1 * i + 0.1);
+            constellation.ego_vehicle.occupied_regions[0].lat_range.minimum = ParametricValue(0.1 * i);
+            constellation.ego_vehicle.occupied_regions[0].lat_range.maximum = ParametricValue(0.1 * i + 0.1);
           }
           else
           {
-            scene.egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(1 - (0.1 * i));
-            scene.egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(1 - (0.1 * i + 0.1));
+            constellation.ego_vehicle.occupied_regions[0].lat_range.maximum = ParametricValue(1 - (0.1 * i));
+            constellation.ego_vehicle.occupied_regions[0].lat_range.minimum = ParametricValue(1 - (0.1 * i + 0.1));
           }
         }
-        worldModel.timeIndex++;
+        worldModel.time_index++;
 
         state::LateralResponse expectedLatResponseLeft = state::LateralResponse::None;
         state::LateralResponse expectedLatResponseRight = state::LateralResponse::None;
-        Distance const dMinLeft = calculateLateralMinSafeDistance(worldModel.scenes[0].object.velocity.speedLatMax,
-                                                                  worldModel.scenes[0].objectRssDynamics,
-                                                                  worldModel.scenes[0].egoVehicle.velocity.speedLatMax,
-                                                                  worldModel.scenes[0].egoVehicleRssDynamics);
+        Distance const dMinLeft
+          = calculateLateralMinSafeDistance(worldModel.constellations[0].object.velocity.speed_lat_max,
+                                            worldModel.constellations[0].object_rss_dynamics,
+                                            worldModel.constellations[0].ego_vehicle.velocity.speed_lat_max,
+                                            worldModel.constellations[0].ego_vehicle_rss_dynamics);
         Distance const dActualLeft
-          = (ParametricValue(1) - worldModel.scenes[0].object.occupiedRegions[0].latRange.maximum
-             + worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.minimum)
+          = (ParametricValue(1) - worldModel.constellations[0].object.occupied_regions[0].lat_range.maximum
+             + worldModel.constellations[0].ego_vehicle.occupied_regions[0].lat_range.minimum)
           * Distance(5);
         if (dMinLeft > dActualLeft)
         {
@@ -268,13 +275,14 @@ protected:
           safeLeftStateExists = true;
         }
 
-        Distance const dMinRight = calculateLateralMinSafeDistance(worldModel.scenes[1].egoVehicle.velocity.speedLatMax,
-                                                                   worldModel.scenes[1].egoVehicleRssDynamics,
-                                                                   worldModel.scenes[1].object.velocity.speedLatMax,
-                                                                   worldModel.scenes[1].objectRssDynamics);
+        Distance const dMinRight
+          = calculateLateralMinSafeDistance(worldModel.constellations[1].ego_vehicle.velocity.speed_lat_max,
+                                            worldModel.constellations[1].ego_vehicle_rss_dynamics,
+                                            worldModel.constellations[1].object.velocity.speed_lat_max,
+                                            worldModel.constellations[1].object_rss_dynamics);
         Distance const dActualRight
-          = (ParametricValue(1) - worldModel.scenes[1].egoVehicle.occupiedRegions[0].latRange.maximum
-             + worldModel.scenes[1].object.occupiedRegions[0].latRange.minimum)
+          = (ParametricValue(1) - worldModel.constellations[1].ego_vehicle.occupied_regions[0].lat_range.maximum
+             + worldModel.constellations[1].object.occupied_regions[0].lat_range.minimum)
           * Distance(5);
         if (dMinRight > dActualRight)
         {
@@ -303,7 +311,7 @@ protected:
                   << std::endl;
 #endif
         EXPECT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));
-        testRestrictions(properResponse.accelerationRestrictions,
+        testRestrictions(properResponse.acceleration_restrictions,
                          expectedLonResponse,
                          expectedLatResponseLeft,
                          expectedLatResponseRight);
@@ -325,10 +333,10 @@ INSTANTIATE_TEST_CASE_P(Range,
 
 TEST_F(RssCheckLateralEgoInTheMiddleTest, No_Lateral_Velocity)
 {
-  for (auto &scene : worldModel.scenes)
+  for (auto &constellation : worldModel.constellations)
   {
-    scene.egoVehicle.velocity.speedLatMin = kmhToMeterPerSec(0);
-    scene.egoVehicle.velocity.speedLatMax = kmhToMeterPerSec(0);
+    constellation.ego_vehicle.velocity.speed_lat_min = kmhToMeterPerSec(0);
+    constellation.ego_vehicle.velocity.speed_lat_max = kmhToMeterPerSec(0);
   }
 
   performTest();
@@ -336,10 +344,10 @@ TEST_F(RssCheckLateralEgoInTheMiddleTest, No_Lateral_Velocity)
 
 TEST_F(RssCheckLateralEgoInTheMiddleTest, Lateral_Velocity_To_The_Left)
 {
-  for (auto &scene : worldModel.scenes)
+  for (auto &constellation : worldModel.constellations)
   {
-    scene.egoVehicle.velocity.speedLatMin = kmhToMeterPerSec(-3);
-    scene.egoVehicle.velocity.speedLatMax = kmhToMeterPerSec(-3);
+    constellation.ego_vehicle.velocity.speed_lat_min = kmhToMeterPerSec(-3);
+    constellation.ego_vehicle.velocity.speed_lat_max = kmhToMeterPerSec(-3);
   }
 
   performTest();
@@ -347,10 +355,10 @@ TEST_F(RssCheckLateralEgoInTheMiddleTest, Lateral_Velocity_To_The_Left)
 
 TEST_F(RssCheckLateralEgoInTheMiddleTest, Lateral_Velocity_To_The_Right)
 {
-  for (auto &scene : worldModel.scenes)
+  for (auto &constellation : worldModel.constellations)
   {
-    scene.egoVehicle.velocity.speedLatMin = kmhToMeterPerSec(3);
-    scene.egoVehicle.velocity.speedLatMax = kmhToMeterPerSec(3);
+    constellation.ego_vehicle.velocity.speed_lat_min = kmhToMeterPerSec(3);
+    constellation.ego_vehicle.velocity.speed_lat_max = kmhToMeterPerSec(3);
   }
 
   performTest();

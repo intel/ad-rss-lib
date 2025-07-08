@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2020 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1997
+ * Generator Version : 11.0.0-2046
  */
 
 #pragma once
@@ -21,6 +21,8 @@
 #include <sstream>
 #include <vector>
 #include "ad/rss/world/ObjectId.hpp"
+#include "spdlog/fmt/ostr.h"
+#include "spdlog/spdlog.h"
 /*!
  * @brief namespace ad
  */
@@ -87,4 +89,16 @@ inline std::string to_string(::ad::rss::world::ObjectIdVector const &value)
   return sstream.str();
 }
 } // namespace std
+
+/*!
+ * \brief overload of fmt::formatter calling std::to_string
+ */
+template <> struct fmt::formatter<::ad::rss::world::ObjectIdVector> : formatter<string_view>
+{
+  template <typename FormatContext> auto format(::ad::rss::world::ObjectIdVector const &value, FormatContext &ctx)
+  {
+    return formatter<string_view>::format(std::to_string(value), ctx);
+  }
+};
+
 #endif // GEN_GUARD_VECTOR_UINT64_T

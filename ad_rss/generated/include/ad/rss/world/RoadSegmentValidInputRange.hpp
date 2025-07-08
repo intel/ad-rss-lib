@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2020 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -12,15 +12,17 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1997
+ * Generator Version : 11.0.0-2046
  */
 
 #pragma once
 
 #include <cmath>
 #include <limits>
-#include "ad/rss/world/LaneSegmentValidInputRange.hpp"
+#include "ad/physics/DistanceValidInputRange.hpp"
+#include "ad/rss/world/LaneSegmentVectorValidInputRange.hpp"
 #include "ad/rss/world/RoadSegment.hpp"
+#include "ad/rss/world/RoadSegmentTypeValidInputRange.hpp"
 #include "spdlog/fmt/ostr.h"
 #include "spdlog/spdlog.h"
 
@@ -32,32 +34,21 @@
  *
  * \returns \c true if RoadSegment is considered to be within the specified input range
  *
- * \note the specified input range is defined by
- *       1 <= \c input.size() <= 20
- *       and the ranges of all vector elements
+ * \note the specified input range is defined by the ranges of all members
  */
 inline bool withinValidInputRange(::ad::rss::world::RoadSegment const &input, bool const logErrors = true)
 {
-  bool inValidInputRange = ((std::size_t(1)) <= input.size()) && (input.size() <= std::size_t(20));
+  // check for generic member input ranges
+  bool inValidInputRange = true;
+  inValidInputRange = withinValidInputRange(input.type, logErrors)
+    && withinValidInputRange(input.lane_segments, logErrors)
+    && withinValidInputRange(input.minimum_length_after_intersecting_area, logErrors)
+    && withinValidInputRange(input.minimum_length_before_intersecting_area, logErrors);
   if (!inValidInputRange && logErrors)
   {
-    spdlog::error("withinValidInputRange(::ad::rss::world::RoadSegment)>> {}, invalid input range",
+    spdlog::error("withinValidInputRange(::ad::rss::world::RoadSegment)>> {} has invalid member",
                   input); // LCOV_EXCL_BR_LINE
   }
 
-  if (inValidInputRange)
-  {
-    for (auto const &member : input)
-    {
-      bool memberInValidInputRange = withinValidInputRange(member, logErrors);
-      inValidInputRange = inValidInputRange && memberInValidInputRange;
-      if (!memberInValidInputRange && logErrors)
-      {
-        spdlog::error("withinValidInputRange(::ad::rss::world::RoadSegment)>> {}, invalid member {}",
-                      input,
-                      member); // LCOV_EXCL_BR_LINE
-      }
-    }
-  }
   return inValidInputRange;
 }

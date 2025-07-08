@@ -16,7 +16,7 @@ function(generate_python_binding_source_code WORKING_DIR)
   configure_file(${PYTHON_WRAPPER_HELPER_DIR}/python_wrapper_helper.py.in python_wrapper_helper.py @ONLY)
 
   execute_process(
-    COMMAND ${PYTHON_EXECUTABLE} generate_python_lib.py
+    COMMAND ${PYTHON_BINDING_EXECUTABLE} generate_python_lib.py
     WORKING_DIRECTORY ${WORKING_DIR}
     RESULT_VARIABLE GENERATE_PYTHON_RESULT
     OUTPUT_VARIABLE GENERATE_PYTHON_STDOUT_STDERR
@@ -27,7 +27,7 @@ function(generate_python_binding_source_code WORKING_DIR)
   if ( ${GENERATE_PYTHON_RESULT} )
     set(message_level WARNING)
   endif()
-  message(${message_level} "Generator call: ${PYTHON_EXECUTABLE} generate_python_lib.py")
+  message(${message_level} "Generator call: ${PYTHON_BINDING_EXECUTABLE} generate_python_lib.py")
   message(${message_level} "Generating result: ${GENERATE_PYTHON_RESULT}")
   message(${message_level} "Generator output: ${GENERATE_PYTHON_STDOUT_STDERR}")
 endfunction()
@@ -36,34 +36,35 @@ endfunction()
 function(find_python_binding_packages)
 
   if ("${PYTHON_BINDING_VERSION}" STREQUAL "")
-    find_package(PythonInterp REQUIRED)
-    find_package(PythonLibs REQUIRED)
+    find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
   else()
-    find_package(PythonInterp EXACT "${PYTHON_BINDING_VERSION}" REQUIRED)
-    find_package(PythonLibs EXACT "${PYTHON_BINDING_VERSION}" REQUIRED)
+    find_package(Python3 COMPONENTS Interpreter Development EXACT "${PYTHON_BINDING_VERSION}" REQUIRED)
   endif()
 
   find_package(Boost CONFIG REQUIRED)
   if(${Boost_MAJOR_VERSION}.${Boost_MINOR_VERSION} VERSION_GREATER 1.66)
-    set(BOOST_PYTHON_COMPONENT python${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR})
+    set(BOOST_PYTHON_COMPONENT python${Python3_VERSION_MAJOR}${Python3_VERSION_MINOR})
   else()
-    set(BOOST_PYTHON_COMPONENT python-py${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR})
+    set(BOOST_PYTHON_COMPONENT python-py${Python3_VERSION_MAJOR}${Python3_VERSION_MINOR})
   endif()
   find_package(Boost CONFIG COMPONENTS REQUIRED ${BOOST_PYTHON_COMPONENT})
 
   set(PYTHON_BINDING_NAME
-    "python${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR}"
+    "python${Python3_VERSION_MAJOR}${Python3_VERSION_MINOR}"
     PARENT_SCOPE)
   set(PYTHON_BINDING_FOLDER_NAME
-    "python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}"
+    "python${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}"
     PARENT_SCOPE)
   set(PYTHON_BINDING_PACKAGE_INCLUDE_DIRS
     ${Boost_INCLUDE_DIRS}
-    ${PYTHON_INCLUDE_DIRS}
+    ${Python3_INCLUDE_DIRS}
     PARENT_SCOPE)
   set(PYTHON_BINDING_PACKAGE_LIBRARIES
     Boost::${BOOST_PYTHON_COMPONENT}
-    ${PYTHON_LIBRARIES}
+    ${Python3_LIBRARIES}
+    PARENT_SCOPE)
+  set(PYTHON_BINDING_EXECUTABLE
+    ${Python3_EXECUTABLE}
     PARENT_SCOPE)
 
 endfunction()
@@ -71,7 +72,7 @@ endfunction()
 function(get_python_test_environment)
   set(PACKAGE_FOLDER_NAME "${PYTHON_PACKAGE_FOLDER_NAME}")
   if ("${PACKAGE_FOLDER_NAME}" STREQUAL "")
-    set(PACKAGE_FOLDER_NAME "dist-packages")
+    set(PACKAGE_FOLDER_NAME "site-packages")
   endif()
   if ("${PACKAGE_FOLDER_NAME}" STREQUAL "dist-packages")
     set(LIBDIR_PREFIX "local/")

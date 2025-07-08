@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2021 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -21,1689 +21,2115 @@
 TEST(WorldModelValidInputRangeTests, testValidInputRange)
 {
   ::ad::rss::world::WorldModel value;
-  ::ad::rss::world::TimeIndex valueTimeIndex(std::numeric_limits<::ad::rss::world::TimeIndex>::lowest());
-  valueTimeIndex = ::ad::rss::world::TimeIndex(1); // set to valid value within struct
-  value.timeIndex = valueTimeIndex;
-  ::ad::rss::world::RssDynamics valueDefaultEgoVehicleRssDynamics;
-  ::ad::rss::world::LongitudinalRssAccelerationValues valueDefaultEgoVehicleRssDynamicsAlphaLon;
-  ::ad::physics::Acceleration valueDefaultEgoVehicleRssDynamicsAlphaLonAccelMax(-1e2);
-  valueDefaultEgoVehicleRssDynamicsAlphaLonAccelMax
+  ::ad::rss::world::TimeIndex valueTime_index(std::numeric_limits<::ad::rss::world::TimeIndex>::lowest());
+  valueTime_index = ::ad::rss::world::TimeIndex(1); // set to valid value within struct
+  value.time_index = valueTime_index;
+  ::ad::rss::world::RssDynamics valueDefault_ego_vehicle_rss_dynamics;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueDefault_ego_vehicle_rss_dynamicsAlpha_lon;
+  ::ad::physics::Acceleration valueDefault_ego_vehicle_rss_dynamicsAlpha_lonAccel_max(-1e2);
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_lonAccel_max
     = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueDefaultEgoVehicleRssDynamicsAlphaLon.accelMax = valueDefaultEgoVehicleRssDynamicsAlphaLonAccelMax;
-  ::ad::physics::Acceleration valueDefaultEgoVehicleRssDynamicsAlphaLonBrakeMax(-1e2);
-  valueDefaultEgoVehicleRssDynamicsAlphaLon.brakeMax = valueDefaultEgoVehicleRssDynamicsAlphaLonBrakeMax;
-  ::ad::physics::Acceleration valueDefaultEgoVehicleRssDynamicsAlphaLonBrakeMin(-1e2);
-  valueDefaultEgoVehicleRssDynamicsAlphaLon.brakeMin = valueDefaultEgoVehicleRssDynamicsAlphaLonBrakeMin;
-  ::ad::physics::Acceleration valueDefaultEgoVehicleRssDynamicsAlphaLonBrakeMinCorrect(-1e2);
-  valueDefaultEgoVehicleRssDynamicsAlphaLon.brakeMinCorrect = valueDefaultEgoVehicleRssDynamicsAlphaLonBrakeMinCorrect;
-  valueDefaultEgoVehicleRssDynamicsAlphaLon.brakeMin = valueDefaultEgoVehicleRssDynamicsAlphaLon.brakeMax;
-  valueDefaultEgoVehicleRssDynamicsAlphaLon.brakeMinCorrect = valueDefaultEgoVehicleRssDynamicsAlphaLon.brakeMin;
-  valueDefaultEgoVehicleRssDynamicsAlphaLon.brakeMin = valueDefaultEgoVehicleRssDynamicsAlphaLon.brakeMinCorrect;
-  valueDefaultEgoVehicleRssDynamicsAlphaLon.brakeMax = valueDefaultEgoVehicleRssDynamicsAlphaLon.brakeMin;
-  valueDefaultEgoVehicleRssDynamics.alphaLon = valueDefaultEgoVehicleRssDynamicsAlphaLon;
-  ::ad::rss::world::LateralRssAccelerationValues valueDefaultEgoVehicleRssDynamicsAlphaLat;
-  ::ad::physics::Acceleration valueDefaultEgoVehicleRssDynamicsAlphaLatAccelMax(-1e2);
-  valueDefaultEgoVehicleRssDynamicsAlphaLatAccelMax
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.accel_max = valueDefault_ego_vehicle_rss_dynamicsAlpha_lonAccel_max;
+  ::ad::physics::Acceleration valueDefault_ego_vehicle_rss_dynamicsAlpha_lonBrake_max(-1e2);
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.brake_max = valueDefault_ego_vehicle_rss_dynamicsAlpha_lonBrake_max;
+  ::ad::physics::Acceleration valueDefault_ego_vehicle_rss_dynamicsAlpha_lonBrake_min(-1e2);
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.brake_min = valueDefault_ego_vehicle_rss_dynamicsAlpha_lonBrake_min;
+  ::ad::physics::Acceleration valueDefault_ego_vehicle_rss_dynamicsAlpha_lonBrake_min_correct(-1e2);
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.brake_min_correct
+    = valueDefault_ego_vehicle_rss_dynamicsAlpha_lonBrake_min_correct;
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.brake_min = valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.brake_max;
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.brake_min_correct
+    = valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.brake_min;
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.brake_min
+    = valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.brake_min_correct;
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.brake_max = valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.brake_min;
+  valueDefault_ego_vehicle_rss_dynamics.alpha_lon = valueDefault_ego_vehicle_rss_dynamicsAlpha_lon;
+  ::ad::rss::world::LateralRssAccelerationValues valueDefault_ego_vehicle_rss_dynamicsAlpha_lat;
+  ::ad::physics::Acceleration valueDefault_ego_vehicle_rss_dynamicsAlpha_latAccel_max(-1e2);
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_latAccel_max
     = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueDefaultEgoVehicleRssDynamicsAlphaLat.accelMax = valueDefaultEgoVehicleRssDynamicsAlphaLatAccelMax;
-  ::ad::physics::Acceleration valueDefaultEgoVehicleRssDynamicsAlphaLatBrakeMin(-1e2);
-  valueDefaultEgoVehicleRssDynamicsAlphaLat.brakeMin = valueDefaultEgoVehicleRssDynamicsAlphaLatBrakeMin;
-  valueDefaultEgoVehicleRssDynamics.alphaLat = valueDefaultEgoVehicleRssDynamicsAlphaLat;
-  ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsLateralFluctuationMargin(-1e9);
-  valueDefaultEgoVehicleRssDynamicsLateralFluctuationMargin
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_lat.accel_max = valueDefault_ego_vehicle_rss_dynamicsAlpha_latAccel_max;
+  ::ad::physics::Acceleration valueDefault_ego_vehicle_rss_dynamicsAlpha_latBrake_min(-1e2);
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_lat.brake_min = valueDefault_ego_vehicle_rss_dynamicsAlpha_latBrake_min;
+  valueDefault_ego_vehicle_rss_dynamics.alpha_lat = valueDefault_ego_vehicle_rss_dynamicsAlpha_lat;
+  ::ad::physics::Distance valueDefault_ego_vehicle_rss_dynamicsLateral_fluctuation_margin(-1e9);
+  valueDefault_ego_vehicle_rss_dynamicsLateral_fluctuation_margin
     = ::ad::physics::Distance(0.); // set to valid value within struct
-  valueDefaultEgoVehicleRssDynamics.lateralFluctuationMargin
-    = valueDefaultEgoVehicleRssDynamicsLateralFluctuationMargin;
-  ::ad::physics::Duration valueDefaultEgoVehicleRssDynamicsResponseTime(0.);
-  valueDefaultEgoVehicleRssDynamicsResponseTime
+  valueDefault_ego_vehicle_rss_dynamics.lateral_fluctuation_margin
+    = valueDefault_ego_vehicle_rss_dynamicsLateral_fluctuation_margin;
+  ::ad::physics::Duration valueDefault_ego_vehicle_rss_dynamicsResponse_time(0.);
+  valueDefault_ego_vehicle_rss_dynamicsResponse_time
     = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
-  valueDefaultEgoVehicleRssDynamics.responseTime = valueDefaultEgoVehicleRssDynamicsResponseTime;
-  ::ad::physics::Speed valueDefaultEgoVehicleRssDynamicsMaxSpeedOnAcceleration(-100.);
-  valueDefaultEgoVehicleRssDynamics.maxSpeedOnAcceleration = valueDefaultEgoVehicleRssDynamicsMaxSpeedOnAcceleration;
-  ::ad::rss::world::UnstructuredSettings valueDefaultEgoVehicleRssDynamicsUnstructuredSettings;
-  ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius(-1e9);
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianTurningRadius
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius;
-  ::ad::physics::Angle valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.driveAwayMaxAngle
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsDriveAwayMaxAngle;
-  ::ad::physics::AngularAcceleration valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleYawRateChange(-1e2);
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleYawRateChange
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleYawRateChange;
-  ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius(-1e9);
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleMinRadius
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius;
-  ::ad::physics::Duration valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
-  uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleFrontIntermediateYawRateChangeRatioSteps
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps;
-  uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleBackIntermediateYawRateChangeRatioSteps
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps;
-  uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
-  uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
-  uint32_t
-    valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps{
-      std::numeric_limits<uint32_t>::min()};
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateYawRateChangeRatioSteps
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps;
-  uint32_t
-    valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps{
-      std::numeric_limits<uint32_t>::min()};
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps;
-  uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianContinueForwardIntermediateAccelerationSteps
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps;
-  uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianBrakeIntermediateAccelerationSteps
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps;
-  uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianFrontIntermediateHeadingChangeRatioSteps
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps;
-  uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianBackIntermediateHeadingChangeRatioSteps
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps;
-  valueDefaultEgoVehicleRssDynamics.unstructuredSettings = valueDefaultEgoVehicleRssDynamicsUnstructuredSettings;
-  value.defaultEgoVehicleRssDynamics = valueDefaultEgoVehicleRssDynamics;
-  ::ad::rss::world::SceneVector valueScenes;
-  ::ad::rss::world::Scene valueScenesElement;
-  ::ad::rss::situation::SituationType valueScenesElementSituationType(::ad::rss::situation::SituationType::NotRelevant);
-  valueScenesElement.situationType = valueScenesElementSituationType;
-  ::ad::rss::world::Object valueScenesElementEgoVehicle;
-  ::ad::rss::world::ObjectId valueScenesElementEgoVehicleObjectId(
-    std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
-  valueScenesElementEgoVehicle.objectId = valueScenesElementEgoVehicleObjectId;
-  ::ad::rss::world::ObjectType valueScenesElementEgoVehicleObjectType(::ad::rss::world::ObjectType::Invalid);
-  valueScenesElementEgoVehicle.objectType = valueScenesElementEgoVehicleObjectType;
-  ::ad::rss::world::OccupiedRegionVector valueScenesElementEgoVehicleOccupiedRegions;
-  ::ad::rss::world::OccupiedRegion valueScenesElementEgoVehicleOccupiedRegionsElement;
-  ::ad::rss::world::LaneSegmentId valueScenesElementEgoVehicleOccupiedRegionsElementSegmentId(
-    std::numeric_limits<::ad::rss::world::LaneSegmentId>::lowest());
-  valueScenesElementEgoVehicleOccupiedRegionsElement.segmentId
-    = valueScenesElementEgoVehicleOccupiedRegionsElementSegmentId;
-  ::ad::physics::ParametricRange valueScenesElementEgoVehicleOccupiedRegionsElementLonRange;
-  ::ad::physics::ParametricValue valueScenesElementEgoVehicleOccupiedRegionsElementLonRangeMinimum(0.);
-  valueScenesElementEgoVehicleOccupiedRegionsElementLonRange.minimum
-    = valueScenesElementEgoVehicleOccupiedRegionsElementLonRangeMinimum;
-  ::ad::physics::ParametricValue valueScenesElementEgoVehicleOccupiedRegionsElementLonRangeMaximum(0.);
-  valueScenesElementEgoVehicleOccupiedRegionsElementLonRange.maximum
-    = valueScenesElementEgoVehicleOccupiedRegionsElementLonRangeMaximum;
-  valueScenesElementEgoVehicleOccupiedRegionsElementLonRange.maximum
-    = valueScenesElementEgoVehicleOccupiedRegionsElementLonRange.minimum;
-  valueScenesElementEgoVehicleOccupiedRegionsElementLonRange.minimum
-    = valueScenesElementEgoVehicleOccupiedRegionsElementLonRange.maximum;
-  valueScenesElementEgoVehicleOccupiedRegionsElement.lonRange
-    = valueScenesElementEgoVehicleOccupiedRegionsElementLonRange;
-  ::ad::physics::ParametricRange valueScenesElementEgoVehicleOccupiedRegionsElementLatRange;
-  ::ad::physics::ParametricValue valueScenesElementEgoVehicleOccupiedRegionsElementLatRangeMinimum(0.);
-  valueScenesElementEgoVehicleOccupiedRegionsElementLatRange.minimum
-    = valueScenesElementEgoVehicleOccupiedRegionsElementLatRangeMinimum;
-  ::ad::physics::ParametricValue valueScenesElementEgoVehicleOccupiedRegionsElementLatRangeMaximum(0.);
-  valueScenesElementEgoVehicleOccupiedRegionsElementLatRange.maximum
-    = valueScenesElementEgoVehicleOccupiedRegionsElementLatRangeMaximum;
-  valueScenesElementEgoVehicleOccupiedRegionsElementLatRange.maximum
-    = valueScenesElementEgoVehicleOccupiedRegionsElementLatRange.minimum;
-  valueScenesElementEgoVehicleOccupiedRegionsElementLatRange.minimum
-    = valueScenesElementEgoVehicleOccupiedRegionsElementLatRange.maximum;
-  valueScenesElementEgoVehicleOccupiedRegionsElement.latRange
-    = valueScenesElementEgoVehicleOccupiedRegionsElementLatRange;
-  valueScenesElementEgoVehicleOccupiedRegions.resize(1, valueScenesElementEgoVehicleOccupiedRegionsElement);
-  valueScenesElementEgoVehicle.occupiedRegions = valueScenesElementEgoVehicleOccupiedRegions;
-  ::ad::rss::world::Velocity valueScenesElementEgoVehicleVelocity;
-  ::ad::physics::Speed valueScenesElementEgoVehicleVelocitySpeedLonMin(-100.);
-  valueScenesElementEgoVehicleVelocitySpeedLonMin = ::ad::physics::Speed(0.); // set to valid value within struct
-  valueScenesElementEgoVehicleVelocity.speedLonMin = valueScenesElementEgoVehicleVelocitySpeedLonMin;
-  ::ad::physics::Speed valueScenesElementEgoVehicleVelocitySpeedLonMax(-100.);
-  valueScenesElementEgoVehicleVelocity.speedLonMax = valueScenesElementEgoVehicleVelocitySpeedLonMax;
-  ::ad::physics::Speed valueScenesElementEgoVehicleVelocitySpeedLatMin(-100.);
-  valueScenesElementEgoVehicleVelocity.speedLatMin = valueScenesElementEgoVehicleVelocitySpeedLatMin;
-  ::ad::physics::Speed valueScenesElementEgoVehicleVelocitySpeedLatMax(-100.);
-  valueScenesElementEgoVehicleVelocity.speedLatMax = valueScenesElementEgoVehicleVelocitySpeedLatMax;
-  valueScenesElementEgoVehicleVelocity.speedLonMax = valueScenesElementEgoVehicleVelocity.speedLonMin;
-  valueScenesElementEgoVehicleVelocity.speedLatMax = valueScenesElementEgoVehicleVelocity.speedLatMin;
-  valueScenesElementEgoVehicleVelocity.speedLonMin = valueScenesElementEgoVehicleVelocity.speedLonMax;
-  valueScenesElementEgoVehicleVelocity.speedLatMin = valueScenesElementEgoVehicleVelocity.speedLatMax;
-  valueScenesElementEgoVehicle.velocity = valueScenesElementEgoVehicleVelocity;
-  ::ad::rss::world::ObjectState valueScenesElementEgoVehicleState;
-  ::ad::physics::Angle valueScenesElementEgoVehicleStateYaw(-6.283185308);
-  valueScenesElementEgoVehicleState.yaw = valueScenesElementEgoVehicleStateYaw;
-  ::ad::physics::Dimension2D valueScenesElementEgoVehicleStateDimension;
-  ::ad::physics::Distance valueScenesElementEgoVehicleStateDimensionLength(-1e9);
-  valueScenesElementEgoVehicleStateDimension.length = valueScenesElementEgoVehicleStateDimensionLength;
-  ::ad::physics::Distance valueScenesElementEgoVehicleStateDimensionWidth(-1e9);
-  valueScenesElementEgoVehicleStateDimension.width = valueScenesElementEgoVehicleStateDimensionWidth;
-  valueScenesElementEgoVehicleState.dimension = valueScenesElementEgoVehicleStateDimension;
-  ::ad::physics::AngularVelocity valueScenesElementEgoVehicleStateYawRate(-100.);
-  valueScenesElementEgoVehicleState.yawRate = valueScenesElementEgoVehicleStateYawRate;
-  ::ad::physics::Distance2D valueScenesElementEgoVehicleStateCenterPoint;
-  ::ad::physics::Distance valueScenesElementEgoVehicleStateCenterPointX(-1e9);
-  valueScenesElementEgoVehicleStateCenterPoint.x = valueScenesElementEgoVehicleStateCenterPointX;
-  ::ad::physics::Distance valueScenesElementEgoVehicleStateCenterPointY(-1e9);
-  valueScenesElementEgoVehicleStateCenterPoint.y = valueScenesElementEgoVehicleStateCenterPointY;
-  valueScenesElementEgoVehicleState.centerPoint = valueScenesElementEgoVehicleStateCenterPoint;
-  ::ad::physics::Speed valueScenesElementEgoVehicleStateSpeed(-100.);
-  valueScenesElementEgoVehicleState.speed = valueScenesElementEgoVehicleStateSpeed;
-  ::ad::physics::Angle valueScenesElementEgoVehicleStateSteeringAngle(-6.283185308);
-  valueScenesElementEgoVehicleState.steeringAngle = valueScenesElementEgoVehicleStateSteeringAngle;
-  valueScenesElementEgoVehicle.state = valueScenesElementEgoVehicleState;
-  valueScenesElement.egoVehicle = valueScenesElementEgoVehicle;
-  ::ad::rss::world::RssDynamics valueScenesElementEgoVehicleRssDynamics;
-  ::ad::rss::world::LongitudinalRssAccelerationValues valueScenesElementEgoVehicleRssDynamicsAlphaLon;
-  ::ad::physics::Acceleration valueScenesElementEgoVehicleRssDynamicsAlphaLonAccelMax(-1e2);
-  valueScenesElementEgoVehicleRssDynamicsAlphaLonAccelMax
-    = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueScenesElementEgoVehicleRssDynamicsAlphaLon.accelMax = valueScenesElementEgoVehicleRssDynamicsAlphaLonAccelMax;
-  ::ad::physics::Acceleration valueScenesElementEgoVehicleRssDynamicsAlphaLonBrakeMax(-1e2);
-  valueScenesElementEgoVehicleRssDynamicsAlphaLon.brakeMax = valueScenesElementEgoVehicleRssDynamicsAlphaLonBrakeMax;
-  ::ad::physics::Acceleration valueScenesElementEgoVehicleRssDynamicsAlphaLonBrakeMin(-1e2);
-  valueScenesElementEgoVehicleRssDynamicsAlphaLon.brakeMin = valueScenesElementEgoVehicleRssDynamicsAlphaLonBrakeMin;
-  ::ad::physics::Acceleration valueScenesElementEgoVehicleRssDynamicsAlphaLonBrakeMinCorrect(-1e2);
-  valueScenesElementEgoVehicleRssDynamicsAlphaLon.brakeMinCorrect
-    = valueScenesElementEgoVehicleRssDynamicsAlphaLonBrakeMinCorrect;
-  valueScenesElementEgoVehicleRssDynamicsAlphaLon.brakeMin = valueScenesElementEgoVehicleRssDynamicsAlphaLon.brakeMax;
-  valueScenesElementEgoVehicleRssDynamicsAlphaLon.brakeMinCorrect
-    = valueScenesElementEgoVehicleRssDynamicsAlphaLon.brakeMin;
-  valueScenesElementEgoVehicleRssDynamicsAlphaLon.brakeMin
-    = valueScenesElementEgoVehicleRssDynamicsAlphaLon.brakeMinCorrect;
-  valueScenesElementEgoVehicleRssDynamicsAlphaLon.brakeMax = valueScenesElementEgoVehicleRssDynamicsAlphaLon.brakeMin;
-  valueScenesElementEgoVehicleRssDynamics.alphaLon = valueScenesElementEgoVehicleRssDynamicsAlphaLon;
-  ::ad::rss::world::LateralRssAccelerationValues valueScenesElementEgoVehicleRssDynamicsAlphaLat;
-  ::ad::physics::Acceleration valueScenesElementEgoVehicleRssDynamicsAlphaLatAccelMax(-1e2);
-  valueScenesElementEgoVehicleRssDynamicsAlphaLatAccelMax
-    = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueScenesElementEgoVehicleRssDynamicsAlphaLat.accelMax = valueScenesElementEgoVehicleRssDynamicsAlphaLatAccelMax;
-  ::ad::physics::Acceleration valueScenesElementEgoVehicleRssDynamicsAlphaLatBrakeMin(-1e2);
-  valueScenesElementEgoVehicleRssDynamicsAlphaLat.brakeMin = valueScenesElementEgoVehicleRssDynamicsAlphaLatBrakeMin;
-  valueScenesElementEgoVehicleRssDynamics.alphaLat = valueScenesElementEgoVehicleRssDynamicsAlphaLat;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRssDynamicsLateralFluctuationMargin(-1e9);
-  valueScenesElementEgoVehicleRssDynamicsLateralFluctuationMargin
-    = ::ad::physics::Distance(0.); // set to valid value within struct
-  valueScenesElementEgoVehicleRssDynamics.lateralFluctuationMargin
-    = valueScenesElementEgoVehicleRssDynamicsLateralFluctuationMargin;
-  ::ad::physics::Duration valueScenesElementEgoVehicleRssDynamicsResponseTime(0.);
-  valueScenesElementEgoVehicleRssDynamicsResponseTime
-    = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
-  valueScenesElementEgoVehicleRssDynamics.responseTime = valueScenesElementEgoVehicleRssDynamicsResponseTime;
-  ::ad::physics::Speed valueScenesElementEgoVehicleRssDynamicsMaxSpeedOnAcceleration(-100.);
-  valueScenesElementEgoVehicleRssDynamics.maxSpeedOnAcceleration
-    = valueScenesElementEgoVehicleRssDynamicsMaxSpeedOnAcceleration;
-  ::ad::rss::world::UnstructuredSettings valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius(-1e9);
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.pedestrianTurningRadius
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius;
-  ::ad::physics::Angle valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.driveAwayMaxAngle
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsDriveAwayMaxAngle;
-  ::ad::physics::AngularAcceleration valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleYawRateChange(
+  valueDefault_ego_vehicle_rss_dynamics.response_time = valueDefault_ego_vehicle_rss_dynamicsResponse_time;
+  ::ad::physics::Speed valueDefault_ego_vehicle_rss_dynamicsMax_speed_on_acceleration(-100.);
+  valueDefault_ego_vehicle_rss_dynamics.max_speed_on_acceleration
+    = valueDefault_ego_vehicle_rss_dynamicsMax_speed_on_acceleration;
+  ::ad::rss::world::UnstructuredSettings valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings;
+  ::ad::physics::Distance valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_turning_radius(-1e9);
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.pedestrian_turning_radius
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_turning_radius;
+  ::ad::physics::Angle valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsDrive_away_max_angle(-6.283185308);
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.drive_away_max_angle
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsDrive_away_max_angle;
+  ::ad::physics::AngularAcceleration valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_yaw_rate_change(
     -1e2);
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleYawRateChange
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleYawRateChange;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius(-1e9);
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleMinRadius
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius;
-  ::ad::physics::Duration valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.vehicle_yaw_rate_change
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_yaw_rate_change;
+  ::ad::physics::Distance valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_min_radius(-1e9);
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.vehicle_min_radius
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_min_radius;
+  ::ad::physics::Duration valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_trajectory_calculation_step(
     0.);
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
-  uint32_t valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleFrontIntermediateYawRateChangeRatioSteps
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps;
-  uint32_t valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleBackIntermediateYawRateChangeRatioSteps
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps;
-  uint32_t valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.vehicle_trajectory_calculation_step
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_trajectory_calculation_step;
   uint32_t
-    valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
+    valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_front_intermediate_yaw_rate_change_ratio_steps{
       std::numeric_limits<uint32_t>::min()};
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.vehicle_front_intermediate_yaw_rate_change_ratio_steps
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_front_intermediate_yaw_rate_change_ratio_steps;
   uint32_t
-    valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps{
+    valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_back_intermediate_yaw_rate_change_ratio_steps{
       std::numeric_limits<uint32_t>::min()};
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateYawRateChangeRatioSteps
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps;
-  uint32_t
-    valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps{
-      std::numeric_limits<uint32_t>::min()};
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings
-    .pedestrianContinueForwardIntermediateHeadingChangeRatioSteps
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps;
-  uint32_t
-    valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps{
-      std::numeric_limits<uint32_t>::min()};
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.pedestrianContinueForwardIntermediateAccelerationSteps
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps;
-  uint32_t valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps{
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.vehicle_back_intermediate_yaw_rate_change_ratio_steps
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_back_intermediate_yaw_rate_change_ratio_steps;
+  uint32_t valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_brake_intermediate_acceleration_steps{
     std::numeric_limits<uint32_t>::min()};
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.pedestrianBrakeIntermediateAccelerationSteps
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps;
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.vehicle_brake_intermediate_acceleration_steps
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_brake_intermediate_acceleration_steps;
   uint32_t
-    valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps{
+    valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_acceleration_steps{
       std::numeric_limits<uint32_t>::min()};
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.pedestrianFrontIntermediateHeadingChangeRatioSteps
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps;
-  uint32_t valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps{
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.vehicle_continue_forward_intermediate_acceleration_steps
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_acceleration_steps;
+  uint32_t
+    valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings
+    .vehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps;
+  uint32_t
+    valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_heading_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings
+    .pedestrian_continue_forward_intermediate_heading_change_ratio_steps
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_heading_change_ratio_steps;
+  uint32_t
+    valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_acceleration_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.pedestrian_continue_forward_intermediate_acceleration_steps
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_acceleration_steps;
+  uint32_t valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_brake_intermediate_acceleration_steps{
     std::numeric_limits<uint32_t>::min()};
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.pedestrianBackIntermediateHeadingChangeRatioSteps
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps;
-  valueScenesElementEgoVehicleRssDynamics.unstructuredSettings
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings;
-  valueScenesElement.egoVehicleRssDynamics = valueScenesElementEgoVehicleRssDynamics;
-  ::ad::rss::world::Object valueScenesElementObject;
-  ::ad::rss::world::ObjectId valueScenesElementObjectObjectId(
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.pedestrian_brake_intermediate_acceleration_steps
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_brake_intermediate_acceleration_steps;
+  uint32_t
+    valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_front_intermediate_heading_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.pedestrian_front_intermediate_heading_change_ratio_steps
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_front_intermediate_heading_change_ratio_steps;
+  uint32_t
+    valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_back_intermediate_heading_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.pedestrian_back_intermediate_heading_change_ratio_steps
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_back_intermediate_heading_change_ratio_steps;
+  valueDefault_ego_vehicle_rss_dynamics.unstructured_settings
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings;
+  ::ad::physics::Distance valueDefault_ego_vehicle_rss_dynamicsMin_longitudinal_safety_distance(-1e9);
+  valueDefault_ego_vehicle_rss_dynamics.min_longitudinal_safety_distance
+    = valueDefault_ego_vehicle_rss_dynamicsMin_longitudinal_safety_distance;
+  value.default_ego_vehicle_rss_dynamics = valueDefault_ego_vehicle_rss_dynamics;
+  ::ad::rss::world::ConstellationVector valueConstellations;
+  ::ad::rss::world::Constellation valueConstellationsElement;
+  ::ad::rss::world::ConstellationType valueConstellationsElementConstellation_type(
+    ::ad::rss::world::ConstellationType::NotRelevant);
+  valueConstellationsElement.constellation_type = valueConstellationsElementConstellation_type;
+  ::ad::rss::world::Object valueConstellationsElementEgo_vehicle;
+  ::ad::rss::world::ObjectId valueConstellationsElementEgo_vehicleObject_id(
     std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
-  valueScenesElementObject.objectId = valueScenesElementObjectObjectId;
-  ::ad::rss::world::ObjectType valueScenesElementObjectObjectType(::ad::rss::world::ObjectType::Invalid);
-  valueScenesElementObject.objectType = valueScenesElementObjectObjectType;
-  ::ad::rss::world::OccupiedRegionVector valueScenesElementObjectOccupiedRegions;
-  ::ad::rss::world::OccupiedRegion valueScenesElementObjectOccupiedRegionsElement;
-  ::ad::rss::world::LaneSegmentId valueScenesElementObjectOccupiedRegionsElementSegmentId(
+  valueConstellationsElementEgo_vehicle.object_id = valueConstellationsElementEgo_vehicleObject_id;
+  ::ad::rss::world::ObjectType valueConstellationsElementEgo_vehicleObject_type(::ad::rss::world::ObjectType::Invalid);
+  valueConstellationsElementEgo_vehicle.object_type = valueConstellationsElementEgo_vehicleObject_type;
+  ::ad::rss::world::OccupiedRegionVector valueConstellationsElementEgo_vehicleOccupied_regions;
+  ::ad::rss::world::OccupiedRegion valueConstellationsElementEgo_vehicleOccupied_regionsElement;
+  ::ad::rss::world::LaneSegmentId valueConstellationsElementEgo_vehicleOccupied_regionsElementSegment_id(
     std::numeric_limits<::ad::rss::world::LaneSegmentId>::lowest());
-  valueScenesElementObjectOccupiedRegionsElement.segmentId = valueScenesElementObjectOccupiedRegionsElementSegmentId;
-  ::ad::physics::ParametricRange valueScenesElementObjectOccupiedRegionsElementLonRange;
-  ::ad::physics::ParametricValue valueScenesElementObjectOccupiedRegionsElementLonRangeMinimum(0.);
-  valueScenesElementObjectOccupiedRegionsElementLonRange.minimum
-    = valueScenesElementObjectOccupiedRegionsElementLonRangeMinimum;
-  ::ad::physics::ParametricValue valueScenesElementObjectOccupiedRegionsElementLonRangeMaximum(0.);
-  valueScenesElementObjectOccupiedRegionsElementLonRange.maximum
-    = valueScenesElementObjectOccupiedRegionsElementLonRangeMaximum;
-  valueScenesElementObjectOccupiedRegionsElementLonRange.maximum
-    = valueScenesElementObjectOccupiedRegionsElementLonRange.minimum;
-  valueScenesElementObjectOccupiedRegionsElementLonRange.minimum
-    = valueScenesElementObjectOccupiedRegionsElementLonRange.maximum;
-  valueScenesElementObjectOccupiedRegionsElement.lonRange = valueScenesElementObjectOccupiedRegionsElementLonRange;
-  ::ad::physics::ParametricRange valueScenesElementObjectOccupiedRegionsElementLatRange;
-  ::ad::physics::ParametricValue valueScenesElementObjectOccupiedRegionsElementLatRangeMinimum(0.);
-  valueScenesElementObjectOccupiedRegionsElementLatRange.minimum
-    = valueScenesElementObjectOccupiedRegionsElementLatRangeMinimum;
-  ::ad::physics::ParametricValue valueScenesElementObjectOccupiedRegionsElementLatRangeMaximum(0.);
-  valueScenesElementObjectOccupiedRegionsElementLatRange.maximum
-    = valueScenesElementObjectOccupiedRegionsElementLatRangeMaximum;
-  valueScenesElementObjectOccupiedRegionsElementLatRange.maximum
-    = valueScenesElementObjectOccupiedRegionsElementLatRange.minimum;
-  valueScenesElementObjectOccupiedRegionsElementLatRange.minimum
-    = valueScenesElementObjectOccupiedRegionsElementLatRange.maximum;
-  valueScenesElementObjectOccupiedRegionsElement.latRange = valueScenesElementObjectOccupiedRegionsElementLatRange;
-  valueScenesElementObjectOccupiedRegions.resize(1, valueScenesElementObjectOccupiedRegionsElement);
-  valueScenesElementObject.occupiedRegions = valueScenesElementObjectOccupiedRegions;
-  ::ad::rss::world::Velocity valueScenesElementObjectVelocity;
-  ::ad::physics::Speed valueScenesElementObjectVelocitySpeedLonMin(-100.);
-  valueScenesElementObjectVelocitySpeedLonMin = ::ad::physics::Speed(0.); // set to valid value within struct
-  valueScenesElementObjectVelocity.speedLonMin = valueScenesElementObjectVelocitySpeedLonMin;
-  ::ad::physics::Speed valueScenesElementObjectVelocitySpeedLonMax(-100.);
-  valueScenesElementObjectVelocity.speedLonMax = valueScenesElementObjectVelocitySpeedLonMax;
-  ::ad::physics::Speed valueScenesElementObjectVelocitySpeedLatMin(-100.);
-  valueScenesElementObjectVelocity.speedLatMin = valueScenesElementObjectVelocitySpeedLatMin;
-  ::ad::physics::Speed valueScenesElementObjectVelocitySpeedLatMax(-100.);
-  valueScenesElementObjectVelocity.speedLatMax = valueScenesElementObjectVelocitySpeedLatMax;
-  valueScenesElementObjectVelocity.speedLonMax = valueScenesElementObjectVelocity.speedLonMin;
-  valueScenesElementObjectVelocity.speedLatMax = valueScenesElementObjectVelocity.speedLatMin;
-  valueScenesElementObjectVelocity.speedLonMin = valueScenesElementObjectVelocity.speedLonMax;
-  valueScenesElementObjectVelocity.speedLatMin = valueScenesElementObjectVelocity.speedLatMax;
-  valueScenesElementObject.velocity = valueScenesElementObjectVelocity;
-  ::ad::rss::world::ObjectState valueScenesElementObjectState;
-  ::ad::physics::Angle valueScenesElementObjectStateYaw(-6.283185308);
-  valueScenesElementObjectState.yaw = valueScenesElementObjectStateYaw;
-  ::ad::physics::Dimension2D valueScenesElementObjectStateDimension;
-  ::ad::physics::Distance valueScenesElementObjectStateDimensionLength(-1e9);
-  valueScenesElementObjectStateDimension.length = valueScenesElementObjectStateDimensionLength;
-  ::ad::physics::Distance valueScenesElementObjectStateDimensionWidth(-1e9);
-  valueScenesElementObjectStateDimension.width = valueScenesElementObjectStateDimensionWidth;
-  valueScenesElementObjectState.dimension = valueScenesElementObjectStateDimension;
-  ::ad::physics::AngularVelocity valueScenesElementObjectStateYawRate(-100.);
-  valueScenesElementObjectState.yawRate = valueScenesElementObjectStateYawRate;
-  ::ad::physics::Distance2D valueScenesElementObjectStateCenterPoint;
-  ::ad::physics::Distance valueScenesElementObjectStateCenterPointX(-1e9);
-  valueScenesElementObjectStateCenterPoint.x = valueScenesElementObjectStateCenterPointX;
-  ::ad::physics::Distance valueScenesElementObjectStateCenterPointY(-1e9);
-  valueScenesElementObjectStateCenterPoint.y = valueScenesElementObjectStateCenterPointY;
-  valueScenesElementObjectState.centerPoint = valueScenesElementObjectStateCenterPoint;
-  ::ad::physics::Speed valueScenesElementObjectStateSpeed(-100.);
-  valueScenesElementObjectState.speed = valueScenesElementObjectStateSpeed;
-  ::ad::physics::Angle valueScenesElementObjectStateSteeringAngle(-6.283185308);
-  valueScenesElementObjectState.steeringAngle = valueScenesElementObjectStateSteeringAngle;
-  valueScenesElementObject.state = valueScenesElementObjectState;
-  valueScenesElement.object = valueScenesElementObject;
-  ::ad::rss::world::RssDynamics valueScenesElementObjectRssDynamics;
-  ::ad::rss::world::LongitudinalRssAccelerationValues valueScenesElementObjectRssDynamicsAlphaLon;
-  ::ad::physics::Acceleration valueScenesElementObjectRssDynamicsAlphaLonAccelMax(-1e2);
-  valueScenesElementObjectRssDynamicsAlphaLonAccelMax
+  valueConstellationsElementEgo_vehicleOccupied_regionsElement.segment_id
+    = valueConstellationsElementEgo_vehicleOccupied_regionsElementSegment_id;
+  ::ad::physics::ParametricRange valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_range;
+  ::ad::physics::ParametricValue valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_rangeMinimum(0.);
+  valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_range.minimum
+    = valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_rangeMinimum;
+  ::ad::physics::ParametricValue valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_rangeMaximum(0.);
+  valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_range.maximum
+    = valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_rangeMaximum;
+  valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_range.maximum
+    = valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_range.minimum;
+  valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_range.minimum
+    = valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_range.maximum;
+  valueConstellationsElementEgo_vehicleOccupied_regionsElement.lon_range
+    = valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_range;
+  ::ad::physics::ParametricRange valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_range;
+  ::ad::physics::ParametricValue valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_rangeMinimum(0.);
+  valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_range.minimum
+    = valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_rangeMinimum;
+  ::ad::physics::ParametricValue valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_rangeMaximum(0.);
+  valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_range.maximum
+    = valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_rangeMaximum;
+  valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_range.maximum
+    = valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_range.minimum;
+  valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_range.minimum
+    = valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_range.maximum;
+  valueConstellationsElementEgo_vehicleOccupied_regionsElement.lat_range
+    = valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_range;
+  valueConstellationsElementEgo_vehicleOccupied_regions.resize(
+    1, valueConstellationsElementEgo_vehicleOccupied_regionsElement);
+  valueConstellationsElementEgo_vehicle.occupied_regions = valueConstellationsElementEgo_vehicleOccupied_regions;
+  ::ad::rss::world::Velocity valueConstellationsElementEgo_vehicleVelocity;
+  ::ad::physics::Speed valueConstellationsElementEgo_vehicleVelocitySpeed_lon_min(-100.);
+  valueConstellationsElementEgo_vehicleVelocitySpeed_lon_min
+    = ::ad::physics::Speed(0.); // set to valid value within struct
+  valueConstellationsElementEgo_vehicleVelocity.speed_lon_min
+    = valueConstellationsElementEgo_vehicleVelocitySpeed_lon_min;
+  ::ad::physics::Speed valueConstellationsElementEgo_vehicleVelocitySpeed_lon_max(-100.);
+  valueConstellationsElementEgo_vehicleVelocity.speed_lon_max
+    = valueConstellationsElementEgo_vehicleVelocitySpeed_lon_max;
+  ::ad::physics::Speed valueConstellationsElementEgo_vehicleVelocitySpeed_lat_min(-100.);
+  valueConstellationsElementEgo_vehicleVelocity.speed_lat_min
+    = valueConstellationsElementEgo_vehicleVelocitySpeed_lat_min;
+  ::ad::physics::Speed valueConstellationsElementEgo_vehicleVelocitySpeed_lat_max(-100.);
+  valueConstellationsElementEgo_vehicleVelocity.speed_lat_max
+    = valueConstellationsElementEgo_vehicleVelocitySpeed_lat_max;
+  valueConstellationsElementEgo_vehicleVelocity.speed_lon_max
+    = valueConstellationsElementEgo_vehicleVelocity.speed_lon_min;
+  valueConstellationsElementEgo_vehicleVelocity.speed_lat_max
+    = valueConstellationsElementEgo_vehicleVelocity.speed_lat_min;
+  valueConstellationsElementEgo_vehicleVelocity.speed_lon_min
+    = valueConstellationsElementEgo_vehicleVelocity.speed_lon_max;
+  valueConstellationsElementEgo_vehicleVelocity.speed_lat_min
+    = valueConstellationsElementEgo_vehicleVelocity.speed_lat_max;
+  valueConstellationsElementEgo_vehicle.velocity = valueConstellationsElementEgo_vehicleVelocity;
+  ::ad::rss::world::ObjectState valueConstellationsElementEgo_vehicleState;
+  ::ad::physics::Angle valueConstellationsElementEgo_vehicleStateYaw(-6.283185308);
+  valueConstellationsElementEgo_vehicleState.yaw = valueConstellationsElementEgo_vehicleStateYaw;
+  ::ad::physics::Dimension2D valueConstellationsElementEgo_vehicleStateDimension;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicleStateDimensionLength(-1e9);
+  valueConstellationsElementEgo_vehicleStateDimension.length
+    = valueConstellationsElementEgo_vehicleStateDimensionLength;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicleStateDimensionWidth(-1e9);
+  valueConstellationsElementEgo_vehicleStateDimension.width = valueConstellationsElementEgo_vehicleStateDimensionWidth;
+  valueConstellationsElementEgo_vehicleState.dimension = valueConstellationsElementEgo_vehicleStateDimension;
+  ::ad::physics::AngularVelocity valueConstellationsElementEgo_vehicleStateYaw_rate(-100.);
+  valueConstellationsElementEgo_vehicleState.yaw_rate = valueConstellationsElementEgo_vehicleStateYaw_rate;
+  ::ad::physics::Distance2D valueConstellationsElementEgo_vehicleStateCenter_point;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicleStateCenter_pointX(-1e9);
+  valueConstellationsElementEgo_vehicleStateCenter_point.x = valueConstellationsElementEgo_vehicleStateCenter_pointX;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicleStateCenter_pointY(-1e9);
+  valueConstellationsElementEgo_vehicleStateCenter_point.y = valueConstellationsElementEgo_vehicleStateCenter_pointY;
+  valueConstellationsElementEgo_vehicleState.center_point = valueConstellationsElementEgo_vehicleStateCenter_point;
+  ::ad::physics::SpeedRange valueConstellationsElementEgo_vehicleStateSpeed_range;
+  ::ad::physics::Speed valueConstellationsElementEgo_vehicleStateSpeed_rangeMinimum(-100.);
+  valueConstellationsElementEgo_vehicleStateSpeed_range.minimum
+    = valueConstellationsElementEgo_vehicleStateSpeed_rangeMinimum;
+  ::ad::physics::Speed valueConstellationsElementEgo_vehicleStateSpeed_rangeMaximum(-100.);
+  valueConstellationsElementEgo_vehicleStateSpeed_range.maximum
+    = valueConstellationsElementEgo_vehicleStateSpeed_rangeMaximum;
+  valueConstellationsElementEgo_vehicleStateSpeed_range.maximum
+    = valueConstellationsElementEgo_vehicleStateSpeed_range.minimum;
+  valueConstellationsElementEgo_vehicleStateSpeed_range.minimum
+    = valueConstellationsElementEgo_vehicleStateSpeed_range.maximum;
+  valueConstellationsElementEgo_vehicleState.speed_range = valueConstellationsElementEgo_vehicleStateSpeed_range;
+  ::ad::physics::Angle valueConstellationsElementEgo_vehicleStateSteering_angle(-6.283185308);
+  valueConstellationsElementEgo_vehicleState.steering_angle = valueConstellationsElementEgo_vehicleStateSteering_angle;
+  valueConstellationsElementEgo_vehicle.state = valueConstellationsElementEgo_vehicleState;
+  valueConstellationsElement.ego_vehicle = valueConstellationsElementEgo_vehicle;
+  ::ad::rss::world::RssDynamics valueConstellationsElementEgo_vehicle_rss_dynamics;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon;
+  ::ad::physics::Acceleration valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lonAccel_max(-1e2);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lonAccel_max
     = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueScenesElementObjectRssDynamicsAlphaLon.accelMax = valueScenesElementObjectRssDynamicsAlphaLonAccelMax;
-  ::ad::physics::Acceleration valueScenesElementObjectRssDynamicsAlphaLonBrakeMax(-1e2);
-  valueScenesElementObjectRssDynamicsAlphaLon.brakeMax = valueScenesElementObjectRssDynamicsAlphaLonBrakeMax;
-  ::ad::physics::Acceleration valueScenesElementObjectRssDynamicsAlphaLonBrakeMin(-1e2);
-  valueScenesElementObjectRssDynamicsAlphaLon.brakeMin = valueScenesElementObjectRssDynamicsAlphaLonBrakeMin;
-  ::ad::physics::Acceleration valueScenesElementObjectRssDynamicsAlphaLonBrakeMinCorrect(-1e2);
-  valueScenesElementObjectRssDynamicsAlphaLon.brakeMinCorrect
-    = valueScenesElementObjectRssDynamicsAlphaLonBrakeMinCorrect;
-  valueScenesElementObjectRssDynamicsAlphaLon.brakeMin = valueScenesElementObjectRssDynamicsAlphaLon.brakeMax;
-  valueScenesElementObjectRssDynamicsAlphaLon.brakeMinCorrect = valueScenesElementObjectRssDynamicsAlphaLon.brakeMin;
-  valueScenesElementObjectRssDynamicsAlphaLon.brakeMin = valueScenesElementObjectRssDynamicsAlphaLon.brakeMinCorrect;
-  valueScenesElementObjectRssDynamicsAlphaLon.brakeMax = valueScenesElementObjectRssDynamicsAlphaLon.brakeMin;
-  valueScenesElementObjectRssDynamics.alphaLon = valueScenesElementObjectRssDynamicsAlphaLon;
-  ::ad::rss::world::LateralRssAccelerationValues valueScenesElementObjectRssDynamicsAlphaLat;
-  ::ad::physics::Acceleration valueScenesElementObjectRssDynamicsAlphaLatAccelMax(-1e2);
-  valueScenesElementObjectRssDynamicsAlphaLatAccelMax
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.accel_max
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lonAccel_max;
+  ::ad::physics::Acceleration valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lonBrake_max(-1e2);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.brake_max
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lonBrake_max;
+  ::ad::physics::Acceleration valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lonBrake_min(-1e2);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.brake_min
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lonBrake_min;
+  ::ad::physics::Acceleration valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lonBrake_min_correct(-1e2);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.brake_min_correct
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lonBrake_min_correct;
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.brake_min
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.brake_max;
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.brake_min_correct
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.brake_min;
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.brake_min
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.brake_min_correct;
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.brake_max
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.brake_min;
+  valueConstellationsElementEgo_vehicle_rss_dynamics.alpha_lon
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon;
+  ::ad::rss::world::LateralRssAccelerationValues valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lat;
+  ::ad::physics::Acceleration valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_latAccel_max(-1e2);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_latAccel_max
     = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueScenesElementObjectRssDynamicsAlphaLat.accelMax = valueScenesElementObjectRssDynamicsAlphaLatAccelMax;
-  ::ad::physics::Acceleration valueScenesElementObjectRssDynamicsAlphaLatBrakeMin(-1e2);
-  valueScenesElementObjectRssDynamicsAlphaLat.brakeMin = valueScenesElementObjectRssDynamicsAlphaLatBrakeMin;
-  valueScenesElementObjectRssDynamics.alphaLat = valueScenesElementObjectRssDynamicsAlphaLat;
-  ::ad::physics::Distance valueScenesElementObjectRssDynamicsLateralFluctuationMargin(-1e9);
-  valueScenesElementObjectRssDynamicsLateralFluctuationMargin
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lat.accel_max
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_latAccel_max;
+  ::ad::physics::Acceleration valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_latBrake_min(-1e2);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lat.brake_min
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_latBrake_min;
+  valueConstellationsElementEgo_vehicle_rss_dynamics.alpha_lat
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lat;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicle_rss_dynamicsLateral_fluctuation_margin(-1e9);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsLateral_fluctuation_margin
     = ::ad::physics::Distance(0.); // set to valid value within struct
-  valueScenesElementObjectRssDynamics.lateralFluctuationMargin
-    = valueScenesElementObjectRssDynamicsLateralFluctuationMargin;
-  ::ad::physics::Duration valueScenesElementObjectRssDynamicsResponseTime(0.);
-  valueScenesElementObjectRssDynamicsResponseTime
+  valueConstellationsElementEgo_vehicle_rss_dynamics.lateral_fluctuation_margin
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsLateral_fluctuation_margin;
+  ::ad::physics::Duration valueConstellationsElementEgo_vehicle_rss_dynamicsResponse_time(0.);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsResponse_time
     = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
-  valueScenesElementObjectRssDynamics.responseTime = valueScenesElementObjectRssDynamicsResponseTime;
-  ::ad::physics::Speed valueScenesElementObjectRssDynamicsMaxSpeedOnAcceleration(-100.);
-  valueScenesElementObjectRssDynamics.maxSpeedOnAcceleration
-    = valueScenesElementObjectRssDynamicsMaxSpeedOnAcceleration;
-  ::ad::rss::world::UnstructuredSettings valueScenesElementObjectRssDynamicsUnstructuredSettings;
-  ::ad::physics::Distance valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianTurningRadius(-1e9);
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.pedestrianTurningRadius
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianTurningRadius;
-  ::ad::physics::Angle valueScenesElementObjectRssDynamicsUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.driveAwayMaxAngle
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsDriveAwayMaxAngle;
-  ::ad::physics::AngularAcceleration valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleYawRateChange(-1e2);
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleYawRateChange
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleYawRateChange;
-  ::ad::physics::Distance valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleMinRadius(-1e9);
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleMinRadius
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleMinRadius;
-  ::ad::physics::Duration valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
-  uint32_t valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleFrontIntermediateYawRateChangeRatioSteps
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps;
-  uint32_t valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleBackIntermediateYawRateChangeRatioSteps
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps;
-  uint32_t valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
-  uint32_t valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
+  valueConstellationsElementEgo_vehicle_rss_dynamics.response_time
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsResponse_time;
+  ::ad::physics::Speed valueConstellationsElementEgo_vehicle_rss_dynamicsMax_speed_on_acceleration(-100.);
+  valueConstellationsElementEgo_vehicle_rss_dynamics.max_speed_on_acceleration
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsMax_speed_on_acceleration;
+  ::ad::rss::world::UnstructuredSettings valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings;
+  ::ad::physics::Distance
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_turning_radius(-1e9);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings.pedestrian_turning_radius
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_turning_radius;
+  ::ad::physics::Angle valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsDrive_away_max_angle(
+    -6.283185308);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings.drive_away_max_angle
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsDrive_away_max_angle;
+  ::ad::physics::AngularAcceleration
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_yaw_rate_change(-1e2);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings.vehicle_yaw_rate_change
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_yaw_rate_change;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_min_radius(
+    -1e9);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings.vehicle_min_radius
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_min_radius;
+  ::ad::physics::Duration
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_trajectory_calculation_step(0.);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings.vehicle_trajectory_calculation_step
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_trajectory_calculation_step;
   uint32_t
-    valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps{
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_front_intermediate_yaw_rate_change_ratio_steps{
       std::numeric_limits<uint32_t>::min()};
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateYawRateChangeRatioSteps
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps;
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings
+    .vehicle_front_intermediate_yaw_rate_change_ratio_steps
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_front_intermediate_yaw_rate_change_ratio_steps;
   uint32_t
-    valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps{
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_back_intermediate_yaw_rate_change_ratio_steps{
       std::numeric_limits<uint32_t>::min()};
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps;
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings
+    .vehicle_back_intermediate_yaw_rate_change_ratio_steps
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_back_intermediate_yaw_rate_change_ratio_steps;
   uint32_t
-    valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps{
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_brake_intermediate_acceleration_steps{
       std::numeric_limits<uint32_t>::min()};
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.pedestrianContinueForwardIntermediateAccelerationSteps
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps;
-  uint32_t valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.pedestrianBrakeIntermediateAccelerationSteps
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps;
-  uint32_t valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.pedestrianFrontIntermediateHeadingChangeRatioSteps
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps;
-  uint32_t valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.pedestrianBackIntermediateHeadingChangeRatioSteps
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps;
-  valueScenesElementObjectRssDynamics.unstructuredSettings = valueScenesElementObjectRssDynamicsUnstructuredSettings;
-  valueScenesElement.objectRssDynamics = valueScenesElementObjectRssDynamics;
-  ::ad::rss::world::RoadArea valueScenesElementIntersectingRoad;
-  ::ad::rss::world::RoadSegment valueScenesElementIntersectingRoadElement;
-  ::ad::rss::world::LaneSegment valueScenesElementIntersectingRoadElementElement;
-  ::ad::rss::world::LaneSegmentId valueScenesElementIntersectingRoadElementElementId(
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings.vehicle_brake_intermediate_acceleration_steps
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_brake_intermediate_acceleration_steps;
+  uint32_t
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_acceleration_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings
+    .vehicle_continue_forward_intermediate_acceleration_steps
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_acceleration_steps;
+  uint32_t
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings
+    .vehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps;
+  uint32_t
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_heading_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings
+    .pedestrian_continue_forward_intermediate_heading_change_ratio_steps
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_heading_change_ratio_steps;
+  uint32_t
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_acceleration_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings
+    .pedestrian_continue_forward_intermediate_acceleration_steps
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_acceleration_steps;
+  uint32_t
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_brake_intermediate_acceleration_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings
+    .pedestrian_brake_intermediate_acceleration_steps
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_brake_intermediate_acceleration_steps;
+  uint32_t
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_front_intermediate_heading_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings
+    .pedestrian_front_intermediate_heading_change_ratio_steps
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_front_intermediate_heading_change_ratio_steps;
+  uint32_t
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_back_intermediate_heading_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings
+    .pedestrian_back_intermediate_heading_change_ratio_steps
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_back_intermediate_heading_change_ratio_steps;
+  valueConstellationsElementEgo_vehicle_rss_dynamics.unstructured_settings
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicle_rss_dynamicsMin_longitudinal_safety_distance(-1e9);
+  valueConstellationsElementEgo_vehicle_rss_dynamics.min_longitudinal_safety_distance
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsMin_longitudinal_safety_distance;
+  valueConstellationsElement.ego_vehicle_rss_dynamics = valueConstellationsElementEgo_vehicle_rss_dynamics;
+  ::ad::rss::world::Object valueConstellationsElementObject;
+  ::ad::rss::world::ObjectId valueConstellationsElementObjectObject_id(
+    std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  valueConstellationsElementObject.object_id = valueConstellationsElementObjectObject_id;
+  ::ad::rss::world::ObjectType valueConstellationsElementObjectObject_type(::ad::rss::world::ObjectType::Invalid);
+  valueConstellationsElementObject.object_type = valueConstellationsElementObjectObject_type;
+  ::ad::rss::world::OccupiedRegionVector valueConstellationsElementObjectOccupied_regions;
+  ::ad::rss::world::OccupiedRegion valueConstellationsElementObjectOccupied_regionsElement;
+  ::ad::rss::world::LaneSegmentId valueConstellationsElementObjectOccupied_regionsElementSegment_id(
     std::numeric_limits<::ad::rss::world::LaneSegmentId>::lowest());
-  valueScenesElementIntersectingRoadElementElement.id = valueScenesElementIntersectingRoadElementElementId;
-  ::ad::rss::world::LaneSegmentType valueScenesElementIntersectingRoadElementElementType(
-    ::ad::rss::world::LaneSegmentType::Normal);
-  valueScenesElementIntersectingRoadElementElement.type = valueScenesElementIntersectingRoadElementElementType;
-  ::ad::rss::world::LaneDrivingDirection valueScenesElementIntersectingRoadElementElementDrivingDirection(
-    ::ad::rss::world::LaneDrivingDirection::Bidirectional);
-  valueScenesElementIntersectingRoadElementElement.drivingDirection
-    = valueScenesElementIntersectingRoadElementElementDrivingDirection;
-  ::ad::physics::MetricRange valueScenesElementIntersectingRoadElementElementLength;
-  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementLengthMinimum(-1e9);
-  valueScenesElementIntersectingRoadElementElementLengthMinimum
+  valueConstellationsElementObjectOccupied_regionsElement.segment_id
+    = valueConstellationsElementObjectOccupied_regionsElementSegment_id;
+  ::ad::physics::ParametricRange valueConstellationsElementObjectOccupied_regionsElementLon_range;
+  ::ad::physics::ParametricValue valueConstellationsElementObjectOccupied_regionsElementLon_rangeMinimum(0.);
+  valueConstellationsElementObjectOccupied_regionsElementLon_range.minimum
+    = valueConstellationsElementObjectOccupied_regionsElementLon_rangeMinimum;
+  ::ad::physics::ParametricValue valueConstellationsElementObjectOccupied_regionsElementLon_rangeMaximum(0.);
+  valueConstellationsElementObjectOccupied_regionsElementLon_range.maximum
+    = valueConstellationsElementObjectOccupied_regionsElementLon_rangeMaximum;
+  valueConstellationsElementObjectOccupied_regionsElementLon_range.maximum
+    = valueConstellationsElementObjectOccupied_regionsElementLon_range.minimum;
+  valueConstellationsElementObjectOccupied_regionsElementLon_range.minimum
+    = valueConstellationsElementObjectOccupied_regionsElementLon_range.maximum;
+  valueConstellationsElementObjectOccupied_regionsElement.lon_range
+    = valueConstellationsElementObjectOccupied_regionsElementLon_range;
+  ::ad::physics::ParametricRange valueConstellationsElementObjectOccupied_regionsElementLat_range;
+  ::ad::physics::ParametricValue valueConstellationsElementObjectOccupied_regionsElementLat_rangeMinimum(0.);
+  valueConstellationsElementObjectOccupied_regionsElementLat_range.minimum
+    = valueConstellationsElementObjectOccupied_regionsElementLat_rangeMinimum;
+  ::ad::physics::ParametricValue valueConstellationsElementObjectOccupied_regionsElementLat_rangeMaximum(0.);
+  valueConstellationsElementObjectOccupied_regionsElementLat_range.maximum
+    = valueConstellationsElementObjectOccupied_regionsElementLat_rangeMaximum;
+  valueConstellationsElementObjectOccupied_regionsElementLat_range.maximum
+    = valueConstellationsElementObjectOccupied_regionsElementLat_range.minimum;
+  valueConstellationsElementObjectOccupied_regionsElementLat_range.minimum
+    = valueConstellationsElementObjectOccupied_regionsElementLat_range.maximum;
+  valueConstellationsElementObjectOccupied_regionsElement.lat_range
+    = valueConstellationsElementObjectOccupied_regionsElementLat_range;
+  valueConstellationsElementObjectOccupied_regions.resize(1, valueConstellationsElementObjectOccupied_regionsElement);
+  valueConstellationsElementObject.occupied_regions = valueConstellationsElementObjectOccupied_regions;
+  ::ad::rss::world::Velocity valueConstellationsElementObjectVelocity;
+  ::ad::physics::Speed valueConstellationsElementObjectVelocitySpeed_lon_min(-100.);
+  valueConstellationsElementObjectVelocitySpeed_lon_min = ::ad::physics::Speed(0.); // set to valid value within struct
+  valueConstellationsElementObjectVelocity.speed_lon_min = valueConstellationsElementObjectVelocitySpeed_lon_min;
+  ::ad::physics::Speed valueConstellationsElementObjectVelocitySpeed_lon_max(-100.);
+  valueConstellationsElementObjectVelocity.speed_lon_max = valueConstellationsElementObjectVelocitySpeed_lon_max;
+  ::ad::physics::Speed valueConstellationsElementObjectVelocitySpeed_lat_min(-100.);
+  valueConstellationsElementObjectVelocity.speed_lat_min = valueConstellationsElementObjectVelocitySpeed_lat_min;
+  ::ad::physics::Speed valueConstellationsElementObjectVelocitySpeed_lat_max(-100.);
+  valueConstellationsElementObjectVelocity.speed_lat_max = valueConstellationsElementObjectVelocitySpeed_lat_max;
+  valueConstellationsElementObjectVelocity.speed_lon_max = valueConstellationsElementObjectVelocity.speed_lon_min;
+  valueConstellationsElementObjectVelocity.speed_lat_max = valueConstellationsElementObjectVelocity.speed_lat_min;
+  valueConstellationsElementObjectVelocity.speed_lon_min = valueConstellationsElementObjectVelocity.speed_lon_max;
+  valueConstellationsElementObjectVelocity.speed_lat_min = valueConstellationsElementObjectVelocity.speed_lat_max;
+  valueConstellationsElementObject.velocity = valueConstellationsElementObjectVelocity;
+  ::ad::rss::world::ObjectState valueConstellationsElementObjectState;
+  ::ad::physics::Angle valueConstellationsElementObjectStateYaw(-6.283185308);
+  valueConstellationsElementObjectState.yaw = valueConstellationsElementObjectStateYaw;
+  ::ad::physics::Dimension2D valueConstellationsElementObjectStateDimension;
+  ::ad::physics::Distance valueConstellationsElementObjectStateDimensionLength(-1e9);
+  valueConstellationsElementObjectStateDimension.length = valueConstellationsElementObjectStateDimensionLength;
+  ::ad::physics::Distance valueConstellationsElementObjectStateDimensionWidth(-1e9);
+  valueConstellationsElementObjectStateDimension.width = valueConstellationsElementObjectStateDimensionWidth;
+  valueConstellationsElementObjectState.dimension = valueConstellationsElementObjectStateDimension;
+  ::ad::physics::AngularVelocity valueConstellationsElementObjectStateYaw_rate(-100.);
+  valueConstellationsElementObjectState.yaw_rate = valueConstellationsElementObjectStateYaw_rate;
+  ::ad::physics::Distance2D valueConstellationsElementObjectStateCenter_point;
+  ::ad::physics::Distance valueConstellationsElementObjectStateCenter_pointX(-1e9);
+  valueConstellationsElementObjectStateCenter_point.x = valueConstellationsElementObjectStateCenter_pointX;
+  ::ad::physics::Distance valueConstellationsElementObjectStateCenter_pointY(-1e9);
+  valueConstellationsElementObjectStateCenter_point.y = valueConstellationsElementObjectStateCenter_pointY;
+  valueConstellationsElementObjectState.center_point = valueConstellationsElementObjectStateCenter_point;
+  ::ad::physics::SpeedRange valueConstellationsElementObjectStateSpeed_range;
+  ::ad::physics::Speed valueConstellationsElementObjectStateSpeed_rangeMinimum(-100.);
+  valueConstellationsElementObjectStateSpeed_range.minimum = valueConstellationsElementObjectStateSpeed_rangeMinimum;
+  ::ad::physics::Speed valueConstellationsElementObjectStateSpeed_rangeMaximum(-100.);
+  valueConstellationsElementObjectStateSpeed_range.maximum = valueConstellationsElementObjectStateSpeed_rangeMaximum;
+  valueConstellationsElementObjectStateSpeed_range.maximum = valueConstellationsElementObjectStateSpeed_range.minimum;
+  valueConstellationsElementObjectStateSpeed_range.minimum = valueConstellationsElementObjectStateSpeed_range.maximum;
+  valueConstellationsElementObjectState.speed_range = valueConstellationsElementObjectStateSpeed_range;
+  ::ad::physics::Angle valueConstellationsElementObjectStateSteering_angle(-6.283185308);
+  valueConstellationsElementObjectState.steering_angle = valueConstellationsElementObjectStateSteering_angle;
+  valueConstellationsElementObject.state = valueConstellationsElementObjectState;
+  valueConstellationsElement.object = valueConstellationsElementObject;
+  ::ad::rss::world::RssDynamics valueConstellationsElementObject_rss_dynamics;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueConstellationsElementObject_rss_dynamicsAlpha_lon;
+  ::ad::physics::Acceleration valueConstellationsElementObject_rss_dynamicsAlpha_lonAccel_max(-1e2);
+  valueConstellationsElementObject_rss_dynamicsAlpha_lonAccel_max
+    = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueConstellationsElementObject_rss_dynamicsAlpha_lon.accel_max
+    = valueConstellationsElementObject_rss_dynamicsAlpha_lonAccel_max;
+  ::ad::physics::Acceleration valueConstellationsElementObject_rss_dynamicsAlpha_lonBrake_max(-1e2);
+  valueConstellationsElementObject_rss_dynamicsAlpha_lon.brake_max
+    = valueConstellationsElementObject_rss_dynamicsAlpha_lonBrake_max;
+  ::ad::physics::Acceleration valueConstellationsElementObject_rss_dynamicsAlpha_lonBrake_min(-1e2);
+  valueConstellationsElementObject_rss_dynamicsAlpha_lon.brake_min
+    = valueConstellationsElementObject_rss_dynamicsAlpha_lonBrake_min;
+  ::ad::physics::Acceleration valueConstellationsElementObject_rss_dynamicsAlpha_lonBrake_min_correct(-1e2);
+  valueConstellationsElementObject_rss_dynamicsAlpha_lon.brake_min_correct
+    = valueConstellationsElementObject_rss_dynamicsAlpha_lonBrake_min_correct;
+  valueConstellationsElementObject_rss_dynamicsAlpha_lon.brake_min
+    = valueConstellationsElementObject_rss_dynamicsAlpha_lon.brake_max;
+  valueConstellationsElementObject_rss_dynamicsAlpha_lon.brake_min_correct
+    = valueConstellationsElementObject_rss_dynamicsAlpha_lon.brake_min;
+  valueConstellationsElementObject_rss_dynamicsAlpha_lon.brake_min
+    = valueConstellationsElementObject_rss_dynamicsAlpha_lon.brake_min_correct;
+  valueConstellationsElementObject_rss_dynamicsAlpha_lon.brake_max
+    = valueConstellationsElementObject_rss_dynamicsAlpha_lon.brake_min;
+  valueConstellationsElementObject_rss_dynamics.alpha_lon = valueConstellationsElementObject_rss_dynamicsAlpha_lon;
+  ::ad::rss::world::LateralRssAccelerationValues valueConstellationsElementObject_rss_dynamicsAlpha_lat;
+  ::ad::physics::Acceleration valueConstellationsElementObject_rss_dynamicsAlpha_latAccel_max(-1e2);
+  valueConstellationsElementObject_rss_dynamicsAlpha_latAccel_max
+    = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueConstellationsElementObject_rss_dynamicsAlpha_lat.accel_max
+    = valueConstellationsElementObject_rss_dynamicsAlpha_latAccel_max;
+  ::ad::physics::Acceleration valueConstellationsElementObject_rss_dynamicsAlpha_latBrake_min(-1e2);
+  valueConstellationsElementObject_rss_dynamicsAlpha_lat.brake_min
+    = valueConstellationsElementObject_rss_dynamicsAlpha_latBrake_min;
+  valueConstellationsElementObject_rss_dynamics.alpha_lat = valueConstellationsElementObject_rss_dynamicsAlpha_lat;
+  ::ad::physics::Distance valueConstellationsElementObject_rss_dynamicsLateral_fluctuation_margin(-1e9);
+  valueConstellationsElementObject_rss_dynamicsLateral_fluctuation_margin
     = ::ad::physics::Distance(0.); // set to valid value within struct
-  valueScenesElementIntersectingRoadElementElementLength.minimum
-    = valueScenesElementIntersectingRoadElementElementLengthMinimum;
-  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementLengthMaximum(-1e9);
-  valueScenesElementIntersectingRoadElementElementLength.maximum
-    = valueScenesElementIntersectingRoadElementElementLengthMaximum;
-  valueScenesElementIntersectingRoadElementElementLength.maximum
-    = valueScenesElementIntersectingRoadElementElementLength.minimum;
-  valueScenesElementIntersectingRoadElementElementLength.minimum
-    = valueScenesElementIntersectingRoadElementElementLength.maximum;
-  valueScenesElementIntersectingRoadElementElement.length = valueScenesElementIntersectingRoadElementElementLength;
-  ::ad::physics::MetricRange valueScenesElementIntersectingRoadElementElementWidth;
-  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementWidthMinimum(-1e9);
-  valueScenesElementIntersectingRoadElementElementWidthMinimum
-    = ::ad::physics::Distance(0.); // set to valid value within struct
-  valueScenesElementIntersectingRoadElementElementWidth.minimum
-    = valueScenesElementIntersectingRoadElementElementWidthMinimum;
-  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementWidthMaximum(-1e9);
-  valueScenesElementIntersectingRoadElementElementWidth.maximum
-    = valueScenesElementIntersectingRoadElementElementWidthMaximum;
-  valueScenesElementIntersectingRoadElementElementWidth.maximum
-    = valueScenesElementIntersectingRoadElementElementWidth.minimum;
-  valueScenesElementIntersectingRoadElementElementWidth.minimum
-    = valueScenesElementIntersectingRoadElementElementWidth.maximum;
-  valueScenesElementIntersectingRoadElementElement.width = valueScenesElementIntersectingRoadElementElementWidth;
-  valueScenesElementIntersectingRoadElement.resize(1, valueScenesElementIntersectingRoadElementElement);
-  valueScenesElementIntersectingRoad.resize(1, valueScenesElementIntersectingRoadElement);
-  valueScenesElement.intersectingRoad = valueScenesElementIntersectingRoad;
-  ::ad::rss::world::RoadArea valueScenesElementEgoVehicleRoad;
-  ::ad::rss::world::RoadSegment valueScenesElementEgoVehicleRoadElement;
-  ::ad::rss::world::LaneSegment valueScenesElementEgoVehicleRoadElementElement;
-  ::ad::rss::world::LaneSegmentId valueScenesElementEgoVehicleRoadElementElementId(
+  valueConstellationsElementObject_rss_dynamics.lateral_fluctuation_margin
+    = valueConstellationsElementObject_rss_dynamicsLateral_fluctuation_margin;
+  ::ad::physics::Duration valueConstellationsElementObject_rss_dynamicsResponse_time(0.);
+  valueConstellationsElementObject_rss_dynamicsResponse_time
+    = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
+  valueConstellationsElementObject_rss_dynamics.response_time
+    = valueConstellationsElementObject_rss_dynamicsResponse_time;
+  ::ad::physics::Speed valueConstellationsElementObject_rss_dynamicsMax_speed_on_acceleration(-100.);
+  valueConstellationsElementObject_rss_dynamics.max_speed_on_acceleration
+    = valueConstellationsElementObject_rss_dynamicsMax_speed_on_acceleration;
+  ::ad::rss::world::UnstructuredSettings valueConstellationsElementObject_rss_dynamicsUnstructured_settings;
+  ::ad::physics::Distance valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_turning_radius(
+    -1e9);
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings.pedestrian_turning_radius
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_turning_radius;
+  ::ad::physics::Angle valueConstellationsElementObject_rss_dynamicsUnstructured_settingsDrive_away_max_angle(
+    -6.283185308);
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings.drive_away_max_angle
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsDrive_away_max_angle;
+  ::ad::physics::AngularAcceleration
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_yaw_rate_change(-1e2);
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings.vehicle_yaw_rate_change
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_yaw_rate_change;
+  ::ad::physics::Distance valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_min_radius(-1e9);
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings.vehicle_min_radius
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_min_radius;
+  ::ad::physics::Duration
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_trajectory_calculation_step(0.);
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings.vehicle_trajectory_calculation_step
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_trajectory_calculation_step;
+  uint32_t
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_front_intermediate_yaw_rate_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings
+    .vehicle_front_intermediate_yaw_rate_change_ratio_steps
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_front_intermediate_yaw_rate_change_ratio_steps;
+  uint32_t
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_back_intermediate_yaw_rate_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings
+    .vehicle_back_intermediate_yaw_rate_change_ratio_steps
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_back_intermediate_yaw_rate_change_ratio_steps;
+  uint32_t
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_brake_intermediate_acceleration_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings.vehicle_brake_intermediate_acceleration_steps
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_brake_intermediate_acceleration_steps;
+  uint32_t
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_acceleration_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings
+    .vehicle_continue_forward_intermediate_acceleration_steps
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_acceleration_steps;
+  uint32_t
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings
+    .vehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps;
+  uint32_t
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_heading_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings
+    .pedestrian_continue_forward_intermediate_heading_change_ratio_steps
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_heading_change_ratio_steps;
+  uint32_t
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_acceleration_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings
+    .pedestrian_continue_forward_intermediate_acceleration_steps
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_acceleration_steps;
+  uint32_t
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_brake_intermediate_acceleration_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings.pedestrian_brake_intermediate_acceleration_steps
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_brake_intermediate_acceleration_steps;
+  uint32_t
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_front_intermediate_heading_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings
+    .pedestrian_front_intermediate_heading_change_ratio_steps
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_front_intermediate_heading_change_ratio_steps;
+  uint32_t
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_back_intermediate_heading_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings
+    .pedestrian_back_intermediate_heading_change_ratio_steps
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_back_intermediate_heading_change_ratio_steps;
+  valueConstellationsElementObject_rss_dynamics.unstructured_settings
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settings;
+  ::ad::physics::Distance valueConstellationsElementObject_rss_dynamicsMin_longitudinal_safety_distance(-1e9);
+  valueConstellationsElementObject_rss_dynamics.min_longitudinal_safety_distance
+    = valueConstellationsElementObject_rss_dynamicsMin_longitudinal_safety_distance;
+  valueConstellationsElement.object_rss_dynamics = valueConstellationsElementObject_rss_dynamics;
+  ::ad::rss::world::RoadArea valueConstellationsElementIntersecting_road;
+  ::ad::rss::world::RoadSegment valueConstellationsElementIntersecting_roadElement;
+  ::ad::rss::world::RoadSegmentType valueConstellationsElementIntersecting_roadElementType(
+    ::ad::rss::world::RoadSegmentType::Normal);
+  valueConstellationsElementIntersecting_roadElement.type = valueConstellationsElementIntersecting_roadElementType;
+  ::ad::rss::world::LaneSegmentVector valueConstellationsElementIntersecting_roadElementLane_segments;
+  ::ad::rss::world::LaneSegment valueConstellationsElementIntersecting_roadElementLane_segmentsElement;
+  ::ad::rss::world::LaneSegmentId valueConstellationsElementIntersecting_roadElementLane_segmentsElementId(
     std::numeric_limits<::ad::rss::world::LaneSegmentId>::lowest());
-  valueScenesElementEgoVehicleRoadElementElement.id = valueScenesElementEgoVehicleRoadElementElementId;
-  ::ad::rss::world::LaneSegmentType valueScenesElementEgoVehicleRoadElementElementType(
-    ::ad::rss::world::LaneSegmentType::Normal);
-  valueScenesElementEgoVehicleRoadElementElement.type = valueScenesElementEgoVehicleRoadElementElementType;
-  ::ad::rss::world::LaneDrivingDirection valueScenesElementEgoVehicleRoadElementElementDrivingDirection(
-    ::ad::rss::world::LaneDrivingDirection::Bidirectional);
-  valueScenesElementEgoVehicleRoadElementElement.drivingDirection
-    = valueScenesElementEgoVehicleRoadElementElementDrivingDirection;
-  ::ad::physics::MetricRange valueScenesElementEgoVehicleRoadElementElementLength;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementLengthMinimum(-1e9);
-  valueScenesElementEgoVehicleRoadElementElementLengthMinimum
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElement.id
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementId;
+  ::ad::rss::world::LaneDrivingDirection
+    valueConstellationsElementIntersecting_roadElementLane_segmentsElementDriving_direction(
+      ::ad::rss::world::LaneDrivingDirection::Bidirectional);
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElement.driving_direction
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementDriving_direction;
+  ::ad::physics::MetricRange valueConstellationsElementIntersecting_roadElementLane_segmentsElementLength;
+  ::ad::physics::Distance valueConstellationsElementIntersecting_roadElementLane_segmentsElementLengthMinimum(-1e9);
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElementLengthMinimum
     = ::ad::physics::Distance(0.); // set to valid value within struct
-  valueScenesElementEgoVehicleRoadElementElementLength.minimum
-    = valueScenesElementEgoVehicleRoadElementElementLengthMinimum;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementLengthMaximum(-1e9);
-  valueScenesElementEgoVehicleRoadElementElementLength.maximum
-    = valueScenesElementEgoVehicleRoadElementElementLengthMaximum;
-  valueScenesElementEgoVehicleRoadElementElementLength.maximum
-    = valueScenesElementEgoVehicleRoadElementElementLength.minimum;
-  valueScenesElementEgoVehicleRoadElementElementLength.minimum
-    = valueScenesElementEgoVehicleRoadElementElementLength.maximum;
-  valueScenesElementEgoVehicleRoadElementElement.length = valueScenesElementEgoVehicleRoadElementElementLength;
-  ::ad::physics::MetricRange valueScenesElementEgoVehicleRoadElementElementWidth;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementWidthMinimum(-1e9);
-  valueScenesElementEgoVehicleRoadElementElementWidthMinimum
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElementLength.minimum
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementLengthMinimum;
+  ::ad::physics::Distance valueConstellationsElementIntersecting_roadElementLane_segmentsElementLengthMaximum(-1e9);
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElementLength.maximum
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementLengthMaximum;
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElementLength.maximum
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementLength.minimum;
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElementLength.minimum
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementLength.maximum;
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElement.length
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementLength;
+  ::ad::physics::MetricRange valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidth;
+  ::ad::physics::Distance valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidthMinimum(-1e9);
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidthMinimum
     = ::ad::physics::Distance(0.); // set to valid value within struct
-  valueScenesElementEgoVehicleRoadElementElementWidth.minimum
-    = valueScenesElementEgoVehicleRoadElementElementWidthMinimum;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementWidthMaximum(-1e9);
-  valueScenesElementEgoVehicleRoadElementElementWidth.maximum
-    = valueScenesElementEgoVehicleRoadElementElementWidthMaximum;
-  valueScenesElementEgoVehicleRoadElementElementWidth.maximum
-    = valueScenesElementEgoVehicleRoadElementElementWidth.minimum;
-  valueScenesElementEgoVehicleRoadElementElementWidth.minimum
-    = valueScenesElementEgoVehicleRoadElementElementWidth.maximum;
-  valueScenesElementEgoVehicleRoadElementElement.width = valueScenesElementEgoVehicleRoadElementElementWidth;
-  valueScenesElementEgoVehicleRoadElement.resize(1, valueScenesElementEgoVehicleRoadElementElement);
-  valueScenesElementEgoVehicleRoad.resize(1, valueScenesElementEgoVehicleRoadElement);
-  valueScenesElement.egoVehicleRoad = valueScenesElementEgoVehicleRoad;
-  valueScenes.resize(1, valueScenesElement);
-  value.scenes = valueScenes;
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidth.minimum
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidthMinimum;
+  ::ad::physics::Distance valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidthMaximum(-1e9);
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidth.maximum
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidthMaximum;
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidth.maximum
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidth.minimum;
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidth.minimum
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidth.maximum;
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElement.width
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidth;
+  valueConstellationsElementIntersecting_roadElementLane_segments.resize(
+    1, valueConstellationsElementIntersecting_roadElementLane_segmentsElement);
+  valueConstellationsElementIntersecting_roadElement.lane_segments
+    = valueConstellationsElementIntersecting_roadElementLane_segments;
+  ::ad::physics::Distance valueConstellationsElementIntersecting_roadElementMinimum_length_after_intersecting_area(
+    -1e9);
+  valueConstellationsElementIntersecting_roadElement.minimum_length_after_intersecting_area
+    = valueConstellationsElementIntersecting_roadElementMinimum_length_after_intersecting_area;
+  ::ad::physics::Distance valueConstellationsElementIntersecting_roadElementMinimum_length_before_intersecting_area(
+    -1e9);
+  valueConstellationsElementIntersecting_roadElement.minimum_length_before_intersecting_area
+    = valueConstellationsElementIntersecting_roadElementMinimum_length_before_intersecting_area;
+  valueConstellationsElementIntersecting_road.resize(1, valueConstellationsElementIntersecting_roadElement);
+  valueConstellationsElement.intersecting_road = valueConstellationsElementIntersecting_road;
+  ::ad::rss::world::RoadArea valueConstellationsElementEgo_vehicle_road;
+  ::ad::rss::world::RoadSegment valueConstellationsElementEgo_vehicle_roadElement;
+  ::ad::rss::world::RoadSegmentType valueConstellationsElementEgo_vehicle_roadElementType(
+    ::ad::rss::world::RoadSegmentType::Normal);
+  valueConstellationsElementEgo_vehicle_roadElement.type = valueConstellationsElementEgo_vehicle_roadElementType;
+  ::ad::rss::world::LaneSegmentVector valueConstellationsElementEgo_vehicle_roadElementLane_segments;
+  ::ad::rss::world::LaneSegment valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElement;
+  ::ad::rss::world::LaneSegmentId valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementId(
+    std::numeric_limits<::ad::rss::world::LaneSegmentId>::lowest());
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElement.id
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementId;
+  ::ad::rss::world::LaneDrivingDirection
+    valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementDriving_direction(
+      ::ad::rss::world::LaneDrivingDirection::Bidirectional);
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElement.driving_direction
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementDriving_direction;
+  ::ad::physics::MetricRange valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLength;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLengthMinimum(-1e9);
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLengthMinimum
+    = ::ad::physics::Distance(0.); // set to valid value within struct
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLength.minimum
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLengthMinimum;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLengthMaximum(-1e9);
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLength.maximum
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLengthMaximum;
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLength.maximum
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLength.minimum;
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLength.minimum
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLength.maximum;
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElement.length
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLength;
+  ::ad::physics::MetricRange valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidth;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidthMinimum(-1e9);
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidthMinimum
+    = ::ad::physics::Distance(0.); // set to valid value within struct
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidth.minimum
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidthMinimum;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidthMaximum(-1e9);
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidth.maximum
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidthMaximum;
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidth.maximum
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidth.minimum;
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidth.minimum
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidth.maximum;
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElement.width
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidth;
+  valueConstellationsElementEgo_vehicle_roadElementLane_segments.resize(
+    1, valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElement);
+  valueConstellationsElementEgo_vehicle_roadElement.lane_segments
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segments;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicle_roadElementMinimum_length_after_intersecting_area(-1e9);
+  valueConstellationsElementEgo_vehicle_roadElement.minimum_length_after_intersecting_area
+    = valueConstellationsElementEgo_vehicle_roadElementMinimum_length_after_intersecting_area;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicle_roadElementMinimum_length_before_intersecting_area(
+    -1e9);
+  valueConstellationsElementEgo_vehicle_roadElement.minimum_length_before_intersecting_area
+    = valueConstellationsElementEgo_vehicle_roadElementMinimum_length_before_intersecting_area;
+  valueConstellationsElementEgo_vehicle_road.resize(1, valueConstellationsElementEgo_vehicle_roadElement);
+  valueConstellationsElement.ego_vehicle_road = valueConstellationsElementEgo_vehicle_road;
+  valueConstellations.resize(1, valueConstellationsElement);
+  value.constellations = valueConstellations;
   ASSERT_TRUE(withinValidInputRange(value));
 }
 
-TEST(WorldModelValidInputRangeTests, testValidInputRangeDefaultEgoVehicleRssDynamicsTooSmall)
+TEST(WorldModelValidInputRangeTests, testValidInputRangeDefault_ego_vehicle_rss_dynamicsTooSmall)
 {
   ::ad::rss::world::WorldModel value;
-  ::ad::rss::world::TimeIndex valueTimeIndex(std::numeric_limits<::ad::rss::world::TimeIndex>::lowest());
-  valueTimeIndex = ::ad::rss::world::TimeIndex(1); // set to valid value within struct
-  value.timeIndex = valueTimeIndex;
-  ::ad::rss::world::RssDynamics valueDefaultEgoVehicleRssDynamics;
-  ::ad::rss::world::LongitudinalRssAccelerationValues valueDefaultEgoVehicleRssDynamicsAlphaLon;
-  ::ad::physics::Acceleration valueDefaultEgoVehicleRssDynamicsAlphaLonAccelMax(-1e2);
-  valueDefaultEgoVehicleRssDynamicsAlphaLonAccelMax
+  ::ad::rss::world::TimeIndex valueTime_index(std::numeric_limits<::ad::rss::world::TimeIndex>::lowest());
+  valueTime_index = ::ad::rss::world::TimeIndex(1); // set to valid value within struct
+  value.time_index = valueTime_index;
+  ::ad::rss::world::RssDynamics valueDefault_ego_vehicle_rss_dynamics;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueDefault_ego_vehicle_rss_dynamicsAlpha_lon;
+  ::ad::physics::Acceleration valueDefault_ego_vehicle_rss_dynamicsAlpha_lonAccel_max(-1e2);
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_lonAccel_max
     = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueDefaultEgoVehicleRssDynamicsAlphaLon.accelMax = valueDefaultEgoVehicleRssDynamicsAlphaLonAccelMax;
-  ::ad::physics::Acceleration valueDefaultEgoVehicleRssDynamicsAlphaLonBrakeMax(-1e2);
-  valueDefaultEgoVehicleRssDynamicsAlphaLon.brakeMax = valueDefaultEgoVehicleRssDynamicsAlphaLonBrakeMax;
-  ::ad::physics::Acceleration valueDefaultEgoVehicleRssDynamicsAlphaLonBrakeMin(-1e2);
-  valueDefaultEgoVehicleRssDynamicsAlphaLon.brakeMin = valueDefaultEgoVehicleRssDynamicsAlphaLonBrakeMin;
-  ::ad::physics::Acceleration valueDefaultEgoVehicleRssDynamicsAlphaLonBrakeMinCorrect(-1e2);
-  valueDefaultEgoVehicleRssDynamicsAlphaLon.brakeMinCorrect = valueDefaultEgoVehicleRssDynamicsAlphaLonBrakeMinCorrect;
-  valueDefaultEgoVehicleRssDynamicsAlphaLon.brakeMin = valueDefaultEgoVehicleRssDynamicsAlphaLon.brakeMax;
-  valueDefaultEgoVehicleRssDynamicsAlphaLon.brakeMinCorrect = valueDefaultEgoVehicleRssDynamicsAlphaLon.brakeMin;
-  valueDefaultEgoVehicleRssDynamicsAlphaLon.brakeMin = valueDefaultEgoVehicleRssDynamicsAlphaLon.brakeMinCorrect;
-  valueDefaultEgoVehicleRssDynamicsAlphaLon.brakeMax = valueDefaultEgoVehicleRssDynamicsAlphaLon.brakeMin;
-  valueDefaultEgoVehicleRssDynamics.alphaLon = valueDefaultEgoVehicleRssDynamicsAlphaLon;
-  ::ad::rss::world::LateralRssAccelerationValues valueDefaultEgoVehicleRssDynamicsAlphaLat;
-  ::ad::physics::Acceleration valueDefaultEgoVehicleRssDynamicsAlphaLatAccelMax(-1e2);
-  valueDefaultEgoVehicleRssDynamicsAlphaLatAccelMax
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.accel_max = valueDefault_ego_vehicle_rss_dynamicsAlpha_lonAccel_max;
+  ::ad::physics::Acceleration valueDefault_ego_vehicle_rss_dynamicsAlpha_lonBrake_max(-1e2);
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.brake_max = valueDefault_ego_vehicle_rss_dynamicsAlpha_lonBrake_max;
+  ::ad::physics::Acceleration valueDefault_ego_vehicle_rss_dynamicsAlpha_lonBrake_min(-1e2);
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.brake_min = valueDefault_ego_vehicle_rss_dynamicsAlpha_lonBrake_min;
+  ::ad::physics::Acceleration valueDefault_ego_vehicle_rss_dynamicsAlpha_lonBrake_min_correct(-1e2);
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.brake_min_correct
+    = valueDefault_ego_vehicle_rss_dynamicsAlpha_lonBrake_min_correct;
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.brake_min = valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.brake_max;
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.brake_min_correct
+    = valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.brake_min;
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.brake_min
+    = valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.brake_min_correct;
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.brake_max = valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.brake_min;
+  valueDefault_ego_vehicle_rss_dynamics.alpha_lon = valueDefault_ego_vehicle_rss_dynamicsAlpha_lon;
+  ::ad::rss::world::LateralRssAccelerationValues valueDefault_ego_vehicle_rss_dynamicsAlpha_lat;
+  ::ad::physics::Acceleration valueDefault_ego_vehicle_rss_dynamicsAlpha_latAccel_max(-1e2);
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_latAccel_max
     = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueDefaultEgoVehicleRssDynamicsAlphaLat.accelMax = valueDefaultEgoVehicleRssDynamicsAlphaLatAccelMax;
-  ::ad::physics::Acceleration valueDefaultEgoVehicleRssDynamicsAlphaLatBrakeMin(-1e2);
-  valueDefaultEgoVehicleRssDynamicsAlphaLat.brakeMin = valueDefaultEgoVehicleRssDynamicsAlphaLatBrakeMin;
-  valueDefaultEgoVehicleRssDynamics.alphaLat = valueDefaultEgoVehicleRssDynamicsAlphaLat;
-  ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsLateralFluctuationMargin(-1e9);
-  valueDefaultEgoVehicleRssDynamicsLateralFluctuationMargin
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_lat.accel_max = valueDefault_ego_vehicle_rss_dynamicsAlpha_latAccel_max;
+  ::ad::physics::Acceleration valueDefault_ego_vehicle_rss_dynamicsAlpha_latBrake_min(-1e2);
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_lat.brake_min = valueDefault_ego_vehicle_rss_dynamicsAlpha_latBrake_min;
+  valueDefault_ego_vehicle_rss_dynamics.alpha_lat = valueDefault_ego_vehicle_rss_dynamicsAlpha_lat;
+  ::ad::physics::Distance valueDefault_ego_vehicle_rss_dynamicsLateral_fluctuation_margin(-1e9);
+  valueDefault_ego_vehicle_rss_dynamicsLateral_fluctuation_margin
     = ::ad::physics::Distance(0.); // set to valid value within struct
-  valueDefaultEgoVehicleRssDynamics.lateralFluctuationMargin
-    = valueDefaultEgoVehicleRssDynamicsLateralFluctuationMargin;
-  ::ad::physics::Duration valueDefaultEgoVehicleRssDynamicsResponseTime(0.);
-  valueDefaultEgoVehicleRssDynamicsResponseTime
+  valueDefault_ego_vehicle_rss_dynamics.lateral_fluctuation_margin
+    = valueDefault_ego_vehicle_rss_dynamicsLateral_fluctuation_margin;
+  ::ad::physics::Duration valueDefault_ego_vehicle_rss_dynamicsResponse_time(0.);
+  valueDefault_ego_vehicle_rss_dynamicsResponse_time
     = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
-  valueDefaultEgoVehicleRssDynamics.responseTime = valueDefaultEgoVehicleRssDynamicsResponseTime;
-  ::ad::physics::Speed valueDefaultEgoVehicleRssDynamicsMaxSpeedOnAcceleration(-100.);
-  valueDefaultEgoVehicleRssDynamics.maxSpeedOnAcceleration = valueDefaultEgoVehicleRssDynamicsMaxSpeedOnAcceleration;
-  ::ad::rss::world::UnstructuredSettings valueDefaultEgoVehicleRssDynamicsUnstructuredSettings;
-  ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius(-1e9);
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianTurningRadius
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius;
-  ::ad::physics::Angle valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.driveAwayMaxAngle
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsDriveAwayMaxAngle;
-  ::ad::physics::AngularAcceleration valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleYawRateChange(-1e2);
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleYawRateChange
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleYawRateChange;
-  ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius(-1e9);
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleMinRadius
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius;
-  ::ad::physics::Duration valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
-  uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleFrontIntermediateYawRateChangeRatioSteps
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps;
-  uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleBackIntermediateYawRateChangeRatioSteps
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps;
-  uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
-  uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
-  uint32_t
-    valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps{
-      std::numeric_limits<uint32_t>::min()};
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateYawRateChangeRatioSteps
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps;
-  uint32_t
-    valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps{
-      std::numeric_limits<uint32_t>::min()};
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps;
-  uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianContinueForwardIntermediateAccelerationSteps
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps;
-  uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianBrakeIntermediateAccelerationSteps
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps;
-  uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianFrontIntermediateHeadingChangeRatioSteps
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps;
-  uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianBackIntermediateHeadingChangeRatioSteps
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps;
-  valueDefaultEgoVehicleRssDynamics.unstructuredSettings = valueDefaultEgoVehicleRssDynamicsUnstructuredSettings;
-  value.defaultEgoVehicleRssDynamics = valueDefaultEgoVehicleRssDynamics;
-  ::ad::rss::world::SceneVector valueScenes;
-  ::ad::rss::world::Scene valueScenesElement;
-  ::ad::rss::situation::SituationType valueScenesElementSituationType(::ad::rss::situation::SituationType::NotRelevant);
-  valueScenesElement.situationType = valueScenesElementSituationType;
-  ::ad::rss::world::Object valueScenesElementEgoVehicle;
-  ::ad::rss::world::ObjectId valueScenesElementEgoVehicleObjectId(
-    std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
-  valueScenesElementEgoVehicle.objectId = valueScenesElementEgoVehicleObjectId;
-  ::ad::rss::world::ObjectType valueScenesElementEgoVehicleObjectType(::ad::rss::world::ObjectType::Invalid);
-  valueScenesElementEgoVehicle.objectType = valueScenesElementEgoVehicleObjectType;
-  ::ad::rss::world::OccupiedRegionVector valueScenesElementEgoVehicleOccupiedRegions;
-  ::ad::rss::world::OccupiedRegion valueScenesElementEgoVehicleOccupiedRegionsElement;
-  ::ad::rss::world::LaneSegmentId valueScenesElementEgoVehicleOccupiedRegionsElementSegmentId(
-    std::numeric_limits<::ad::rss::world::LaneSegmentId>::lowest());
-  valueScenesElementEgoVehicleOccupiedRegionsElement.segmentId
-    = valueScenesElementEgoVehicleOccupiedRegionsElementSegmentId;
-  ::ad::physics::ParametricRange valueScenesElementEgoVehicleOccupiedRegionsElementLonRange;
-  ::ad::physics::ParametricValue valueScenesElementEgoVehicleOccupiedRegionsElementLonRangeMinimum(0.);
-  valueScenesElementEgoVehicleOccupiedRegionsElementLonRange.minimum
-    = valueScenesElementEgoVehicleOccupiedRegionsElementLonRangeMinimum;
-  ::ad::physics::ParametricValue valueScenesElementEgoVehicleOccupiedRegionsElementLonRangeMaximum(0.);
-  valueScenesElementEgoVehicleOccupiedRegionsElementLonRange.maximum
-    = valueScenesElementEgoVehicleOccupiedRegionsElementLonRangeMaximum;
-  valueScenesElementEgoVehicleOccupiedRegionsElementLonRange.maximum
-    = valueScenesElementEgoVehicleOccupiedRegionsElementLonRange.minimum;
-  valueScenesElementEgoVehicleOccupiedRegionsElementLonRange.minimum
-    = valueScenesElementEgoVehicleOccupiedRegionsElementLonRange.maximum;
-  valueScenesElementEgoVehicleOccupiedRegionsElement.lonRange
-    = valueScenesElementEgoVehicleOccupiedRegionsElementLonRange;
-  ::ad::physics::ParametricRange valueScenesElementEgoVehicleOccupiedRegionsElementLatRange;
-  ::ad::physics::ParametricValue valueScenesElementEgoVehicleOccupiedRegionsElementLatRangeMinimum(0.);
-  valueScenesElementEgoVehicleOccupiedRegionsElementLatRange.minimum
-    = valueScenesElementEgoVehicleOccupiedRegionsElementLatRangeMinimum;
-  ::ad::physics::ParametricValue valueScenesElementEgoVehicleOccupiedRegionsElementLatRangeMaximum(0.);
-  valueScenesElementEgoVehicleOccupiedRegionsElementLatRange.maximum
-    = valueScenesElementEgoVehicleOccupiedRegionsElementLatRangeMaximum;
-  valueScenesElementEgoVehicleOccupiedRegionsElementLatRange.maximum
-    = valueScenesElementEgoVehicleOccupiedRegionsElementLatRange.minimum;
-  valueScenesElementEgoVehicleOccupiedRegionsElementLatRange.minimum
-    = valueScenesElementEgoVehicleOccupiedRegionsElementLatRange.maximum;
-  valueScenesElementEgoVehicleOccupiedRegionsElement.latRange
-    = valueScenesElementEgoVehicleOccupiedRegionsElementLatRange;
-  valueScenesElementEgoVehicleOccupiedRegions.resize(1, valueScenesElementEgoVehicleOccupiedRegionsElement);
-  valueScenesElementEgoVehicle.occupiedRegions = valueScenesElementEgoVehicleOccupiedRegions;
-  ::ad::rss::world::Velocity valueScenesElementEgoVehicleVelocity;
-  ::ad::physics::Speed valueScenesElementEgoVehicleVelocitySpeedLonMin(-100.);
-  valueScenesElementEgoVehicleVelocitySpeedLonMin = ::ad::physics::Speed(0.); // set to valid value within struct
-  valueScenesElementEgoVehicleVelocity.speedLonMin = valueScenesElementEgoVehicleVelocitySpeedLonMin;
-  ::ad::physics::Speed valueScenesElementEgoVehicleVelocitySpeedLonMax(-100.);
-  valueScenesElementEgoVehicleVelocity.speedLonMax = valueScenesElementEgoVehicleVelocitySpeedLonMax;
-  ::ad::physics::Speed valueScenesElementEgoVehicleVelocitySpeedLatMin(-100.);
-  valueScenesElementEgoVehicleVelocity.speedLatMin = valueScenesElementEgoVehicleVelocitySpeedLatMin;
-  ::ad::physics::Speed valueScenesElementEgoVehicleVelocitySpeedLatMax(-100.);
-  valueScenesElementEgoVehicleVelocity.speedLatMax = valueScenesElementEgoVehicleVelocitySpeedLatMax;
-  valueScenesElementEgoVehicleVelocity.speedLonMax = valueScenesElementEgoVehicleVelocity.speedLonMin;
-  valueScenesElementEgoVehicleVelocity.speedLatMax = valueScenesElementEgoVehicleVelocity.speedLatMin;
-  valueScenesElementEgoVehicleVelocity.speedLonMin = valueScenesElementEgoVehicleVelocity.speedLonMax;
-  valueScenesElementEgoVehicleVelocity.speedLatMin = valueScenesElementEgoVehicleVelocity.speedLatMax;
-  valueScenesElementEgoVehicle.velocity = valueScenesElementEgoVehicleVelocity;
-  ::ad::rss::world::ObjectState valueScenesElementEgoVehicleState;
-  ::ad::physics::Angle valueScenesElementEgoVehicleStateYaw(-6.283185308);
-  valueScenesElementEgoVehicleState.yaw = valueScenesElementEgoVehicleStateYaw;
-  ::ad::physics::Dimension2D valueScenesElementEgoVehicleStateDimension;
-  ::ad::physics::Distance valueScenesElementEgoVehicleStateDimensionLength(-1e9);
-  valueScenesElementEgoVehicleStateDimension.length = valueScenesElementEgoVehicleStateDimensionLength;
-  ::ad::physics::Distance valueScenesElementEgoVehicleStateDimensionWidth(-1e9);
-  valueScenesElementEgoVehicleStateDimension.width = valueScenesElementEgoVehicleStateDimensionWidth;
-  valueScenesElementEgoVehicleState.dimension = valueScenesElementEgoVehicleStateDimension;
-  ::ad::physics::AngularVelocity valueScenesElementEgoVehicleStateYawRate(-100.);
-  valueScenesElementEgoVehicleState.yawRate = valueScenesElementEgoVehicleStateYawRate;
-  ::ad::physics::Distance2D valueScenesElementEgoVehicleStateCenterPoint;
-  ::ad::physics::Distance valueScenesElementEgoVehicleStateCenterPointX(-1e9);
-  valueScenesElementEgoVehicleStateCenterPoint.x = valueScenesElementEgoVehicleStateCenterPointX;
-  ::ad::physics::Distance valueScenesElementEgoVehicleStateCenterPointY(-1e9);
-  valueScenesElementEgoVehicleStateCenterPoint.y = valueScenesElementEgoVehicleStateCenterPointY;
-  valueScenesElementEgoVehicleState.centerPoint = valueScenesElementEgoVehicleStateCenterPoint;
-  ::ad::physics::Speed valueScenesElementEgoVehicleStateSpeed(-100.);
-  valueScenesElementEgoVehicleState.speed = valueScenesElementEgoVehicleStateSpeed;
-  ::ad::physics::Angle valueScenesElementEgoVehicleStateSteeringAngle(-6.283185308);
-  valueScenesElementEgoVehicleState.steeringAngle = valueScenesElementEgoVehicleStateSteeringAngle;
-  valueScenesElementEgoVehicle.state = valueScenesElementEgoVehicleState;
-  valueScenesElement.egoVehicle = valueScenesElementEgoVehicle;
-  ::ad::rss::world::RssDynamics valueScenesElementEgoVehicleRssDynamics;
-  ::ad::rss::world::LongitudinalRssAccelerationValues valueScenesElementEgoVehicleRssDynamicsAlphaLon;
-  ::ad::physics::Acceleration valueScenesElementEgoVehicleRssDynamicsAlphaLonAccelMax(-1e2);
-  valueScenesElementEgoVehicleRssDynamicsAlphaLonAccelMax
-    = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueScenesElementEgoVehicleRssDynamicsAlphaLon.accelMax = valueScenesElementEgoVehicleRssDynamicsAlphaLonAccelMax;
-  ::ad::physics::Acceleration valueScenesElementEgoVehicleRssDynamicsAlphaLonBrakeMax(-1e2);
-  valueScenesElementEgoVehicleRssDynamicsAlphaLon.brakeMax = valueScenesElementEgoVehicleRssDynamicsAlphaLonBrakeMax;
-  ::ad::physics::Acceleration valueScenesElementEgoVehicleRssDynamicsAlphaLonBrakeMin(-1e2);
-  valueScenesElementEgoVehicleRssDynamicsAlphaLon.brakeMin = valueScenesElementEgoVehicleRssDynamicsAlphaLonBrakeMin;
-  ::ad::physics::Acceleration valueScenesElementEgoVehicleRssDynamicsAlphaLonBrakeMinCorrect(-1e2);
-  valueScenesElementEgoVehicleRssDynamicsAlphaLon.brakeMinCorrect
-    = valueScenesElementEgoVehicleRssDynamicsAlphaLonBrakeMinCorrect;
-  valueScenesElementEgoVehicleRssDynamicsAlphaLon.brakeMin = valueScenesElementEgoVehicleRssDynamicsAlphaLon.brakeMax;
-  valueScenesElementEgoVehicleRssDynamicsAlphaLon.brakeMinCorrect
-    = valueScenesElementEgoVehicleRssDynamicsAlphaLon.brakeMin;
-  valueScenesElementEgoVehicleRssDynamicsAlphaLon.brakeMin
-    = valueScenesElementEgoVehicleRssDynamicsAlphaLon.brakeMinCorrect;
-  valueScenesElementEgoVehicleRssDynamicsAlphaLon.brakeMax = valueScenesElementEgoVehicleRssDynamicsAlphaLon.brakeMin;
-  valueScenesElementEgoVehicleRssDynamics.alphaLon = valueScenesElementEgoVehicleRssDynamicsAlphaLon;
-  ::ad::rss::world::LateralRssAccelerationValues valueScenesElementEgoVehicleRssDynamicsAlphaLat;
-  ::ad::physics::Acceleration valueScenesElementEgoVehicleRssDynamicsAlphaLatAccelMax(-1e2);
-  valueScenesElementEgoVehicleRssDynamicsAlphaLatAccelMax
-    = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueScenesElementEgoVehicleRssDynamicsAlphaLat.accelMax = valueScenesElementEgoVehicleRssDynamicsAlphaLatAccelMax;
-  ::ad::physics::Acceleration valueScenesElementEgoVehicleRssDynamicsAlphaLatBrakeMin(-1e2);
-  valueScenesElementEgoVehicleRssDynamicsAlphaLat.brakeMin = valueScenesElementEgoVehicleRssDynamicsAlphaLatBrakeMin;
-  valueScenesElementEgoVehicleRssDynamics.alphaLat = valueScenesElementEgoVehicleRssDynamicsAlphaLat;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRssDynamicsLateralFluctuationMargin(-1e9);
-  valueScenesElementEgoVehicleRssDynamicsLateralFluctuationMargin
-    = ::ad::physics::Distance(0.); // set to valid value within struct
-  valueScenesElementEgoVehicleRssDynamics.lateralFluctuationMargin
-    = valueScenesElementEgoVehicleRssDynamicsLateralFluctuationMargin;
-  ::ad::physics::Duration valueScenesElementEgoVehicleRssDynamicsResponseTime(0.);
-  valueScenesElementEgoVehicleRssDynamicsResponseTime
-    = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
-  valueScenesElementEgoVehicleRssDynamics.responseTime = valueScenesElementEgoVehicleRssDynamicsResponseTime;
-  ::ad::physics::Speed valueScenesElementEgoVehicleRssDynamicsMaxSpeedOnAcceleration(-100.);
-  valueScenesElementEgoVehicleRssDynamics.maxSpeedOnAcceleration
-    = valueScenesElementEgoVehicleRssDynamicsMaxSpeedOnAcceleration;
-  ::ad::rss::world::UnstructuredSettings valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius(-1e9);
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.pedestrianTurningRadius
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius;
-  ::ad::physics::Angle valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.driveAwayMaxAngle
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsDriveAwayMaxAngle;
-  ::ad::physics::AngularAcceleration valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleYawRateChange(
+  valueDefault_ego_vehicle_rss_dynamics.response_time = valueDefault_ego_vehicle_rss_dynamicsResponse_time;
+  ::ad::physics::Speed valueDefault_ego_vehicle_rss_dynamicsMax_speed_on_acceleration(-100.);
+  valueDefault_ego_vehicle_rss_dynamics.max_speed_on_acceleration
+    = valueDefault_ego_vehicle_rss_dynamicsMax_speed_on_acceleration;
+  ::ad::rss::world::UnstructuredSettings valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings;
+  ::ad::physics::Distance valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_turning_radius(-1e9);
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.pedestrian_turning_radius
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_turning_radius;
+  ::ad::physics::Angle valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsDrive_away_max_angle(-6.283185308);
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.drive_away_max_angle
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsDrive_away_max_angle;
+  ::ad::physics::AngularAcceleration valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_yaw_rate_change(
     -1e2);
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleYawRateChange
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleYawRateChange;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius(-1e9);
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleMinRadius
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius;
-  ::ad::physics::Duration valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.vehicle_yaw_rate_change
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_yaw_rate_change;
+  ::ad::physics::Distance valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_min_radius(-1e9);
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.vehicle_min_radius
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_min_radius;
+  ::ad::physics::Duration valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_trajectory_calculation_step(
     0.);
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
-  uint32_t valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleFrontIntermediateYawRateChangeRatioSteps
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps;
-  uint32_t valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleBackIntermediateYawRateChangeRatioSteps
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps;
-  uint32_t valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.vehicle_trajectory_calculation_step
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_trajectory_calculation_step;
   uint32_t
-    valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
+    valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_front_intermediate_yaw_rate_change_ratio_steps{
       std::numeric_limits<uint32_t>::min()};
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.vehicle_front_intermediate_yaw_rate_change_ratio_steps
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_front_intermediate_yaw_rate_change_ratio_steps;
   uint32_t
-    valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps{
+    valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_back_intermediate_yaw_rate_change_ratio_steps{
       std::numeric_limits<uint32_t>::min()};
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateYawRateChangeRatioSteps
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps;
-  uint32_t
-    valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps{
-      std::numeric_limits<uint32_t>::min()};
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings
-    .pedestrianContinueForwardIntermediateHeadingChangeRatioSteps
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps;
-  uint32_t
-    valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps{
-      std::numeric_limits<uint32_t>::min()};
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.pedestrianContinueForwardIntermediateAccelerationSteps
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps;
-  uint32_t valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps{
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.vehicle_back_intermediate_yaw_rate_change_ratio_steps
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_back_intermediate_yaw_rate_change_ratio_steps;
+  uint32_t valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_brake_intermediate_acceleration_steps{
     std::numeric_limits<uint32_t>::min()};
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.pedestrianBrakeIntermediateAccelerationSteps
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps;
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.vehicle_brake_intermediate_acceleration_steps
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_brake_intermediate_acceleration_steps;
   uint32_t
-    valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps{
+    valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_acceleration_steps{
       std::numeric_limits<uint32_t>::min()};
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.pedestrianFrontIntermediateHeadingChangeRatioSteps
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps;
-  uint32_t valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps{
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.vehicle_continue_forward_intermediate_acceleration_steps
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_acceleration_steps;
+  uint32_t
+    valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings
+    .vehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps;
+  uint32_t
+    valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_heading_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings
+    .pedestrian_continue_forward_intermediate_heading_change_ratio_steps
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_heading_change_ratio_steps;
+  uint32_t
+    valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_acceleration_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.pedestrian_continue_forward_intermediate_acceleration_steps
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_acceleration_steps;
+  uint32_t valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_brake_intermediate_acceleration_steps{
     std::numeric_limits<uint32_t>::min()};
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.pedestrianBackIntermediateHeadingChangeRatioSteps
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps;
-  valueScenesElementEgoVehicleRssDynamics.unstructuredSettings
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings;
-  valueScenesElement.egoVehicleRssDynamics = valueScenesElementEgoVehicleRssDynamics;
-  ::ad::rss::world::Object valueScenesElementObject;
-  ::ad::rss::world::ObjectId valueScenesElementObjectObjectId(
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.pedestrian_brake_intermediate_acceleration_steps
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_brake_intermediate_acceleration_steps;
+  uint32_t
+    valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_front_intermediate_heading_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.pedestrian_front_intermediate_heading_change_ratio_steps
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_front_intermediate_heading_change_ratio_steps;
+  uint32_t
+    valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_back_intermediate_heading_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.pedestrian_back_intermediate_heading_change_ratio_steps
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_back_intermediate_heading_change_ratio_steps;
+  valueDefault_ego_vehicle_rss_dynamics.unstructured_settings
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings;
+  ::ad::physics::Distance valueDefault_ego_vehicle_rss_dynamicsMin_longitudinal_safety_distance(-1e9);
+  valueDefault_ego_vehicle_rss_dynamics.min_longitudinal_safety_distance
+    = valueDefault_ego_vehicle_rss_dynamicsMin_longitudinal_safety_distance;
+  value.default_ego_vehicle_rss_dynamics = valueDefault_ego_vehicle_rss_dynamics;
+  ::ad::rss::world::ConstellationVector valueConstellations;
+  ::ad::rss::world::Constellation valueConstellationsElement;
+  ::ad::rss::world::ConstellationType valueConstellationsElementConstellation_type(
+    ::ad::rss::world::ConstellationType::NotRelevant);
+  valueConstellationsElement.constellation_type = valueConstellationsElementConstellation_type;
+  ::ad::rss::world::Object valueConstellationsElementEgo_vehicle;
+  ::ad::rss::world::ObjectId valueConstellationsElementEgo_vehicleObject_id(
     std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
-  valueScenesElementObject.objectId = valueScenesElementObjectObjectId;
-  ::ad::rss::world::ObjectType valueScenesElementObjectObjectType(::ad::rss::world::ObjectType::Invalid);
-  valueScenesElementObject.objectType = valueScenesElementObjectObjectType;
-  ::ad::rss::world::OccupiedRegionVector valueScenesElementObjectOccupiedRegions;
-  ::ad::rss::world::OccupiedRegion valueScenesElementObjectOccupiedRegionsElement;
-  ::ad::rss::world::LaneSegmentId valueScenesElementObjectOccupiedRegionsElementSegmentId(
+  valueConstellationsElementEgo_vehicle.object_id = valueConstellationsElementEgo_vehicleObject_id;
+  ::ad::rss::world::ObjectType valueConstellationsElementEgo_vehicleObject_type(::ad::rss::world::ObjectType::Invalid);
+  valueConstellationsElementEgo_vehicle.object_type = valueConstellationsElementEgo_vehicleObject_type;
+  ::ad::rss::world::OccupiedRegionVector valueConstellationsElementEgo_vehicleOccupied_regions;
+  ::ad::rss::world::OccupiedRegion valueConstellationsElementEgo_vehicleOccupied_regionsElement;
+  ::ad::rss::world::LaneSegmentId valueConstellationsElementEgo_vehicleOccupied_regionsElementSegment_id(
     std::numeric_limits<::ad::rss::world::LaneSegmentId>::lowest());
-  valueScenesElementObjectOccupiedRegionsElement.segmentId = valueScenesElementObjectOccupiedRegionsElementSegmentId;
-  ::ad::physics::ParametricRange valueScenesElementObjectOccupiedRegionsElementLonRange;
-  ::ad::physics::ParametricValue valueScenesElementObjectOccupiedRegionsElementLonRangeMinimum(0.);
-  valueScenesElementObjectOccupiedRegionsElementLonRange.minimum
-    = valueScenesElementObjectOccupiedRegionsElementLonRangeMinimum;
-  ::ad::physics::ParametricValue valueScenesElementObjectOccupiedRegionsElementLonRangeMaximum(0.);
-  valueScenesElementObjectOccupiedRegionsElementLonRange.maximum
-    = valueScenesElementObjectOccupiedRegionsElementLonRangeMaximum;
-  valueScenesElementObjectOccupiedRegionsElementLonRange.maximum
-    = valueScenesElementObjectOccupiedRegionsElementLonRange.minimum;
-  valueScenesElementObjectOccupiedRegionsElementLonRange.minimum
-    = valueScenesElementObjectOccupiedRegionsElementLonRange.maximum;
-  valueScenesElementObjectOccupiedRegionsElement.lonRange = valueScenesElementObjectOccupiedRegionsElementLonRange;
-  ::ad::physics::ParametricRange valueScenesElementObjectOccupiedRegionsElementLatRange;
-  ::ad::physics::ParametricValue valueScenesElementObjectOccupiedRegionsElementLatRangeMinimum(0.);
-  valueScenesElementObjectOccupiedRegionsElementLatRange.minimum
-    = valueScenesElementObjectOccupiedRegionsElementLatRangeMinimum;
-  ::ad::physics::ParametricValue valueScenesElementObjectOccupiedRegionsElementLatRangeMaximum(0.);
-  valueScenesElementObjectOccupiedRegionsElementLatRange.maximum
-    = valueScenesElementObjectOccupiedRegionsElementLatRangeMaximum;
-  valueScenesElementObjectOccupiedRegionsElementLatRange.maximum
-    = valueScenesElementObjectOccupiedRegionsElementLatRange.minimum;
-  valueScenesElementObjectOccupiedRegionsElementLatRange.minimum
-    = valueScenesElementObjectOccupiedRegionsElementLatRange.maximum;
-  valueScenesElementObjectOccupiedRegionsElement.latRange = valueScenesElementObjectOccupiedRegionsElementLatRange;
-  valueScenesElementObjectOccupiedRegions.resize(1, valueScenesElementObjectOccupiedRegionsElement);
-  valueScenesElementObject.occupiedRegions = valueScenesElementObjectOccupiedRegions;
-  ::ad::rss::world::Velocity valueScenesElementObjectVelocity;
-  ::ad::physics::Speed valueScenesElementObjectVelocitySpeedLonMin(-100.);
-  valueScenesElementObjectVelocitySpeedLonMin = ::ad::physics::Speed(0.); // set to valid value within struct
-  valueScenesElementObjectVelocity.speedLonMin = valueScenesElementObjectVelocitySpeedLonMin;
-  ::ad::physics::Speed valueScenesElementObjectVelocitySpeedLonMax(-100.);
-  valueScenesElementObjectVelocity.speedLonMax = valueScenesElementObjectVelocitySpeedLonMax;
-  ::ad::physics::Speed valueScenesElementObjectVelocitySpeedLatMin(-100.);
-  valueScenesElementObjectVelocity.speedLatMin = valueScenesElementObjectVelocitySpeedLatMin;
-  ::ad::physics::Speed valueScenesElementObjectVelocitySpeedLatMax(-100.);
-  valueScenesElementObjectVelocity.speedLatMax = valueScenesElementObjectVelocitySpeedLatMax;
-  valueScenesElementObjectVelocity.speedLonMax = valueScenesElementObjectVelocity.speedLonMin;
-  valueScenesElementObjectVelocity.speedLatMax = valueScenesElementObjectVelocity.speedLatMin;
-  valueScenesElementObjectVelocity.speedLonMin = valueScenesElementObjectVelocity.speedLonMax;
-  valueScenesElementObjectVelocity.speedLatMin = valueScenesElementObjectVelocity.speedLatMax;
-  valueScenesElementObject.velocity = valueScenesElementObjectVelocity;
-  ::ad::rss::world::ObjectState valueScenesElementObjectState;
-  ::ad::physics::Angle valueScenesElementObjectStateYaw(-6.283185308);
-  valueScenesElementObjectState.yaw = valueScenesElementObjectStateYaw;
-  ::ad::physics::Dimension2D valueScenesElementObjectStateDimension;
-  ::ad::physics::Distance valueScenesElementObjectStateDimensionLength(-1e9);
-  valueScenesElementObjectStateDimension.length = valueScenesElementObjectStateDimensionLength;
-  ::ad::physics::Distance valueScenesElementObjectStateDimensionWidth(-1e9);
-  valueScenesElementObjectStateDimension.width = valueScenesElementObjectStateDimensionWidth;
-  valueScenesElementObjectState.dimension = valueScenesElementObjectStateDimension;
-  ::ad::physics::AngularVelocity valueScenesElementObjectStateYawRate(-100.);
-  valueScenesElementObjectState.yawRate = valueScenesElementObjectStateYawRate;
-  ::ad::physics::Distance2D valueScenesElementObjectStateCenterPoint;
-  ::ad::physics::Distance valueScenesElementObjectStateCenterPointX(-1e9);
-  valueScenesElementObjectStateCenterPoint.x = valueScenesElementObjectStateCenterPointX;
-  ::ad::physics::Distance valueScenesElementObjectStateCenterPointY(-1e9);
-  valueScenesElementObjectStateCenterPoint.y = valueScenesElementObjectStateCenterPointY;
-  valueScenesElementObjectState.centerPoint = valueScenesElementObjectStateCenterPoint;
-  ::ad::physics::Speed valueScenesElementObjectStateSpeed(-100.);
-  valueScenesElementObjectState.speed = valueScenesElementObjectStateSpeed;
-  ::ad::physics::Angle valueScenesElementObjectStateSteeringAngle(-6.283185308);
-  valueScenesElementObjectState.steeringAngle = valueScenesElementObjectStateSteeringAngle;
-  valueScenesElementObject.state = valueScenesElementObjectState;
-  valueScenesElement.object = valueScenesElementObject;
-  ::ad::rss::world::RssDynamics valueScenesElementObjectRssDynamics;
-  ::ad::rss::world::LongitudinalRssAccelerationValues valueScenesElementObjectRssDynamicsAlphaLon;
-  ::ad::physics::Acceleration valueScenesElementObjectRssDynamicsAlphaLonAccelMax(-1e2);
-  valueScenesElementObjectRssDynamicsAlphaLonAccelMax
+  valueConstellationsElementEgo_vehicleOccupied_regionsElement.segment_id
+    = valueConstellationsElementEgo_vehicleOccupied_regionsElementSegment_id;
+  ::ad::physics::ParametricRange valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_range;
+  ::ad::physics::ParametricValue valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_rangeMinimum(0.);
+  valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_range.minimum
+    = valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_rangeMinimum;
+  ::ad::physics::ParametricValue valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_rangeMaximum(0.);
+  valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_range.maximum
+    = valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_rangeMaximum;
+  valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_range.maximum
+    = valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_range.minimum;
+  valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_range.minimum
+    = valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_range.maximum;
+  valueConstellationsElementEgo_vehicleOccupied_regionsElement.lon_range
+    = valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_range;
+  ::ad::physics::ParametricRange valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_range;
+  ::ad::physics::ParametricValue valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_rangeMinimum(0.);
+  valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_range.minimum
+    = valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_rangeMinimum;
+  ::ad::physics::ParametricValue valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_rangeMaximum(0.);
+  valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_range.maximum
+    = valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_rangeMaximum;
+  valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_range.maximum
+    = valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_range.minimum;
+  valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_range.minimum
+    = valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_range.maximum;
+  valueConstellationsElementEgo_vehicleOccupied_regionsElement.lat_range
+    = valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_range;
+  valueConstellationsElementEgo_vehicleOccupied_regions.resize(
+    1, valueConstellationsElementEgo_vehicleOccupied_regionsElement);
+  valueConstellationsElementEgo_vehicle.occupied_regions = valueConstellationsElementEgo_vehicleOccupied_regions;
+  ::ad::rss::world::Velocity valueConstellationsElementEgo_vehicleVelocity;
+  ::ad::physics::Speed valueConstellationsElementEgo_vehicleVelocitySpeed_lon_min(-100.);
+  valueConstellationsElementEgo_vehicleVelocitySpeed_lon_min
+    = ::ad::physics::Speed(0.); // set to valid value within struct
+  valueConstellationsElementEgo_vehicleVelocity.speed_lon_min
+    = valueConstellationsElementEgo_vehicleVelocitySpeed_lon_min;
+  ::ad::physics::Speed valueConstellationsElementEgo_vehicleVelocitySpeed_lon_max(-100.);
+  valueConstellationsElementEgo_vehicleVelocity.speed_lon_max
+    = valueConstellationsElementEgo_vehicleVelocitySpeed_lon_max;
+  ::ad::physics::Speed valueConstellationsElementEgo_vehicleVelocitySpeed_lat_min(-100.);
+  valueConstellationsElementEgo_vehicleVelocity.speed_lat_min
+    = valueConstellationsElementEgo_vehicleVelocitySpeed_lat_min;
+  ::ad::physics::Speed valueConstellationsElementEgo_vehicleVelocitySpeed_lat_max(-100.);
+  valueConstellationsElementEgo_vehicleVelocity.speed_lat_max
+    = valueConstellationsElementEgo_vehicleVelocitySpeed_lat_max;
+  valueConstellationsElementEgo_vehicleVelocity.speed_lon_max
+    = valueConstellationsElementEgo_vehicleVelocity.speed_lon_min;
+  valueConstellationsElementEgo_vehicleVelocity.speed_lat_max
+    = valueConstellationsElementEgo_vehicleVelocity.speed_lat_min;
+  valueConstellationsElementEgo_vehicleVelocity.speed_lon_min
+    = valueConstellationsElementEgo_vehicleVelocity.speed_lon_max;
+  valueConstellationsElementEgo_vehicleVelocity.speed_lat_min
+    = valueConstellationsElementEgo_vehicleVelocity.speed_lat_max;
+  valueConstellationsElementEgo_vehicle.velocity = valueConstellationsElementEgo_vehicleVelocity;
+  ::ad::rss::world::ObjectState valueConstellationsElementEgo_vehicleState;
+  ::ad::physics::Angle valueConstellationsElementEgo_vehicleStateYaw(-6.283185308);
+  valueConstellationsElementEgo_vehicleState.yaw = valueConstellationsElementEgo_vehicleStateYaw;
+  ::ad::physics::Dimension2D valueConstellationsElementEgo_vehicleStateDimension;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicleStateDimensionLength(-1e9);
+  valueConstellationsElementEgo_vehicleStateDimension.length
+    = valueConstellationsElementEgo_vehicleStateDimensionLength;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicleStateDimensionWidth(-1e9);
+  valueConstellationsElementEgo_vehicleStateDimension.width = valueConstellationsElementEgo_vehicleStateDimensionWidth;
+  valueConstellationsElementEgo_vehicleState.dimension = valueConstellationsElementEgo_vehicleStateDimension;
+  ::ad::physics::AngularVelocity valueConstellationsElementEgo_vehicleStateYaw_rate(-100.);
+  valueConstellationsElementEgo_vehicleState.yaw_rate = valueConstellationsElementEgo_vehicleStateYaw_rate;
+  ::ad::physics::Distance2D valueConstellationsElementEgo_vehicleStateCenter_point;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicleStateCenter_pointX(-1e9);
+  valueConstellationsElementEgo_vehicleStateCenter_point.x = valueConstellationsElementEgo_vehicleStateCenter_pointX;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicleStateCenter_pointY(-1e9);
+  valueConstellationsElementEgo_vehicleStateCenter_point.y = valueConstellationsElementEgo_vehicleStateCenter_pointY;
+  valueConstellationsElementEgo_vehicleState.center_point = valueConstellationsElementEgo_vehicleStateCenter_point;
+  ::ad::physics::SpeedRange valueConstellationsElementEgo_vehicleStateSpeed_range;
+  ::ad::physics::Speed valueConstellationsElementEgo_vehicleStateSpeed_rangeMinimum(-100.);
+  valueConstellationsElementEgo_vehicleStateSpeed_range.minimum
+    = valueConstellationsElementEgo_vehicleStateSpeed_rangeMinimum;
+  ::ad::physics::Speed valueConstellationsElementEgo_vehicleStateSpeed_rangeMaximum(-100.);
+  valueConstellationsElementEgo_vehicleStateSpeed_range.maximum
+    = valueConstellationsElementEgo_vehicleStateSpeed_rangeMaximum;
+  valueConstellationsElementEgo_vehicleStateSpeed_range.maximum
+    = valueConstellationsElementEgo_vehicleStateSpeed_range.minimum;
+  valueConstellationsElementEgo_vehicleStateSpeed_range.minimum
+    = valueConstellationsElementEgo_vehicleStateSpeed_range.maximum;
+  valueConstellationsElementEgo_vehicleState.speed_range = valueConstellationsElementEgo_vehicleStateSpeed_range;
+  ::ad::physics::Angle valueConstellationsElementEgo_vehicleStateSteering_angle(-6.283185308);
+  valueConstellationsElementEgo_vehicleState.steering_angle = valueConstellationsElementEgo_vehicleStateSteering_angle;
+  valueConstellationsElementEgo_vehicle.state = valueConstellationsElementEgo_vehicleState;
+  valueConstellationsElement.ego_vehicle = valueConstellationsElementEgo_vehicle;
+  ::ad::rss::world::RssDynamics valueConstellationsElementEgo_vehicle_rss_dynamics;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon;
+  ::ad::physics::Acceleration valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lonAccel_max(-1e2);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lonAccel_max
     = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueScenesElementObjectRssDynamicsAlphaLon.accelMax = valueScenesElementObjectRssDynamicsAlphaLonAccelMax;
-  ::ad::physics::Acceleration valueScenesElementObjectRssDynamicsAlphaLonBrakeMax(-1e2);
-  valueScenesElementObjectRssDynamicsAlphaLon.brakeMax = valueScenesElementObjectRssDynamicsAlphaLonBrakeMax;
-  ::ad::physics::Acceleration valueScenesElementObjectRssDynamicsAlphaLonBrakeMin(-1e2);
-  valueScenesElementObjectRssDynamicsAlphaLon.brakeMin = valueScenesElementObjectRssDynamicsAlphaLonBrakeMin;
-  ::ad::physics::Acceleration valueScenesElementObjectRssDynamicsAlphaLonBrakeMinCorrect(-1e2);
-  valueScenesElementObjectRssDynamicsAlphaLon.brakeMinCorrect
-    = valueScenesElementObjectRssDynamicsAlphaLonBrakeMinCorrect;
-  valueScenesElementObjectRssDynamicsAlphaLon.brakeMin = valueScenesElementObjectRssDynamicsAlphaLon.brakeMax;
-  valueScenesElementObjectRssDynamicsAlphaLon.brakeMinCorrect = valueScenesElementObjectRssDynamicsAlphaLon.brakeMin;
-  valueScenesElementObjectRssDynamicsAlphaLon.brakeMin = valueScenesElementObjectRssDynamicsAlphaLon.brakeMinCorrect;
-  valueScenesElementObjectRssDynamicsAlphaLon.brakeMax = valueScenesElementObjectRssDynamicsAlphaLon.brakeMin;
-  valueScenesElementObjectRssDynamics.alphaLon = valueScenesElementObjectRssDynamicsAlphaLon;
-  ::ad::rss::world::LateralRssAccelerationValues valueScenesElementObjectRssDynamicsAlphaLat;
-  ::ad::physics::Acceleration valueScenesElementObjectRssDynamicsAlphaLatAccelMax(-1e2);
-  valueScenesElementObjectRssDynamicsAlphaLatAccelMax
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.accel_max
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lonAccel_max;
+  ::ad::physics::Acceleration valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lonBrake_max(-1e2);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.brake_max
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lonBrake_max;
+  ::ad::physics::Acceleration valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lonBrake_min(-1e2);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.brake_min
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lonBrake_min;
+  ::ad::physics::Acceleration valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lonBrake_min_correct(-1e2);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.brake_min_correct
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lonBrake_min_correct;
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.brake_min
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.brake_max;
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.brake_min_correct
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.brake_min;
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.brake_min
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.brake_min_correct;
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.brake_max
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.brake_min;
+  valueConstellationsElementEgo_vehicle_rss_dynamics.alpha_lon
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon;
+  ::ad::rss::world::LateralRssAccelerationValues valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lat;
+  ::ad::physics::Acceleration valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_latAccel_max(-1e2);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_latAccel_max
     = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueScenesElementObjectRssDynamicsAlphaLat.accelMax = valueScenesElementObjectRssDynamicsAlphaLatAccelMax;
-  ::ad::physics::Acceleration valueScenesElementObjectRssDynamicsAlphaLatBrakeMin(-1e2);
-  valueScenesElementObjectRssDynamicsAlphaLat.brakeMin = valueScenesElementObjectRssDynamicsAlphaLatBrakeMin;
-  valueScenesElementObjectRssDynamics.alphaLat = valueScenesElementObjectRssDynamicsAlphaLat;
-  ::ad::physics::Distance valueScenesElementObjectRssDynamicsLateralFluctuationMargin(-1e9);
-  valueScenesElementObjectRssDynamicsLateralFluctuationMargin
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lat.accel_max
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_latAccel_max;
+  ::ad::physics::Acceleration valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_latBrake_min(-1e2);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lat.brake_min
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_latBrake_min;
+  valueConstellationsElementEgo_vehicle_rss_dynamics.alpha_lat
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lat;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicle_rss_dynamicsLateral_fluctuation_margin(-1e9);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsLateral_fluctuation_margin
     = ::ad::physics::Distance(0.); // set to valid value within struct
-  valueScenesElementObjectRssDynamics.lateralFluctuationMargin
-    = valueScenesElementObjectRssDynamicsLateralFluctuationMargin;
-  ::ad::physics::Duration valueScenesElementObjectRssDynamicsResponseTime(0.);
-  valueScenesElementObjectRssDynamicsResponseTime
+  valueConstellationsElementEgo_vehicle_rss_dynamics.lateral_fluctuation_margin
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsLateral_fluctuation_margin;
+  ::ad::physics::Duration valueConstellationsElementEgo_vehicle_rss_dynamicsResponse_time(0.);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsResponse_time
     = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
-  valueScenesElementObjectRssDynamics.responseTime = valueScenesElementObjectRssDynamicsResponseTime;
-  ::ad::physics::Speed valueScenesElementObjectRssDynamicsMaxSpeedOnAcceleration(-100.);
-  valueScenesElementObjectRssDynamics.maxSpeedOnAcceleration
-    = valueScenesElementObjectRssDynamicsMaxSpeedOnAcceleration;
-  ::ad::rss::world::UnstructuredSettings valueScenesElementObjectRssDynamicsUnstructuredSettings;
-  ::ad::physics::Distance valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianTurningRadius(-1e9);
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.pedestrianTurningRadius
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianTurningRadius;
-  ::ad::physics::Angle valueScenesElementObjectRssDynamicsUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.driveAwayMaxAngle
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsDriveAwayMaxAngle;
-  ::ad::physics::AngularAcceleration valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleYawRateChange(-1e2);
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleYawRateChange
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleYawRateChange;
-  ::ad::physics::Distance valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleMinRadius(-1e9);
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleMinRadius
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleMinRadius;
-  ::ad::physics::Duration valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
-  uint32_t valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleFrontIntermediateYawRateChangeRatioSteps
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps;
-  uint32_t valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleBackIntermediateYawRateChangeRatioSteps
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps;
-  uint32_t valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
-  uint32_t valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
+  valueConstellationsElementEgo_vehicle_rss_dynamics.response_time
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsResponse_time;
+  ::ad::physics::Speed valueConstellationsElementEgo_vehicle_rss_dynamicsMax_speed_on_acceleration(-100.);
+  valueConstellationsElementEgo_vehicle_rss_dynamics.max_speed_on_acceleration
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsMax_speed_on_acceleration;
+  ::ad::rss::world::UnstructuredSettings valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings;
+  ::ad::physics::Distance
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_turning_radius(-1e9);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings.pedestrian_turning_radius
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_turning_radius;
+  ::ad::physics::Angle valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsDrive_away_max_angle(
+    -6.283185308);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings.drive_away_max_angle
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsDrive_away_max_angle;
+  ::ad::physics::AngularAcceleration
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_yaw_rate_change(-1e2);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings.vehicle_yaw_rate_change
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_yaw_rate_change;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_min_radius(
+    -1e9);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings.vehicle_min_radius
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_min_radius;
+  ::ad::physics::Duration
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_trajectory_calculation_step(0.);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings.vehicle_trajectory_calculation_step
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_trajectory_calculation_step;
   uint32_t
-    valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps{
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_front_intermediate_yaw_rate_change_ratio_steps{
       std::numeric_limits<uint32_t>::min()};
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateYawRateChangeRatioSteps
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps;
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings
+    .vehicle_front_intermediate_yaw_rate_change_ratio_steps
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_front_intermediate_yaw_rate_change_ratio_steps;
   uint32_t
-    valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps{
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_back_intermediate_yaw_rate_change_ratio_steps{
       std::numeric_limits<uint32_t>::min()};
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps;
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings
+    .vehicle_back_intermediate_yaw_rate_change_ratio_steps
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_back_intermediate_yaw_rate_change_ratio_steps;
   uint32_t
-    valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps{
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_brake_intermediate_acceleration_steps{
       std::numeric_limits<uint32_t>::min()};
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.pedestrianContinueForwardIntermediateAccelerationSteps
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps;
-  uint32_t valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.pedestrianBrakeIntermediateAccelerationSteps
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps;
-  uint32_t valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.pedestrianFrontIntermediateHeadingChangeRatioSteps
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps;
-  uint32_t valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.pedestrianBackIntermediateHeadingChangeRatioSteps
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps;
-  valueScenesElementObjectRssDynamics.unstructuredSettings = valueScenesElementObjectRssDynamicsUnstructuredSettings;
-  valueScenesElement.objectRssDynamics = valueScenesElementObjectRssDynamics;
-  ::ad::rss::world::RoadArea valueScenesElementIntersectingRoad;
-  ::ad::rss::world::RoadSegment valueScenesElementIntersectingRoadElement;
-  ::ad::rss::world::LaneSegment valueScenesElementIntersectingRoadElementElement;
-  ::ad::rss::world::LaneSegmentId valueScenesElementIntersectingRoadElementElementId(
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings.vehicle_brake_intermediate_acceleration_steps
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_brake_intermediate_acceleration_steps;
+  uint32_t
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_acceleration_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings
+    .vehicle_continue_forward_intermediate_acceleration_steps
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_acceleration_steps;
+  uint32_t
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings
+    .vehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps;
+  uint32_t
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_heading_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings
+    .pedestrian_continue_forward_intermediate_heading_change_ratio_steps
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_heading_change_ratio_steps;
+  uint32_t
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_acceleration_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings
+    .pedestrian_continue_forward_intermediate_acceleration_steps
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_acceleration_steps;
+  uint32_t
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_brake_intermediate_acceleration_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings
+    .pedestrian_brake_intermediate_acceleration_steps
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_brake_intermediate_acceleration_steps;
+  uint32_t
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_front_intermediate_heading_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings
+    .pedestrian_front_intermediate_heading_change_ratio_steps
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_front_intermediate_heading_change_ratio_steps;
+  uint32_t
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_back_intermediate_heading_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings
+    .pedestrian_back_intermediate_heading_change_ratio_steps
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_back_intermediate_heading_change_ratio_steps;
+  valueConstellationsElementEgo_vehicle_rss_dynamics.unstructured_settings
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicle_rss_dynamicsMin_longitudinal_safety_distance(-1e9);
+  valueConstellationsElementEgo_vehicle_rss_dynamics.min_longitudinal_safety_distance
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsMin_longitudinal_safety_distance;
+  valueConstellationsElement.ego_vehicle_rss_dynamics = valueConstellationsElementEgo_vehicle_rss_dynamics;
+  ::ad::rss::world::Object valueConstellationsElementObject;
+  ::ad::rss::world::ObjectId valueConstellationsElementObjectObject_id(
+    std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  valueConstellationsElementObject.object_id = valueConstellationsElementObjectObject_id;
+  ::ad::rss::world::ObjectType valueConstellationsElementObjectObject_type(::ad::rss::world::ObjectType::Invalid);
+  valueConstellationsElementObject.object_type = valueConstellationsElementObjectObject_type;
+  ::ad::rss::world::OccupiedRegionVector valueConstellationsElementObjectOccupied_regions;
+  ::ad::rss::world::OccupiedRegion valueConstellationsElementObjectOccupied_regionsElement;
+  ::ad::rss::world::LaneSegmentId valueConstellationsElementObjectOccupied_regionsElementSegment_id(
     std::numeric_limits<::ad::rss::world::LaneSegmentId>::lowest());
-  valueScenesElementIntersectingRoadElementElement.id = valueScenesElementIntersectingRoadElementElementId;
-  ::ad::rss::world::LaneSegmentType valueScenesElementIntersectingRoadElementElementType(
-    ::ad::rss::world::LaneSegmentType::Normal);
-  valueScenesElementIntersectingRoadElementElement.type = valueScenesElementIntersectingRoadElementElementType;
-  ::ad::rss::world::LaneDrivingDirection valueScenesElementIntersectingRoadElementElementDrivingDirection(
-    ::ad::rss::world::LaneDrivingDirection::Bidirectional);
-  valueScenesElementIntersectingRoadElementElement.drivingDirection
-    = valueScenesElementIntersectingRoadElementElementDrivingDirection;
-  ::ad::physics::MetricRange valueScenesElementIntersectingRoadElementElementLength;
-  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementLengthMinimum(-1e9);
-  valueScenesElementIntersectingRoadElementElementLengthMinimum
+  valueConstellationsElementObjectOccupied_regionsElement.segment_id
+    = valueConstellationsElementObjectOccupied_regionsElementSegment_id;
+  ::ad::physics::ParametricRange valueConstellationsElementObjectOccupied_regionsElementLon_range;
+  ::ad::physics::ParametricValue valueConstellationsElementObjectOccupied_regionsElementLon_rangeMinimum(0.);
+  valueConstellationsElementObjectOccupied_regionsElementLon_range.minimum
+    = valueConstellationsElementObjectOccupied_regionsElementLon_rangeMinimum;
+  ::ad::physics::ParametricValue valueConstellationsElementObjectOccupied_regionsElementLon_rangeMaximum(0.);
+  valueConstellationsElementObjectOccupied_regionsElementLon_range.maximum
+    = valueConstellationsElementObjectOccupied_regionsElementLon_rangeMaximum;
+  valueConstellationsElementObjectOccupied_regionsElementLon_range.maximum
+    = valueConstellationsElementObjectOccupied_regionsElementLon_range.minimum;
+  valueConstellationsElementObjectOccupied_regionsElementLon_range.minimum
+    = valueConstellationsElementObjectOccupied_regionsElementLon_range.maximum;
+  valueConstellationsElementObjectOccupied_regionsElement.lon_range
+    = valueConstellationsElementObjectOccupied_regionsElementLon_range;
+  ::ad::physics::ParametricRange valueConstellationsElementObjectOccupied_regionsElementLat_range;
+  ::ad::physics::ParametricValue valueConstellationsElementObjectOccupied_regionsElementLat_rangeMinimum(0.);
+  valueConstellationsElementObjectOccupied_regionsElementLat_range.minimum
+    = valueConstellationsElementObjectOccupied_regionsElementLat_rangeMinimum;
+  ::ad::physics::ParametricValue valueConstellationsElementObjectOccupied_regionsElementLat_rangeMaximum(0.);
+  valueConstellationsElementObjectOccupied_regionsElementLat_range.maximum
+    = valueConstellationsElementObjectOccupied_regionsElementLat_rangeMaximum;
+  valueConstellationsElementObjectOccupied_regionsElementLat_range.maximum
+    = valueConstellationsElementObjectOccupied_regionsElementLat_range.minimum;
+  valueConstellationsElementObjectOccupied_regionsElementLat_range.minimum
+    = valueConstellationsElementObjectOccupied_regionsElementLat_range.maximum;
+  valueConstellationsElementObjectOccupied_regionsElement.lat_range
+    = valueConstellationsElementObjectOccupied_regionsElementLat_range;
+  valueConstellationsElementObjectOccupied_regions.resize(1, valueConstellationsElementObjectOccupied_regionsElement);
+  valueConstellationsElementObject.occupied_regions = valueConstellationsElementObjectOccupied_regions;
+  ::ad::rss::world::Velocity valueConstellationsElementObjectVelocity;
+  ::ad::physics::Speed valueConstellationsElementObjectVelocitySpeed_lon_min(-100.);
+  valueConstellationsElementObjectVelocitySpeed_lon_min = ::ad::physics::Speed(0.); // set to valid value within struct
+  valueConstellationsElementObjectVelocity.speed_lon_min = valueConstellationsElementObjectVelocitySpeed_lon_min;
+  ::ad::physics::Speed valueConstellationsElementObjectVelocitySpeed_lon_max(-100.);
+  valueConstellationsElementObjectVelocity.speed_lon_max = valueConstellationsElementObjectVelocitySpeed_lon_max;
+  ::ad::physics::Speed valueConstellationsElementObjectVelocitySpeed_lat_min(-100.);
+  valueConstellationsElementObjectVelocity.speed_lat_min = valueConstellationsElementObjectVelocitySpeed_lat_min;
+  ::ad::physics::Speed valueConstellationsElementObjectVelocitySpeed_lat_max(-100.);
+  valueConstellationsElementObjectVelocity.speed_lat_max = valueConstellationsElementObjectVelocitySpeed_lat_max;
+  valueConstellationsElementObjectVelocity.speed_lon_max = valueConstellationsElementObjectVelocity.speed_lon_min;
+  valueConstellationsElementObjectVelocity.speed_lat_max = valueConstellationsElementObjectVelocity.speed_lat_min;
+  valueConstellationsElementObjectVelocity.speed_lon_min = valueConstellationsElementObjectVelocity.speed_lon_max;
+  valueConstellationsElementObjectVelocity.speed_lat_min = valueConstellationsElementObjectVelocity.speed_lat_max;
+  valueConstellationsElementObject.velocity = valueConstellationsElementObjectVelocity;
+  ::ad::rss::world::ObjectState valueConstellationsElementObjectState;
+  ::ad::physics::Angle valueConstellationsElementObjectStateYaw(-6.283185308);
+  valueConstellationsElementObjectState.yaw = valueConstellationsElementObjectStateYaw;
+  ::ad::physics::Dimension2D valueConstellationsElementObjectStateDimension;
+  ::ad::physics::Distance valueConstellationsElementObjectStateDimensionLength(-1e9);
+  valueConstellationsElementObjectStateDimension.length = valueConstellationsElementObjectStateDimensionLength;
+  ::ad::physics::Distance valueConstellationsElementObjectStateDimensionWidth(-1e9);
+  valueConstellationsElementObjectStateDimension.width = valueConstellationsElementObjectStateDimensionWidth;
+  valueConstellationsElementObjectState.dimension = valueConstellationsElementObjectStateDimension;
+  ::ad::physics::AngularVelocity valueConstellationsElementObjectStateYaw_rate(-100.);
+  valueConstellationsElementObjectState.yaw_rate = valueConstellationsElementObjectStateYaw_rate;
+  ::ad::physics::Distance2D valueConstellationsElementObjectStateCenter_point;
+  ::ad::physics::Distance valueConstellationsElementObjectStateCenter_pointX(-1e9);
+  valueConstellationsElementObjectStateCenter_point.x = valueConstellationsElementObjectStateCenter_pointX;
+  ::ad::physics::Distance valueConstellationsElementObjectStateCenter_pointY(-1e9);
+  valueConstellationsElementObjectStateCenter_point.y = valueConstellationsElementObjectStateCenter_pointY;
+  valueConstellationsElementObjectState.center_point = valueConstellationsElementObjectStateCenter_point;
+  ::ad::physics::SpeedRange valueConstellationsElementObjectStateSpeed_range;
+  ::ad::physics::Speed valueConstellationsElementObjectStateSpeed_rangeMinimum(-100.);
+  valueConstellationsElementObjectStateSpeed_range.minimum = valueConstellationsElementObjectStateSpeed_rangeMinimum;
+  ::ad::physics::Speed valueConstellationsElementObjectStateSpeed_rangeMaximum(-100.);
+  valueConstellationsElementObjectStateSpeed_range.maximum = valueConstellationsElementObjectStateSpeed_rangeMaximum;
+  valueConstellationsElementObjectStateSpeed_range.maximum = valueConstellationsElementObjectStateSpeed_range.minimum;
+  valueConstellationsElementObjectStateSpeed_range.minimum = valueConstellationsElementObjectStateSpeed_range.maximum;
+  valueConstellationsElementObjectState.speed_range = valueConstellationsElementObjectStateSpeed_range;
+  ::ad::physics::Angle valueConstellationsElementObjectStateSteering_angle(-6.283185308);
+  valueConstellationsElementObjectState.steering_angle = valueConstellationsElementObjectStateSteering_angle;
+  valueConstellationsElementObject.state = valueConstellationsElementObjectState;
+  valueConstellationsElement.object = valueConstellationsElementObject;
+  ::ad::rss::world::RssDynamics valueConstellationsElementObject_rss_dynamics;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueConstellationsElementObject_rss_dynamicsAlpha_lon;
+  ::ad::physics::Acceleration valueConstellationsElementObject_rss_dynamicsAlpha_lonAccel_max(-1e2);
+  valueConstellationsElementObject_rss_dynamicsAlpha_lonAccel_max
+    = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueConstellationsElementObject_rss_dynamicsAlpha_lon.accel_max
+    = valueConstellationsElementObject_rss_dynamicsAlpha_lonAccel_max;
+  ::ad::physics::Acceleration valueConstellationsElementObject_rss_dynamicsAlpha_lonBrake_max(-1e2);
+  valueConstellationsElementObject_rss_dynamicsAlpha_lon.brake_max
+    = valueConstellationsElementObject_rss_dynamicsAlpha_lonBrake_max;
+  ::ad::physics::Acceleration valueConstellationsElementObject_rss_dynamicsAlpha_lonBrake_min(-1e2);
+  valueConstellationsElementObject_rss_dynamicsAlpha_lon.brake_min
+    = valueConstellationsElementObject_rss_dynamicsAlpha_lonBrake_min;
+  ::ad::physics::Acceleration valueConstellationsElementObject_rss_dynamicsAlpha_lonBrake_min_correct(-1e2);
+  valueConstellationsElementObject_rss_dynamicsAlpha_lon.brake_min_correct
+    = valueConstellationsElementObject_rss_dynamicsAlpha_lonBrake_min_correct;
+  valueConstellationsElementObject_rss_dynamicsAlpha_lon.brake_min
+    = valueConstellationsElementObject_rss_dynamicsAlpha_lon.brake_max;
+  valueConstellationsElementObject_rss_dynamicsAlpha_lon.brake_min_correct
+    = valueConstellationsElementObject_rss_dynamicsAlpha_lon.brake_min;
+  valueConstellationsElementObject_rss_dynamicsAlpha_lon.brake_min
+    = valueConstellationsElementObject_rss_dynamicsAlpha_lon.brake_min_correct;
+  valueConstellationsElementObject_rss_dynamicsAlpha_lon.brake_max
+    = valueConstellationsElementObject_rss_dynamicsAlpha_lon.brake_min;
+  valueConstellationsElementObject_rss_dynamics.alpha_lon = valueConstellationsElementObject_rss_dynamicsAlpha_lon;
+  ::ad::rss::world::LateralRssAccelerationValues valueConstellationsElementObject_rss_dynamicsAlpha_lat;
+  ::ad::physics::Acceleration valueConstellationsElementObject_rss_dynamicsAlpha_latAccel_max(-1e2);
+  valueConstellationsElementObject_rss_dynamicsAlpha_latAccel_max
+    = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueConstellationsElementObject_rss_dynamicsAlpha_lat.accel_max
+    = valueConstellationsElementObject_rss_dynamicsAlpha_latAccel_max;
+  ::ad::physics::Acceleration valueConstellationsElementObject_rss_dynamicsAlpha_latBrake_min(-1e2);
+  valueConstellationsElementObject_rss_dynamicsAlpha_lat.brake_min
+    = valueConstellationsElementObject_rss_dynamicsAlpha_latBrake_min;
+  valueConstellationsElementObject_rss_dynamics.alpha_lat = valueConstellationsElementObject_rss_dynamicsAlpha_lat;
+  ::ad::physics::Distance valueConstellationsElementObject_rss_dynamicsLateral_fluctuation_margin(-1e9);
+  valueConstellationsElementObject_rss_dynamicsLateral_fluctuation_margin
     = ::ad::physics::Distance(0.); // set to valid value within struct
-  valueScenesElementIntersectingRoadElementElementLength.minimum
-    = valueScenesElementIntersectingRoadElementElementLengthMinimum;
-  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementLengthMaximum(-1e9);
-  valueScenesElementIntersectingRoadElementElementLength.maximum
-    = valueScenesElementIntersectingRoadElementElementLengthMaximum;
-  valueScenesElementIntersectingRoadElementElementLength.maximum
-    = valueScenesElementIntersectingRoadElementElementLength.minimum;
-  valueScenesElementIntersectingRoadElementElementLength.minimum
-    = valueScenesElementIntersectingRoadElementElementLength.maximum;
-  valueScenesElementIntersectingRoadElementElement.length = valueScenesElementIntersectingRoadElementElementLength;
-  ::ad::physics::MetricRange valueScenesElementIntersectingRoadElementElementWidth;
-  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementWidthMinimum(-1e9);
-  valueScenesElementIntersectingRoadElementElementWidthMinimum
-    = ::ad::physics::Distance(0.); // set to valid value within struct
-  valueScenesElementIntersectingRoadElementElementWidth.minimum
-    = valueScenesElementIntersectingRoadElementElementWidthMinimum;
-  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementWidthMaximum(-1e9);
-  valueScenesElementIntersectingRoadElementElementWidth.maximum
-    = valueScenesElementIntersectingRoadElementElementWidthMaximum;
-  valueScenesElementIntersectingRoadElementElementWidth.maximum
-    = valueScenesElementIntersectingRoadElementElementWidth.minimum;
-  valueScenesElementIntersectingRoadElementElementWidth.minimum
-    = valueScenesElementIntersectingRoadElementElementWidth.maximum;
-  valueScenesElementIntersectingRoadElementElement.width = valueScenesElementIntersectingRoadElementElementWidth;
-  valueScenesElementIntersectingRoadElement.resize(1, valueScenesElementIntersectingRoadElementElement);
-  valueScenesElementIntersectingRoad.resize(1, valueScenesElementIntersectingRoadElement);
-  valueScenesElement.intersectingRoad = valueScenesElementIntersectingRoad;
-  ::ad::rss::world::RoadArea valueScenesElementEgoVehicleRoad;
-  ::ad::rss::world::RoadSegment valueScenesElementEgoVehicleRoadElement;
-  ::ad::rss::world::LaneSegment valueScenesElementEgoVehicleRoadElementElement;
-  ::ad::rss::world::LaneSegmentId valueScenesElementEgoVehicleRoadElementElementId(
+  valueConstellationsElementObject_rss_dynamics.lateral_fluctuation_margin
+    = valueConstellationsElementObject_rss_dynamicsLateral_fluctuation_margin;
+  ::ad::physics::Duration valueConstellationsElementObject_rss_dynamicsResponse_time(0.);
+  valueConstellationsElementObject_rss_dynamicsResponse_time
+    = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
+  valueConstellationsElementObject_rss_dynamics.response_time
+    = valueConstellationsElementObject_rss_dynamicsResponse_time;
+  ::ad::physics::Speed valueConstellationsElementObject_rss_dynamicsMax_speed_on_acceleration(-100.);
+  valueConstellationsElementObject_rss_dynamics.max_speed_on_acceleration
+    = valueConstellationsElementObject_rss_dynamicsMax_speed_on_acceleration;
+  ::ad::rss::world::UnstructuredSettings valueConstellationsElementObject_rss_dynamicsUnstructured_settings;
+  ::ad::physics::Distance valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_turning_radius(
+    -1e9);
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings.pedestrian_turning_radius
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_turning_radius;
+  ::ad::physics::Angle valueConstellationsElementObject_rss_dynamicsUnstructured_settingsDrive_away_max_angle(
+    -6.283185308);
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings.drive_away_max_angle
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsDrive_away_max_angle;
+  ::ad::physics::AngularAcceleration
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_yaw_rate_change(-1e2);
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings.vehicle_yaw_rate_change
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_yaw_rate_change;
+  ::ad::physics::Distance valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_min_radius(-1e9);
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings.vehicle_min_radius
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_min_radius;
+  ::ad::physics::Duration
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_trajectory_calculation_step(0.);
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings.vehicle_trajectory_calculation_step
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_trajectory_calculation_step;
+  uint32_t
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_front_intermediate_yaw_rate_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings
+    .vehicle_front_intermediate_yaw_rate_change_ratio_steps
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_front_intermediate_yaw_rate_change_ratio_steps;
+  uint32_t
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_back_intermediate_yaw_rate_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings
+    .vehicle_back_intermediate_yaw_rate_change_ratio_steps
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_back_intermediate_yaw_rate_change_ratio_steps;
+  uint32_t
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_brake_intermediate_acceleration_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings.vehicle_brake_intermediate_acceleration_steps
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_brake_intermediate_acceleration_steps;
+  uint32_t
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_acceleration_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings
+    .vehicle_continue_forward_intermediate_acceleration_steps
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_acceleration_steps;
+  uint32_t
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings
+    .vehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps;
+  uint32_t
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_heading_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings
+    .pedestrian_continue_forward_intermediate_heading_change_ratio_steps
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_heading_change_ratio_steps;
+  uint32_t
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_acceleration_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings
+    .pedestrian_continue_forward_intermediate_acceleration_steps
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_acceleration_steps;
+  uint32_t
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_brake_intermediate_acceleration_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings.pedestrian_brake_intermediate_acceleration_steps
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_brake_intermediate_acceleration_steps;
+  uint32_t
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_front_intermediate_heading_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings
+    .pedestrian_front_intermediate_heading_change_ratio_steps
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_front_intermediate_heading_change_ratio_steps;
+  uint32_t
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_back_intermediate_heading_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings
+    .pedestrian_back_intermediate_heading_change_ratio_steps
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_back_intermediate_heading_change_ratio_steps;
+  valueConstellationsElementObject_rss_dynamics.unstructured_settings
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settings;
+  ::ad::physics::Distance valueConstellationsElementObject_rss_dynamicsMin_longitudinal_safety_distance(-1e9);
+  valueConstellationsElementObject_rss_dynamics.min_longitudinal_safety_distance
+    = valueConstellationsElementObject_rss_dynamicsMin_longitudinal_safety_distance;
+  valueConstellationsElement.object_rss_dynamics = valueConstellationsElementObject_rss_dynamics;
+  ::ad::rss::world::RoadArea valueConstellationsElementIntersecting_road;
+  ::ad::rss::world::RoadSegment valueConstellationsElementIntersecting_roadElement;
+  ::ad::rss::world::RoadSegmentType valueConstellationsElementIntersecting_roadElementType(
+    ::ad::rss::world::RoadSegmentType::Normal);
+  valueConstellationsElementIntersecting_roadElement.type = valueConstellationsElementIntersecting_roadElementType;
+  ::ad::rss::world::LaneSegmentVector valueConstellationsElementIntersecting_roadElementLane_segments;
+  ::ad::rss::world::LaneSegment valueConstellationsElementIntersecting_roadElementLane_segmentsElement;
+  ::ad::rss::world::LaneSegmentId valueConstellationsElementIntersecting_roadElementLane_segmentsElementId(
     std::numeric_limits<::ad::rss::world::LaneSegmentId>::lowest());
-  valueScenesElementEgoVehicleRoadElementElement.id = valueScenesElementEgoVehicleRoadElementElementId;
-  ::ad::rss::world::LaneSegmentType valueScenesElementEgoVehicleRoadElementElementType(
-    ::ad::rss::world::LaneSegmentType::Normal);
-  valueScenesElementEgoVehicleRoadElementElement.type = valueScenesElementEgoVehicleRoadElementElementType;
-  ::ad::rss::world::LaneDrivingDirection valueScenesElementEgoVehicleRoadElementElementDrivingDirection(
-    ::ad::rss::world::LaneDrivingDirection::Bidirectional);
-  valueScenesElementEgoVehicleRoadElementElement.drivingDirection
-    = valueScenesElementEgoVehicleRoadElementElementDrivingDirection;
-  ::ad::physics::MetricRange valueScenesElementEgoVehicleRoadElementElementLength;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementLengthMinimum(-1e9);
-  valueScenesElementEgoVehicleRoadElementElementLengthMinimum
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElement.id
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementId;
+  ::ad::rss::world::LaneDrivingDirection
+    valueConstellationsElementIntersecting_roadElementLane_segmentsElementDriving_direction(
+      ::ad::rss::world::LaneDrivingDirection::Bidirectional);
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElement.driving_direction
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementDriving_direction;
+  ::ad::physics::MetricRange valueConstellationsElementIntersecting_roadElementLane_segmentsElementLength;
+  ::ad::physics::Distance valueConstellationsElementIntersecting_roadElementLane_segmentsElementLengthMinimum(-1e9);
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElementLengthMinimum
     = ::ad::physics::Distance(0.); // set to valid value within struct
-  valueScenesElementEgoVehicleRoadElementElementLength.minimum
-    = valueScenesElementEgoVehicleRoadElementElementLengthMinimum;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementLengthMaximum(-1e9);
-  valueScenesElementEgoVehicleRoadElementElementLength.maximum
-    = valueScenesElementEgoVehicleRoadElementElementLengthMaximum;
-  valueScenesElementEgoVehicleRoadElementElementLength.maximum
-    = valueScenesElementEgoVehicleRoadElementElementLength.minimum;
-  valueScenesElementEgoVehicleRoadElementElementLength.minimum
-    = valueScenesElementEgoVehicleRoadElementElementLength.maximum;
-  valueScenesElementEgoVehicleRoadElementElement.length = valueScenesElementEgoVehicleRoadElementElementLength;
-  ::ad::physics::MetricRange valueScenesElementEgoVehicleRoadElementElementWidth;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementWidthMinimum(-1e9);
-  valueScenesElementEgoVehicleRoadElementElementWidthMinimum
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElementLength.minimum
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementLengthMinimum;
+  ::ad::physics::Distance valueConstellationsElementIntersecting_roadElementLane_segmentsElementLengthMaximum(-1e9);
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElementLength.maximum
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementLengthMaximum;
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElementLength.maximum
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementLength.minimum;
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElementLength.minimum
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementLength.maximum;
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElement.length
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementLength;
+  ::ad::physics::MetricRange valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidth;
+  ::ad::physics::Distance valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidthMinimum(-1e9);
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidthMinimum
     = ::ad::physics::Distance(0.); // set to valid value within struct
-  valueScenesElementEgoVehicleRoadElementElementWidth.minimum
-    = valueScenesElementEgoVehicleRoadElementElementWidthMinimum;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementWidthMaximum(-1e9);
-  valueScenesElementEgoVehicleRoadElementElementWidth.maximum
-    = valueScenesElementEgoVehicleRoadElementElementWidthMaximum;
-  valueScenesElementEgoVehicleRoadElementElementWidth.maximum
-    = valueScenesElementEgoVehicleRoadElementElementWidth.minimum;
-  valueScenesElementEgoVehicleRoadElementElementWidth.minimum
-    = valueScenesElementEgoVehicleRoadElementElementWidth.maximum;
-  valueScenesElementEgoVehicleRoadElementElement.width = valueScenesElementEgoVehicleRoadElementElementWidth;
-  valueScenesElementEgoVehicleRoadElement.resize(1, valueScenesElementEgoVehicleRoadElementElement);
-  valueScenesElementEgoVehicleRoad.resize(1, valueScenesElementEgoVehicleRoadElement);
-  valueScenesElement.egoVehicleRoad = valueScenesElementEgoVehicleRoad;
-  valueScenes.resize(1, valueScenesElement);
-  value.scenes = valueScenes;
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidth.minimum
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidthMinimum;
+  ::ad::physics::Distance valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidthMaximum(-1e9);
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidth.maximum
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidthMaximum;
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidth.maximum
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidth.minimum;
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidth.minimum
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidth.maximum;
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElement.width
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidth;
+  valueConstellationsElementIntersecting_roadElementLane_segments.resize(
+    1, valueConstellationsElementIntersecting_roadElementLane_segmentsElement);
+  valueConstellationsElementIntersecting_roadElement.lane_segments
+    = valueConstellationsElementIntersecting_roadElementLane_segments;
+  ::ad::physics::Distance valueConstellationsElementIntersecting_roadElementMinimum_length_after_intersecting_area(
+    -1e9);
+  valueConstellationsElementIntersecting_roadElement.minimum_length_after_intersecting_area
+    = valueConstellationsElementIntersecting_roadElementMinimum_length_after_intersecting_area;
+  ::ad::physics::Distance valueConstellationsElementIntersecting_roadElementMinimum_length_before_intersecting_area(
+    -1e9);
+  valueConstellationsElementIntersecting_roadElement.minimum_length_before_intersecting_area
+    = valueConstellationsElementIntersecting_roadElementMinimum_length_before_intersecting_area;
+  valueConstellationsElementIntersecting_road.resize(1, valueConstellationsElementIntersecting_roadElement);
+  valueConstellationsElement.intersecting_road = valueConstellationsElementIntersecting_road;
+  ::ad::rss::world::RoadArea valueConstellationsElementEgo_vehicle_road;
+  ::ad::rss::world::RoadSegment valueConstellationsElementEgo_vehicle_roadElement;
+  ::ad::rss::world::RoadSegmentType valueConstellationsElementEgo_vehicle_roadElementType(
+    ::ad::rss::world::RoadSegmentType::Normal);
+  valueConstellationsElementEgo_vehicle_roadElement.type = valueConstellationsElementEgo_vehicle_roadElementType;
+  ::ad::rss::world::LaneSegmentVector valueConstellationsElementEgo_vehicle_roadElementLane_segments;
+  ::ad::rss::world::LaneSegment valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElement;
+  ::ad::rss::world::LaneSegmentId valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementId(
+    std::numeric_limits<::ad::rss::world::LaneSegmentId>::lowest());
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElement.id
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementId;
+  ::ad::rss::world::LaneDrivingDirection
+    valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementDriving_direction(
+      ::ad::rss::world::LaneDrivingDirection::Bidirectional);
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElement.driving_direction
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementDriving_direction;
+  ::ad::physics::MetricRange valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLength;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLengthMinimum(-1e9);
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLengthMinimum
+    = ::ad::physics::Distance(0.); // set to valid value within struct
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLength.minimum
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLengthMinimum;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLengthMaximum(-1e9);
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLength.maximum
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLengthMaximum;
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLength.maximum
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLength.minimum;
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLength.minimum
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLength.maximum;
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElement.length
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLength;
+  ::ad::physics::MetricRange valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidth;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidthMinimum(-1e9);
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidthMinimum
+    = ::ad::physics::Distance(0.); // set to valid value within struct
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidth.minimum
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidthMinimum;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidthMaximum(-1e9);
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidth.maximum
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidthMaximum;
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidth.maximum
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidth.minimum;
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidth.minimum
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidth.maximum;
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElement.width
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidth;
+  valueConstellationsElementEgo_vehicle_roadElementLane_segments.resize(
+    1, valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElement);
+  valueConstellationsElementEgo_vehicle_roadElement.lane_segments
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segments;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicle_roadElementMinimum_length_after_intersecting_area(-1e9);
+  valueConstellationsElementEgo_vehicle_roadElement.minimum_length_after_intersecting_area
+    = valueConstellationsElementEgo_vehicle_roadElementMinimum_length_after_intersecting_area;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicle_roadElementMinimum_length_before_intersecting_area(
+    -1e9);
+  valueConstellationsElementEgo_vehicle_roadElement.minimum_length_before_intersecting_area
+    = valueConstellationsElementEgo_vehicle_roadElementMinimum_length_before_intersecting_area;
+  valueConstellationsElementEgo_vehicle_road.resize(1, valueConstellationsElementEgo_vehicle_roadElement);
+  valueConstellationsElement.ego_vehicle_road = valueConstellationsElementEgo_vehicle_road;
+  valueConstellations.resize(1, valueConstellationsElement);
+  value.constellations = valueConstellations;
 
   // override member with data type value below input range minimum
   ::ad::rss::world::RssDynamics invalidInitializedMember;
-  ::ad::rss::world::LongitudinalRssAccelerationValues invalidInitializedMemberAlphaLon;
-  ::ad::physics::Acceleration invalidInitializedMemberAlphaLonAccelMax(-1e2 * 1.1);
-  invalidInitializedMemberAlphaLon.accelMax = invalidInitializedMemberAlphaLonAccelMax;
-  invalidInitializedMember.alphaLon = invalidInitializedMemberAlphaLon;
-  value.defaultEgoVehicleRssDynamics = invalidInitializedMember;
+  ::ad::rss::world::LongitudinalRssAccelerationValues invalidInitializedMemberAlpha_lon;
+  ::ad::physics::Acceleration invalidInitializedMemberAlpha_lonAccel_max(-1e2 * 1.1);
+  invalidInitializedMemberAlpha_lon.accel_max = invalidInitializedMemberAlpha_lonAccel_max;
+  invalidInitializedMember.alpha_lon = invalidInitializedMemberAlpha_lon;
+  value.default_ego_vehicle_rss_dynamics = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(WorldModelValidInputRangeTests, testValidInputRangeDefaultEgoVehicleRssDynamicsTooBig)
+TEST(WorldModelValidInputRangeTests, testValidInputRangeDefault_ego_vehicle_rss_dynamicsTooBig)
 {
   ::ad::rss::world::WorldModel value;
-  ::ad::rss::world::TimeIndex valueTimeIndex(std::numeric_limits<::ad::rss::world::TimeIndex>::lowest());
-  valueTimeIndex = ::ad::rss::world::TimeIndex(1); // set to valid value within struct
-  value.timeIndex = valueTimeIndex;
-  ::ad::rss::world::RssDynamics valueDefaultEgoVehicleRssDynamics;
-  ::ad::rss::world::LongitudinalRssAccelerationValues valueDefaultEgoVehicleRssDynamicsAlphaLon;
-  ::ad::physics::Acceleration valueDefaultEgoVehicleRssDynamicsAlphaLonAccelMax(-1e2);
-  valueDefaultEgoVehicleRssDynamicsAlphaLonAccelMax
+  ::ad::rss::world::TimeIndex valueTime_index(std::numeric_limits<::ad::rss::world::TimeIndex>::lowest());
+  valueTime_index = ::ad::rss::world::TimeIndex(1); // set to valid value within struct
+  value.time_index = valueTime_index;
+  ::ad::rss::world::RssDynamics valueDefault_ego_vehicle_rss_dynamics;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueDefault_ego_vehicle_rss_dynamicsAlpha_lon;
+  ::ad::physics::Acceleration valueDefault_ego_vehicle_rss_dynamicsAlpha_lonAccel_max(-1e2);
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_lonAccel_max
     = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueDefaultEgoVehicleRssDynamicsAlphaLon.accelMax = valueDefaultEgoVehicleRssDynamicsAlphaLonAccelMax;
-  ::ad::physics::Acceleration valueDefaultEgoVehicleRssDynamicsAlphaLonBrakeMax(-1e2);
-  valueDefaultEgoVehicleRssDynamicsAlphaLon.brakeMax = valueDefaultEgoVehicleRssDynamicsAlphaLonBrakeMax;
-  ::ad::physics::Acceleration valueDefaultEgoVehicleRssDynamicsAlphaLonBrakeMin(-1e2);
-  valueDefaultEgoVehicleRssDynamicsAlphaLon.brakeMin = valueDefaultEgoVehicleRssDynamicsAlphaLonBrakeMin;
-  ::ad::physics::Acceleration valueDefaultEgoVehicleRssDynamicsAlphaLonBrakeMinCorrect(-1e2);
-  valueDefaultEgoVehicleRssDynamicsAlphaLon.brakeMinCorrect = valueDefaultEgoVehicleRssDynamicsAlphaLonBrakeMinCorrect;
-  valueDefaultEgoVehicleRssDynamicsAlphaLon.brakeMin = valueDefaultEgoVehicleRssDynamicsAlphaLon.brakeMax;
-  valueDefaultEgoVehicleRssDynamicsAlphaLon.brakeMinCorrect = valueDefaultEgoVehicleRssDynamicsAlphaLon.brakeMin;
-  valueDefaultEgoVehicleRssDynamicsAlphaLon.brakeMin = valueDefaultEgoVehicleRssDynamicsAlphaLon.brakeMinCorrect;
-  valueDefaultEgoVehicleRssDynamicsAlphaLon.brakeMax = valueDefaultEgoVehicleRssDynamicsAlphaLon.brakeMin;
-  valueDefaultEgoVehicleRssDynamics.alphaLon = valueDefaultEgoVehicleRssDynamicsAlphaLon;
-  ::ad::rss::world::LateralRssAccelerationValues valueDefaultEgoVehicleRssDynamicsAlphaLat;
-  ::ad::physics::Acceleration valueDefaultEgoVehicleRssDynamicsAlphaLatAccelMax(-1e2);
-  valueDefaultEgoVehicleRssDynamicsAlphaLatAccelMax
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.accel_max = valueDefault_ego_vehicle_rss_dynamicsAlpha_lonAccel_max;
+  ::ad::physics::Acceleration valueDefault_ego_vehicle_rss_dynamicsAlpha_lonBrake_max(-1e2);
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.brake_max = valueDefault_ego_vehicle_rss_dynamicsAlpha_lonBrake_max;
+  ::ad::physics::Acceleration valueDefault_ego_vehicle_rss_dynamicsAlpha_lonBrake_min(-1e2);
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.brake_min = valueDefault_ego_vehicle_rss_dynamicsAlpha_lonBrake_min;
+  ::ad::physics::Acceleration valueDefault_ego_vehicle_rss_dynamicsAlpha_lonBrake_min_correct(-1e2);
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.brake_min_correct
+    = valueDefault_ego_vehicle_rss_dynamicsAlpha_lonBrake_min_correct;
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.brake_min = valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.brake_max;
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.brake_min_correct
+    = valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.brake_min;
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.brake_min
+    = valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.brake_min_correct;
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.brake_max = valueDefault_ego_vehicle_rss_dynamicsAlpha_lon.brake_min;
+  valueDefault_ego_vehicle_rss_dynamics.alpha_lon = valueDefault_ego_vehicle_rss_dynamicsAlpha_lon;
+  ::ad::rss::world::LateralRssAccelerationValues valueDefault_ego_vehicle_rss_dynamicsAlpha_lat;
+  ::ad::physics::Acceleration valueDefault_ego_vehicle_rss_dynamicsAlpha_latAccel_max(-1e2);
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_latAccel_max
     = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueDefaultEgoVehicleRssDynamicsAlphaLat.accelMax = valueDefaultEgoVehicleRssDynamicsAlphaLatAccelMax;
-  ::ad::physics::Acceleration valueDefaultEgoVehicleRssDynamicsAlphaLatBrakeMin(-1e2);
-  valueDefaultEgoVehicleRssDynamicsAlphaLat.brakeMin = valueDefaultEgoVehicleRssDynamicsAlphaLatBrakeMin;
-  valueDefaultEgoVehicleRssDynamics.alphaLat = valueDefaultEgoVehicleRssDynamicsAlphaLat;
-  ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsLateralFluctuationMargin(-1e9);
-  valueDefaultEgoVehicleRssDynamicsLateralFluctuationMargin
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_lat.accel_max = valueDefault_ego_vehicle_rss_dynamicsAlpha_latAccel_max;
+  ::ad::physics::Acceleration valueDefault_ego_vehicle_rss_dynamicsAlpha_latBrake_min(-1e2);
+  valueDefault_ego_vehicle_rss_dynamicsAlpha_lat.brake_min = valueDefault_ego_vehicle_rss_dynamicsAlpha_latBrake_min;
+  valueDefault_ego_vehicle_rss_dynamics.alpha_lat = valueDefault_ego_vehicle_rss_dynamicsAlpha_lat;
+  ::ad::physics::Distance valueDefault_ego_vehicle_rss_dynamicsLateral_fluctuation_margin(-1e9);
+  valueDefault_ego_vehicle_rss_dynamicsLateral_fluctuation_margin
     = ::ad::physics::Distance(0.); // set to valid value within struct
-  valueDefaultEgoVehicleRssDynamics.lateralFluctuationMargin
-    = valueDefaultEgoVehicleRssDynamicsLateralFluctuationMargin;
-  ::ad::physics::Duration valueDefaultEgoVehicleRssDynamicsResponseTime(0.);
-  valueDefaultEgoVehicleRssDynamicsResponseTime
+  valueDefault_ego_vehicle_rss_dynamics.lateral_fluctuation_margin
+    = valueDefault_ego_vehicle_rss_dynamicsLateral_fluctuation_margin;
+  ::ad::physics::Duration valueDefault_ego_vehicle_rss_dynamicsResponse_time(0.);
+  valueDefault_ego_vehicle_rss_dynamicsResponse_time
     = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
-  valueDefaultEgoVehicleRssDynamics.responseTime = valueDefaultEgoVehicleRssDynamicsResponseTime;
-  ::ad::physics::Speed valueDefaultEgoVehicleRssDynamicsMaxSpeedOnAcceleration(-100.);
-  valueDefaultEgoVehicleRssDynamics.maxSpeedOnAcceleration = valueDefaultEgoVehicleRssDynamicsMaxSpeedOnAcceleration;
-  ::ad::rss::world::UnstructuredSettings valueDefaultEgoVehicleRssDynamicsUnstructuredSettings;
-  ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius(-1e9);
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianTurningRadius
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius;
-  ::ad::physics::Angle valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.driveAwayMaxAngle
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsDriveAwayMaxAngle;
-  ::ad::physics::AngularAcceleration valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleYawRateChange(-1e2);
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleYawRateChange
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleYawRateChange;
-  ::ad::physics::Distance valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius(-1e9);
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleMinRadius
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius;
-  ::ad::physics::Duration valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
-  uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleFrontIntermediateYawRateChangeRatioSteps
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps;
-  uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleBackIntermediateYawRateChangeRatioSteps
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps;
-  uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
-  uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
-  uint32_t
-    valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps{
-      std::numeric_limits<uint32_t>::min()};
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateYawRateChangeRatioSteps
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps;
-  uint32_t
-    valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps{
-      std::numeric_limits<uint32_t>::min()};
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps;
-  uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianContinueForwardIntermediateAccelerationSteps
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps;
-  uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianBrakeIntermediateAccelerationSteps
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps;
-  uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianFrontIntermediateHeadingChangeRatioSteps
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps;
-  uint32_t valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueDefaultEgoVehicleRssDynamicsUnstructuredSettings.pedestrianBackIntermediateHeadingChangeRatioSteps
-    = valueDefaultEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps;
-  valueDefaultEgoVehicleRssDynamics.unstructuredSettings = valueDefaultEgoVehicleRssDynamicsUnstructuredSettings;
-  value.defaultEgoVehicleRssDynamics = valueDefaultEgoVehicleRssDynamics;
-  ::ad::rss::world::SceneVector valueScenes;
-  ::ad::rss::world::Scene valueScenesElement;
-  ::ad::rss::situation::SituationType valueScenesElementSituationType(::ad::rss::situation::SituationType::NotRelevant);
-  valueScenesElement.situationType = valueScenesElementSituationType;
-  ::ad::rss::world::Object valueScenesElementEgoVehicle;
-  ::ad::rss::world::ObjectId valueScenesElementEgoVehicleObjectId(
-    std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
-  valueScenesElementEgoVehicle.objectId = valueScenesElementEgoVehicleObjectId;
-  ::ad::rss::world::ObjectType valueScenesElementEgoVehicleObjectType(::ad::rss::world::ObjectType::Invalid);
-  valueScenesElementEgoVehicle.objectType = valueScenesElementEgoVehicleObjectType;
-  ::ad::rss::world::OccupiedRegionVector valueScenesElementEgoVehicleOccupiedRegions;
-  ::ad::rss::world::OccupiedRegion valueScenesElementEgoVehicleOccupiedRegionsElement;
-  ::ad::rss::world::LaneSegmentId valueScenesElementEgoVehicleOccupiedRegionsElementSegmentId(
-    std::numeric_limits<::ad::rss::world::LaneSegmentId>::lowest());
-  valueScenesElementEgoVehicleOccupiedRegionsElement.segmentId
-    = valueScenesElementEgoVehicleOccupiedRegionsElementSegmentId;
-  ::ad::physics::ParametricRange valueScenesElementEgoVehicleOccupiedRegionsElementLonRange;
-  ::ad::physics::ParametricValue valueScenesElementEgoVehicleOccupiedRegionsElementLonRangeMinimum(0.);
-  valueScenesElementEgoVehicleOccupiedRegionsElementLonRange.minimum
-    = valueScenesElementEgoVehicleOccupiedRegionsElementLonRangeMinimum;
-  ::ad::physics::ParametricValue valueScenesElementEgoVehicleOccupiedRegionsElementLonRangeMaximum(0.);
-  valueScenesElementEgoVehicleOccupiedRegionsElementLonRange.maximum
-    = valueScenesElementEgoVehicleOccupiedRegionsElementLonRangeMaximum;
-  valueScenesElementEgoVehicleOccupiedRegionsElementLonRange.maximum
-    = valueScenesElementEgoVehicleOccupiedRegionsElementLonRange.minimum;
-  valueScenesElementEgoVehicleOccupiedRegionsElementLonRange.minimum
-    = valueScenesElementEgoVehicleOccupiedRegionsElementLonRange.maximum;
-  valueScenesElementEgoVehicleOccupiedRegionsElement.lonRange
-    = valueScenesElementEgoVehicleOccupiedRegionsElementLonRange;
-  ::ad::physics::ParametricRange valueScenesElementEgoVehicleOccupiedRegionsElementLatRange;
-  ::ad::physics::ParametricValue valueScenesElementEgoVehicleOccupiedRegionsElementLatRangeMinimum(0.);
-  valueScenesElementEgoVehicleOccupiedRegionsElementLatRange.minimum
-    = valueScenesElementEgoVehicleOccupiedRegionsElementLatRangeMinimum;
-  ::ad::physics::ParametricValue valueScenesElementEgoVehicleOccupiedRegionsElementLatRangeMaximum(0.);
-  valueScenesElementEgoVehicleOccupiedRegionsElementLatRange.maximum
-    = valueScenesElementEgoVehicleOccupiedRegionsElementLatRangeMaximum;
-  valueScenesElementEgoVehicleOccupiedRegionsElementLatRange.maximum
-    = valueScenesElementEgoVehicleOccupiedRegionsElementLatRange.minimum;
-  valueScenesElementEgoVehicleOccupiedRegionsElementLatRange.minimum
-    = valueScenesElementEgoVehicleOccupiedRegionsElementLatRange.maximum;
-  valueScenesElementEgoVehicleOccupiedRegionsElement.latRange
-    = valueScenesElementEgoVehicleOccupiedRegionsElementLatRange;
-  valueScenesElementEgoVehicleOccupiedRegions.resize(1, valueScenesElementEgoVehicleOccupiedRegionsElement);
-  valueScenesElementEgoVehicle.occupiedRegions = valueScenesElementEgoVehicleOccupiedRegions;
-  ::ad::rss::world::Velocity valueScenesElementEgoVehicleVelocity;
-  ::ad::physics::Speed valueScenesElementEgoVehicleVelocitySpeedLonMin(-100.);
-  valueScenesElementEgoVehicleVelocitySpeedLonMin = ::ad::physics::Speed(0.); // set to valid value within struct
-  valueScenesElementEgoVehicleVelocity.speedLonMin = valueScenesElementEgoVehicleVelocitySpeedLonMin;
-  ::ad::physics::Speed valueScenesElementEgoVehicleVelocitySpeedLonMax(-100.);
-  valueScenesElementEgoVehicleVelocity.speedLonMax = valueScenesElementEgoVehicleVelocitySpeedLonMax;
-  ::ad::physics::Speed valueScenesElementEgoVehicleVelocitySpeedLatMin(-100.);
-  valueScenesElementEgoVehicleVelocity.speedLatMin = valueScenesElementEgoVehicleVelocitySpeedLatMin;
-  ::ad::physics::Speed valueScenesElementEgoVehicleVelocitySpeedLatMax(-100.);
-  valueScenesElementEgoVehicleVelocity.speedLatMax = valueScenesElementEgoVehicleVelocitySpeedLatMax;
-  valueScenesElementEgoVehicleVelocity.speedLonMax = valueScenesElementEgoVehicleVelocity.speedLonMin;
-  valueScenesElementEgoVehicleVelocity.speedLatMax = valueScenesElementEgoVehicleVelocity.speedLatMin;
-  valueScenesElementEgoVehicleVelocity.speedLonMin = valueScenesElementEgoVehicleVelocity.speedLonMax;
-  valueScenesElementEgoVehicleVelocity.speedLatMin = valueScenesElementEgoVehicleVelocity.speedLatMax;
-  valueScenesElementEgoVehicle.velocity = valueScenesElementEgoVehicleVelocity;
-  ::ad::rss::world::ObjectState valueScenesElementEgoVehicleState;
-  ::ad::physics::Angle valueScenesElementEgoVehicleStateYaw(-6.283185308);
-  valueScenesElementEgoVehicleState.yaw = valueScenesElementEgoVehicleStateYaw;
-  ::ad::physics::Dimension2D valueScenesElementEgoVehicleStateDimension;
-  ::ad::physics::Distance valueScenesElementEgoVehicleStateDimensionLength(-1e9);
-  valueScenesElementEgoVehicleStateDimension.length = valueScenesElementEgoVehicleStateDimensionLength;
-  ::ad::physics::Distance valueScenesElementEgoVehicleStateDimensionWidth(-1e9);
-  valueScenesElementEgoVehicleStateDimension.width = valueScenesElementEgoVehicleStateDimensionWidth;
-  valueScenesElementEgoVehicleState.dimension = valueScenesElementEgoVehicleStateDimension;
-  ::ad::physics::AngularVelocity valueScenesElementEgoVehicleStateYawRate(-100.);
-  valueScenesElementEgoVehicleState.yawRate = valueScenesElementEgoVehicleStateYawRate;
-  ::ad::physics::Distance2D valueScenesElementEgoVehicleStateCenterPoint;
-  ::ad::physics::Distance valueScenesElementEgoVehicleStateCenterPointX(-1e9);
-  valueScenesElementEgoVehicleStateCenterPoint.x = valueScenesElementEgoVehicleStateCenterPointX;
-  ::ad::physics::Distance valueScenesElementEgoVehicleStateCenterPointY(-1e9);
-  valueScenesElementEgoVehicleStateCenterPoint.y = valueScenesElementEgoVehicleStateCenterPointY;
-  valueScenesElementEgoVehicleState.centerPoint = valueScenesElementEgoVehicleStateCenterPoint;
-  ::ad::physics::Speed valueScenesElementEgoVehicleStateSpeed(-100.);
-  valueScenesElementEgoVehicleState.speed = valueScenesElementEgoVehicleStateSpeed;
-  ::ad::physics::Angle valueScenesElementEgoVehicleStateSteeringAngle(-6.283185308);
-  valueScenesElementEgoVehicleState.steeringAngle = valueScenesElementEgoVehicleStateSteeringAngle;
-  valueScenesElementEgoVehicle.state = valueScenesElementEgoVehicleState;
-  valueScenesElement.egoVehicle = valueScenesElementEgoVehicle;
-  ::ad::rss::world::RssDynamics valueScenesElementEgoVehicleRssDynamics;
-  ::ad::rss::world::LongitudinalRssAccelerationValues valueScenesElementEgoVehicleRssDynamicsAlphaLon;
-  ::ad::physics::Acceleration valueScenesElementEgoVehicleRssDynamicsAlphaLonAccelMax(-1e2);
-  valueScenesElementEgoVehicleRssDynamicsAlphaLonAccelMax
-    = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueScenesElementEgoVehicleRssDynamicsAlphaLon.accelMax = valueScenesElementEgoVehicleRssDynamicsAlphaLonAccelMax;
-  ::ad::physics::Acceleration valueScenesElementEgoVehicleRssDynamicsAlphaLonBrakeMax(-1e2);
-  valueScenesElementEgoVehicleRssDynamicsAlphaLon.brakeMax = valueScenesElementEgoVehicleRssDynamicsAlphaLonBrakeMax;
-  ::ad::physics::Acceleration valueScenesElementEgoVehicleRssDynamicsAlphaLonBrakeMin(-1e2);
-  valueScenesElementEgoVehicleRssDynamicsAlphaLon.brakeMin = valueScenesElementEgoVehicleRssDynamicsAlphaLonBrakeMin;
-  ::ad::physics::Acceleration valueScenesElementEgoVehicleRssDynamicsAlphaLonBrakeMinCorrect(-1e2);
-  valueScenesElementEgoVehicleRssDynamicsAlphaLon.brakeMinCorrect
-    = valueScenesElementEgoVehicleRssDynamicsAlphaLonBrakeMinCorrect;
-  valueScenesElementEgoVehicleRssDynamicsAlphaLon.brakeMin = valueScenesElementEgoVehicleRssDynamicsAlphaLon.brakeMax;
-  valueScenesElementEgoVehicleRssDynamicsAlphaLon.brakeMinCorrect
-    = valueScenesElementEgoVehicleRssDynamicsAlphaLon.brakeMin;
-  valueScenesElementEgoVehicleRssDynamicsAlphaLon.brakeMin
-    = valueScenesElementEgoVehicleRssDynamicsAlphaLon.brakeMinCorrect;
-  valueScenesElementEgoVehicleRssDynamicsAlphaLon.brakeMax = valueScenesElementEgoVehicleRssDynamicsAlphaLon.brakeMin;
-  valueScenesElementEgoVehicleRssDynamics.alphaLon = valueScenesElementEgoVehicleRssDynamicsAlphaLon;
-  ::ad::rss::world::LateralRssAccelerationValues valueScenesElementEgoVehicleRssDynamicsAlphaLat;
-  ::ad::physics::Acceleration valueScenesElementEgoVehicleRssDynamicsAlphaLatAccelMax(-1e2);
-  valueScenesElementEgoVehicleRssDynamicsAlphaLatAccelMax
-    = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueScenesElementEgoVehicleRssDynamicsAlphaLat.accelMax = valueScenesElementEgoVehicleRssDynamicsAlphaLatAccelMax;
-  ::ad::physics::Acceleration valueScenesElementEgoVehicleRssDynamicsAlphaLatBrakeMin(-1e2);
-  valueScenesElementEgoVehicleRssDynamicsAlphaLat.brakeMin = valueScenesElementEgoVehicleRssDynamicsAlphaLatBrakeMin;
-  valueScenesElementEgoVehicleRssDynamics.alphaLat = valueScenesElementEgoVehicleRssDynamicsAlphaLat;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRssDynamicsLateralFluctuationMargin(-1e9);
-  valueScenesElementEgoVehicleRssDynamicsLateralFluctuationMargin
-    = ::ad::physics::Distance(0.); // set to valid value within struct
-  valueScenesElementEgoVehicleRssDynamics.lateralFluctuationMargin
-    = valueScenesElementEgoVehicleRssDynamicsLateralFluctuationMargin;
-  ::ad::physics::Duration valueScenesElementEgoVehicleRssDynamicsResponseTime(0.);
-  valueScenesElementEgoVehicleRssDynamicsResponseTime
-    = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
-  valueScenesElementEgoVehicleRssDynamics.responseTime = valueScenesElementEgoVehicleRssDynamicsResponseTime;
-  ::ad::physics::Speed valueScenesElementEgoVehicleRssDynamicsMaxSpeedOnAcceleration(-100.);
-  valueScenesElementEgoVehicleRssDynamics.maxSpeedOnAcceleration
-    = valueScenesElementEgoVehicleRssDynamicsMaxSpeedOnAcceleration;
-  ::ad::rss::world::UnstructuredSettings valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius(-1e9);
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.pedestrianTurningRadius
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianTurningRadius;
-  ::ad::physics::Angle valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.driveAwayMaxAngle
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsDriveAwayMaxAngle;
-  ::ad::physics::AngularAcceleration valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleYawRateChange(
+  valueDefault_ego_vehicle_rss_dynamics.response_time = valueDefault_ego_vehicle_rss_dynamicsResponse_time;
+  ::ad::physics::Speed valueDefault_ego_vehicle_rss_dynamicsMax_speed_on_acceleration(-100.);
+  valueDefault_ego_vehicle_rss_dynamics.max_speed_on_acceleration
+    = valueDefault_ego_vehicle_rss_dynamicsMax_speed_on_acceleration;
+  ::ad::rss::world::UnstructuredSettings valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings;
+  ::ad::physics::Distance valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_turning_radius(-1e9);
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.pedestrian_turning_radius
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_turning_radius;
+  ::ad::physics::Angle valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsDrive_away_max_angle(-6.283185308);
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.drive_away_max_angle
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsDrive_away_max_angle;
+  ::ad::physics::AngularAcceleration valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_yaw_rate_change(
     -1e2);
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleYawRateChange
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleYawRateChange;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius(-1e9);
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleMinRadius
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleMinRadius;
-  ::ad::physics::Duration valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.vehicle_yaw_rate_change
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_yaw_rate_change;
+  ::ad::physics::Distance valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_min_radius(-1e9);
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.vehicle_min_radius
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_min_radius;
+  ::ad::physics::Duration valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_trajectory_calculation_step(
     0.);
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
-  uint32_t valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleFrontIntermediateYawRateChangeRatioSteps
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps;
-  uint32_t valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleBackIntermediateYawRateChangeRatioSteps
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps;
-  uint32_t valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.vehicle_trajectory_calculation_step
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_trajectory_calculation_step;
   uint32_t
-    valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
+    valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_front_intermediate_yaw_rate_change_ratio_steps{
       std::numeric_limits<uint32_t>::min()};
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.vehicle_front_intermediate_yaw_rate_change_ratio_steps
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_front_intermediate_yaw_rate_change_ratio_steps;
   uint32_t
-    valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps{
+    valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_back_intermediate_yaw_rate_change_ratio_steps{
       std::numeric_limits<uint32_t>::min()};
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateYawRateChangeRatioSteps
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps;
-  uint32_t
-    valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps{
-      std::numeric_limits<uint32_t>::min()};
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings
-    .pedestrianContinueForwardIntermediateHeadingChangeRatioSteps
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps;
-  uint32_t
-    valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps{
-      std::numeric_limits<uint32_t>::min()};
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.pedestrianContinueForwardIntermediateAccelerationSteps
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps;
-  uint32_t valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps{
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.vehicle_back_intermediate_yaw_rate_change_ratio_steps
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_back_intermediate_yaw_rate_change_ratio_steps;
+  uint32_t valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_brake_intermediate_acceleration_steps{
     std::numeric_limits<uint32_t>::min()};
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.pedestrianBrakeIntermediateAccelerationSteps
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps;
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.vehicle_brake_intermediate_acceleration_steps
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_brake_intermediate_acceleration_steps;
   uint32_t
-    valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps{
+    valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_acceleration_steps{
       std::numeric_limits<uint32_t>::min()};
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.pedestrianFrontIntermediateHeadingChangeRatioSteps
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps;
-  uint32_t valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps{
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.vehicle_continue_forward_intermediate_acceleration_steps
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_acceleration_steps;
+  uint32_t
+    valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings
+    .vehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps;
+  uint32_t
+    valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_heading_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings
+    .pedestrian_continue_forward_intermediate_heading_change_ratio_steps
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_heading_change_ratio_steps;
+  uint32_t
+    valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_acceleration_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.pedestrian_continue_forward_intermediate_acceleration_steps
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_acceleration_steps;
+  uint32_t valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_brake_intermediate_acceleration_steps{
     std::numeric_limits<uint32_t>::min()};
-  valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings.pedestrianBackIntermediateHeadingChangeRatioSteps
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps;
-  valueScenesElementEgoVehicleRssDynamics.unstructuredSettings
-    = valueScenesElementEgoVehicleRssDynamicsUnstructuredSettings;
-  valueScenesElement.egoVehicleRssDynamics = valueScenesElementEgoVehicleRssDynamics;
-  ::ad::rss::world::Object valueScenesElementObject;
-  ::ad::rss::world::ObjectId valueScenesElementObjectObjectId(
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.pedestrian_brake_intermediate_acceleration_steps
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_brake_intermediate_acceleration_steps;
+  uint32_t
+    valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_front_intermediate_heading_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.pedestrian_front_intermediate_heading_change_ratio_steps
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_front_intermediate_heading_change_ratio_steps;
+  uint32_t
+    valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_back_intermediate_heading_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings.pedestrian_back_intermediate_heading_change_ratio_steps
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settingsPedestrian_back_intermediate_heading_change_ratio_steps;
+  valueDefault_ego_vehicle_rss_dynamics.unstructured_settings
+    = valueDefault_ego_vehicle_rss_dynamicsUnstructured_settings;
+  ::ad::physics::Distance valueDefault_ego_vehicle_rss_dynamicsMin_longitudinal_safety_distance(-1e9);
+  valueDefault_ego_vehicle_rss_dynamics.min_longitudinal_safety_distance
+    = valueDefault_ego_vehicle_rss_dynamicsMin_longitudinal_safety_distance;
+  value.default_ego_vehicle_rss_dynamics = valueDefault_ego_vehicle_rss_dynamics;
+  ::ad::rss::world::ConstellationVector valueConstellations;
+  ::ad::rss::world::Constellation valueConstellationsElement;
+  ::ad::rss::world::ConstellationType valueConstellationsElementConstellation_type(
+    ::ad::rss::world::ConstellationType::NotRelevant);
+  valueConstellationsElement.constellation_type = valueConstellationsElementConstellation_type;
+  ::ad::rss::world::Object valueConstellationsElementEgo_vehicle;
+  ::ad::rss::world::ObjectId valueConstellationsElementEgo_vehicleObject_id(
     std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
-  valueScenesElementObject.objectId = valueScenesElementObjectObjectId;
-  ::ad::rss::world::ObjectType valueScenesElementObjectObjectType(::ad::rss::world::ObjectType::Invalid);
-  valueScenesElementObject.objectType = valueScenesElementObjectObjectType;
-  ::ad::rss::world::OccupiedRegionVector valueScenesElementObjectOccupiedRegions;
-  ::ad::rss::world::OccupiedRegion valueScenesElementObjectOccupiedRegionsElement;
-  ::ad::rss::world::LaneSegmentId valueScenesElementObjectOccupiedRegionsElementSegmentId(
+  valueConstellationsElementEgo_vehicle.object_id = valueConstellationsElementEgo_vehicleObject_id;
+  ::ad::rss::world::ObjectType valueConstellationsElementEgo_vehicleObject_type(::ad::rss::world::ObjectType::Invalid);
+  valueConstellationsElementEgo_vehicle.object_type = valueConstellationsElementEgo_vehicleObject_type;
+  ::ad::rss::world::OccupiedRegionVector valueConstellationsElementEgo_vehicleOccupied_regions;
+  ::ad::rss::world::OccupiedRegion valueConstellationsElementEgo_vehicleOccupied_regionsElement;
+  ::ad::rss::world::LaneSegmentId valueConstellationsElementEgo_vehicleOccupied_regionsElementSegment_id(
     std::numeric_limits<::ad::rss::world::LaneSegmentId>::lowest());
-  valueScenesElementObjectOccupiedRegionsElement.segmentId = valueScenesElementObjectOccupiedRegionsElementSegmentId;
-  ::ad::physics::ParametricRange valueScenesElementObjectOccupiedRegionsElementLonRange;
-  ::ad::physics::ParametricValue valueScenesElementObjectOccupiedRegionsElementLonRangeMinimum(0.);
-  valueScenesElementObjectOccupiedRegionsElementLonRange.minimum
-    = valueScenesElementObjectOccupiedRegionsElementLonRangeMinimum;
-  ::ad::physics::ParametricValue valueScenesElementObjectOccupiedRegionsElementLonRangeMaximum(0.);
-  valueScenesElementObjectOccupiedRegionsElementLonRange.maximum
-    = valueScenesElementObjectOccupiedRegionsElementLonRangeMaximum;
-  valueScenesElementObjectOccupiedRegionsElementLonRange.maximum
-    = valueScenesElementObjectOccupiedRegionsElementLonRange.minimum;
-  valueScenesElementObjectOccupiedRegionsElementLonRange.minimum
-    = valueScenesElementObjectOccupiedRegionsElementLonRange.maximum;
-  valueScenesElementObjectOccupiedRegionsElement.lonRange = valueScenesElementObjectOccupiedRegionsElementLonRange;
-  ::ad::physics::ParametricRange valueScenesElementObjectOccupiedRegionsElementLatRange;
-  ::ad::physics::ParametricValue valueScenesElementObjectOccupiedRegionsElementLatRangeMinimum(0.);
-  valueScenesElementObjectOccupiedRegionsElementLatRange.minimum
-    = valueScenesElementObjectOccupiedRegionsElementLatRangeMinimum;
-  ::ad::physics::ParametricValue valueScenesElementObjectOccupiedRegionsElementLatRangeMaximum(0.);
-  valueScenesElementObjectOccupiedRegionsElementLatRange.maximum
-    = valueScenesElementObjectOccupiedRegionsElementLatRangeMaximum;
-  valueScenesElementObjectOccupiedRegionsElementLatRange.maximum
-    = valueScenesElementObjectOccupiedRegionsElementLatRange.minimum;
-  valueScenesElementObjectOccupiedRegionsElementLatRange.minimum
-    = valueScenesElementObjectOccupiedRegionsElementLatRange.maximum;
-  valueScenesElementObjectOccupiedRegionsElement.latRange = valueScenesElementObjectOccupiedRegionsElementLatRange;
-  valueScenesElementObjectOccupiedRegions.resize(1, valueScenesElementObjectOccupiedRegionsElement);
-  valueScenesElementObject.occupiedRegions = valueScenesElementObjectOccupiedRegions;
-  ::ad::rss::world::Velocity valueScenesElementObjectVelocity;
-  ::ad::physics::Speed valueScenesElementObjectVelocitySpeedLonMin(-100.);
-  valueScenesElementObjectVelocitySpeedLonMin = ::ad::physics::Speed(0.); // set to valid value within struct
-  valueScenesElementObjectVelocity.speedLonMin = valueScenesElementObjectVelocitySpeedLonMin;
-  ::ad::physics::Speed valueScenesElementObjectVelocitySpeedLonMax(-100.);
-  valueScenesElementObjectVelocity.speedLonMax = valueScenesElementObjectVelocitySpeedLonMax;
-  ::ad::physics::Speed valueScenesElementObjectVelocitySpeedLatMin(-100.);
-  valueScenesElementObjectVelocity.speedLatMin = valueScenesElementObjectVelocitySpeedLatMin;
-  ::ad::physics::Speed valueScenesElementObjectVelocitySpeedLatMax(-100.);
-  valueScenesElementObjectVelocity.speedLatMax = valueScenesElementObjectVelocitySpeedLatMax;
-  valueScenesElementObjectVelocity.speedLonMax = valueScenesElementObjectVelocity.speedLonMin;
-  valueScenesElementObjectVelocity.speedLatMax = valueScenesElementObjectVelocity.speedLatMin;
-  valueScenesElementObjectVelocity.speedLonMin = valueScenesElementObjectVelocity.speedLonMax;
-  valueScenesElementObjectVelocity.speedLatMin = valueScenesElementObjectVelocity.speedLatMax;
-  valueScenesElementObject.velocity = valueScenesElementObjectVelocity;
-  ::ad::rss::world::ObjectState valueScenesElementObjectState;
-  ::ad::physics::Angle valueScenesElementObjectStateYaw(-6.283185308);
-  valueScenesElementObjectState.yaw = valueScenesElementObjectStateYaw;
-  ::ad::physics::Dimension2D valueScenesElementObjectStateDimension;
-  ::ad::physics::Distance valueScenesElementObjectStateDimensionLength(-1e9);
-  valueScenesElementObjectStateDimension.length = valueScenesElementObjectStateDimensionLength;
-  ::ad::physics::Distance valueScenesElementObjectStateDimensionWidth(-1e9);
-  valueScenesElementObjectStateDimension.width = valueScenesElementObjectStateDimensionWidth;
-  valueScenesElementObjectState.dimension = valueScenesElementObjectStateDimension;
-  ::ad::physics::AngularVelocity valueScenesElementObjectStateYawRate(-100.);
-  valueScenesElementObjectState.yawRate = valueScenesElementObjectStateYawRate;
-  ::ad::physics::Distance2D valueScenesElementObjectStateCenterPoint;
-  ::ad::physics::Distance valueScenesElementObjectStateCenterPointX(-1e9);
-  valueScenesElementObjectStateCenterPoint.x = valueScenesElementObjectStateCenterPointX;
-  ::ad::physics::Distance valueScenesElementObjectStateCenterPointY(-1e9);
-  valueScenesElementObjectStateCenterPoint.y = valueScenesElementObjectStateCenterPointY;
-  valueScenesElementObjectState.centerPoint = valueScenesElementObjectStateCenterPoint;
-  ::ad::physics::Speed valueScenesElementObjectStateSpeed(-100.);
-  valueScenesElementObjectState.speed = valueScenesElementObjectStateSpeed;
-  ::ad::physics::Angle valueScenesElementObjectStateSteeringAngle(-6.283185308);
-  valueScenesElementObjectState.steeringAngle = valueScenesElementObjectStateSteeringAngle;
-  valueScenesElementObject.state = valueScenesElementObjectState;
-  valueScenesElement.object = valueScenesElementObject;
-  ::ad::rss::world::RssDynamics valueScenesElementObjectRssDynamics;
-  ::ad::rss::world::LongitudinalRssAccelerationValues valueScenesElementObjectRssDynamicsAlphaLon;
-  ::ad::physics::Acceleration valueScenesElementObjectRssDynamicsAlphaLonAccelMax(-1e2);
-  valueScenesElementObjectRssDynamicsAlphaLonAccelMax
+  valueConstellationsElementEgo_vehicleOccupied_regionsElement.segment_id
+    = valueConstellationsElementEgo_vehicleOccupied_regionsElementSegment_id;
+  ::ad::physics::ParametricRange valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_range;
+  ::ad::physics::ParametricValue valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_rangeMinimum(0.);
+  valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_range.minimum
+    = valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_rangeMinimum;
+  ::ad::physics::ParametricValue valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_rangeMaximum(0.);
+  valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_range.maximum
+    = valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_rangeMaximum;
+  valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_range.maximum
+    = valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_range.minimum;
+  valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_range.minimum
+    = valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_range.maximum;
+  valueConstellationsElementEgo_vehicleOccupied_regionsElement.lon_range
+    = valueConstellationsElementEgo_vehicleOccupied_regionsElementLon_range;
+  ::ad::physics::ParametricRange valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_range;
+  ::ad::physics::ParametricValue valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_rangeMinimum(0.);
+  valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_range.minimum
+    = valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_rangeMinimum;
+  ::ad::physics::ParametricValue valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_rangeMaximum(0.);
+  valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_range.maximum
+    = valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_rangeMaximum;
+  valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_range.maximum
+    = valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_range.minimum;
+  valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_range.minimum
+    = valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_range.maximum;
+  valueConstellationsElementEgo_vehicleOccupied_regionsElement.lat_range
+    = valueConstellationsElementEgo_vehicleOccupied_regionsElementLat_range;
+  valueConstellationsElementEgo_vehicleOccupied_regions.resize(
+    1, valueConstellationsElementEgo_vehicleOccupied_regionsElement);
+  valueConstellationsElementEgo_vehicle.occupied_regions = valueConstellationsElementEgo_vehicleOccupied_regions;
+  ::ad::rss::world::Velocity valueConstellationsElementEgo_vehicleVelocity;
+  ::ad::physics::Speed valueConstellationsElementEgo_vehicleVelocitySpeed_lon_min(-100.);
+  valueConstellationsElementEgo_vehicleVelocitySpeed_lon_min
+    = ::ad::physics::Speed(0.); // set to valid value within struct
+  valueConstellationsElementEgo_vehicleVelocity.speed_lon_min
+    = valueConstellationsElementEgo_vehicleVelocitySpeed_lon_min;
+  ::ad::physics::Speed valueConstellationsElementEgo_vehicleVelocitySpeed_lon_max(-100.);
+  valueConstellationsElementEgo_vehicleVelocity.speed_lon_max
+    = valueConstellationsElementEgo_vehicleVelocitySpeed_lon_max;
+  ::ad::physics::Speed valueConstellationsElementEgo_vehicleVelocitySpeed_lat_min(-100.);
+  valueConstellationsElementEgo_vehicleVelocity.speed_lat_min
+    = valueConstellationsElementEgo_vehicleVelocitySpeed_lat_min;
+  ::ad::physics::Speed valueConstellationsElementEgo_vehicleVelocitySpeed_lat_max(-100.);
+  valueConstellationsElementEgo_vehicleVelocity.speed_lat_max
+    = valueConstellationsElementEgo_vehicleVelocitySpeed_lat_max;
+  valueConstellationsElementEgo_vehicleVelocity.speed_lon_max
+    = valueConstellationsElementEgo_vehicleVelocity.speed_lon_min;
+  valueConstellationsElementEgo_vehicleVelocity.speed_lat_max
+    = valueConstellationsElementEgo_vehicleVelocity.speed_lat_min;
+  valueConstellationsElementEgo_vehicleVelocity.speed_lon_min
+    = valueConstellationsElementEgo_vehicleVelocity.speed_lon_max;
+  valueConstellationsElementEgo_vehicleVelocity.speed_lat_min
+    = valueConstellationsElementEgo_vehicleVelocity.speed_lat_max;
+  valueConstellationsElementEgo_vehicle.velocity = valueConstellationsElementEgo_vehicleVelocity;
+  ::ad::rss::world::ObjectState valueConstellationsElementEgo_vehicleState;
+  ::ad::physics::Angle valueConstellationsElementEgo_vehicleStateYaw(-6.283185308);
+  valueConstellationsElementEgo_vehicleState.yaw = valueConstellationsElementEgo_vehicleStateYaw;
+  ::ad::physics::Dimension2D valueConstellationsElementEgo_vehicleStateDimension;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicleStateDimensionLength(-1e9);
+  valueConstellationsElementEgo_vehicleStateDimension.length
+    = valueConstellationsElementEgo_vehicleStateDimensionLength;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicleStateDimensionWidth(-1e9);
+  valueConstellationsElementEgo_vehicleStateDimension.width = valueConstellationsElementEgo_vehicleStateDimensionWidth;
+  valueConstellationsElementEgo_vehicleState.dimension = valueConstellationsElementEgo_vehicleStateDimension;
+  ::ad::physics::AngularVelocity valueConstellationsElementEgo_vehicleStateYaw_rate(-100.);
+  valueConstellationsElementEgo_vehicleState.yaw_rate = valueConstellationsElementEgo_vehicleStateYaw_rate;
+  ::ad::physics::Distance2D valueConstellationsElementEgo_vehicleStateCenter_point;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicleStateCenter_pointX(-1e9);
+  valueConstellationsElementEgo_vehicleStateCenter_point.x = valueConstellationsElementEgo_vehicleStateCenter_pointX;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicleStateCenter_pointY(-1e9);
+  valueConstellationsElementEgo_vehicleStateCenter_point.y = valueConstellationsElementEgo_vehicleStateCenter_pointY;
+  valueConstellationsElementEgo_vehicleState.center_point = valueConstellationsElementEgo_vehicleStateCenter_point;
+  ::ad::physics::SpeedRange valueConstellationsElementEgo_vehicleStateSpeed_range;
+  ::ad::physics::Speed valueConstellationsElementEgo_vehicleStateSpeed_rangeMinimum(-100.);
+  valueConstellationsElementEgo_vehicleStateSpeed_range.minimum
+    = valueConstellationsElementEgo_vehicleStateSpeed_rangeMinimum;
+  ::ad::physics::Speed valueConstellationsElementEgo_vehicleStateSpeed_rangeMaximum(-100.);
+  valueConstellationsElementEgo_vehicleStateSpeed_range.maximum
+    = valueConstellationsElementEgo_vehicleStateSpeed_rangeMaximum;
+  valueConstellationsElementEgo_vehicleStateSpeed_range.maximum
+    = valueConstellationsElementEgo_vehicleStateSpeed_range.minimum;
+  valueConstellationsElementEgo_vehicleStateSpeed_range.minimum
+    = valueConstellationsElementEgo_vehicleStateSpeed_range.maximum;
+  valueConstellationsElementEgo_vehicleState.speed_range = valueConstellationsElementEgo_vehicleStateSpeed_range;
+  ::ad::physics::Angle valueConstellationsElementEgo_vehicleStateSteering_angle(-6.283185308);
+  valueConstellationsElementEgo_vehicleState.steering_angle = valueConstellationsElementEgo_vehicleStateSteering_angle;
+  valueConstellationsElementEgo_vehicle.state = valueConstellationsElementEgo_vehicleState;
+  valueConstellationsElement.ego_vehicle = valueConstellationsElementEgo_vehicle;
+  ::ad::rss::world::RssDynamics valueConstellationsElementEgo_vehicle_rss_dynamics;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon;
+  ::ad::physics::Acceleration valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lonAccel_max(-1e2);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lonAccel_max
     = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueScenesElementObjectRssDynamicsAlphaLon.accelMax = valueScenesElementObjectRssDynamicsAlphaLonAccelMax;
-  ::ad::physics::Acceleration valueScenesElementObjectRssDynamicsAlphaLonBrakeMax(-1e2);
-  valueScenesElementObjectRssDynamicsAlphaLon.brakeMax = valueScenesElementObjectRssDynamicsAlphaLonBrakeMax;
-  ::ad::physics::Acceleration valueScenesElementObjectRssDynamicsAlphaLonBrakeMin(-1e2);
-  valueScenesElementObjectRssDynamicsAlphaLon.brakeMin = valueScenesElementObjectRssDynamicsAlphaLonBrakeMin;
-  ::ad::physics::Acceleration valueScenesElementObjectRssDynamicsAlphaLonBrakeMinCorrect(-1e2);
-  valueScenesElementObjectRssDynamicsAlphaLon.brakeMinCorrect
-    = valueScenesElementObjectRssDynamicsAlphaLonBrakeMinCorrect;
-  valueScenesElementObjectRssDynamicsAlphaLon.brakeMin = valueScenesElementObjectRssDynamicsAlphaLon.brakeMax;
-  valueScenesElementObjectRssDynamicsAlphaLon.brakeMinCorrect = valueScenesElementObjectRssDynamicsAlphaLon.brakeMin;
-  valueScenesElementObjectRssDynamicsAlphaLon.brakeMin = valueScenesElementObjectRssDynamicsAlphaLon.brakeMinCorrect;
-  valueScenesElementObjectRssDynamicsAlphaLon.brakeMax = valueScenesElementObjectRssDynamicsAlphaLon.brakeMin;
-  valueScenesElementObjectRssDynamics.alphaLon = valueScenesElementObjectRssDynamicsAlphaLon;
-  ::ad::rss::world::LateralRssAccelerationValues valueScenesElementObjectRssDynamicsAlphaLat;
-  ::ad::physics::Acceleration valueScenesElementObjectRssDynamicsAlphaLatAccelMax(-1e2);
-  valueScenesElementObjectRssDynamicsAlphaLatAccelMax
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.accel_max
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lonAccel_max;
+  ::ad::physics::Acceleration valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lonBrake_max(-1e2);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.brake_max
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lonBrake_max;
+  ::ad::physics::Acceleration valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lonBrake_min(-1e2);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.brake_min
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lonBrake_min;
+  ::ad::physics::Acceleration valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lonBrake_min_correct(-1e2);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.brake_min_correct
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lonBrake_min_correct;
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.brake_min
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.brake_max;
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.brake_min_correct
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.brake_min;
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.brake_min
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.brake_min_correct;
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.brake_max
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon.brake_min;
+  valueConstellationsElementEgo_vehicle_rss_dynamics.alpha_lon
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lon;
+  ::ad::rss::world::LateralRssAccelerationValues valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lat;
+  ::ad::physics::Acceleration valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_latAccel_max(-1e2);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_latAccel_max
     = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueScenesElementObjectRssDynamicsAlphaLat.accelMax = valueScenesElementObjectRssDynamicsAlphaLatAccelMax;
-  ::ad::physics::Acceleration valueScenesElementObjectRssDynamicsAlphaLatBrakeMin(-1e2);
-  valueScenesElementObjectRssDynamicsAlphaLat.brakeMin = valueScenesElementObjectRssDynamicsAlphaLatBrakeMin;
-  valueScenesElementObjectRssDynamics.alphaLat = valueScenesElementObjectRssDynamicsAlphaLat;
-  ::ad::physics::Distance valueScenesElementObjectRssDynamicsLateralFluctuationMargin(-1e9);
-  valueScenesElementObjectRssDynamicsLateralFluctuationMargin
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lat.accel_max
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_latAccel_max;
+  ::ad::physics::Acceleration valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_latBrake_min(-1e2);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lat.brake_min
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_latBrake_min;
+  valueConstellationsElementEgo_vehicle_rss_dynamics.alpha_lat
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsAlpha_lat;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicle_rss_dynamicsLateral_fluctuation_margin(-1e9);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsLateral_fluctuation_margin
     = ::ad::physics::Distance(0.); // set to valid value within struct
-  valueScenesElementObjectRssDynamics.lateralFluctuationMargin
-    = valueScenesElementObjectRssDynamicsLateralFluctuationMargin;
-  ::ad::physics::Duration valueScenesElementObjectRssDynamicsResponseTime(0.);
-  valueScenesElementObjectRssDynamicsResponseTime
+  valueConstellationsElementEgo_vehicle_rss_dynamics.lateral_fluctuation_margin
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsLateral_fluctuation_margin;
+  ::ad::physics::Duration valueConstellationsElementEgo_vehicle_rss_dynamicsResponse_time(0.);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsResponse_time
     = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
-  valueScenesElementObjectRssDynamics.responseTime = valueScenesElementObjectRssDynamicsResponseTime;
-  ::ad::physics::Speed valueScenesElementObjectRssDynamicsMaxSpeedOnAcceleration(-100.);
-  valueScenesElementObjectRssDynamics.maxSpeedOnAcceleration
-    = valueScenesElementObjectRssDynamicsMaxSpeedOnAcceleration;
-  ::ad::rss::world::UnstructuredSettings valueScenesElementObjectRssDynamicsUnstructuredSettings;
-  ::ad::physics::Distance valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianTurningRadius(-1e9);
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.pedestrianTurningRadius
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianTurningRadius;
-  ::ad::physics::Angle valueScenesElementObjectRssDynamicsUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.driveAwayMaxAngle
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsDriveAwayMaxAngle;
-  ::ad::physics::AngularAcceleration valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleYawRateChange(-1e2);
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleYawRateChange
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleYawRateChange;
-  ::ad::physics::Distance valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleMinRadius(-1e9);
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleMinRadius
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleMinRadius;
-  ::ad::physics::Duration valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleTrajectoryCalculationStep
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleTrajectoryCalculationStep;
-  uint32_t valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleFrontIntermediateYawRateChangeRatioSteps
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps;
-  uint32_t valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleBackIntermediateYawRateChangeRatioSteps
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps;
-  uint32_t valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
-  uint32_t valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
+  valueConstellationsElementEgo_vehicle_rss_dynamics.response_time
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsResponse_time;
+  ::ad::physics::Speed valueConstellationsElementEgo_vehicle_rss_dynamicsMax_speed_on_acceleration(-100.);
+  valueConstellationsElementEgo_vehicle_rss_dynamics.max_speed_on_acceleration
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsMax_speed_on_acceleration;
+  ::ad::rss::world::UnstructuredSettings valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings;
+  ::ad::physics::Distance
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_turning_radius(-1e9);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings.pedestrian_turning_radius
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_turning_radius;
+  ::ad::physics::Angle valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsDrive_away_max_angle(
+    -6.283185308);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings.drive_away_max_angle
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsDrive_away_max_angle;
+  ::ad::physics::AngularAcceleration
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_yaw_rate_change(-1e2);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings.vehicle_yaw_rate_change
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_yaw_rate_change;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_min_radius(
+    -1e9);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings.vehicle_min_radius
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_min_radius;
+  ::ad::physics::Duration
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_trajectory_calculation_step(0.);
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings.vehicle_trajectory_calculation_step
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_trajectory_calculation_step;
   uint32_t
-    valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps{
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_front_intermediate_yaw_rate_change_ratio_steps{
       std::numeric_limits<uint32_t>::min()};
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.vehicleContinueForwardIntermediateYawRateChangeRatioSteps
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps;
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings
+    .vehicle_front_intermediate_yaw_rate_change_ratio_steps
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_front_intermediate_yaw_rate_change_ratio_steps;
   uint32_t
-    valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps{
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_back_intermediate_yaw_rate_change_ratio_steps{
       std::numeric_limits<uint32_t>::min()};
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps;
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings
+    .vehicle_back_intermediate_yaw_rate_change_ratio_steps
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_back_intermediate_yaw_rate_change_ratio_steps;
   uint32_t
-    valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps{
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_brake_intermediate_acceleration_steps{
       std::numeric_limits<uint32_t>::min()};
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.pedestrianContinueForwardIntermediateAccelerationSteps
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps;
-  uint32_t valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.pedestrianBrakeIntermediateAccelerationSteps
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps;
-  uint32_t valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.pedestrianFrontIntermediateHeadingChangeRatioSteps
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps;
-  uint32_t valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps{
-    std::numeric_limits<uint32_t>::min()};
-  valueScenesElementObjectRssDynamicsUnstructuredSettings.pedestrianBackIntermediateHeadingChangeRatioSteps
-    = valueScenesElementObjectRssDynamicsUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps;
-  valueScenesElementObjectRssDynamics.unstructuredSettings = valueScenesElementObjectRssDynamicsUnstructuredSettings;
-  valueScenesElement.objectRssDynamics = valueScenesElementObjectRssDynamics;
-  ::ad::rss::world::RoadArea valueScenesElementIntersectingRoad;
-  ::ad::rss::world::RoadSegment valueScenesElementIntersectingRoadElement;
-  ::ad::rss::world::LaneSegment valueScenesElementIntersectingRoadElementElement;
-  ::ad::rss::world::LaneSegmentId valueScenesElementIntersectingRoadElementElementId(
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings.vehicle_brake_intermediate_acceleration_steps
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_brake_intermediate_acceleration_steps;
+  uint32_t
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_acceleration_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings
+    .vehicle_continue_forward_intermediate_acceleration_steps
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_acceleration_steps;
+  uint32_t
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings
+    .vehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps;
+  uint32_t
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_heading_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings
+    .pedestrian_continue_forward_intermediate_heading_change_ratio_steps
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_heading_change_ratio_steps;
+  uint32_t
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_acceleration_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings
+    .pedestrian_continue_forward_intermediate_acceleration_steps
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_acceleration_steps;
+  uint32_t
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_brake_intermediate_acceleration_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings
+    .pedestrian_brake_intermediate_acceleration_steps
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_brake_intermediate_acceleration_steps;
+  uint32_t
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_front_intermediate_heading_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings
+    .pedestrian_front_intermediate_heading_change_ratio_steps
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_front_intermediate_heading_change_ratio_steps;
+  uint32_t
+    valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_back_intermediate_heading_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings
+    .pedestrian_back_intermediate_heading_change_ratio_steps
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settingsPedestrian_back_intermediate_heading_change_ratio_steps;
+  valueConstellationsElementEgo_vehicle_rss_dynamics.unstructured_settings
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsUnstructured_settings;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicle_rss_dynamicsMin_longitudinal_safety_distance(-1e9);
+  valueConstellationsElementEgo_vehicle_rss_dynamics.min_longitudinal_safety_distance
+    = valueConstellationsElementEgo_vehicle_rss_dynamicsMin_longitudinal_safety_distance;
+  valueConstellationsElement.ego_vehicle_rss_dynamics = valueConstellationsElementEgo_vehicle_rss_dynamics;
+  ::ad::rss::world::Object valueConstellationsElementObject;
+  ::ad::rss::world::ObjectId valueConstellationsElementObjectObject_id(
+    std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  valueConstellationsElementObject.object_id = valueConstellationsElementObjectObject_id;
+  ::ad::rss::world::ObjectType valueConstellationsElementObjectObject_type(::ad::rss::world::ObjectType::Invalid);
+  valueConstellationsElementObject.object_type = valueConstellationsElementObjectObject_type;
+  ::ad::rss::world::OccupiedRegionVector valueConstellationsElementObjectOccupied_regions;
+  ::ad::rss::world::OccupiedRegion valueConstellationsElementObjectOccupied_regionsElement;
+  ::ad::rss::world::LaneSegmentId valueConstellationsElementObjectOccupied_regionsElementSegment_id(
     std::numeric_limits<::ad::rss::world::LaneSegmentId>::lowest());
-  valueScenesElementIntersectingRoadElementElement.id = valueScenesElementIntersectingRoadElementElementId;
-  ::ad::rss::world::LaneSegmentType valueScenesElementIntersectingRoadElementElementType(
-    ::ad::rss::world::LaneSegmentType::Normal);
-  valueScenesElementIntersectingRoadElementElement.type = valueScenesElementIntersectingRoadElementElementType;
-  ::ad::rss::world::LaneDrivingDirection valueScenesElementIntersectingRoadElementElementDrivingDirection(
-    ::ad::rss::world::LaneDrivingDirection::Bidirectional);
-  valueScenesElementIntersectingRoadElementElement.drivingDirection
-    = valueScenesElementIntersectingRoadElementElementDrivingDirection;
-  ::ad::physics::MetricRange valueScenesElementIntersectingRoadElementElementLength;
-  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementLengthMinimum(-1e9);
-  valueScenesElementIntersectingRoadElementElementLengthMinimum
+  valueConstellationsElementObjectOccupied_regionsElement.segment_id
+    = valueConstellationsElementObjectOccupied_regionsElementSegment_id;
+  ::ad::physics::ParametricRange valueConstellationsElementObjectOccupied_regionsElementLon_range;
+  ::ad::physics::ParametricValue valueConstellationsElementObjectOccupied_regionsElementLon_rangeMinimum(0.);
+  valueConstellationsElementObjectOccupied_regionsElementLon_range.minimum
+    = valueConstellationsElementObjectOccupied_regionsElementLon_rangeMinimum;
+  ::ad::physics::ParametricValue valueConstellationsElementObjectOccupied_regionsElementLon_rangeMaximum(0.);
+  valueConstellationsElementObjectOccupied_regionsElementLon_range.maximum
+    = valueConstellationsElementObjectOccupied_regionsElementLon_rangeMaximum;
+  valueConstellationsElementObjectOccupied_regionsElementLon_range.maximum
+    = valueConstellationsElementObjectOccupied_regionsElementLon_range.minimum;
+  valueConstellationsElementObjectOccupied_regionsElementLon_range.minimum
+    = valueConstellationsElementObjectOccupied_regionsElementLon_range.maximum;
+  valueConstellationsElementObjectOccupied_regionsElement.lon_range
+    = valueConstellationsElementObjectOccupied_regionsElementLon_range;
+  ::ad::physics::ParametricRange valueConstellationsElementObjectOccupied_regionsElementLat_range;
+  ::ad::physics::ParametricValue valueConstellationsElementObjectOccupied_regionsElementLat_rangeMinimum(0.);
+  valueConstellationsElementObjectOccupied_regionsElementLat_range.minimum
+    = valueConstellationsElementObjectOccupied_regionsElementLat_rangeMinimum;
+  ::ad::physics::ParametricValue valueConstellationsElementObjectOccupied_regionsElementLat_rangeMaximum(0.);
+  valueConstellationsElementObjectOccupied_regionsElementLat_range.maximum
+    = valueConstellationsElementObjectOccupied_regionsElementLat_rangeMaximum;
+  valueConstellationsElementObjectOccupied_regionsElementLat_range.maximum
+    = valueConstellationsElementObjectOccupied_regionsElementLat_range.minimum;
+  valueConstellationsElementObjectOccupied_regionsElementLat_range.minimum
+    = valueConstellationsElementObjectOccupied_regionsElementLat_range.maximum;
+  valueConstellationsElementObjectOccupied_regionsElement.lat_range
+    = valueConstellationsElementObjectOccupied_regionsElementLat_range;
+  valueConstellationsElementObjectOccupied_regions.resize(1, valueConstellationsElementObjectOccupied_regionsElement);
+  valueConstellationsElementObject.occupied_regions = valueConstellationsElementObjectOccupied_regions;
+  ::ad::rss::world::Velocity valueConstellationsElementObjectVelocity;
+  ::ad::physics::Speed valueConstellationsElementObjectVelocitySpeed_lon_min(-100.);
+  valueConstellationsElementObjectVelocitySpeed_lon_min = ::ad::physics::Speed(0.); // set to valid value within struct
+  valueConstellationsElementObjectVelocity.speed_lon_min = valueConstellationsElementObjectVelocitySpeed_lon_min;
+  ::ad::physics::Speed valueConstellationsElementObjectVelocitySpeed_lon_max(-100.);
+  valueConstellationsElementObjectVelocity.speed_lon_max = valueConstellationsElementObjectVelocitySpeed_lon_max;
+  ::ad::physics::Speed valueConstellationsElementObjectVelocitySpeed_lat_min(-100.);
+  valueConstellationsElementObjectVelocity.speed_lat_min = valueConstellationsElementObjectVelocitySpeed_lat_min;
+  ::ad::physics::Speed valueConstellationsElementObjectVelocitySpeed_lat_max(-100.);
+  valueConstellationsElementObjectVelocity.speed_lat_max = valueConstellationsElementObjectVelocitySpeed_lat_max;
+  valueConstellationsElementObjectVelocity.speed_lon_max = valueConstellationsElementObjectVelocity.speed_lon_min;
+  valueConstellationsElementObjectVelocity.speed_lat_max = valueConstellationsElementObjectVelocity.speed_lat_min;
+  valueConstellationsElementObjectVelocity.speed_lon_min = valueConstellationsElementObjectVelocity.speed_lon_max;
+  valueConstellationsElementObjectVelocity.speed_lat_min = valueConstellationsElementObjectVelocity.speed_lat_max;
+  valueConstellationsElementObject.velocity = valueConstellationsElementObjectVelocity;
+  ::ad::rss::world::ObjectState valueConstellationsElementObjectState;
+  ::ad::physics::Angle valueConstellationsElementObjectStateYaw(-6.283185308);
+  valueConstellationsElementObjectState.yaw = valueConstellationsElementObjectStateYaw;
+  ::ad::physics::Dimension2D valueConstellationsElementObjectStateDimension;
+  ::ad::physics::Distance valueConstellationsElementObjectStateDimensionLength(-1e9);
+  valueConstellationsElementObjectStateDimension.length = valueConstellationsElementObjectStateDimensionLength;
+  ::ad::physics::Distance valueConstellationsElementObjectStateDimensionWidth(-1e9);
+  valueConstellationsElementObjectStateDimension.width = valueConstellationsElementObjectStateDimensionWidth;
+  valueConstellationsElementObjectState.dimension = valueConstellationsElementObjectStateDimension;
+  ::ad::physics::AngularVelocity valueConstellationsElementObjectStateYaw_rate(-100.);
+  valueConstellationsElementObjectState.yaw_rate = valueConstellationsElementObjectStateYaw_rate;
+  ::ad::physics::Distance2D valueConstellationsElementObjectStateCenter_point;
+  ::ad::physics::Distance valueConstellationsElementObjectStateCenter_pointX(-1e9);
+  valueConstellationsElementObjectStateCenter_point.x = valueConstellationsElementObjectStateCenter_pointX;
+  ::ad::physics::Distance valueConstellationsElementObjectStateCenter_pointY(-1e9);
+  valueConstellationsElementObjectStateCenter_point.y = valueConstellationsElementObjectStateCenter_pointY;
+  valueConstellationsElementObjectState.center_point = valueConstellationsElementObjectStateCenter_point;
+  ::ad::physics::SpeedRange valueConstellationsElementObjectStateSpeed_range;
+  ::ad::physics::Speed valueConstellationsElementObjectStateSpeed_rangeMinimum(-100.);
+  valueConstellationsElementObjectStateSpeed_range.minimum = valueConstellationsElementObjectStateSpeed_rangeMinimum;
+  ::ad::physics::Speed valueConstellationsElementObjectStateSpeed_rangeMaximum(-100.);
+  valueConstellationsElementObjectStateSpeed_range.maximum = valueConstellationsElementObjectStateSpeed_rangeMaximum;
+  valueConstellationsElementObjectStateSpeed_range.maximum = valueConstellationsElementObjectStateSpeed_range.minimum;
+  valueConstellationsElementObjectStateSpeed_range.minimum = valueConstellationsElementObjectStateSpeed_range.maximum;
+  valueConstellationsElementObjectState.speed_range = valueConstellationsElementObjectStateSpeed_range;
+  ::ad::physics::Angle valueConstellationsElementObjectStateSteering_angle(-6.283185308);
+  valueConstellationsElementObjectState.steering_angle = valueConstellationsElementObjectStateSteering_angle;
+  valueConstellationsElementObject.state = valueConstellationsElementObjectState;
+  valueConstellationsElement.object = valueConstellationsElementObject;
+  ::ad::rss::world::RssDynamics valueConstellationsElementObject_rss_dynamics;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueConstellationsElementObject_rss_dynamicsAlpha_lon;
+  ::ad::physics::Acceleration valueConstellationsElementObject_rss_dynamicsAlpha_lonAccel_max(-1e2);
+  valueConstellationsElementObject_rss_dynamicsAlpha_lonAccel_max
+    = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueConstellationsElementObject_rss_dynamicsAlpha_lon.accel_max
+    = valueConstellationsElementObject_rss_dynamicsAlpha_lonAccel_max;
+  ::ad::physics::Acceleration valueConstellationsElementObject_rss_dynamicsAlpha_lonBrake_max(-1e2);
+  valueConstellationsElementObject_rss_dynamicsAlpha_lon.brake_max
+    = valueConstellationsElementObject_rss_dynamicsAlpha_lonBrake_max;
+  ::ad::physics::Acceleration valueConstellationsElementObject_rss_dynamicsAlpha_lonBrake_min(-1e2);
+  valueConstellationsElementObject_rss_dynamicsAlpha_lon.brake_min
+    = valueConstellationsElementObject_rss_dynamicsAlpha_lonBrake_min;
+  ::ad::physics::Acceleration valueConstellationsElementObject_rss_dynamicsAlpha_lonBrake_min_correct(-1e2);
+  valueConstellationsElementObject_rss_dynamicsAlpha_lon.brake_min_correct
+    = valueConstellationsElementObject_rss_dynamicsAlpha_lonBrake_min_correct;
+  valueConstellationsElementObject_rss_dynamicsAlpha_lon.brake_min
+    = valueConstellationsElementObject_rss_dynamicsAlpha_lon.brake_max;
+  valueConstellationsElementObject_rss_dynamicsAlpha_lon.brake_min_correct
+    = valueConstellationsElementObject_rss_dynamicsAlpha_lon.brake_min;
+  valueConstellationsElementObject_rss_dynamicsAlpha_lon.brake_min
+    = valueConstellationsElementObject_rss_dynamicsAlpha_lon.brake_min_correct;
+  valueConstellationsElementObject_rss_dynamicsAlpha_lon.brake_max
+    = valueConstellationsElementObject_rss_dynamicsAlpha_lon.brake_min;
+  valueConstellationsElementObject_rss_dynamics.alpha_lon = valueConstellationsElementObject_rss_dynamicsAlpha_lon;
+  ::ad::rss::world::LateralRssAccelerationValues valueConstellationsElementObject_rss_dynamicsAlpha_lat;
+  ::ad::physics::Acceleration valueConstellationsElementObject_rss_dynamicsAlpha_latAccel_max(-1e2);
+  valueConstellationsElementObject_rss_dynamicsAlpha_latAccel_max
+    = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueConstellationsElementObject_rss_dynamicsAlpha_lat.accel_max
+    = valueConstellationsElementObject_rss_dynamicsAlpha_latAccel_max;
+  ::ad::physics::Acceleration valueConstellationsElementObject_rss_dynamicsAlpha_latBrake_min(-1e2);
+  valueConstellationsElementObject_rss_dynamicsAlpha_lat.brake_min
+    = valueConstellationsElementObject_rss_dynamicsAlpha_latBrake_min;
+  valueConstellationsElementObject_rss_dynamics.alpha_lat = valueConstellationsElementObject_rss_dynamicsAlpha_lat;
+  ::ad::physics::Distance valueConstellationsElementObject_rss_dynamicsLateral_fluctuation_margin(-1e9);
+  valueConstellationsElementObject_rss_dynamicsLateral_fluctuation_margin
     = ::ad::physics::Distance(0.); // set to valid value within struct
-  valueScenesElementIntersectingRoadElementElementLength.minimum
-    = valueScenesElementIntersectingRoadElementElementLengthMinimum;
-  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementLengthMaximum(-1e9);
-  valueScenesElementIntersectingRoadElementElementLength.maximum
-    = valueScenesElementIntersectingRoadElementElementLengthMaximum;
-  valueScenesElementIntersectingRoadElementElementLength.maximum
-    = valueScenesElementIntersectingRoadElementElementLength.minimum;
-  valueScenesElementIntersectingRoadElementElementLength.minimum
-    = valueScenesElementIntersectingRoadElementElementLength.maximum;
-  valueScenesElementIntersectingRoadElementElement.length = valueScenesElementIntersectingRoadElementElementLength;
-  ::ad::physics::MetricRange valueScenesElementIntersectingRoadElementElementWidth;
-  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementWidthMinimum(-1e9);
-  valueScenesElementIntersectingRoadElementElementWidthMinimum
-    = ::ad::physics::Distance(0.); // set to valid value within struct
-  valueScenesElementIntersectingRoadElementElementWidth.minimum
-    = valueScenesElementIntersectingRoadElementElementWidthMinimum;
-  ::ad::physics::Distance valueScenesElementIntersectingRoadElementElementWidthMaximum(-1e9);
-  valueScenesElementIntersectingRoadElementElementWidth.maximum
-    = valueScenesElementIntersectingRoadElementElementWidthMaximum;
-  valueScenesElementIntersectingRoadElementElementWidth.maximum
-    = valueScenesElementIntersectingRoadElementElementWidth.minimum;
-  valueScenesElementIntersectingRoadElementElementWidth.minimum
-    = valueScenesElementIntersectingRoadElementElementWidth.maximum;
-  valueScenesElementIntersectingRoadElementElement.width = valueScenesElementIntersectingRoadElementElementWidth;
-  valueScenesElementIntersectingRoadElement.resize(1, valueScenesElementIntersectingRoadElementElement);
-  valueScenesElementIntersectingRoad.resize(1, valueScenesElementIntersectingRoadElement);
-  valueScenesElement.intersectingRoad = valueScenesElementIntersectingRoad;
-  ::ad::rss::world::RoadArea valueScenesElementEgoVehicleRoad;
-  ::ad::rss::world::RoadSegment valueScenesElementEgoVehicleRoadElement;
-  ::ad::rss::world::LaneSegment valueScenesElementEgoVehicleRoadElementElement;
-  ::ad::rss::world::LaneSegmentId valueScenesElementEgoVehicleRoadElementElementId(
+  valueConstellationsElementObject_rss_dynamics.lateral_fluctuation_margin
+    = valueConstellationsElementObject_rss_dynamicsLateral_fluctuation_margin;
+  ::ad::physics::Duration valueConstellationsElementObject_rss_dynamicsResponse_time(0.);
+  valueConstellationsElementObject_rss_dynamicsResponse_time
+    = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
+  valueConstellationsElementObject_rss_dynamics.response_time
+    = valueConstellationsElementObject_rss_dynamicsResponse_time;
+  ::ad::physics::Speed valueConstellationsElementObject_rss_dynamicsMax_speed_on_acceleration(-100.);
+  valueConstellationsElementObject_rss_dynamics.max_speed_on_acceleration
+    = valueConstellationsElementObject_rss_dynamicsMax_speed_on_acceleration;
+  ::ad::rss::world::UnstructuredSettings valueConstellationsElementObject_rss_dynamicsUnstructured_settings;
+  ::ad::physics::Distance valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_turning_radius(
+    -1e9);
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings.pedestrian_turning_radius
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_turning_radius;
+  ::ad::physics::Angle valueConstellationsElementObject_rss_dynamicsUnstructured_settingsDrive_away_max_angle(
+    -6.283185308);
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings.drive_away_max_angle
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsDrive_away_max_angle;
+  ::ad::physics::AngularAcceleration
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_yaw_rate_change(-1e2);
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings.vehicle_yaw_rate_change
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_yaw_rate_change;
+  ::ad::physics::Distance valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_min_radius(-1e9);
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings.vehicle_min_radius
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_min_radius;
+  ::ad::physics::Duration
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_trajectory_calculation_step(0.);
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings.vehicle_trajectory_calculation_step
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_trajectory_calculation_step;
+  uint32_t
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_front_intermediate_yaw_rate_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings
+    .vehicle_front_intermediate_yaw_rate_change_ratio_steps
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_front_intermediate_yaw_rate_change_ratio_steps;
+  uint32_t
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_back_intermediate_yaw_rate_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings
+    .vehicle_back_intermediate_yaw_rate_change_ratio_steps
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_back_intermediate_yaw_rate_change_ratio_steps;
+  uint32_t
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_brake_intermediate_acceleration_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings.vehicle_brake_intermediate_acceleration_steps
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_brake_intermediate_acceleration_steps;
+  uint32_t
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_acceleration_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings
+    .vehicle_continue_forward_intermediate_acceleration_steps
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_acceleration_steps;
+  uint32_t
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings
+    .vehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsVehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps;
+  uint32_t
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_heading_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings
+    .pedestrian_continue_forward_intermediate_heading_change_ratio_steps
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_heading_change_ratio_steps;
+  uint32_t
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_acceleration_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings
+    .pedestrian_continue_forward_intermediate_acceleration_steps
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_continue_forward_intermediate_acceleration_steps;
+  uint32_t
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_brake_intermediate_acceleration_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings.pedestrian_brake_intermediate_acceleration_steps
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_brake_intermediate_acceleration_steps;
+  uint32_t
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_front_intermediate_heading_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings
+    .pedestrian_front_intermediate_heading_change_ratio_steps
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_front_intermediate_heading_change_ratio_steps;
+  uint32_t
+    valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_back_intermediate_heading_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+  valueConstellationsElementObject_rss_dynamicsUnstructured_settings
+    .pedestrian_back_intermediate_heading_change_ratio_steps
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settingsPedestrian_back_intermediate_heading_change_ratio_steps;
+  valueConstellationsElementObject_rss_dynamics.unstructured_settings
+    = valueConstellationsElementObject_rss_dynamicsUnstructured_settings;
+  ::ad::physics::Distance valueConstellationsElementObject_rss_dynamicsMin_longitudinal_safety_distance(-1e9);
+  valueConstellationsElementObject_rss_dynamics.min_longitudinal_safety_distance
+    = valueConstellationsElementObject_rss_dynamicsMin_longitudinal_safety_distance;
+  valueConstellationsElement.object_rss_dynamics = valueConstellationsElementObject_rss_dynamics;
+  ::ad::rss::world::RoadArea valueConstellationsElementIntersecting_road;
+  ::ad::rss::world::RoadSegment valueConstellationsElementIntersecting_roadElement;
+  ::ad::rss::world::RoadSegmentType valueConstellationsElementIntersecting_roadElementType(
+    ::ad::rss::world::RoadSegmentType::Normal);
+  valueConstellationsElementIntersecting_roadElement.type = valueConstellationsElementIntersecting_roadElementType;
+  ::ad::rss::world::LaneSegmentVector valueConstellationsElementIntersecting_roadElementLane_segments;
+  ::ad::rss::world::LaneSegment valueConstellationsElementIntersecting_roadElementLane_segmentsElement;
+  ::ad::rss::world::LaneSegmentId valueConstellationsElementIntersecting_roadElementLane_segmentsElementId(
     std::numeric_limits<::ad::rss::world::LaneSegmentId>::lowest());
-  valueScenesElementEgoVehicleRoadElementElement.id = valueScenesElementEgoVehicleRoadElementElementId;
-  ::ad::rss::world::LaneSegmentType valueScenesElementEgoVehicleRoadElementElementType(
-    ::ad::rss::world::LaneSegmentType::Normal);
-  valueScenesElementEgoVehicleRoadElementElement.type = valueScenesElementEgoVehicleRoadElementElementType;
-  ::ad::rss::world::LaneDrivingDirection valueScenesElementEgoVehicleRoadElementElementDrivingDirection(
-    ::ad::rss::world::LaneDrivingDirection::Bidirectional);
-  valueScenesElementEgoVehicleRoadElementElement.drivingDirection
-    = valueScenesElementEgoVehicleRoadElementElementDrivingDirection;
-  ::ad::physics::MetricRange valueScenesElementEgoVehicleRoadElementElementLength;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementLengthMinimum(-1e9);
-  valueScenesElementEgoVehicleRoadElementElementLengthMinimum
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElement.id
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementId;
+  ::ad::rss::world::LaneDrivingDirection
+    valueConstellationsElementIntersecting_roadElementLane_segmentsElementDriving_direction(
+      ::ad::rss::world::LaneDrivingDirection::Bidirectional);
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElement.driving_direction
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementDriving_direction;
+  ::ad::physics::MetricRange valueConstellationsElementIntersecting_roadElementLane_segmentsElementLength;
+  ::ad::physics::Distance valueConstellationsElementIntersecting_roadElementLane_segmentsElementLengthMinimum(-1e9);
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElementLengthMinimum
     = ::ad::physics::Distance(0.); // set to valid value within struct
-  valueScenesElementEgoVehicleRoadElementElementLength.minimum
-    = valueScenesElementEgoVehicleRoadElementElementLengthMinimum;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementLengthMaximum(-1e9);
-  valueScenesElementEgoVehicleRoadElementElementLength.maximum
-    = valueScenesElementEgoVehicleRoadElementElementLengthMaximum;
-  valueScenesElementEgoVehicleRoadElementElementLength.maximum
-    = valueScenesElementEgoVehicleRoadElementElementLength.minimum;
-  valueScenesElementEgoVehicleRoadElementElementLength.minimum
-    = valueScenesElementEgoVehicleRoadElementElementLength.maximum;
-  valueScenesElementEgoVehicleRoadElementElement.length = valueScenesElementEgoVehicleRoadElementElementLength;
-  ::ad::physics::MetricRange valueScenesElementEgoVehicleRoadElementElementWidth;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementWidthMinimum(-1e9);
-  valueScenesElementEgoVehicleRoadElementElementWidthMinimum
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElementLength.minimum
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementLengthMinimum;
+  ::ad::physics::Distance valueConstellationsElementIntersecting_roadElementLane_segmentsElementLengthMaximum(-1e9);
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElementLength.maximum
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementLengthMaximum;
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElementLength.maximum
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementLength.minimum;
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElementLength.minimum
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementLength.maximum;
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElement.length
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementLength;
+  ::ad::physics::MetricRange valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidth;
+  ::ad::physics::Distance valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidthMinimum(-1e9);
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidthMinimum
     = ::ad::physics::Distance(0.); // set to valid value within struct
-  valueScenesElementEgoVehicleRoadElementElementWidth.minimum
-    = valueScenesElementEgoVehicleRoadElementElementWidthMinimum;
-  ::ad::physics::Distance valueScenesElementEgoVehicleRoadElementElementWidthMaximum(-1e9);
-  valueScenesElementEgoVehicleRoadElementElementWidth.maximum
-    = valueScenesElementEgoVehicleRoadElementElementWidthMaximum;
-  valueScenesElementEgoVehicleRoadElementElementWidth.maximum
-    = valueScenesElementEgoVehicleRoadElementElementWidth.minimum;
-  valueScenesElementEgoVehicleRoadElementElementWidth.minimum
-    = valueScenesElementEgoVehicleRoadElementElementWidth.maximum;
-  valueScenesElementEgoVehicleRoadElementElement.width = valueScenesElementEgoVehicleRoadElementElementWidth;
-  valueScenesElementEgoVehicleRoadElement.resize(1, valueScenesElementEgoVehicleRoadElementElement);
-  valueScenesElementEgoVehicleRoad.resize(1, valueScenesElementEgoVehicleRoadElement);
-  valueScenesElement.egoVehicleRoad = valueScenesElementEgoVehicleRoad;
-  valueScenes.resize(1, valueScenesElement);
-  value.scenes = valueScenes;
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidth.minimum
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidthMinimum;
+  ::ad::physics::Distance valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidthMaximum(-1e9);
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidth.maximum
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidthMaximum;
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidth.maximum
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidth.minimum;
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidth.minimum
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidth.maximum;
+  valueConstellationsElementIntersecting_roadElementLane_segmentsElement.width
+    = valueConstellationsElementIntersecting_roadElementLane_segmentsElementWidth;
+  valueConstellationsElementIntersecting_roadElementLane_segments.resize(
+    1, valueConstellationsElementIntersecting_roadElementLane_segmentsElement);
+  valueConstellationsElementIntersecting_roadElement.lane_segments
+    = valueConstellationsElementIntersecting_roadElementLane_segments;
+  ::ad::physics::Distance valueConstellationsElementIntersecting_roadElementMinimum_length_after_intersecting_area(
+    -1e9);
+  valueConstellationsElementIntersecting_roadElement.minimum_length_after_intersecting_area
+    = valueConstellationsElementIntersecting_roadElementMinimum_length_after_intersecting_area;
+  ::ad::physics::Distance valueConstellationsElementIntersecting_roadElementMinimum_length_before_intersecting_area(
+    -1e9);
+  valueConstellationsElementIntersecting_roadElement.minimum_length_before_intersecting_area
+    = valueConstellationsElementIntersecting_roadElementMinimum_length_before_intersecting_area;
+  valueConstellationsElementIntersecting_road.resize(1, valueConstellationsElementIntersecting_roadElement);
+  valueConstellationsElement.intersecting_road = valueConstellationsElementIntersecting_road;
+  ::ad::rss::world::RoadArea valueConstellationsElementEgo_vehicle_road;
+  ::ad::rss::world::RoadSegment valueConstellationsElementEgo_vehicle_roadElement;
+  ::ad::rss::world::RoadSegmentType valueConstellationsElementEgo_vehicle_roadElementType(
+    ::ad::rss::world::RoadSegmentType::Normal);
+  valueConstellationsElementEgo_vehicle_roadElement.type = valueConstellationsElementEgo_vehicle_roadElementType;
+  ::ad::rss::world::LaneSegmentVector valueConstellationsElementEgo_vehicle_roadElementLane_segments;
+  ::ad::rss::world::LaneSegment valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElement;
+  ::ad::rss::world::LaneSegmentId valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementId(
+    std::numeric_limits<::ad::rss::world::LaneSegmentId>::lowest());
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElement.id
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementId;
+  ::ad::rss::world::LaneDrivingDirection
+    valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementDriving_direction(
+      ::ad::rss::world::LaneDrivingDirection::Bidirectional);
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElement.driving_direction
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementDriving_direction;
+  ::ad::physics::MetricRange valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLength;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLengthMinimum(-1e9);
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLengthMinimum
+    = ::ad::physics::Distance(0.); // set to valid value within struct
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLength.minimum
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLengthMinimum;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLengthMaximum(-1e9);
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLength.maximum
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLengthMaximum;
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLength.maximum
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLength.minimum;
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLength.minimum
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLength.maximum;
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElement.length
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementLength;
+  ::ad::physics::MetricRange valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidth;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidthMinimum(-1e9);
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidthMinimum
+    = ::ad::physics::Distance(0.); // set to valid value within struct
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidth.minimum
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidthMinimum;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidthMaximum(-1e9);
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidth.maximum
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidthMaximum;
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidth.maximum
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidth.minimum;
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidth.minimum
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidth.maximum;
+  valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElement.width
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElementWidth;
+  valueConstellationsElementEgo_vehicle_roadElementLane_segments.resize(
+    1, valueConstellationsElementEgo_vehicle_roadElementLane_segmentsElement);
+  valueConstellationsElementEgo_vehicle_roadElement.lane_segments
+    = valueConstellationsElementEgo_vehicle_roadElementLane_segments;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicle_roadElementMinimum_length_after_intersecting_area(-1e9);
+  valueConstellationsElementEgo_vehicle_roadElement.minimum_length_after_intersecting_area
+    = valueConstellationsElementEgo_vehicle_roadElementMinimum_length_after_intersecting_area;
+  ::ad::physics::Distance valueConstellationsElementEgo_vehicle_roadElementMinimum_length_before_intersecting_area(
+    -1e9);
+  valueConstellationsElementEgo_vehicle_roadElement.minimum_length_before_intersecting_area
+    = valueConstellationsElementEgo_vehicle_roadElementMinimum_length_before_intersecting_area;
+  valueConstellationsElementEgo_vehicle_road.resize(1, valueConstellationsElementEgo_vehicle_roadElement);
+  valueConstellationsElement.ego_vehicle_road = valueConstellationsElementEgo_vehicle_road;
+  valueConstellations.resize(1, valueConstellationsElement);
+  value.constellations = valueConstellations;
 
   // override member with data type value above input range maximum
   ::ad::rss::world::RssDynamics invalidInitializedMember;
-  ::ad::rss::world::LongitudinalRssAccelerationValues invalidInitializedMemberAlphaLon;
-  ::ad::physics::Acceleration invalidInitializedMemberAlphaLonAccelMax(1e2 * 1.1);
-  invalidInitializedMemberAlphaLon.accelMax = invalidInitializedMemberAlphaLonAccelMax;
-  invalidInitializedMember.alphaLon = invalidInitializedMemberAlphaLon;
-  value.defaultEgoVehicleRssDynamics = invalidInitializedMember;
+  ::ad::rss::world::LongitudinalRssAccelerationValues invalidInitializedMemberAlpha_lon;
+  ::ad::physics::Acceleration invalidInitializedMemberAlpha_lonAccel_max(1e2 * 1.1);
+  invalidInitializedMemberAlpha_lon.accel_max = invalidInitializedMemberAlpha_lonAccel_max;
+  invalidInitializedMember.alpha_lon = invalidInitializedMemberAlpha_lon;
+  value.default_ego_vehicle_rss_dynamics = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }

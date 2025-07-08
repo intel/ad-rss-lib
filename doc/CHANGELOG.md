@@ -1,7 +1,60 @@
-## Latest changes
+## Release 5.0.0
+
+#### :rocket: New Features
+* Added a min_longitudinal_safety_distance to world::RssDynamics structure parameter to provide a lower bound for the resulting longitudinal safe distance
+* Extend capabilities for system integration:
+  - Added ad::rss::map::RssObjectAdapter classes as generic data inferfaces to the user implementation for RSS checks
+  - Added ad::rss::map::RssRouteCheckerObjectData classes interacting with respective ad::rss::map::RssObjectAdapter classes
+    to handle apspects like map matching, route prediction/route planning along a given set of routing targets,
+    route shortening/extending, calculating vehicle dynamics on the route.
+  - Added ad::rss::map::RssRouteChecker class to handle RSS checks on multiple routes in an efficient manner
+    with support for multiple ego-vehicles at once. The class takes care on variying numbers of route predictions
+    over time (duplicating rss checkers if required) to support more than one RSS situation per ego vehicle
+    (one RSS situation per ego-route prediction). This opens the possiblilty for RSS checking on global scope
+    i.e. from an infrastructure point of view, where a concrete ego-route might not be available.
+    Includes artificial object injection callback to inject artificial objects into the calculation.
+  - Mechanisms to speed up:
+    - Added mechanisms to improve reusability of calculated data (speed up)
+    - Added possibililty to restrict operation on certain map areas (speed up)
+    - Enabled parallel calculations
+  - Allow injection of artificial objects (e.g. to handle occlusions based on ad::map::match::LaneOccupiedRegionList)
+  - RssReachableSetsCalculation: Allow injection of method to calculate/manipulate the unstructured trajectory sets (e.g. to cut off parts outside the road)
+  - Introduced ::ad::rss::world::ObjectType::Bicycle
+
 #### :ghost: Maintenance
+* Support newer colcon, cmake, boost, gcc-13, clang-18 and Ubuntu 24.04
+* Support newer spdlog: adding formatters for datatype logging
+* Harmonize CXX standard to 17
+* Covering Python versions 3.10-3.13
+* Disable outdated Ubuntu builds (18.04, 20.04)
 * Improve security of github actions
-* Disable Ubuntu 18.04 builds
+* Adapt naming to conform to the well defined terms of 'situation' and 'scene' within the context of AD (see e.g. SAE J3131).
+  In general, the input to the core RSS calculations, the ad::rss::world::WorldModel describes a RSS situation
+  which contains constellations describing the ego vehicle in respect to one other object.
+  The constellation can be of structured or unstructured nature. This clarification has a bigger influence on the naming
+  of functions, variables, and class members:
+  - Removed the namespace 'situation' and distributed the content into the namespaces 'core', 'structured' and 'unstructured'
+  - Most occurances of 'situation', 'Situation', 'scene' or 'Scene' within any naming have been replaced
+    by the term 'constellation' in case the usage of them didn't match the general meaning of these terms as stated above
+  - ad/rss/situation/Phyisc.hpp -> ad/rss/core/Phyisc.hpp
+  - ad/rss/situation/RssFormulas.hpp -> ad/rss/structured/RssFormulas.hpp
+  - Most prominent type changes:
+    - ad::rss::situation::SituationSnapshot -> ad::rss::core::RssSituationSnapshot
+    - ad::rss::world::Scene -> ad::rss::world::Constellation (describing the constellation from outside point of view)
+    - ad::rss::situation::SituationType -> ad::rss::world::ConstellationType
+    - ad::rss::situation::Situation -> ad::rss::core::RelativeConstellation (describing the constellation in relative form for usage inside core calculations)
+    - ad::rss::situation::SituationId -> ad::rss::core::RelativeConstellationId
+    - ad::rss::situation::VehicleState -> ad::rss::core::RelativeObjectState (describing the object in relative form for usage inside core calculations)
+      where the old members of VehicleState only relevant in structured constellations are now collected wihin the new ad::rss::core::StructuredObjectState
+    - 'UnstructuredScene' -> 'UnstructuredConstellation'
+    - ad::rss::map::RssSceneCreation -> ad::rss::map::RssWorldModelCreation  (appendScenes() -> appendConstellations())
+    - ad::rss::map::RssSceneCreation::RestrictSpeedLimitMode -> ad::rss::map::RssRestrictSpeedLimitMode
+    - ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode -> ad::rss::map::RssAppendRoadBoundariesMode
+    - ad::rss::map::RssMode -> ad::rss::map::RssConstellationCreationMode
+* Move headers of ad_rss into the public folders and removed unnecessary std::unique_ptr from implemenation. This enables to create
+straight forward copies of the ::ad::rss::core::RssCheck objects.
+* Move some geometry calculations
+
 
 ## Release 4.5.3
 #### :ghost: Maintenance
@@ -45,8 +98,7 @@
 * Updated ad_map_access to v2.4.5
 * Use target python version for build
 * Fix: Ensure maxSpeedOnAcceleration only limits the actual acceleration while reponse time.
-* `python_wrapper_helper.py` is now generated by cmake so that it uses the
-proper C++ standard.
+* `python_wrapper_helper.py` is now generated by cmake so that it uses the proper C++ standard.
 
 ## Release 4.4.0
 

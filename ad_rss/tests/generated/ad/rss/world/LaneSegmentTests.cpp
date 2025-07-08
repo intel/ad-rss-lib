@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2021 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -30,10 +30,9 @@ protected:
     ::ad::rss::world::LaneSegment value;
     ::ad::rss::world::LaneSegmentId valueId(std::numeric_limits<::ad::rss::world::LaneSegmentId>::lowest());
     value.id = valueId;
-    ::ad::rss::world::LaneSegmentType valueType(::ad::rss::world::LaneSegmentType::Normal);
-    value.type = valueType;
-    ::ad::rss::world::LaneDrivingDirection valueDrivingDirection(::ad::rss::world::LaneDrivingDirection::Bidirectional);
-    value.drivingDirection = valueDrivingDirection;
+    ::ad::rss::world::LaneDrivingDirection valueDriving_direction(
+      ::ad::rss::world::LaneDrivingDirection::Bidirectional);
+    value.driving_direction = valueDriving_direction;
     ::ad::physics::MetricRange valueLength;
     ::ad::physics::Distance valueLengthMinimum(-1e9);
     valueLengthMinimum = ::ad::physics::Distance(0.); // set to valid value within struct
@@ -115,22 +114,11 @@ TEST_F(LaneSegmentTests, comparisonOperatorIdDiffers)
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(LaneSegmentTests, comparisonOperatorTypeDiffers)
+TEST_F(LaneSegmentTests, comparisonOperatorDriving_directionDiffers)
 {
   ::ad::rss::world::LaneSegment valueA = mValue;
-  ::ad::rss::world::LaneSegmentType type(::ad::rss::world::LaneSegmentType::Intersection);
-  valueA.type = type;
-  ::ad::rss::world::LaneSegment valueB = mValue;
-
-  EXPECT_FALSE(valueA == valueB);
-  EXPECT_TRUE(valueA != valueB);
-}
-
-TEST_F(LaneSegmentTests, comparisonOperatorDrivingDirectionDiffers)
-{
-  ::ad::rss::world::LaneSegment valueA = mValue;
-  ::ad::rss::world::LaneDrivingDirection drivingDirection(::ad::rss::world::LaneDrivingDirection::Negative);
-  valueA.drivingDirection = drivingDirection;
+  ::ad::rss::world::LaneDrivingDirection driving_direction(::ad::rss::world::LaneDrivingDirection::Negative);
+  valueA.driving_direction = driving_direction;
   ::ad::rss::world::LaneSegment valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);

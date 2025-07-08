@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2020 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -12,18 +12,18 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1997
+ * Generator Version : 11.0.0-2046
  */
 
 #pragma once
 
 #include <cmath>
 #include <limits>
-#include "ad/rss/situation/SituationTypeValidInputRange.hpp"
 #include "ad/rss/state/LateralRssStateValidInputRange.hpp"
 #include "ad/rss/state/LongitudinalRssStateValidInputRange.hpp"
 #include "ad/rss/state/RssState.hpp"
-#include "ad/rss/state/UnstructuredSceneRssStateValidInputRange.hpp"
+#include "ad/rss/state/UnstructuredConstellationRssStateValidInputRange.hpp"
+#include "ad/rss/world/ConstellationTypeValidInputRange.hpp"
 #include "spdlog/fmt/ostr.h"
 #include "spdlog/spdlog.h"
 
@@ -41,11 +41,11 @@ inline bool withinValidInputRange(::ad::rss::state::RssState const &input, bool 
 {
   // check for generic member input ranges
   bool inValidInputRange = true;
-  inValidInputRange = withinValidInputRange(input.longitudinalState, logErrors)
-    && withinValidInputRange(input.lateralStateRight, logErrors)
-    && withinValidInputRange(input.lateralStateLeft, logErrors)
-    && withinValidInputRange(input.unstructuredSceneState, logErrors)
-    && withinValidInputRange(input.situationType, logErrors);
+  inValidInputRange = withinValidInputRange(input.longitudinal_state, logErrors)
+    && withinValidInputRange(input.lateral_state_right, logErrors)
+    && withinValidInputRange(input.lateral_state_left, logErrors)
+    && withinValidInputRange(input.unstructured_constellation_state, logErrors)
+    && withinValidInputRange(input.constellation_type, logErrors);
   if (!inValidInputRange && logErrors)
   {
     spdlog::error("withinValidInputRange(::ad::rss::state::RssState)>> {} has invalid member",

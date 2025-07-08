@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2021 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -28,25 +28,25 @@ protected:
   {
     // valid initialization
     ::ad::rss::state::LateralRssState value;
-    bool valueIsSafe{true};
-    value.isSafe = valueIsSafe;
+    bool valueIs_safe{true};
+    value.is_safe = valueIs_safe;
     ::ad::rss::state::LateralResponse valueResponse(::ad::rss::state::LateralResponse::None);
     value.response = valueResponse;
-    ::ad::rss::world::LateralRssAccelerationValues valueAlphaLat;
-    ::ad::physics::Acceleration valueAlphaLatAccelMax(-1e2);
-    valueAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-    valueAlphaLat.accelMax = valueAlphaLatAccelMax;
-    ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
-    valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
-    value.alphaLat = valueAlphaLat;
-    ::ad::rss::state::RssStateInformation valueRssStateInformation;
-    ::ad::physics::Distance valueRssStateInformationSafeDistance(-1e9);
-    valueRssStateInformation.safeDistance = valueRssStateInformationSafeDistance;
-    ::ad::physics::Distance valueRssStateInformationCurrentDistance(-1e9);
-    valueRssStateInformation.currentDistance = valueRssStateInformationCurrentDistance;
-    ::ad::rss::state::RssStateEvaluator valueRssStateInformationEvaluator(::ad::rss::state::RssStateEvaluator::None);
-    valueRssStateInformation.evaluator = valueRssStateInformationEvaluator;
-    value.rssStateInformation = valueRssStateInformation;
+    ::ad::rss::world::LateralRssAccelerationValues valueAlpha_lat;
+    ::ad::physics::Acceleration valueAlpha_latAccel_max(-1e2);
+    valueAlpha_latAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+    valueAlpha_lat.accel_max = valueAlpha_latAccel_max;
+    ::ad::physics::Acceleration valueAlpha_latBrake_min(-1e2);
+    valueAlpha_lat.brake_min = valueAlpha_latBrake_min;
+    value.alpha_lat = valueAlpha_lat;
+    ::ad::rss::state::RssStateInformation valueRss_state_information;
+    ::ad::physics::Distance valueRss_state_informationSafe_distance(-1e9);
+    valueRss_state_information.safe_distance = valueRss_state_informationSafe_distance;
+    ::ad::physics::Distance valueRss_state_informationCurrent_distance(-1e9);
+    valueRss_state_information.current_distance = valueRss_state_informationCurrent_distance;
+    ::ad::rss::state::RssStateEvaluator valueRss_state_informationEvaluator(::ad::rss::state::RssStateEvaluator::None);
+    valueRss_state_information.evaluator = valueRss_state_informationEvaluator;
+    value.rss_state_information = valueRss_state_information;
     mValue = value;
   }
 
@@ -99,11 +99,11 @@ TEST_F(LateralRssStateTests, stringConversionTest)
   ASSERT_EQ(ostreamStr, toStr);
 }
 
-TEST_F(LateralRssStateTests, comparisonOperatorIsSafeDiffers)
+TEST_F(LateralRssStateTests, comparisonOperatorIs_safeDiffers)
 {
   ::ad::rss::state::LateralRssState valueA = mValue;
-  bool isSafe{false};
-  valueA.isSafe = isSafe;
+  bool is_safe{false};
+  valueA.is_safe = is_safe;
   ::ad::rss::state::LateralRssState valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
@@ -121,34 +121,34 @@ TEST_F(LateralRssStateTests, comparisonOperatorResponseDiffers)
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(LateralRssStateTests, comparisonOperatorAlphaLatDiffers)
+TEST_F(LateralRssStateTests, comparisonOperatorAlpha_latDiffers)
 {
   ::ad::rss::state::LateralRssState valueA = mValue;
-  ::ad::rss::world::LateralRssAccelerationValues alphaLat;
-  ::ad::physics::Acceleration alphaLatAccelMax(1e2);
-  alphaLat.accelMax = alphaLatAccelMax;
-  ::ad::physics::Acceleration alphaLatBrakeMin(1e2);
-  alphaLatBrakeMin = ::ad::physics::Acceleration(0. * 0.9); // set to valid value within struct
-  alphaLat.brakeMin = alphaLatBrakeMin;
-  valueA.alphaLat = alphaLat;
+  ::ad::rss::world::LateralRssAccelerationValues alpha_lat;
+  ::ad::physics::Acceleration alpha_latAccel_max(1e2);
+  alpha_lat.accel_max = alpha_latAccel_max;
+  ::ad::physics::Acceleration alpha_latBrake_min(1e2);
+  alpha_latBrake_min = ::ad::physics::Acceleration(0. * 0.9); // set to valid value within struct
+  alpha_lat.brake_min = alpha_latBrake_min;
+  valueA.alpha_lat = alpha_lat;
   ::ad::rss::state::LateralRssState valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(LateralRssStateTests, comparisonOperatorRssStateInformationDiffers)
+TEST_F(LateralRssStateTests, comparisonOperatorRss_state_informationDiffers)
 {
   ::ad::rss::state::LateralRssState valueA = mValue;
-  ::ad::rss::state::RssStateInformation rssStateInformation;
-  ::ad::physics::Distance rssStateInformationSafeDistance(1e9);
-  rssStateInformation.safeDistance = rssStateInformationSafeDistance;
-  ::ad::physics::Distance rssStateInformationCurrentDistance(1e9);
-  rssStateInformation.currentDistance = rssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator rssStateInformationEvaluator(
+  ::ad::rss::state::RssStateInformation rss_state_information;
+  ::ad::physics::Distance rss_state_informationSafe_distance(1e9);
+  rss_state_information.safe_distance = rss_state_informationSafe_distance;
+  ::ad::physics::Distance rss_state_informationCurrent_distance(1e9);
+  rss_state_information.current_distance = rss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator rss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::IntersectionOverlap);
-  rssStateInformation.evaluator = rssStateInformationEvaluator;
-  valueA.rssStateInformation = rssStateInformation;
+  rss_state_information.evaluator = rss_state_informationEvaluator;
+  valueA.rss_state_information = rss_state_information;
   ::ad::rss::state::LateralRssState valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);

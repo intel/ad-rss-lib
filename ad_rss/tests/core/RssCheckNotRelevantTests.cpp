@@ -14,9 +14,9 @@ namespace core {
 
 template <class TESTBASE> class RssCheckNotRelevantTestBase : public TESTBASE
 {
-  situation::SituationType getSituationType() override
+  world::ConstellationType getConstellationType() override
   {
-    return situation::SituationType::NotRelevant;
+    return world::ConstellationType::NotRelevant;
   }
 
   world::Object &getEgoObject() override
@@ -24,7 +24,7 @@ template <class TESTBASE> class RssCheckNotRelevantTestBase : public TESTBASE
     return TESTBASE::objectOnSegment1;
   }
 
-  world::Object &getSceneObject(uint32_t) override
+  world::Object &getConstellationObject(uint32_t) override
   {
     return TESTBASE::objectOnSegment7;
   }
@@ -34,23 +34,23 @@ using RssCheckNotRelevantTest = RssCheckNotRelevantTestBase<RssCheckTestBase>;
 
 TEST_F(RssCheckNotRelevantTest, NotRelevant)
 {
-  worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId = 8;
+  worldModel.constellations[0].ego_vehicle.occupied_regions[0].segment_id = 8;
 
-  worldModel.scenes[0].object.occupiedRegions[0].segmentId = 0;
-  worldModel.scenes[0].situationType = situation::SituationType::NotRelevant;
+  worldModel.constellations[0].object.occupied_regions[0].segment_id = 0;
+  worldModel.constellations[0].constellation_type = world::ConstellationType::NotRelevant;
 
   state::ProperResponse properResponse;
   core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
   {
-    worldModel.scenes[0].egoVehicle.velocity.speedLonMin = kmhToMeterPerSec(i);
-    worldModel.scenes[0].egoVehicle.velocity.speedLonMax = kmhToMeterPerSec(i);
-    worldModel.timeIndex++;
+    worldModel.constellations[0].ego_vehicle.velocity.speed_lon_min = kmhToMeterPerSec(i);
+    worldModel.constellations[0].ego_vehicle.velocity.speed_lon_max = kmhToMeterPerSec(i);
+    worldModel.time_index++;
 
     ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));
 
-    testRestrictions(properResponse.accelerationRestrictions);
+    testRestrictions(properResponse.acceleration_restrictions);
   }
 }
 

@@ -4,7 +4,7 @@
 ## Introduction
 The Responsibility-Sensitive Safety (RSS) model is designed to formalize and
 contextualize human judgment regarding all multi-agent driving situations and
-dilemmas. RSS formalizes terms like dangerous situations, proper response and
+dilemmas. RSS formalizes terms like dangerous situation, proper response and
 notion of blame in a mathematical way. From planning and decision-making
 perspective, RSS ensures that the AD system will not issue a command that would
 lead to an accident.
@@ -71,14 +71,14 @@ summary. The key component of this implementation is called _"ad-rss-lib"_.
 This library receives (post-processed) sensor information and provides actuator
 command restrictions as output.
 
-| ![](../images/ad-rss-lib-Integrate_Into_Sense-Plan-Act.png) | 
-|:--:| 
+| ![](../images/ad-rss-lib-Integrate_Into_Sense-Plan-Act.png) |
+|:--:|
 | *ad-rss-lib (implemented in the library) and its interfaces to the outside world* |
 
 In summary, the ad-rss-lib receives an object list, with information about all
 objects in the surrounding environment of the ego vehicle. Then, the ad-rss-lib
 creates an object - ego vehicle pair, for each object. This pair is usually
-referred to as _"Situation"_. For all situations, the aforementioned RSS checks
+referred to as _"Constellation"_. For all constellations, the aforementioned RSS checks
 are performed and a proper response is calculated. Finally, one overall
 response is computed by the ad-rss-lib, and the corresponding actuator command
 restrictions (i.e. lateral and longitudinal acceleration restrictions) are sent
@@ -99,4 +99,3 @@ out.
     * Code quality is assured by automated testing with test coverage of
     100% on methods and 80% on branches as well as static code analysis
     * The library is intended for the research community.
-

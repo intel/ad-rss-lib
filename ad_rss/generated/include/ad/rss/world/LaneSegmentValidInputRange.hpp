@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2020 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1997
+ * Generator Version : 11.0.0-2046
  */
 
 #pragma once
@@ -22,7 +22,6 @@
 #include "ad/physics/MetricRangeValidInputRange.hpp"
 #include "ad/rss/world/LaneDrivingDirectionValidInputRange.hpp"
 #include "ad/rss/world/LaneSegment.hpp"
-#include "ad/rss/world/LaneSegmentTypeValidInputRange.hpp"
 #include "spdlog/fmt/ostr.h"
 #include "spdlog/spdlog.h"
 
@@ -40,9 +39,8 @@ inline bool withinValidInputRange(::ad::rss::world::LaneSegment const &input, bo
 {
   // check for generic member input ranges
   bool inValidInputRange = true;
-  inValidInputRange = withinValidInputRange(input.type, logErrors)
-    && withinValidInputRange(input.drivingDirection, logErrors) && withinValidInputRange(input.length, logErrors)
-    && withinValidInputRange(input.width, logErrors);
+  inValidInputRange = withinValidInputRange(input.driving_direction, logErrors)
+    && withinValidInputRange(input.length, logErrors) && withinValidInputRange(input.width, logErrors);
   if (!inValidInputRange && logErrors)
   {
     spdlog::error("withinValidInputRange(::ad::rss::world::LaneSegment)>> {} has invalid member",

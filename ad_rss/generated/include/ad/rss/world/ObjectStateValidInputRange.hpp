@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2020 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1997
+ * Generator Version : 11.0.0-2046
  */
 
 #pragma once
@@ -23,7 +23,7 @@
 #include "ad/physics/AngularVelocityValidInputRange.hpp"
 #include "ad/physics/Dimension2DValidInputRange.hpp"
 #include "ad/physics/Distance2DValidInputRange.hpp"
-#include "ad/physics/SpeedValidInputRange.hpp"
+#include "ad/physics/SpeedRangeValidInputRange.hpp"
 #include "ad/rss/world/ObjectState.hpp"
 #include "spdlog/fmt/ostr.h"
 #include "spdlog/spdlog.h"
@@ -43,8 +43,8 @@ inline bool withinValidInputRange(::ad::rss::world::ObjectState const &input, bo
   // check for generic member input ranges
   bool inValidInputRange = true;
   inValidInputRange = withinValidInputRange(input.yaw, logErrors) && withinValidInputRange(input.dimension, logErrors)
-    && withinValidInputRange(input.yawRate, logErrors) && withinValidInputRange(input.centerPoint, logErrors)
-    && withinValidInputRange(input.speed, logErrors) && withinValidInputRange(input.steeringAngle, logErrors);
+    && withinValidInputRange(input.yaw_rate, logErrors) && withinValidInputRange(input.center_point, logErrors)
+    && withinValidInputRange(input.speed_range, logErrors) && withinValidInputRange(input.steering_angle, logErrors);
   if (!inValidInputRange && logErrors)
   {
     spdlog::error("withinValidInputRange(::ad::rss::world::ObjectState)>> {} has invalid member",

@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2020 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1997
+ * Generator Version : 11.0.0-2046
  */
 
 #pragma once
@@ -38,19 +38,20 @@
  * \returns \c true if RssDynamics is considered to be within the specified input range
  *
  * \note the specified input range is defined by the ranges of all members, plus:
- *       ::ad::physics::Distance(0.) <= lateralFluctuationMargin <= ::ad::physics::Distance(1.)
- *       ::ad::physics::Duration(0.) < responseTime <= ::ad::physics::Duration(10.)
+ *       ::ad::physics::Distance(0.) <= lateral_fluctuation_margin <= ::ad::physics::Distance(1.)
+ *       ::ad::physics::Duration(0.) < response_time <= ::ad::physics::Duration(10.)
  */
 inline bool withinValidInputRange(::ad::rss::world::RssDynamics const &input, bool const logErrors = true)
 {
   // check for generic member input ranges
   bool inValidInputRange = true;
-  inValidInputRange = withinValidInputRange(input.alphaLon, logErrors)
-    && withinValidInputRange(input.alphaLat, logErrors)
-    && withinValidInputRange(input.lateralFluctuationMargin, logErrors)
-    && withinValidInputRange(input.responseTime, logErrors)
-    && withinValidInputRange(input.maxSpeedOnAcceleration, logErrors)
-    && withinValidInputRange(input.unstructuredSettings, logErrors);
+  inValidInputRange = withinValidInputRange(input.alpha_lon, logErrors)
+    && withinValidInputRange(input.alpha_lat, logErrors)
+    && withinValidInputRange(input.lateral_fluctuation_margin, logErrors)
+    && withinValidInputRange(input.response_time, logErrors)
+    && withinValidInputRange(input.max_speed_on_acceleration, logErrors)
+    && withinValidInputRange(input.unstructured_settings, logErrors)
+    && withinValidInputRange(input.min_longitudinal_safety_distance, logErrors);
   if (!inValidInputRange && logErrors)
   {
     spdlog::error("withinValidInputRange(::ad::rss::world::RssDynamics)>> {} has invalid member",
@@ -60,14 +61,14 @@ inline bool withinValidInputRange(::ad::rss::world::RssDynamics const &input, bo
   // check for individual input ranges
   if (inValidInputRange)
   {
-    inValidInputRange = (::ad::physics::Distance(0.) <= input.lateralFluctuationMargin)
-      && (input.lateralFluctuationMargin <= ::ad::physics::Distance(1.));
+    inValidInputRange = (::ad::physics::Distance(0.) <= input.lateral_fluctuation_margin)
+      && (input.lateral_fluctuation_margin <= ::ad::physics::Distance(1.));
     if (!inValidInputRange && logErrors)
     {
       spdlog::error(
         "withinValidInputRange(::ad::rss::world::RssDynamics)>> {} element {} out of valid input range [{}, {}]",
         input,
-        input.lateralFluctuationMargin,
+        input.lateral_fluctuation_margin,
         ::ad::physics::Distance(0.),
         ::ad::physics::Distance(1.)); // LCOV_EXCL_BR_LINE
     }
@@ -76,13 +77,13 @@ inline bool withinValidInputRange(::ad::rss::world::RssDynamics const &input, bo
   if (inValidInputRange)
   {
     inValidInputRange
-      = (::ad::physics::Duration(0.) < input.responseTime) && (input.responseTime <= ::ad::physics::Duration(10.));
+      = (::ad::physics::Duration(0.) < input.response_time) && (input.response_time <= ::ad::physics::Duration(10.));
     if (!inValidInputRange && logErrors)
     {
       spdlog::error(
         "withinValidInputRange(::ad::rss::world::RssDynamics)>> {} element {} out of valid input range [{}, {}]",
         input,
-        input.responseTime,
+        input.response_time,
         ::ad::physics::Duration(0.),
         ::ad::physics::Duration(10.)); // LCOV_EXCL_BR_LINE
     }

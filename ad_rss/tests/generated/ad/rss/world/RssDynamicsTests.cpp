@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2021 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -28,89 +28,92 @@ protected:
   {
     // valid initialization
     ::ad::rss::world::RssDynamics value;
-    ::ad::rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
-    ::ad::physics::Acceleration valueAlphaLonAccelMax(-1e2);
-    valueAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-    valueAlphaLon.accelMax = valueAlphaLonAccelMax;
-    ::ad::physics::Acceleration valueAlphaLonBrakeMax(-1e2);
-    valueAlphaLon.brakeMax = valueAlphaLonBrakeMax;
-    ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
-    valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
-    ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
-    valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
-    valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
-    valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
-    valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
-    valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
-    value.alphaLon = valueAlphaLon;
-    ::ad::rss::world::LateralRssAccelerationValues valueAlphaLat;
-    ::ad::physics::Acceleration valueAlphaLatAccelMax(-1e2);
-    valueAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-    valueAlphaLat.accelMax = valueAlphaLatAccelMax;
-    ::ad::physics::Acceleration valueAlphaLatBrakeMin(-1e2);
-    valueAlphaLat.brakeMin = valueAlphaLatBrakeMin;
-    value.alphaLat = valueAlphaLat;
-    ::ad::physics::Distance valueLateralFluctuationMargin(-1e9);
-    valueLateralFluctuationMargin = ::ad::physics::Distance(0.); // set to valid value within struct
-    value.lateralFluctuationMargin = valueLateralFluctuationMargin;
-    ::ad::physics::Duration valueResponseTime(0.);
-    valueResponseTime
+    ::ad::rss::world::LongitudinalRssAccelerationValues valueAlpha_lon;
+    ::ad::physics::Acceleration valueAlpha_lonAccel_max(-1e2);
+    valueAlpha_lonAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+    valueAlpha_lon.accel_max = valueAlpha_lonAccel_max;
+    ::ad::physics::Acceleration valueAlpha_lonBrake_max(-1e2);
+    valueAlpha_lon.brake_max = valueAlpha_lonBrake_max;
+    ::ad::physics::Acceleration valueAlpha_lonBrake_min(-1e2);
+    valueAlpha_lon.brake_min = valueAlpha_lonBrake_min;
+    ::ad::physics::Acceleration valueAlpha_lonBrake_min_correct(-1e2);
+    valueAlpha_lon.brake_min_correct = valueAlpha_lonBrake_min_correct;
+    valueAlpha_lon.brake_min = valueAlpha_lon.brake_max;
+    valueAlpha_lon.brake_min_correct = valueAlpha_lon.brake_min;
+    valueAlpha_lon.brake_min = valueAlpha_lon.brake_min_correct;
+    valueAlpha_lon.brake_max = valueAlpha_lon.brake_min;
+    value.alpha_lon = valueAlpha_lon;
+    ::ad::rss::world::LateralRssAccelerationValues valueAlpha_lat;
+    ::ad::physics::Acceleration valueAlpha_latAccel_max(-1e2);
+    valueAlpha_latAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+    valueAlpha_lat.accel_max = valueAlpha_latAccel_max;
+    ::ad::physics::Acceleration valueAlpha_latBrake_min(-1e2);
+    valueAlpha_lat.brake_min = valueAlpha_latBrake_min;
+    value.alpha_lat = valueAlpha_lat;
+    ::ad::physics::Distance valueLateral_fluctuation_margin(-1e9);
+    valueLateral_fluctuation_margin = ::ad::physics::Distance(0.); // set to valid value within struct
+    value.lateral_fluctuation_margin = valueLateral_fluctuation_margin;
+    ::ad::physics::Duration valueResponse_time(0.);
+    valueResponse_time
       = ::ad::physics::Duration(0. + ::ad::physics::Duration::cPrecisionValue); // set to valid value within struct
-    value.responseTime = valueResponseTime;
-    ::ad::physics::Speed valueMaxSpeedOnAcceleration(-100.);
-    value.maxSpeedOnAcceleration = valueMaxSpeedOnAcceleration;
-    ::ad::rss::world::UnstructuredSettings valueUnstructuredSettings;
-    ::ad::physics::Distance valueUnstructuredSettingsPedestrianTurningRadius(-1e9);
-    valueUnstructuredSettings.pedestrianTurningRadius = valueUnstructuredSettingsPedestrianTurningRadius;
-    ::ad::physics::Angle valueUnstructuredSettingsDriveAwayMaxAngle(-6.283185308);
-    valueUnstructuredSettings.driveAwayMaxAngle = valueUnstructuredSettingsDriveAwayMaxAngle;
-    ::ad::physics::AngularAcceleration valueUnstructuredSettingsVehicleYawRateChange(-1e2);
-    valueUnstructuredSettings.vehicleYawRateChange = valueUnstructuredSettingsVehicleYawRateChange;
-    ::ad::physics::Distance valueUnstructuredSettingsVehicleMinRadius(-1e9);
-    valueUnstructuredSettings.vehicleMinRadius = valueUnstructuredSettingsVehicleMinRadius;
-    ::ad::physics::Duration valueUnstructuredSettingsVehicleTrajectoryCalculationStep(0.);
-    valueUnstructuredSettings.vehicleTrajectoryCalculationStep
-      = valueUnstructuredSettingsVehicleTrajectoryCalculationStep;
-    uint32_t valueUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps{
+    value.response_time = valueResponse_time;
+    ::ad::physics::Speed valueMax_speed_on_acceleration(-100.);
+    value.max_speed_on_acceleration = valueMax_speed_on_acceleration;
+    ::ad::rss::world::UnstructuredSettings valueUnstructured_settings;
+    ::ad::physics::Distance valueUnstructured_settingsPedestrian_turning_radius(-1e9);
+    valueUnstructured_settings.pedestrian_turning_radius = valueUnstructured_settingsPedestrian_turning_radius;
+    ::ad::physics::Angle valueUnstructured_settingsDrive_away_max_angle(-6.283185308);
+    valueUnstructured_settings.drive_away_max_angle = valueUnstructured_settingsDrive_away_max_angle;
+    ::ad::physics::AngularAcceleration valueUnstructured_settingsVehicle_yaw_rate_change(-1e2);
+    valueUnstructured_settings.vehicle_yaw_rate_change = valueUnstructured_settingsVehicle_yaw_rate_change;
+    ::ad::physics::Distance valueUnstructured_settingsVehicle_min_radius(-1e9);
+    valueUnstructured_settings.vehicle_min_radius = valueUnstructured_settingsVehicle_min_radius;
+    ::ad::physics::Duration valueUnstructured_settingsVehicle_trajectory_calculation_step(0.);
+    valueUnstructured_settings.vehicle_trajectory_calculation_step
+      = valueUnstructured_settingsVehicle_trajectory_calculation_step;
+    uint32_t valueUnstructured_settingsVehicle_front_intermediate_yaw_rate_change_ratio_steps{
       std::numeric_limits<uint32_t>::min()};
-    valueUnstructuredSettings.vehicleFrontIntermediateYawRateChangeRatioSteps
-      = valueUnstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps;
-    uint32_t valueUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps{
+    valueUnstructured_settings.vehicle_front_intermediate_yaw_rate_change_ratio_steps
+      = valueUnstructured_settingsVehicle_front_intermediate_yaw_rate_change_ratio_steps;
+    uint32_t valueUnstructured_settingsVehicle_back_intermediate_yaw_rate_change_ratio_steps{
       std::numeric_limits<uint32_t>::min()};
-    valueUnstructuredSettings.vehicleBackIntermediateYawRateChangeRatioSteps
-      = valueUnstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps;
-    uint32_t valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::min()};
-    valueUnstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
-      = valueUnstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
-    uint32_t valueUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
+    valueUnstructured_settings.vehicle_back_intermediate_yaw_rate_change_ratio_steps
+      = valueUnstructured_settingsVehicle_back_intermediate_yaw_rate_change_ratio_steps;
+    uint32_t valueUnstructured_settingsVehicle_brake_intermediate_acceleration_steps{
       std::numeric_limits<uint32_t>::min()};
-    valueUnstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
-      = valueUnstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
-    uint32_t valueUnstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps{
+    valueUnstructured_settings.vehicle_brake_intermediate_acceleration_steps
+      = valueUnstructured_settingsVehicle_brake_intermediate_acceleration_steps;
+    uint32_t valueUnstructured_settingsVehicle_continue_forward_intermediate_acceleration_steps{
       std::numeric_limits<uint32_t>::min()};
-    valueUnstructuredSettings.vehicleContinueForwardIntermediateYawRateChangeRatioSteps
-      = valueUnstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps;
-    uint32_t valueUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps{
+    valueUnstructured_settings.vehicle_continue_forward_intermediate_acceleration_steps
+      = valueUnstructured_settingsVehicle_continue_forward_intermediate_acceleration_steps;
+    uint32_t valueUnstructured_settingsVehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps{
       std::numeric_limits<uint32_t>::min()};
-    valueUnstructuredSettings.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps
-      = valueUnstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps;
-    uint32_t valueUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps{
+    valueUnstructured_settings.vehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps
+      = valueUnstructured_settingsVehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps;
+    uint32_t valueUnstructured_settingsPedestrian_continue_forward_intermediate_heading_change_ratio_steps{
       std::numeric_limits<uint32_t>::min()};
-    valueUnstructuredSettings.pedestrianContinueForwardIntermediateAccelerationSteps
-      = valueUnstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps;
-    uint32_t valueUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps{
+    valueUnstructured_settings.pedestrian_continue_forward_intermediate_heading_change_ratio_steps
+      = valueUnstructured_settingsPedestrian_continue_forward_intermediate_heading_change_ratio_steps;
+    uint32_t valueUnstructured_settingsPedestrian_continue_forward_intermediate_acceleration_steps{
       std::numeric_limits<uint32_t>::min()};
-    valueUnstructuredSettings.pedestrianBrakeIntermediateAccelerationSteps
-      = valueUnstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps;
-    uint32_t valueUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps{
+    valueUnstructured_settings.pedestrian_continue_forward_intermediate_acceleration_steps
+      = valueUnstructured_settingsPedestrian_continue_forward_intermediate_acceleration_steps;
+    uint32_t valueUnstructured_settingsPedestrian_brake_intermediate_acceleration_steps{
       std::numeric_limits<uint32_t>::min()};
-    valueUnstructuredSettings.pedestrianFrontIntermediateHeadingChangeRatioSteps
-      = valueUnstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps;
-    uint32_t valueUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps{
+    valueUnstructured_settings.pedestrian_brake_intermediate_acceleration_steps
+      = valueUnstructured_settingsPedestrian_brake_intermediate_acceleration_steps;
+    uint32_t valueUnstructured_settingsPedestrian_front_intermediate_heading_change_ratio_steps{
       std::numeric_limits<uint32_t>::min()};
-    valueUnstructuredSettings.pedestrianBackIntermediateHeadingChangeRatioSteps
-      = valueUnstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps;
-    value.unstructuredSettings = valueUnstructuredSettings;
+    valueUnstructured_settings.pedestrian_front_intermediate_heading_change_ratio_steps
+      = valueUnstructured_settingsPedestrian_front_intermediate_heading_change_ratio_steps;
+    uint32_t valueUnstructured_settingsPedestrian_back_intermediate_heading_change_ratio_steps{
+      std::numeric_limits<uint32_t>::min()};
+    valueUnstructured_settings.pedestrian_back_intermediate_heading_change_ratio_steps
+      = valueUnstructured_settingsPedestrian_back_intermediate_heading_change_ratio_steps;
+    value.unstructured_settings = valueUnstructured_settings;
+    ::ad::physics::Distance valueMin_longitudinal_safety_distance(-1e9);
+    value.min_longitudinal_safety_distance = valueMin_longitudinal_safety_distance;
     mValue = value;
   }
 
@@ -163,128 +166,143 @@ TEST_F(RssDynamicsTests, stringConversionTest)
   ASSERT_EQ(ostreamStr, toStr);
 }
 
-TEST_F(RssDynamicsTests, comparisonOperatorAlphaLonDiffers)
+TEST_F(RssDynamicsTests, comparisonOperatorAlpha_lonDiffers)
 {
   ::ad::rss::world::RssDynamics valueA = mValue;
-  ::ad::rss::world::LongitudinalRssAccelerationValues alphaLon;
-  ::ad::physics::Acceleration alphaLonAccelMax(1e2);
-  alphaLon.accelMax = alphaLonAccelMax;
-  ::ad::physics::Acceleration alphaLonBrakeMax(1e2);
-  alphaLon.brakeMax = alphaLonBrakeMax;
-  ::ad::physics::Acceleration alphaLonBrakeMin(1e2);
-  alphaLon.brakeMin = alphaLonBrakeMin;
-  ::ad::physics::Acceleration alphaLonBrakeMinCorrect(1e2);
-  alphaLonBrakeMinCorrect = ::ad::physics::Acceleration(0. * 0.9); // set to valid value within struct
-  alphaLon.brakeMinCorrect = alphaLonBrakeMinCorrect;
-  alphaLon.brakeMinCorrect = alphaLon.brakeMin;
-  alphaLon.brakeMin = alphaLon.brakeMax;
-  alphaLon.brakeMax = alphaLon.brakeMin;
-  alphaLon.brakeMin = alphaLon.brakeMinCorrect;
-  valueA.alphaLon = alphaLon;
+  ::ad::rss::world::LongitudinalRssAccelerationValues alpha_lon;
+  ::ad::physics::Acceleration alpha_lonAccel_max(1e2);
+  alpha_lon.accel_max = alpha_lonAccel_max;
+  ::ad::physics::Acceleration alpha_lonBrake_max(1e2);
+  alpha_lon.brake_max = alpha_lonBrake_max;
+  ::ad::physics::Acceleration alpha_lonBrake_min(1e2);
+  alpha_lon.brake_min = alpha_lonBrake_min;
+  ::ad::physics::Acceleration alpha_lonBrake_min_correct(1e2);
+  alpha_lonBrake_min_correct = ::ad::physics::Acceleration(0. * 0.9); // set to valid value within struct
+  alpha_lon.brake_min_correct = alpha_lonBrake_min_correct;
+  alpha_lon.brake_min_correct = alpha_lon.brake_min;
+  alpha_lon.brake_min = alpha_lon.brake_max;
+  alpha_lon.brake_max = alpha_lon.brake_min;
+  alpha_lon.brake_min = alpha_lon.brake_min_correct;
+  valueA.alpha_lon = alpha_lon;
   ::ad::rss::world::RssDynamics valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(RssDynamicsTests, comparisonOperatorAlphaLatDiffers)
+TEST_F(RssDynamicsTests, comparisonOperatorAlpha_latDiffers)
 {
   ::ad::rss::world::RssDynamics valueA = mValue;
-  ::ad::rss::world::LateralRssAccelerationValues alphaLat;
-  ::ad::physics::Acceleration alphaLatAccelMax(1e2);
-  alphaLat.accelMax = alphaLatAccelMax;
-  ::ad::physics::Acceleration alphaLatBrakeMin(1e2);
-  alphaLatBrakeMin = ::ad::physics::Acceleration(0. * 0.9); // set to valid value within struct
-  alphaLat.brakeMin = alphaLatBrakeMin;
-  valueA.alphaLat = alphaLat;
+  ::ad::rss::world::LateralRssAccelerationValues alpha_lat;
+  ::ad::physics::Acceleration alpha_latAccel_max(1e2);
+  alpha_lat.accel_max = alpha_latAccel_max;
+  ::ad::physics::Acceleration alpha_latBrake_min(1e2);
+  alpha_latBrake_min = ::ad::physics::Acceleration(0. * 0.9); // set to valid value within struct
+  alpha_lat.brake_min = alpha_latBrake_min;
+  valueA.alpha_lat = alpha_lat;
   ::ad::rss::world::RssDynamics valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(RssDynamicsTests, comparisonOperatorLateralFluctuationMarginDiffers)
+TEST_F(RssDynamicsTests, comparisonOperatorLateral_fluctuation_marginDiffers)
 {
   ::ad::rss::world::RssDynamics valueA = mValue;
-  ::ad::physics::Distance lateralFluctuationMargin(1e9);
-  valueA.lateralFluctuationMargin = lateralFluctuationMargin;
+  ::ad::physics::Distance lateral_fluctuation_margin(1e9);
+  valueA.lateral_fluctuation_margin = lateral_fluctuation_margin;
   ::ad::rss::world::RssDynamics valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(RssDynamicsTests, comparisonOperatorResponseTimeDiffers)
+TEST_F(RssDynamicsTests, comparisonOperatorResponse_timeDiffers)
 {
   ::ad::rss::world::RssDynamics valueA = mValue;
-  ::ad::physics::Duration responseTime(1e6);
-  valueA.responseTime = responseTime;
+  ::ad::physics::Duration response_time(1e6);
+  valueA.response_time = response_time;
   ::ad::rss::world::RssDynamics valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(RssDynamicsTests, comparisonOperatorMaxSpeedOnAccelerationDiffers)
+TEST_F(RssDynamicsTests, comparisonOperatorMax_speed_on_accelerationDiffers)
 {
   ::ad::rss::world::RssDynamics valueA = mValue;
-  ::ad::physics::Speed maxSpeedOnAcceleration(100.);
-  valueA.maxSpeedOnAcceleration = maxSpeedOnAcceleration;
+  ::ad::physics::Speed max_speed_on_acceleration(100.);
+  valueA.max_speed_on_acceleration = max_speed_on_acceleration;
   ::ad::rss::world::RssDynamics valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(RssDynamicsTests, comparisonOperatorUnstructuredSettingsDiffers)
+TEST_F(RssDynamicsTests, comparisonOperatorUnstructured_settingsDiffers)
 {
   ::ad::rss::world::RssDynamics valueA = mValue;
-  ::ad::rss::world::UnstructuredSettings unstructuredSettings;
-  ::ad::physics::Distance unstructuredSettingsPedestrianTurningRadius(1e9);
-  unstructuredSettings.pedestrianTurningRadius = unstructuredSettingsPedestrianTurningRadius;
-  ::ad::physics::Angle unstructuredSettingsDriveAwayMaxAngle(6.283185308);
-  unstructuredSettings.driveAwayMaxAngle = unstructuredSettingsDriveAwayMaxAngle;
-  ::ad::physics::AngularAcceleration unstructuredSettingsVehicleYawRateChange(1e2);
-  unstructuredSettings.vehicleYawRateChange = unstructuredSettingsVehicleYawRateChange;
-  ::ad::physics::Distance unstructuredSettingsVehicleMinRadius(1e9);
-  unstructuredSettings.vehicleMinRadius = unstructuredSettingsVehicleMinRadius;
-  ::ad::physics::Duration unstructuredSettingsVehicleTrajectoryCalculationStep(1e6);
-  unstructuredSettings.vehicleTrajectoryCalculationStep = unstructuredSettingsVehicleTrajectoryCalculationStep;
-  uint32_t unstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::max()};
-  unstructuredSettings.vehicleFrontIntermediateYawRateChangeRatioSteps
-    = unstructuredSettingsVehicleFrontIntermediateYawRateChangeRatioSteps;
-  uint32_t unstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps{std::numeric_limits<uint32_t>::max()};
-  unstructuredSettings.vehicleBackIntermediateYawRateChangeRatioSteps
-    = unstructuredSettingsVehicleBackIntermediateYawRateChangeRatioSteps;
-  uint32_t unstructuredSettingsVehicleBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::max()};
-  unstructuredSettings.vehicleBrakeIntermediateAccelerationSteps
-    = unstructuredSettingsVehicleBrakeIntermediateAccelerationSteps;
-  uint32_t unstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps{
+  ::ad::rss::world::UnstructuredSettings unstructured_settings;
+  ::ad::physics::Distance unstructured_settingsPedestrian_turning_radius(1e9);
+  unstructured_settings.pedestrian_turning_radius = unstructured_settingsPedestrian_turning_radius;
+  ::ad::physics::Angle unstructured_settingsDrive_away_max_angle(6.283185308);
+  unstructured_settings.drive_away_max_angle = unstructured_settingsDrive_away_max_angle;
+  ::ad::physics::AngularAcceleration unstructured_settingsVehicle_yaw_rate_change(1e2);
+  unstructured_settings.vehicle_yaw_rate_change = unstructured_settingsVehicle_yaw_rate_change;
+  ::ad::physics::Distance unstructured_settingsVehicle_min_radius(1e9);
+  unstructured_settings.vehicle_min_radius = unstructured_settingsVehicle_min_radius;
+  ::ad::physics::Duration unstructured_settingsVehicle_trajectory_calculation_step(1e6);
+  unstructured_settings.vehicle_trajectory_calculation_step = unstructured_settingsVehicle_trajectory_calculation_step;
+  uint32_t unstructured_settingsVehicle_front_intermediate_yaw_rate_change_ratio_steps{
     std::numeric_limits<uint32_t>::max()};
-  unstructuredSettings.vehicleContinueForwardIntermediateAccelerationSteps
-    = unstructuredSettingsVehicleContinueForwardIntermediateAccelerationSteps;
-  uint32_t unstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps{
+  unstructured_settings.vehicle_front_intermediate_yaw_rate_change_ratio_steps
+    = unstructured_settingsVehicle_front_intermediate_yaw_rate_change_ratio_steps;
+  uint32_t unstructured_settingsVehicle_back_intermediate_yaw_rate_change_ratio_steps{
     std::numeric_limits<uint32_t>::max()};
-  unstructuredSettings.vehicleContinueForwardIntermediateYawRateChangeRatioSteps
-    = unstructuredSettingsVehicleContinueForwardIntermediateYawRateChangeRatioSteps;
-  uint32_t unstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps{
+  unstructured_settings.vehicle_back_intermediate_yaw_rate_change_ratio_steps
+    = unstructured_settingsVehicle_back_intermediate_yaw_rate_change_ratio_steps;
+  uint32_t unstructured_settingsVehicle_brake_intermediate_acceleration_steps{std::numeric_limits<uint32_t>::max()};
+  unstructured_settings.vehicle_brake_intermediate_acceleration_steps
+    = unstructured_settingsVehicle_brake_intermediate_acceleration_steps;
+  uint32_t unstructured_settingsVehicle_continue_forward_intermediate_acceleration_steps{
     std::numeric_limits<uint32_t>::max()};
-  unstructuredSettings.pedestrianContinueForwardIntermediateHeadingChangeRatioSteps
-    = unstructuredSettingsPedestrianContinueForwardIntermediateHeadingChangeRatioSteps;
-  uint32_t unstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps{
+  unstructured_settings.vehicle_continue_forward_intermediate_acceleration_steps
+    = unstructured_settingsVehicle_continue_forward_intermediate_acceleration_steps;
+  uint32_t unstructured_settingsVehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps{
     std::numeric_limits<uint32_t>::max()};
-  unstructuredSettings.pedestrianContinueForwardIntermediateAccelerationSteps
-    = unstructuredSettingsPedestrianContinueForwardIntermediateAccelerationSteps;
-  uint32_t unstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps{std::numeric_limits<uint32_t>::max()};
-  unstructuredSettings.pedestrianBrakeIntermediateAccelerationSteps
-    = unstructuredSettingsPedestrianBrakeIntermediateAccelerationSteps;
-  uint32_t unstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::max()};
-  unstructuredSettings.pedestrianFrontIntermediateHeadingChangeRatioSteps
-    = unstructuredSettingsPedestrianFrontIntermediateHeadingChangeRatioSteps;
-  uint32_t unstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps{std::numeric_limits<uint32_t>::max()};
-  unstructuredSettings.pedestrianBackIntermediateHeadingChangeRatioSteps
-    = unstructuredSettingsPedestrianBackIntermediateHeadingChangeRatioSteps;
-  valueA.unstructuredSettings = unstructuredSettings;
+  unstructured_settings.vehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps
+    = unstructured_settingsVehicle_continue_forward_intermediate_yaw_rate_change_ratio_steps;
+  uint32_t unstructured_settingsPedestrian_continue_forward_intermediate_heading_change_ratio_steps{
+    std::numeric_limits<uint32_t>::max()};
+  unstructured_settings.pedestrian_continue_forward_intermediate_heading_change_ratio_steps
+    = unstructured_settingsPedestrian_continue_forward_intermediate_heading_change_ratio_steps;
+  uint32_t unstructured_settingsPedestrian_continue_forward_intermediate_acceleration_steps{
+    std::numeric_limits<uint32_t>::max()};
+  unstructured_settings.pedestrian_continue_forward_intermediate_acceleration_steps
+    = unstructured_settingsPedestrian_continue_forward_intermediate_acceleration_steps;
+  uint32_t unstructured_settingsPedestrian_brake_intermediate_acceleration_steps{std::numeric_limits<uint32_t>::max()};
+  unstructured_settings.pedestrian_brake_intermediate_acceleration_steps
+    = unstructured_settingsPedestrian_brake_intermediate_acceleration_steps;
+  uint32_t unstructured_settingsPedestrian_front_intermediate_heading_change_ratio_steps{
+    std::numeric_limits<uint32_t>::max()};
+  unstructured_settings.pedestrian_front_intermediate_heading_change_ratio_steps
+    = unstructured_settingsPedestrian_front_intermediate_heading_change_ratio_steps;
+  uint32_t unstructured_settingsPedestrian_back_intermediate_heading_change_ratio_steps{
+    std::numeric_limits<uint32_t>::max()};
+  unstructured_settings.pedestrian_back_intermediate_heading_change_ratio_steps
+    = unstructured_settingsPedestrian_back_intermediate_heading_change_ratio_steps;
+  valueA.unstructured_settings = unstructured_settings;
+  ::ad::rss::world::RssDynamics valueB = mValue;
+
+  EXPECT_FALSE(valueA == valueB);
+  EXPECT_TRUE(valueA != valueB);
+}
+
+TEST_F(RssDynamicsTests, comparisonOperatorMin_longitudinal_safety_distanceDiffers)
+{
+  ::ad::rss::world::RssDynamics valueA = mValue;
+  ::ad::physics::Distance min_longitudinal_safety_distance(1e9);
+  valueA.min_longitudinal_safety_distance = min_longitudinal_safety_distance;
   ::ad::rss::world::RssDynamics valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);

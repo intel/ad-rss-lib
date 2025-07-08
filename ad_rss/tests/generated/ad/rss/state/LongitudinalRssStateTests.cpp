@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2021 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -28,33 +28,33 @@ protected:
   {
     // valid initialization
     ::ad::rss::state::LongitudinalRssState value;
-    bool valueIsSafe{true};
-    value.isSafe = valueIsSafe;
+    bool valueIs_safe{true};
+    value.is_safe = valueIs_safe;
     ::ad::rss::state::LongitudinalResponse valueResponse(::ad::rss::state::LongitudinalResponse::None);
     value.response = valueResponse;
-    ::ad::rss::world::LongitudinalRssAccelerationValues valueAlphaLon;
-    ::ad::physics::Acceleration valueAlphaLonAccelMax(-1e2);
-    valueAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-    valueAlphaLon.accelMax = valueAlphaLonAccelMax;
-    ::ad::physics::Acceleration valueAlphaLonBrakeMax(-1e2);
-    valueAlphaLon.brakeMax = valueAlphaLonBrakeMax;
-    ::ad::physics::Acceleration valueAlphaLonBrakeMin(-1e2);
-    valueAlphaLon.brakeMin = valueAlphaLonBrakeMin;
-    ::ad::physics::Acceleration valueAlphaLonBrakeMinCorrect(-1e2);
-    valueAlphaLon.brakeMinCorrect = valueAlphaLonBrakeMinCorrect;
-    valueAlphaLon.brakeMin = valueAlphaLon.brakeMax;
-    valueAlphaLon.brakeMinCorrect = valueAlphaLon.brakeMin;
-    valueAlphaLon.brakeMin = valueAlphaLon.brakeMinCorrect;
-    valueAlphaLon.brakeMax = valueAlphaLon.brakeMin;
-    value.alphaLon = valueAlphaLon;
-    ::ad::rss::state::RssStateInformation valueRssStateInformation;
-    ::ad::physics::Distance valueRssStateInformationSafeDistance(-1e9);
-    valueRssStateInformation.safeDistance = valueRssStateInformationSafeDistance;
-    ::ad::physics::Distance valueRssStateInformationCurrentDistance(-1e9);
-    valueRssStateInformation.currentDistance = valueRssStateInformationCurrentDistance;
-    ::ad::rss::state::RssStateEvaluator valueRssStateInformationEvaluator(::ad::rss::state::RssStateEvaluator::None);
-    valueRssStateInformation.evaluator = valueRssStateInformationEvaluator;
-    value.rssStateInformation = valueRssStateInformation;
+    ::ad::rss::world::LongitudinalRssAccelerationValues valueAlpha_lon;
+    ::ad::physics::Acceleration valueAlpha_lonAccel_max(-1e2);
+    valueAlpha_lonAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+    valueAlpha_lon.accel_max = valueAlpha_lonAccel_max;
+    ::ad::physics::Acceleration valueAlpha_lonBrake_max(-1e2);
+    valueAlpha_lon.brake_max = valueAlpha_lonBrake_max;
+    ::ad::physics::Acceleration valueAlpha_lonBrake_min(-1e2);
+    valueAlpha_lon.brake_min = valueAlpha_lonBrake_min;
+    ::ad::physics::Acceleration valueAlpha_lonBrake_min_correct(-1e2);
+    valueAlpha_lon.brake_min_correct = valueAlpha_lonBrake_min_correct;
+    valueAlpha_lon.brake_min = valueAlpha_lon.brake_max;
+    valueAlpha_lon.brake_min_correct = valueAlpha_lon.brake_min;
+    valueAlpha_lon.brake_min = valueAlpha_lon.brake_min_correct;
+    valueAlpha_lon.brake_max = valueAlpha_lon.brake_min;
+    value.alpha_lon = valueAlpha_lon;
+    ::ad::rss::state::RssStateInformation valueRss_state_information;
+    ::ad::physics::Distance valueRss_state_informationSafe_distance(-1e9);
+    valueRss_state_information.safe_distance = valueRss_state_informationSafe_distance;
+    ::ad::physics::Distance valueRss_state_informationCurrent_distance(-1e9);
+    valueRss_state_information.current_distance = valueRss_state_informationCurrent_distance;
+    ::ad::rss::state::RssStateEvaluator valueRss_state_informationEvaluator(::ad::rss::state::RssStateEvaluator::None);
+    valueRss_state_information.evaluator = valueRss_state_informationEvaluator;
+    value.rss_state_information = valueRss_state_information;
     mValue = value;
   }
 
@@ -107,11 +107,11 @@ TEST_F(LongitudinalRssStateTests, stringConversionTest)
   ASSERT_EQ(ostreamStr, toStr);
 }
 
-TEST_F(LongitudinalRssStateTests, comparisonOperatorIsSafeDiffers)
+TEST_F(LongitudinalRssStateTests, comparisonOperatorIs_safeDiffers)
 {
   ::ad::rss::state::LongitudinalRssState valueA = mValue;
-  bool isSafe{false};
-  valueA.isSafe = isSafe;
+  bool is_safe{false};
+  valueA.is_safe = is_safe;
   ::ad::rss::state::LongitudinalRssState valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
@@ -129,42 +129,42 @@ TEST_F(LongitudinalRssStateTests, comparisonOperatorResponseDiffers)
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(LongitudinalRssStateTests, comparisonOperatorAlphaLonDiffers)
+TEST_F(LongitudinalRssStateTests, comparisonOperatorAlpha_lonDiffers)
 {
   ::ad::rss::state::LongitudinalRssState valueA = mValue;
-  ::ad::rss::world::LongitudinalRssAccelerationValues alphaLon;
-  ::ad::physics::Acceleration alphaLonAccelMax(1e2);
-  alphaLon.accelMax = alphaLonAccelMax;
-  ::ad::physics::Acceleration alphaLonBrakeMax(1e2);
-  alphaLon.brakeMax = alphaLonBrakeMax;
-  ::ad::physics::Acceleration alphaLonBrakeMin(1e2);
-  alphaLon.brakeMin = alphaLonBrakeMin;
-  ::ad::physics::Acceleration alphaLonBrakeMinCorrect(1e2);
-  alphaLonBrakeMinCorrect = ::ad::physics::Acceleration(0. * 0.9); // set to valid value within struct
-  alphaLon.brakeMinCorrect = alphaLonBrakeMinCorrect;
-  alphaLon.brakeMinCorrect = alphaLon.brakeMin;
-  alphaLon.brakeMin = alphaLon.brakeMax;
-  alphaLon.brakeMax = alphaLon.brakeMin;
-  alphaLon.brakeMin = alphaLon.brakeMinCorrect;
-  valueA.alphaLon = alphaLon;
+  ::ad::rss::world::LongitudinalRssAccelerationValues alpha_lon;
+  ::ad::physics::Acceleration alpha_lonAccel_max(1e2);
+  alpha_lon.accel_max = alpha_lonAccel_max;
+  ::ad::physics::Acceleration alpha_lonBrake_max(1e2);
+  alpha_lon.brake_max = alpha_lonBrake_max;
+  ::ad::physics::Acceleration alpha_lonBrake_min(1e2);
+  alpha_lon.brake_min = alpha_lonBrake_min;
+  ::ad::physics::Acceleration alpha_lonBrake_min_correct(1e2);
+  alpha_lonBrake_min_correct = ::ad::physics::Acceleration(0. * 0.9); // set to valid value within struct
+  alpha_lon.brake_min_correct = alpha_lonBrake_min_correct;
+  alpha_lon.brake_min_correct = alpha_lon.brake_min;
+  alpha_lon.brake_min = alpha_lon.brake_max;
+  alpha_lon.brake_max = alpha_lon.brake_min;
+  alpha_lon.brake_min = alpha_lon.brake_min_correct;
+  valueA.alpha_lon = alpha_lon;
   ::ad::rss::state::LongitudinalRssState valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(LongitudinalRssStateTests, comparisonOperatorRssStateInformationDiffers)
+TEST_F(LongitudinalRssStateTests, comparisonOperatorRss_state_informationDiffers)
 {
   ::ad::rss::state::LongitudinalRssState valueA = mValue;
-  ::ad::rss::state::RssStateInformation rssStateInformation;
-  ::ad::physics::Distance rssStateInformationSafeDistance(1e9);
-  rssStateInformation.safeDistance = rssStateInformationSafeDistance;
-  ::ad::physics::Distance rssStateInformationCurrentDistance(1e9);
-  rssStateInformation.currentDistance = rssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator rssStateInformationEvaluator(
+  ::ad::rss::state::RssStateInformation rss_state_information;
+  ::ad::physics::Distance rss_state_informationSafe_distance(1e9);
+  rss_state_information.safe_distance = rss_state_informationSafe_distance;
+  ::ad::physics::Distance rss_state_informationCurrent_distance(1e9);
+  rss_state_information.current_distance = rss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator rss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::IntersectionOverlap);
-  rssStateInformation.evaluator = rssStateInformationEvaluator;
-  valueA.rssStateInformation = rssStateInformation;
+  rss_state_information.evaluator = rss_state_informationEvaluator;
+  valueA.rss_state_information = rss_state_information;
   ::ad::rss::state::LongitudinalRssState valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);

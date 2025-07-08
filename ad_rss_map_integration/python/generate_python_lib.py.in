@@ -25,7 +25,7 @@ def main():
     """
     include_dirs = {
         "@GENPY_INCLUDE_DIRS@",
-        #"@CMAKE_CURRENT_LIST_DIR@/../generated/include/",
+        "@CMAKE_CURRENT_LIST_DIR@/../generated/include/",
         "@CMAKE_CURRENT_LIST_DIR@/../include/"
     }
 
@@ -37,13 +37,20 @@ def main():
     declarations_component.add(main_namespace)
 
     header_dirs = {
+        "@CMAKE_CURRENT_LIST_DIR@/../generated/include/ad/rss/map",
         "@CMAKE_CURRENT_LIST_DIR@/../include/ad/rss/map"
     }
 
     ignore_files = {
         # issue: std::shared_ptr usage, but these files are not explicity required within python for now
         "RssObjectConversion.hpp",
-        "RssSceneCreator.hpp",
+        "RssWorldModelCreator.hpp",
+        # issue: templates cannot be exported
+        "detail",
+        "RssObjectAdapter.hpp",
+        "RssRouteCheckerData.hpp",
+        "RssRouteCheckerControl.hpp",
+        "RssRouteChecker.hpp"
     }
     ignore_declarations={}
     additional_includes={}
@@ -58,7 +65,7 @@ def main():
                             ignore_declarations=ignore_declarations,
                             ignore_files=ignore_files)
 
-    additional_replacements = {
+    additional_replacements = [
                 ("BOOST_PYTHON_MODULE({}){{".format(component),
                  "void export_ad_rss_{}(){{\n\n".format(component) +
                  "  bp::object ad_rss_{}_module(bp::handle<>(bp::borrowed(PyImport_AddModule(\"{}\"))));\n".format(component, component) +
@@ -67,7 +74,7 @@ def main():
                  "  bp::scope().attr(\"__doc__\") = \"Python binding of ad_rss_map_integration ad::rss::{} C++ code for @PYTHON_BINDING_NAME@\";".format(component) +
                  "  bp::scope().attr(\"__copyright__\") = \"Copyright (C) 2019-2021 Intel Corporation\";" +
                  "  bp::scope().attr(\"__license__\") = \"LGPL-2.1-only\";"
-                )}
+                )]
     post_process_python_wrapper(header_directories=header_dirs,
                                 cpp_filename_in="AdRss-map-PythonWrapper.cpp.in",
                                 cpp_filename_out="AdRss-map-PythonWrapper.cpp",

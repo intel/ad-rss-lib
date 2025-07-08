@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2020 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1997
+ * Generator Version : 11.0.0-2046
  */
 
 #pragma once
@@ -100,7 +100,7 @@ struct RssStateInformation
    */
   bool operator==(const RssStateInformation &other) const
   {
-    return (safeDistance == other.safeDistance) && (currentDistance == other.currentDistance)
+    return (safe_distance == other.safe_distance) && (current_distance == other.current_distance)
       && (evaluator == other.evaluator);
   }
 
@@ -119,15 +119,15 @@ struct RssStateInformation
   /*!
    * Required safe distance.
    */
-  ::ad::physics::Distance safeDistance{-1.};
+  ::ad::physics::Distance safe_distance{-1.};
 
   /*!
    * current longitudinal distance
    */
-  ::ad::physics::Distance currentDistance{-1.};
+  ::ad::physics::Distance current_distance{-1.};
 
   /*!
-   * The response information in respect to safeDistance and currentDistance are in respect to the given evaluation
+   * The response information in respect to safe_distance and current_distance are in respect to the given evaluation
    * method.
    */
   ::ad::rss::state::RssStateEvaluator evaluator{::ad::rss::state::RssStateEvaluator::None};
@@ -167,11 +167,11 @@ namespace state {
 inline std::ostream &operator<<(std::ostream &os, RssStateInformation const &_value)
 {
   os << "RssStateInformation(";
-  os << "safeDistance:";
-  os << _value.safeDistance;
+  os << "safe_distance:";
+  os << _value.safe_distance;
   os << ",";
-  os << "currentDistance:";
-  os << _value.currentDistance;
+  os << "current_distance:";
+  os << _value.current_distance;
   os << ",";
   os << "evaluator:";
   os << _value.evaluator;
@@ -194,4 +194,16 @@ inline std::string to_string(::ad::rss::state::RssStateInformation const &value)
   return sstream.str();
 }
 } // namespace std
+
+/*!
+ * \brief overload of fmt::formatter calling std::to_string
+ */
+template <> struct fmt::formatter<::ad::rss::state::RssStateInformation> : formatter<string_view>
+{
+  template <typename FormatContext> auto format(::ad::rss::state::RssStateInformation const &value, FormatContext &ctx)
+  {
+    return formatter<string_view>::format(std::to_string(value), ctx);
+  }
+};
+
 #endif // GEN_GUARD_AD_RSS_STATE_RSSSTATEINFORMATION

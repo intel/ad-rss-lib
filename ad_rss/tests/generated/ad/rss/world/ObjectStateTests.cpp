@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2021 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -36,18 +36,24 @@ protected:
     ::ad::physics::Distance valueDimensionWidth(-1e9);
     valueDimension.width = valueDimensionWidth;
     value.dimension = valueDimension;
-    ::ad::physics::AngularVelocity valueYawRate(-100.);
-    value.yawRate = valueYawRate;
-    ::ad::physics::Distance2D valueCenterPoint;
-    ::ad::physics::Distance valueCenterPointX(-1e9);
-    valueCenterPoint.x = valueCenterPointX;
-    ::ad::physics::Distance valueCenterPointY(-1e9);
-    valueCenterPoint.y = valueCenterPointY;
-    value.centerPoint = valueCenterPoint;
-    ::ad::physics::Speed valueSpeed(-100.);
-    value.speed = valueSpeed;
-    ::ad::physics::Angle valueSteeringAngle(-6.283185308);
-    value.steeringAngle = valueSteeringAngle;
+    ::ad::physics::AngularVelocity valueYaw_rate(-100.);
+    value.yaw_rate = valueYaw_rate;
+    ::ad::physics::Distance2D valueCenter_point;
+    ::ad::physics::Distance valueCenter_pointX(-1e9);
+    valueCenter_point.x = valueCenter_pointX;
+    ::ad::physics::Distance valueCenter_pointY(-1e9);
+    valueCenter_point.y = valueCenter_pointY;
+    value.center_point = valueCenter_point;
+    ::ad::physics::SpeedRange valueSpeed_range;
+    ::ad::physics::Speed valueSpeed_rangeMinimum(-100.);
+    valueSpeed_range.minimum = valueSpeed_rangeMinimum;
+    ::ad::physics::Speed valueSpeed_rangeMaximum(-100.);
+    valueSpeed_range.maximum = valueSpeed_rangeMaximum;
+    valueSpeed_range.maximum = valueSpeed_range.minimum;
+    valueSpeed_range.minimum = valueSpeed_range.maximum;
+    value.speed_range = valueSpeed_range;
+    ::ad::physics::Angle valueSteering_angle(-6.283185308);
+    value.steering_angle = valueSteering_angle;
     mValue = value;
   }
 
@@ -126,48 +132,54 @@ TEST_F(ObjectStateTests, comparisonOperatorDimensionDiffers)
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(ObjectStateTests, comparisonOperatorYawRateDiffers)
+TEST_F(ObjectStateTests, comparisonOperatorYaw_rateDiffers)
 {
   ::ad::rss::world::ObjectState valueA = mValue;
-  ::ad::physics::AngularVelocity yawRate(100.);
-  valueA.yawRate = yawRate;
+  ::ad::physics::AngularVelocity yaw_rate(100.);
+  valueA.yaw_rate = yaw_rate;
   ::ad::rss::world::ObjectState valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(ObjectStateTests, comparisonOperatorCenterPointDiffers)
+TEST_F(ObjectStateTests, comparisonOperatorCenter_pointDiffers)
 {
   ::ad::rss::world::ObjectState valueA = mValue;
-  ::ad::physics::Distance2D centerPoint;
-  ::ad::physics::Distance centerPointX(1e9);
-  centerPoint.x = centerPointX;
-  ::ad::physics::Distance centerPointY(1e9);
-  centerPoint.y = centerPointY;
-  valueA.centerPoint = centerPoint;
+  ::ad::physics::Distance2D center_point;
+  ::ad::physics::Distance center_pointX(1e9);
+  center_point.x = center_pointX;
+  ::ad::physics::Distance center_pointY(1e9);
+  center_point.y = center_pointY;
+  valueA.center_point = center_point;
   ::ad::rss::world::ObjectState valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(ObjectStateTests, comparisonOperatorSpeedDiffers)
+TEST_F(ObjectStateTests, comparisonOperatorSpeed_rangeDiffers)
 {
   ::ad::rss::world::ObjectState valueA = mValue;
-  ::ad::physics::Speed speed(100.);
-  valueA.speed = speed;
+  ::ad::physics::SpeedRange speed_range;
+  ::ad::physics::Speed speed_rangeMinimum(100.);
+  speed_range.minimum = speed_rangeMinimum;
+  ::ad::physics::Speed speed_rangeMaximum(100.);
+  speed_range.maximum = speed_rangeMaximum;
+  speed_range.maximum = speed_range.minimum;
+  speed_range.minimum = speed_range.maximum;
+  valueA.speed_range = speed_range;
   ::ad::rss::world::ObjectState valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);
   EXPECT_TRUE(valueA != valueB);
 }
 
-TEST_F(ObjectStateTests, comparisonOperatorSteeringAngleDiffers)
+TEST_F(ObjectStateTests, comparisonOperatorSteering_angleDiffers)
 {
   ::ad::rss::world::ObjectState valueA = mValue;
-  ::ad::physics::Angle steeringAngle(6.283185308);
-  valueA.steeringAngle = steeringAngle;
+  ::ad::physics::Angle steering_angle(6.283185308);
+  valueA.steering_angle = steering_angle;
   ::ad::rss::world::ObjectState valueB = mValue;
 
   EXPECT_FALSE(valueA == valueB);

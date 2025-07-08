@@ -1,6 +1,6 @@
 // ----------------- BEGIN LICENSE BLOCK ---------------------------------
 //
-// Copyright (C) 2018-2021 Intel Corporation
+// Copyright (C) 2018-2022 Intel Corporation
 //
 // SPDX-License-Identifier: LGPL-2.1-only
 //
@@ -11,9 +11,11 @@
 
 #pragma once
 
-#include <memory>
-#include "ad/rss/situation/SituationSnapshot.hpp"
+#include "ad/rss/core/RssSituationSnapshot.hpp"
 #include "ad/rss/state/RssStateSnapshot.hpp"
+#include "ad/rss/structured/RssIntersectionConstellationChecker.hpp"
+#include "ad/rss/structured/RssNonIntersectionConstellationChecker.hpp"
+#include "ad/rss/unstructured/RssUnstructuredConstellationChecker.hpp"
 
 /*!
  * @brief namespace ad
@@ -24,15 +26,6 @@ namespace ad {
  */
 namespace rss {
 /*!
- * @brief Forward declaration
- */
-namespace situation {
-class RssStructuredSceneIntersectionChecker;
-class RssStructuredSceneNonIntersectionChecker;
-class RssUnstructuredSceneChecker;
-} // namespace situation
-
-/*!
  * @brief namespace core
  */
 namespace core {
@@ -40,43 +33,67 @@ namespace core {
 /*!
  * @brief class RssSituationChecking
  *
- * class providing functions required for the RSS checks of the situation.
+ * class providing functions required for the RSS checks of the RSS situation snapshot
  */
 class RssSituationChecking
 {
 public:
   /*!
+   * \brief Smart pointer on RssSituationChecking
+   */
+  typedef std::shared_ptr<RssSituationChecking> Ptr;
+
+  /*!
+   * \brief Smart pointer on constant RssSituationChecking
+   */
+  typedef std::shared_ptr<RssSituationChecking const> ConstPtr;
+
+  /*!
    * @brief constructor
    */
-  RssSituationChecking();
+  RssSituationChecking() = default;
 
   /*!
    * @brief destructor
    */
-  ~RssSituationChecking();
+  ~RssSituationChecking() = default;
 
   /*!
-   * @brief Checks if the current situations are safe.
+   * @brief Checks if the current situation is safe.
    *
    * @param [in] situationSnapshot the situation snapshot in time that should be analyzed
-   * @param[out] rssStateSnapshot the rss state snapshot of these situations
+   * @param[out] rssStateSnapshot the RSS state snapshot of this situation
    *
-   * @return true if the situations could be analyzed, false if an error occurred during evaluation.
+   * @return true if the situation could be analyzed, false if an error occurred during evaluation.
    */
-  bool checkSituations(situation::SituationSnapshot const &situationSnapshot,
-                       state::RssStateSnapshot &rssStateSnapshot);
+  bool checkSituation(RssSituationSnapshot const &situationSnapshot, state::RssStateSnapshot &rssStateSnapshot);
+
+  /*!
+   * @brief Register a callback for unstructured trajectory set calculation
+   *
+   * @param[in] objectType The object type this trajectory set calculation should be applied
+   * @param[in] calculateTrajectorySetsCallback The actual callback function to perform the trajectory set calculation
+   */
+  void registerCalculateTrajectorySetsCallback(
+    world::ObjectType objectType,
+    unstructured::RssUnstructuredConstellationChecker::CalculateTrajectorySetsCallbackFunctionType
+      calculateTrajectorySetsCallback)
+  {
+    mUnstructuredConstellationChecker.registerCalculateTrajectorySetsCallback(objectType,
+                                                                              calculateTrajectorySetsCallback);
+  }
 
 private:
   /*!
-   * @brief Check if the current situation is safe.
+   * @brief Check if the current relative constellation is safe.
    *
-   * @param[in] situation      the Situation that should be analyzed
+   * @param[in] constellation      the relative constellation that should be analyzed
    * @param[out] rssStateSnapshot the rss state snapshot the current state has to be appended
    *
-   * @return true if situation could be analyzed, false if there was an error during evaluation
+   * @return true if the constellation could be analyzed, false if there was an error during evaluation
    */
-  bool checkSituationInputRangeChecked(situation::Situation const &situation,
-                                       state::RssStateSnapshot &rssStateSnapshot);
+  bool checkConstellationInputRangeChecked(RelativeConstellation const &constellation,
+                                           state::RssStateSnapshot &rssStateSnapshot);
 
   /*!
    * @brief check to ensure time index is consistent
@@ -87,9 +104,9 @@ private:
    */
   bool checkTimeIncreasingConsistently(world::TimeIndex const &nextTimeIndex);
 
-  std::unique_ptr<ad::rss::situation::RssStructuredSceneIntersectionChecker> mIntersectionChecker;
-  std::unique_ptr<ad::rss::situation::RssStructuredSceneNonIntersectionChecker> mNonIntersectionChecker;
-  std::unique_ptr<ad::rss::situation::RssUnstructuredSceneChecker> mUnstructuredSceneChecker;
+  structured::RssIntersectionConstellationChecker mIntersectionChecker;
+  structured::RssNonIntersectionConstellationChecker mNonIntersectionChecker;
+  unstructured::RssUnstructuredConstellationChecker mUnstructuredConstellationChecker;
   world::TimeIndex mCurrentTimeIndex{0u};
 };
 } // namespace core

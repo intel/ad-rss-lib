@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2021 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -21,1603 +21,1856 @@
 TEST(RssStateValidInputRangeTests, testValidInputRange)
 {
   ::ad::rss::state::RssState value;
-  ::ad::rss::world::ObjectId valueObjectId(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
-  value.objectId = valueObjectId;
-  ::ad::rss::situation::SituationId valueSituationId(std::numeric_limits<::ad::rss::situation::SituationId>::lowest());
-  value.situationId = valueSituationId;
-  ::ad::rss::state::LongitudinalRssState valueLongitudinalState;
-  bool valueLongitudinalStateIsSafe{true};
-  valueLongitudinalState.isSafe = valueLongitudinalStateIsSafe;
-  ::ad::rss::state::LongitudinalResponse valueLongitudinalStateResponse(::ad::rss::state::LongitudinalResponse::None);
-  valueLongitudinalState.response = valueLongitudinalStateResponse;
-  ::ad::rss::world::LongitudinalRssAccelerationValues valueLongitudinalStateAlphaLon;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonAccelMax(-1e2);
-  valueLongitudinalStateAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueLongitudinalStateAlphaLon.accelMax = valueLongitudinalStateAlphaLonAccelMax;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonBrakeMax(-1e2);
-  valueLongitudinalStateAlphaLon.brakeMax = valueLongitudinalStateAlphaLonBrakeMax;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonBrakeMin(-1e2);
-  valueLongitudinalStateAlphaLon.brakeMin = valueLongitudinalStateAlphaLonBrakeMin;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonBrakeMinCorrect(-1e2);
-  valueLongitudinalStateAlphaLon.brakeMinCorrect = valueLongitudinalStateAlphaLonBrakeMinCorrect;
-  valueLongitudinalStateAlphaLon.brakeMin = valueLongitudinalStateAlphaLon.brakeMax;
-  valueLongitudinalStateAlphaLon.brakeMinCorrect = valueLongitudinalStateAlphaLon.brakeMin;
-  valueLongitudinalStateAlphaLon.brakeMin = valueLongitudinalStateAlphaLon.brakeMinCorrect;
-  valueLongitudinalStateAlphaLon.brakeMax = valueLongitudinalStateAlphaLon.brakeMin;
-  valueLongitudinalState.alphaLon = valueLongitudinalStateAlphaLon;
-  ::ad::rss::state::RssStateInformation valueLongitudinalStateRssStateInformation;
-  ::ad::physics::Distance valueLongitudinalStateRssStateInformationSafeDistance(-1e9);
-  valueLongitudinalStateRssStateInformation.safeDistance = valueLongitudinalStateRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueLongitudinalStateRssStateInformationCurrentDistance(-1e9);
-  valueLongitudinalStateRssStateInformation.currentDistance = valueLongitudinalStateRssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator valueLongitudinalStateRssStateInformationEvaluator(
+  ::ad::rss::world::ObjectId valueEgo_id(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  value.ego_id = valueEgo_id;
+  ::ad::rss::world::ObjectId valueObject_id(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  value.object_id = valueObject_id;
+  ::ad::rss::core::RelativeConstellationId valueConstellation_id(
+    std::numeric_limits<::ad::rss::core::RelativeConstellationId>::lowest());
+  value.constellation_id = valueConstellation_id;
+  ::ad::rss::state::LongitudinalRssState valueLongitudinal_state;
+  bool valueLongitudinal_stateIs_safe{true};
+  valueLongitudinal_state.is_safe = valueLongitudinal_stateIs_safe;
+  ::ad::rss::state::LongitudinalResponse valueLongitudinal_stateResponse(::ad::rss::state::LongitudinalResponse::None);
+  valueLongitudinal_state.response = valueLongitudinal_stateResponse;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueLongitudinal_stateAlpha_lon;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonAccel_max(-1e2);
+  valueLongitudinal_stateAlpha_lonAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueLongitudinal_stateAlpha_lon.accel_max = valueLongitudinal_stateAlpha_lonAccel_max;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonBrake_max(-1e2);
+  valueLongitudinal_stateAlpha_lon.brake_max = valueLongitudinal_stateAlpha_lonBrake_max;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonBrake_min(-1e2);
+  valueLongitudinal_stateAlpha_lon.brake_min = valueLongitudinal_stateAlpha_lonBrake_min;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonBrake_min_correct(-1e2);
+  valueLongitudinal_stateAlpha_lon.brake_min_correct = valueLongitudinal_stateAlpha_lonBrake_min_correct;
+  valueLongitudinal_stateAlpha_lon.brake_min = valueLongitudinal_stateAlpha_lon.brake_max;
+  valueLongitudinal_stateAlpha_lon.brake_min_correct = valueLongitudinal_stateAlpha_lon.brake_min;
+  valueLongitudinal_stateAlpha_lon.brake_min = valueLongitudinal_stateAlpha_lon.brake_min_correct;
+  valueLongitudinal_stateAlpha_lon.brake_max = valueLongitudinal_stateAlpha_lon.brake_min;
+  valueLongitudinal_state.alpha_lon = valueLongitudinal_stateAlpha_lon;
+  ::ad::rss::state::RssStateInformation valueLongitudinal_stateRss_state_information;
+  ::ad::physics::Distance valueLongitudinal_stateRss_state_informationSafe_distance(-1e9);
+  valueLongitudinal_stateRss_state_information.safe_distance
+    = valueLongitudinal_stateRss_state_informationSafe_distance;
+  ::ad::physics::Distance valueLongitudinal_stateRss_state_informationCurrent_distance(-1e9);
+  valueLongitudinal_stateRss_state_information.current_distance
+    = valueLongitudinal_stateRss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator valueLongitudinal_stateRss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::None);
-  valueLongitudinalStateRssStateInformation.evaluator = valueLongitudinalStateRssStateInformationEvaluator;
-  valueLongitudinalState.rssStateInformation = valueLongitudinalStateRssStateInformation;
-  value.longitudinalState = valueLongitudinalState;
-  ::ad::rss::state::LateralRssState valueLateralStateRight;
-  bool valueLateralStateRightIsSafe{true};
-  valueLateralStateRight.isSafe = valueLateralStateRightIsSafe;
-  ::ad::rss::state::LateralResponse valueLateralStateRightResponse(::ad::rss::state::LateralResponse::None);
-  valueLateralStateRight.response = valueLateralStateRightResponse;
-  ::ad::rss::world::LateralRssAccelerationValues valueLateralStateRightAlphaLat;
-  ::ad::physics::Acceleration valueLateralStateRightAlphaLatAccelMax(-1e2);
-  valueLateralStateRightAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueLateralStateRightAlphaLat.accelMax = valueLateralStateRightAlphaLatAccelMax;
-  ::ad::physics::Acceleration valueLateralStateRightAlphaLatBrakeMin(-1e2);
-  valueLateralStateRightAlphaLat.brakeMin = valueLateralStateRightAlphaLatBrakeMin;
-  valueLateralStateRight.alphaLat = valueLateralStateRightAlphaLat;
-  ::ad::rss::state::RssStateInformation valueLateralStateRightRssStateInformation;
-  ::ad::physics::Distance valueLateralStateRightRssStateInformationSafeDistance(-1e9);
-  valueLateralStateRightRssStateInformation.safeDistance = valueLateralStateRightRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueLateralStateRightRssStateInformationCurrentDistance(-1e9);
-  valueLateralStateRightRssStateInformation.currentDistance = valueLateralStateRightRssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator valueLateralStateRightRssStateInformationEvaluator(
+  valueLongitudinal_stateRss_state_information.evaluator = valueLongitudinal_stateRss_state_informationEvaluator;
+  valueLongitudinal_state.rss_state_information = valueLongitudinal_stateRss_state_information;
+  value.longitudinal_state = valueLongitudinal_state;
+  ::ad::rss::state::LateralRssState valueLateral_state_right;
+  bool valueLateral_state_rightIs_safe{true};
+  valueLateral_state_right.is_safe = valueLateral_state_rightIs_safe;
+  ::ad::rss::state::LateralResponse valueLateral_state_rightResponse(::ad::rss::state::LateralResponse::None);
+  valueLateral_state_right.response = valueLateral_state_rightResponse;
+  ::ad::rss::world::LateralRssAccelerationValues valueLateral_state_rightAlpha_lat;
+  ::ad::physics::Acceleration valueLateral_state_rightAlpha_latAccel_max(-1e2);
+  valueLateral_state_rightAlpha_latAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueLateral_state_rightAlpha_lat.accel_max = valueLateral_state_rightAlpha_latAccel_max;
+  ::ad::physics::Acceleration valueLateral_state_rightAlpha_latBrake_min(-1e2);
+  valueLateral_state_rightAlpha_lat.brake_min = valueLateral_state_rightAlpha_latBrake_min;
+  valueLateral_state_right.alpha_lat = valueLateral_state_rightAlpha_lat;
+  ::ad::rss::state::RssStateInformation valueLateral_state_rightRss_state_information;
+  ::ad::physics::Distance valueLateral_state_rightRss_state_informationSafe_distance(-1e9);
+  valueLateral_state_rightRss_state_information.safe_distance
+    = valueLateral_state_rightRss_state_informationSafe_distance;
+  ::ad::physics::Distance valueLateral_state_rightRss_state_informationCurrent_distance(-1e9);
+  valueLateral_state_rightRss_state_information.current_distance
+    = valueLateral_state_rightRss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator valueLateral_state_rightRss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::None);
-  valueLateralStateRightRssStateInformation.evaluator = valueLateralStateRightRssStateInformationEvaluator;
-  valueLateralStateRight.rssStateInformation = valueLateralStateRightRssStateInformation;
-  value.lateralStateRight = valueLateralStateRight;
-  ::ad::rss::state::LateralRssState valueLateralStateLeft;
-  bool valueLateralStateLeftIsSafe{true};
-  valueLateralStateLeft.isSafe = valueLateralStateLeftIsSafe;
-  ::ad::rss::state::LateralResponse valueLateralStateLeftResponse(::ad::rss::state::LateralResponse::None);
-  valueLateralStateLeft.response = valueLateralStateLeftResponse;
-  ::ad::rss::world::LateralRssAccelerationValues valueLateralStateLeftAlphaLat;
-  ::ad::physics::Acceleration valueLateralStateLeftAlphaLatAccelMax(-1e2);
-  valueLateralStateLeftAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueLateralStateLeftAlphaLat.accelMax = valueLateralStateLeftAlphaLatAccelMax;
-  ::ad::physics::Acceleration valueLateralStateLeftAlphaLatBrakeMin(-1e2);
-  valueLateralStateLeftAlphaLat.brakeMin = valueLateralStateLeftAlphaLatBrakeMin;
-  valueLateralStateLeft.alphaLat = valueLateralStateLeftAlphaLat;
-  ::ad::rss::state::RssStateInformation valueLateralStateLeftRssStateInformation;
-  ::ad::physics::Distance valueLateralStateLeftRssStateInformationSafeDistance(-1e9);
-  valueLateralStateLeftRssStateInformation.safeDistance = valueLateralStateLeftRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueLateralStateLeftRssStateInformationCurrentDistance(-1e9);
-  valueLateralStateLeftRssStateInformation.currentDistance = valueLateralStateLeftRssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator valueLateralStateLeftRssStateInformationEvaluator(
+  valueLateral_state_rightRss_state_information.evaluator = valueLateral_state_rightRss_state_informationEvaluator;
+  valueLateral_state_right.rss_state_information = valueLateral_state_rightRss_state_information;
+  value.lateral_state_right = valueLateral_state_right;
+  ::ad::rss::state::LateralRssState valueLateral_state_left;
+  bool valueLateral_state_leftIs_safe{true};
+  valueLateral_state_left.is_safe = valueLateral_state_leftIs_safe;
+  ::ad::rss::state::LateralResponse valueLateral_state_leftResponse(::ad::rss::state::LateralResponse::None);
+  valueLateral_state_left.response = valueLateral_state_leftResponse;
+  ::ad::rss::world::LateralRssAccelerationValues valueLateral_state_leftAlpha_lat;
+  ::ad::physics::Acceleration valueLateral_state_leftAlpha_latAccel_max(-1e2);
+  valueLateral_state_leftAlpha_latAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueLateral_state_leftAlpha_lat.accel_max = valueLateral_state_leftAlpha_latAccel_max;
+  ::ad::physics::Acceleration valueLateral_state_leftAlpha_latBrake_min(-1e2);
+  valueLateral_state_leftAlpha_lat.brake_min = valueLateral_state_leftAlpha_latBrake_min;
+  valueLateral_state_left.alpha_lat = valueLateral_state_leftAlpha_lat;
+  ::ad::rss::state::RssStateInformation valueLateral_state_leftRss_state_information;
+  ::ad::physics::Distance valueLateral_state_leftRss_state_informationSafe_distance(-1e9);
+  valueLateral_state_leftRss_state_information.safe_distance
+    = valueLateral_state_leftRss_state_informationSafe_distance;
+  ::ad::physics::Distance valueLateral_state_leftRss_state_informationCurrent_distance(-1e9);
+  valueLateral_state_leftRss_state_information.current_distance
+    = valueLateral_state_leftRss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator valueLateral_state_leftRss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::None);
-  valueLateralStateLeftRssStateInformation.evaluator = valueLateralStateLeftRssStateInformationEvaluator;
-  valueLateralStateLeft.rssStateInformation = valueLateralStateLeftRssStateInformation;
-  value.lateralStateLeft = valueLateralStateLeft;
-  ::ad::rss::state::UnstructuredSceneRssState valueUnstructuredSceneState;
-  bool valueUnstructuredSceneStateIsSafe{true};
-  valueUnstructuredSceneState.isSafe = valueUnstructuredSceneStateIsSafe;
-  ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneStateResponse(
-    ::ad::rss::state::UnstructuredSceneResponse::None);
-  valueUnstructuredSceneState.response = valueUnstructuredSceneStateResponse;
-  ::ad::rss::state::HeadingRange valueUnstructuredSceneStateHeadingRange;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeBegin(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.begin = valueUnstructuredSceneStateHeadingRangeBegin;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeEnd(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.end = valueUnstructuredSceneStateHeadingRangeEnd;
-  valueUnstructuredSceneState.headingRange = valueUnstructuredSceneStateHeadingRange;
-  ::ad::rss::state::UnstructuredSceneStateInformation valueUnstructuredSceneStateRssStateInformation;
-  ::ad::physics::Distance2DList valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
-  ::ad::physics::Distance2D valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX(-1e9);
-  valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.x
-    = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementY(-1e9);
-  valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.y
-    = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementY;
-  valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet.resize(
-    1, valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement);
-  valueUnstructuredSceneStateRssStateInformation.brakeTrajectorySet
-    = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
-  ::ad::physics::Distance2DList valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
-  ::ad::physics::Distance2D valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX(-1e9);
-  valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.x
-    = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementY(-1e9);
-  valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.y
-    = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementY;
-  valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet.resize(
-    1, valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement);
-  valueUnstructuredSceneStateRssStateInformation.continueForwardTrajectorySet
-    = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
-  valueUnstructuredSceneState.rssStateInformation = valueUnstructuredSceneStateRssStateInformation;
-  ::ad::rss::world::LongitudinalRssAccelerationValues valueUnstructuredSceneStateAlphaLon;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonAccelMax(-1e2);
-  valueUnstructuredSceneStateAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueUnstructuredSceneStateAlphaLon.accelMax = valueUnstructuredSceneStateAlphaLonAccelMax;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMax(-1e2);
-  valueUnstructuredSceneStateAlphaLon.brakeMax = valueUnstructuredSceneStateAlphaLonBrakeMax;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMin(-1e2);
-  valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLonBrakeMin;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMinCorrect(-1e2);
-  valueUnstructuredSceneStateAlphaLon.brakeMinCorrect = valueUnstructuredSceneStateAlphaLonBrakeMinCorrect;
-  valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLon.brakeMax;
-  valueUnstructuredSceneStateAlphaLon.brakeMinCorrect = valueUnstructuredSceneStateAlphaLon.brakeMin;
-  valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLon.brakeMinCorrect;
-  valueUnstructuredSceneStateAlphaLon.brakeMax = valueUnstructuredSceneStateAlphaLon.brakeMin;
-  valueUnstructuredSceneState.alphaLon = valueUnstructuredSceneStateAlphaLon;
-  value.unstructuredSceneState = valueUnstructuredSceneState;
-  ::ad::rss::situation::SituationType valueSituationType(::ad::rss::situation::SituationType::NotRelevant);
-  value.situationType = valueSituationType;
+  valueLateral_state_leftRss_state_information.evaluator = valueLateral_state_leftRss_state_informationEvaluator;
+  valueLateral_state_left.rss_state_information = valueLateral_state_leftRss_state_information;
+  value.lateral_state_left = valueLateral_state_left;
+  ::ad::rss::state::UnstructuredConstellationRssState valueUnstructured_constellation_state;
+  bool valueUnstructured_constellation_stateIs_safe{true};
+  valueUnstructured_constellation_state.is_safe = valueUnstructured_constellation_stateIs_safe;
+  ::ad::rss::state::UnstructuredConstellationResponse valueUnstructured_constellation_stateResponse(
+    ::ad::rss::state::UnstructuredConstellationResponse::None);
+  valueUnstructured_constellation_state.response = valueUnstructured_constellation_stateResponse;
+  ::ad::geometry::HeadingRange valueUnstructured_constellation_stateHeading_range;
+  ::ad::physics::Angle valueUnstructured_constellation_stateHeading_rangeBegin(-6.283185308);
+  valueUnstructured_constellation_stateHeading_range.begin = valueUnstructured_constellation_stateHeading_rangeBegin;
+  ::ad::physics::Angle valueUnstructured_constellation_stateHeading_rangeEnd(-6.283185308);
+  valueUnstructured_constellation_stateHeading_range.end = valueUnstructured_constellation_stateHeading_rangeEnd;
+  valueUnstructured_constellation_state.heading_range = valueUnstructured_constellation_stateHeading_range;
+  ::ad::rss::state::UnstructuredConstellationStateInformation
+    valueUnstructured_constellation_stateRss_state_information;
+  ::ad::physics::Distance2DList valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_set;
+  ::ad::physics::Distance2D valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement;
+  ::ad::physics::Distance valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementX(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement.x
+    = valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementX;
+  ::ad::physics::Distance valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementY(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement.y
+    = valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementY;
+  valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_set.resize(
+    1, valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement);
+  valueUnstructured_constellation_stateRss_state_information.brake_trajectory_set
+    = valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_set;
+  ::ad::physics::Distance2DList
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_set;
+  ::ad::physics::Distance2D
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement;
+  ::ad::physics::Distance
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementX(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement.x
+    = valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementX;
+  ::ad::physics::Distance
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementY(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement.y
+    = valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementY;
+  valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_set.resize(
+    1, valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement);
+  valueUnstructured_constellation_stateRss_state_information.continue_forward_trajectory_set
+    = valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_set;
+  ::ad::physics::Angle valueUnstructured_constellation_stateRss_state_informationConsidered_drive_away_steering_angle(
+    -6.283185308);
+  valueUnstructured_constellation_stateRss_state_information.considered_drive_away_steering_angle
+    = valueUnstructured_constellation_stateRss_state_informationConsidered_drive_away_steering_angle;
+  valueUnstructured_constellation_state.rss_state_information
+    = valueUnstructured_constellation_stateRss_state_information;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueUnstructured_constellation_stateAlpha_lon;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonAccel_max(-1e2);
+  valueUnstructured_constellation_stateAlpha_lonAccel_max
+    = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueUnstructured_constellation_stateAlpha_lon.accel_max = valueUnstructured_constellation_stateAlpha_lonAccel_max;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonBrake_max(-1e2);
+  valueUnstructured_constellation_stateAlpha_lon.brake_max = valueUnstructured_constellation_stateAlpha_lonBrake_max;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonBrake_min(-1e2);
+  valueUnstructured_constellation_stateAlpha_lon.brake_min = valueUnstructured_constellation_stateAlpha_lonBrake_min;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonBrake_min_correct(-1e2);
+  valueUnstructured_constellation_stateAlpha_lon.brake_min_correct
+    = valueUnstructured_constellation_stateAlpha_lonBrake_min_correct;
+  valueUnstructured_constellation_stateAlpha_lon.brake_min = valueUnstructured_constellation_stateAlpha_lon.brake_max;
+  valueUnstructured_constellation_stateAlpha_lon.brake_min_correct
+    = valueUnstructured_constellation_stateAlpha_lon.brake_min;
+  valueUnstructured_constellation_stateAlpha_lon.brake_min
+    = valueUnstructured_constellation_stateAlpha_lon.brake_min_correct;
+  valueUnstructured_constellation_stateAlpha_lon.brake_max = valueUnstructured_constellation_stateAlpha_lon.brake_min;
+  valueUnstructured_constellation_state.alpha_lon = valueUnstructured_constellation_stateAlpha_lon;
+  value.unstructured_constellation_state = valueUnstructured_constellation_state;
+  ::ad::rss::world::ConstellationType valueConstellation_type(::ad::rss::world::ConstellationType::NotRelevant);
+  value.constellation_type = valueConstellation_type;
   ASSERT_TRUE(withinValidInputRange(value));
 }
 
-TEST(RssStateValidInputRangeTests, testValidInputRangeLongitudinalStateTooSmall)
+TEST(RssStateValidInputRangeTests, testValidInputRangeLongitudinal_stateTooSmall)
 {
   ::ad::rss::state::RssState value;
-  ::ad::rss::world::ObjectId valueObjectId(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
-  value.objectId = valueObjectId;
-  ::ad::rss::situation::SituationId valueSituationId(std::numeric_limits<::ad::rss::situation::SituationId>::lowest());
-  value.situationId = valueSituationId;
-  ::ad::rss::state::LongitudinalRssState valueLongitudinalState;
-  bool valueLongitudinalStateIsSafe{true};
-  valueLongitudinalState.isSafe = valueLongitudinalStateIsSafe;
-  ::ad::rss::state::LongitudinalResponse valueLongitudinalStateResponse(::ad::rss::state::LongitudinalResponse::None);
-  valueLongitudinalState.response = valueLongitudinalStateResponse;
-  ::ad::rss::world::LongitudinalRssAccelerationValues valueLongitudinalStateAlphaLon;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonAccelMax(-1e2);
-  valueLongitudinalStateAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueLongitudinalStateAlphaLon.accelMax = valueLongitudinalStateAlphaLonAccelMax;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonBrakeMax(-1e2);
-  valueLongitudinalStateAlphaLon.brakeMax = valueLongitudinalStateAlphaLonBrakeMax;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonBrakeMin(-1e2);
-  valueLongitudinalStateAlphaLon.brakeMin = valueLongitudinalStateAlphaLonBrakeMin;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonBrakeMinCorrect(-1e2);
-  valueLongitudinalStateAlphaLon.brakeMinCorrect = valueLongitudinalStateAlphaLonBrakeMinCorrect;
-  valueLongitudinalStateAlphaLon.brakeMin = valueLongitudinalStateAlphaLon.brakeMax;
-  valueLongitudinalStateAlphaLon.brakeMinCorrect = valueLongitudinalStateAlphaLon.brakeMin;
-  valueLongitudinalStateAlphaLon.brakeMin = valueLongitudinalStateAlphaLon.brakeMinCorrect;
-  valueLongitudinalStateAlphaLon.brakeMax = valueLongitudinalStateAlphaLon.brakeMin;
-  valueLongitudinalState.alphaLon = valueLongitudinalStateAlphaLon;
-  ::ad::rss::state::RssStateInformation valueLongitudinalStateRssStateInformation;
-  ::ad::physics::Distance valueLongitudinalStateRssStateInformationSafeDistance(-1e9);
-  valueLongitudinalStateRssStateInformation.safeDistance = valueLongitudinalStateRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueLongitudinalStateRssStateInformationCurrentDistance(-1e9);
-  valueLongitudinalStateRssStateInformation.currentDistance = valueLongitudinalStateRssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator valueLongitudinalStateRssStateInformationEvaluator(
+  ::ad::rss::world::ObjectId valueEgo_id(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  value.ego_id = valueEgo_id;
+  ::ad::rss::world::ObjectId valueObject_id(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  value.object_id = valueObject_id;
+  ::ad::rss::core::RelativeConstellationId valueConstellation_id(
+    std::numeric_limits<::ad::rss::core::RelativeConstellationId>::lowest());
+  value.constellation_id = valueConstellation_id;
+  ::ad::rss::state::LongitudinalRssState valueLongitudinal_state;
+  bool valueLongitudinal_stateIs_safe{true};
+  valueLongitudinal_state.is_safe = valueLongitudinal_stateIs_safe;
+  ::ad::rss::state::LongitudinalResponse valueLongitudinal_stateResponse(::ad::rss::state::LongitudinalResponse::None);
+  valueLongitudinal_state.response = valueLongitudinal_stateResponse;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueLongitudinal_stateAlpha_lon;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonAccel_max(-1e2);
+  valueLongitudinal_stateAlpha_lonAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueLongitudinal_stateAlpha_lon.accel_max = valueLongitudinal_stateAlpha_lonAccel_max;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonBrake_max(-1e2);
+  valueLongitudinal_stateAlpha_lon.brake_max = valueLongitudinal_stateAlpha_lonBrake_max;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonBrake_min(-1e2);
+  valueLongitudinal_stateAlpha_lon.brake_min = valueLongitudinal_stateAlpha_lonBrake_min;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonBrake_min_correct(-1e2);
+  valueLongitudinal_stateAlpha_lon.brake_min_correct = valueLongitudinal_stateAlpha_lonBrake_min_correct;
+  valueLongitudinal_stateAlpha_lon.brake_min = valueLongitudinal_stateAlpha_lon.brake_max;
+  valueLongitudinal_stateAlpha_lon.brake_min_correct = valueLongitudinal_stateAlpha_lon.brake_min;
+  valueLongitudinal_stateAlpha_lon.brake_min = valueLongitudinal_stateAlpha_lon.brake_min_correct;
+  valueLongitudinal_stateAlpha_lon.brake_max = valueLongitudinal_stateAlpha_lon.brake_min;
+  valueLongitudinal_state.alpha_lon = valueLongitudinal_stateAlpha_lon;
+  ::ad::rss::state::RssStateInformation valueLongitudinal_stateRss_state_information;
+  ::ad::physics::Distance valueLongitudinal_stateRss_state_informationSafe_distance(-1e9);
+  valueLongitudinal_stateRss_state_information.safe_distance
+    = valueLongitudinal_stateRss_state_informationSafe_distance;
+  ::ad::physics::Distance valueLongitudinal_stateRss_state_informationCurrent_distance(-1e9);
+  valueLongitudinal_stateRss_state_information.current_distance
+    = valueLongitudinal_stateRss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator valueLongitudinal_stateRss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::None);
-  valueLongitudinalStateRssStateInformation.evaluator = valueLongitudinalStateRssStateInformationEvaluator;
-  valueLongitudinalState.rssStateInformation = valueLongitudinalStateRssStateInformation;
-  value.longitudinalState = valueLongitudinalState;
-  ::ad::rss::state::LateralRssState valueLateralStateRight;
-  bool valueLateralStateRightIsSafe{true};
-  valueLateralStateRight.isSafe = valueLateralStateRightIsSafe;
-  ::ad::rss::state::LateralResponse valueLateralStateRightResponse(::ad::rss::state::LateralResponse::None);
-  valueLateralStateRight.response = valueLateralStateRightResponse;
-  ::ad::rss::world::LateralRssAccelerationValues valueLateralStateRightAlphaLat;
-  ::ad::physics::Acceleration valueLateralStateRightAlphaLatAccelMax(-1e2);
-  valueLateralStateRightAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueLateralStateRightAlphaLat.accelMax = valueLateralStateRightAlphaLatAccelMax;
-  ::ad::physics::Acceleration valueLateralStateRightAlphaLatBrakeMin(-1e2);
-  valueLateralStateRightAlphaLat.brakeMin = valueLateralStateRightAlphaLatBrakeMin;
-  valueLateralStateRight.alphaLat = valueLateralStateRightAlphaLat;
-  ::ad::rss::state::RssStateInformation valueLateralStateRightRssStateInformation;
-  ::ad::physics::Distance valueLateralStateRightRssStateInformationSafeDistance(-1e9);
-  valueLateralStateRightRssStateInformation.safeDistance = valueLateralStateRightRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueLateralStateRightRssStateInformationCurrentDistance(-1e9);
-  valueLateralStateRightRssStateInformation.currentDistance = valueLateralStateRightRssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator valueLateralStateRightRssStateInformationEvaluator(
+  valueLongitudinal_stateRss_state_information.evaluator = valueLongitudinal_stateRss_state_informationEvaluator;
+  valueLongitudinal_state.rss_state_information = valueLongitudinal_stateRss_state_information;
+  value.longitudinal_state = valueLongitudinal_state;
+  ::ad::rss::state::LateralRssState valueLateral_state_right;
+  bool valueLateral_state_rightIs_safe{true};
+  valueLateral_state_right.is_safe = valueLateral_state_rightIs_safe;
+  ::ad::rss::state::LateralResponse valueLateral_state_rightResponse(::ad::rss::state::LateralResponse::None);
+  valueLateral_state_right.response = valueLateral_state_rightResponse;
+  ::ad::rss::world::LateralRssAccelerationValues valueLateral_state_rightAlpha_lat;
+  ::ad::physics::Acceleration valueLateral_state_rightAlpha_latAccel_max(-1e2);
+  valueLateral_state_rightAlpha_latAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueLateral_state_rightAlpha_lat.accel_max = valueLateral_state_rightAlpha_latAccel_max;
+  ::ad::physics::Acceleration valueLateral_state_rightAlpha_latBrake_min(-1e2);
+  valueLateral_state_rightAlpha_lat.brake_min = valueLateral_state_rightAlpha_latBrake_min;
+  valueLateral_state_right.alpha_lat = valueLateral_state_rightAlpha_lat;
+  ::ad::rss::state::RssStateInformation valueLateral_state_rightRss_state_information;
+  ::ad::physics::Distance valueLateral_state_rightRss_state_informationSafe_distance(-1e9);
+  valueLateral_state_rightRss_state_information.safe_distance
+    = valueLateral_state_rightRss_state_informationSafe_distance;
+  ::ad::physics::Distance valueLateral_state_rightRss_state_informationCurrent_distance(-1e9);
+  valueLateral_state_rightRss_state_information.current_distance
+    = valueLateral_state_rightRss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator valueLateral_state_rightRss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::None);
-  valueLateralStateRightRssStateInformation.evaluator = valueLateralStateRightRssStateInformationEvaluator;
-  valueLateralStateRight.rssStateInformation = valueLateralStateRightRssStateInformation;
-  value.lateralStateRight = valueLateralStateRight;
-  ::ad::rss::state::LateralRssState valueLateralStateLeft;
-  bool valueLateralStateLeftIsSafe{true};
-  valueLateralStateLeft.isSafe = valueLateralStateLeftIsSafe;
-  ::ad::rss::state::LateralResponse valueLateralStateLeftResponse(::ad::rss::state::LateralResponse::None);
-  valueLateralStateLeft.response = valueLateralStateLeftResponse;
-  ::ad::rss::world::LateralRssAccelerationValues valueLateralStateLeftAlphaLat;
-  ::ad::physics::Acceleration valueLateralStateLeftAlphaLatAccelMax(-1e2);
-  valueLateralStateLeftAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueLateralStateLeftAlphaLat.accelMax = valueLateralStateLeftAlphaLatAccelMax;
-  ::ad::physics::Acceleration valueLateralStateLeftAlphaLatBrakeMin(-1e2);
-  valueLateralStateLeftAlphaLat.brakeMin = valueLateralStateLeftAlphaLatBrakeMin;
-  valueLateralStateLeft.alphaLat = valueLateralStateLeftAlphaLat;
-  ::ad::rss::state::RssStateInformation valueLateralStateLeftRssStateInformation;
-  ::ad::physics::Distance valueLateralStateLeftRssStateInformationSafeDistance(-1e9);
-  valueLateralStateLeftRssStateInformation.safeDistance = valueLateralStateLeftRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueLateralStateLeftRssStateInformationCurrentDistance(-1e9);
-  valueLateralStateLeftRssStateInformation.currentDistance = valueLateralStateLeftRssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator valueLateralStateLeftRssStateInformationEvaluator(
+  valueLateral_state_rightRss_state_information.evaluator = valueLateral_state_rightRss_state_informationEvaluator;
+  valueLateral_state_right.rss_state_information = valueLateral_state_rightRss_state_information;
+  value.lateral_state_right = valueLateral_state_right;
+  ::ad::rss::state::LateralRssState valueLateral_state_left;
+  bool valueLateral_state_leftIs_safe{true};
+  valueLateral_state_left.is_safe = valueLateral_state_leftIs_safe;
+  ::ad::rss::state::LateralResponse valueLateral_state_leftResponse(::ad::rss::state::LateralResponse::None);
+  valueLateral_state_left.response = valueLateral_state_leftResponse;
+  ::ad::rss::world::LateralRssAccelerationValues valueLateral_state_leftAlpha_lat;
+  ::ad::physics::Acceleration valueLateral_state_leftAlpha_latAccel_max(-1e2);
+  valueLateral_state_leftAlpha_latAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueLateral_state_leftAlpha_lat.accel_max = valueLateral_state_leftAlpha_latAccel_max;
+  ::ad::physics::Acceleration valueLateral_state_leftAlpha_latBrake_min(-1e2);
+  valueLateral_state_leftAlpha_lat.brake_min = valueLateral_state_leftAlpha_latBrake_min;
+  valueLateral_state_left.alpha_lat = valueLateral_state_leftAlpha_lat;
+  ::ad::rss::state::RssStateInformation valueLateral_state_leftRss_state_information;
+  ::ad::physics::Distance valueLateral_state_leftRss_state_informationSafe_distance(-1e9);
+  valueLateral_state_leftRss_state_information.safe_distance
+    = valueLateral_state_leftRss_state_informationSafe_distance;
+  ::ad::physics::Distance valueLateral_state_leftRss_state_informationCurrent_distance(-1e9);
+  valueLateral_state_leftRss_state_information.current_distance
+    = valueLateral_state_leftRss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator valueLateral_state_leftRss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::None);
-  valueLateralStateLeftRssStateInformation.evaluator = valueLateralStateLeftRssStateInformationEvaluator;
-  valueLateralStateLeft.rssStateInformation = valueLateralStateLeftRssStateInformation;
-  value.lateralStateLeft = valueLateralStateLeft;
-  ::ad::rss::state::UnstructuredSceneRssState valueUnstructuredSceneState;
-  bool valueUnstructuredSceneStateIsSafe{true};
-  valueUnstructuredSceneState.isSafe = valueUnstructuredSceneStateIsSafe;
-  ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneStateResponse(
-    ::ad::rss::state::UnstructuredSceneResponse::None);
-  valueUnstructuredSceneState.response = valueUnstructuredSceneStateResponse;
-  ::ad::rss::state::HeadingRange valueUnstructuredSceneStateHeadingRange;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeBegin(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.begin = valueUnstructuredSceneStateHeadingRangeBegin;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeEnd(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.end = valueUnstructuredSceneStateHeadingRangeEnd;
-  valueUnstructuredSceneState.headingRange = valueUnstructuredSceneStateHeadingRange;
-  ::ad::rss::state::UnstructuredSceneStateInformation valueUnstructuredSceneStateRssStateInformation;
-  ::ad::physics::Distance2DList valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
-  ::ad::physics::Distance2D valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX(-1e9);
-  valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.x
-    = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementY(-1e9);
-  valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.y
-    = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementY;
-  valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet.resize(
-    1, valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement);
-  valueUnstructuredSceneStateRssStateInformation.brakeTrajectorySet
-    = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
-  ::ad::physics::Distance2DList valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
-  ::ad::physics::Distance2D valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX(-1e9);
-  valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.x
-    = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementY(-1e9);
-  valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.y
-    = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementY;
-  valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet.resize(
-    1, valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement);
-  valueUnstructuredSceneStateRssStateInformation.continueForwardTrajectorySet
-    = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
-  valueUnstructuredSceneState.rssStateInformation = valueUnstructuredSceneStateRssStateInformation;
-  ::ad::rss::world::LongitudinalRssAccelerationValues valueUnstructuredSceneStateAlphaLon;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonAccelMax(-1e2);
-  valueUnstructuredSceneStateAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueUnstructuredSceneStateAlphaLon.accelMax = valueUnstructuredSceneStateAlphaLonAccelMax;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMax(-1e2);
-  valueUnstructuredSceneStateAlphaLon.brakeMax = valueUnstructuredSceneStateAlphaLonBrakeMax;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMin(-1e2);
-  valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLonBrakeMin;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMinCorrect(-1e2);
-  valueUnstructuredSceneStateAlphaLon.brakeMinCorrect = valueUnstructuredSceneStateAlphaLonBrakeMinCorrect;
-  valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLon.brakeMax;
-  valueUnstructuredSceneStateAlphaLon.brakeMinCorrect = valueUnstructuredSceneStateAlphaLon.brakeMin;
-  valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLon.brakeMinCorrect;
-  valueUnstructuredSceneStateAlphaLon.brakeMax = valueUnstructuredSceneStateAlphaLon.brakeMin;
-  valueUnstructuredSceneState.alphaLon = valueUnstructuredSceneStateAlphaLon;
-  value.unstructuredSceneState = valueUnstructuredSceneState;
-  ::ad::rss::situation::SituationType valueSituationType(::ad::rss::situation::SituationType::NotRelevant);
-  value.situationType = valueSituationType;
+  valueLateral_state_leftRss_state_information.evaluator = valueLateral_state_leftRss_state_informationEvaluator;
+  valueLateral_state_left.rss_state_information = valueLateral_state_leftRss_state_information;
+  value.lateral_state_left = valueLateral_state_left;
+  ::ad::rss::state::UnstructuredConstellationRssState valueUnstructured_constellation_state;
+  bool valueUnstructured_constellation_stateIs_safe{true};
+  valueUnstructured_constellation_state.is_safe = valueUnstructured_constellation_stateIs_safe;
+  ::ad::rss::state::UnstructuredConstellationResponse valueUnstructured_constellation_stateResponse(
+    ::ad::rss::state::UnstructuredConstellationResponse::None);
+  valueUnstructured_constellation_state.response = valueUnstructured_constellation_stateResponse;
+  ::ad::geometry::HeadingRange valueUnstructured_constellation_stateHeading_range;
+  ::ad::physics::Angle valueUnstructured_constellation_stateHeading_rangeBegin(-6.283185308);
+  valueUnstructured_constellation_stateHeading_range.begin = valueUnstructured_constellation_stateHeading_rangeBegin;
+  ::ad::physics::Angle valueUnstructured_constellation_stateHeading_rangeEnd(-6.283185308);
+  valueUnstructured_constellation_stateHeading_range.end = valueUnstructured_constellation_stateHeading_rangeEnd;
+  valueUnstructured_constellation_state.heading_range = valueUnstructured_constellation_stateHeading_range;
+  ::ad::rss::state::UnstructuredConstellationStateInformation
+    valueUnstructured_constellation_stateRss_state_information;
+  ::ad::physics::Distance2DList valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_set;
+  ::ad::physics::Distance2D valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement;
+  ::ad::physics::Distance valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementX(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement.x
+    = valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementX;
+  ::ad::physics::Distance valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementY(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement.y
+    = valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementY;
+  valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_set.resize(
+    1, valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement);
+  valueUnstructured_constellation_stateRss_state_information.brake_trajectory_set
+    = valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_set;
+  ::ad::physics::Distance2DList
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_set;
+  ::ad::physics::Distance2D
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement;
+  ::ad::physics::Distance
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementX(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement.x
+    = valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementX;
+  ::ad::physics::Distance
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementY(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement.y
+    = valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementY;
+  valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_set.resize(
+    1, valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement);
+  valueUnstructured_constellation_stateRss_state_information.continue_forward_trajectory_set
+    = valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_set;
+  ::ad::physics::Angle valueUnstructured_constellation_stateRss_state_informationConsidered_drive_away_steering_angle(
+    -6.283185308);
+  valueUnstructured_constellation_stateRss_state_information.considered_drive_away_steering_angle
+    = valueUnstructured_constellation_stateRss_state_informationConsidered_drive_away_steering_angle;
+  valueUnstructured_constellation_state.rss_state_information
+    = valueUnstructured_constellation_stateRss_state_information;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueUnstructured_constellation_stateAlpha_lon;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonAccel_max(-1e2);
+  valueUnstructured_constellation_stateAlpha_lonAccel_max
+    = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueUnstructured_constellation_stateAlpha_lon.accel_max = valueUnstructured_constellation_stateAlpha_lonAccel_max;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonBrake_max(-1e2);
+  valueUnstructured_constellation_stateAlpha_lon.brake_max = valueUnstructured_constellation_stateAlpha_lonBrake_max;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonBrake_min(-1e2);
+  valueUnstructured_constellation_stateAlpha_lon.brake_min = valueUnstructured_constellation_stateAlpha_lonBrake_min;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonBrake_min_correct(-1e2);
+  valueUnstructured_constellation_stateAlpha_lon.brake_min_correct
+    = valueUnstructured_constellation_stateAlpha_lonBrake_min_correct;
+  valueUnstructured_constellation_stateAlpha_lon.brake_min = valueUnstructured_constellation_stateAlpha_lon.brake_max;
+  valueUnstructured_constellation_stateAlpha_lon.brake_min_correct
+    = valueUnstructured_constellation_stateAlpha_lon.brake_min;
+  valueUnstructured_constellation_stateAlpha_lon.brake_min
+    = valueUnstructured_constellation_stateAlpha_lon.brake_min_correct;
+  valueUnstructured_constellation_stateAlpha_lon.brake_max = valueUnstructured_constellation_stateAlpha_lon.brake_min;
+  valueUnstructured_constellation_state.alpha_lon = valueUnstructured_constellation_stateAlpha_lon;
+  value.unstructured_constellation_state = valueUnstructured_constellation_state;
+  ::ad::rss::world::ConstellationType valueConstellation_type(::ad::rss::world::ConstellationType::NotRelevant);
+  value.constellation_type = valueConstellation_type;
 
   // override member with data type value below input range minimum
   ::ad::rss::state::LongitudinalRssState invalidInitializedMember;
   ::ad::rss::state::LongitudinalResponse invalidInitializedMemberResponse(
     static_cast<::ad::rss::state::LongitudinalResponse>(-1));
   invalidInitializedMember.response = invalidInitializedMemberResponse;
-  value.longitudinalState = invalidInitializedMember;
+  value.longitudinal_state = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(RssStateValidInputRangeTests, testValidInputRangeLongitudinalStateTooBig)
+TEST(RssStateValidInputRangeTests, testValidInputRangeLongitudinal_stateTooBig)
 {
   ::ad::rss::state::RssState value;
-  ::ad::rss::world::ObjectId valueObjectId(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
-  value.objectId = valueObjectId;
-  ::ad::rss::situation::SituationId valueSituationId(std::numeric_limits<::ad::rss::situation::SituationId>::lowest());
-  value.situationId = valueSituationId;
-  ::ad::rss::state::LongitudinalRssState valueLongitudinalState;
-  bool valueLongitudinalStateIsSafe{true};
-  valueLongitudinalState.isSafe = valueLongitudinalStateIsSafe;
-  ::ad::rss::state::LongitudinalResponse valueLongitudinalStateResponse(::ad::rss::state::LongitudinalResponse::None);
-  valueLongitudinalState.response = valueLongitudinalStateResponse;
-  ::ad::rss::world::LongitudinalRssAccelerationValues valueLongitudinalStateAlphaLon;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonAccelMax(-1e2);
-  valueLongitudinalStateAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueLongitudinalStateAlphaLon.accelMax = valueLongitudinalStateAlphaLonAccelMax;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonBrakeMax(-1e2);
-  valueLongitudinalStateAlphaLon.brakeMax = valueLongitudinalStateAlphaLonBrakeMax;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonBrakeMin(-1e2);
-  valueLongitudinalStateAlphaLon.brakeMin = valueLongitudinalStateAlphaLonBrakeMin;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonBrakeMinCorrect(-1e2);
-  valueLongitudinalStateAlphaLon.brakeMinCorrect = valueLongitudinalStateAlphaLonBrakeMinCorrect;
-  valueLongitudinalStateAlphaLon.brakeMin = valueLongitudinalStateAlphaLon.brakeMax;
-  valueLongitudinalStateAlphaLon.brakeMinCorrect = valueLongitudinalStateAlphaLon.brakeMin;
-  valueLongitudinalStateAlphaLon.brakeMin = valueLongitudinalStateAlphaLon.brakeMinCorrect;
-  valueLongitudinalStateAlphaLon.brakeMax = valueLongitudinalStateAlphaLon.brakeMin;
-  valueLongitudinalState.alphaLon = valueLongitudinalStateAlphaLon;
-  ::ad::rss::state::RssStateInformation valueLongitudinalStateRssStateInformation;
-  ::ad::physics::Distance valueLongitudinalStateRssStateInformationSafeDistance(-1e9);
-  valueLongitudinalStateRssStateInformation.safeDistance = valueLongitudinalStateRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueLongitudinalStateRssStateInformationCurrentDistance(-1e9);
-  valueLongitudinalStateRssStateInformation.currentDistance = valueLongitudinalStateRssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator valueLongitudinalStateRssStateInformationEvaluator(
+  ::ad::rss::world::ObjectId valueEgo_id(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  value.ego_id = valueEgo_id;
+  ::ad::rss::world::ObjectId valueObject_id(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  value.object_id = valueObject_id;
+  ::ad::rss::core::RelativeConstellationId valueConstellation_id(
+    std::numeric_limits<::ad::rss::core::RelativeConstellationId>::lowest());
+  value.constellation_id = valueConstellation_id;
+  ::ad::rss::state::LongitudinalRssState valueLongitudinal_state;
+  bool valueLongitudinal_stateIs_safe{true};
+  valueLongitudinal_state.is_safe = valueLongitudinal_stateIs_safe;
+  ::ad::rss::state::LongitudinalResponse valueLongitudinal_stateResponse(::ad::rss::state::LongitudinalResponse::None);
+  valueLongitudinal_state.response = valueLongitudinal_stateResponse;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueLongitudinal_stateAlpha_lon;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonAccel_max(-1e2);
+  valueLongitudinal_stateAlpha_lonAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueLongitudinal_stateAlpha_lon.accel_max = valueLongitudinal_stateAlpha_lonAccel_max;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonBrake_max(-1e2);
+  valueLongitudinal_stateAlpha_lon.brake_max = valueLongitudinal_stateAlpha_lonBrake_max;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonBrake_min(-1e2);
+  valueLongitudinal_stateAlpha_lon.brake_min = valueLongitudinal_stateAlpha_lonBrake_min;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonBrake_min_correct(-1e2);
+  valueLongitudinal_stateAlpha_lon.brake_min_correct = valueLongitudinal_stateAlpha_lonBrake_min_correct;
+  valueLongitudinal_stateAlpha_lon.brake_min = valueLongitudinal_stateAlpha_lon.brake_max;
+  valueLongitudinal_stateAlpha_lon.brake_min_correct = valueLongitudinal_stateAlpha_lon.brake_min;
+  valueLongitudinal_stateAlpha_lon.brake_min = valueLongitudinal_stateAlpha_lon.brake_min_correct;
+  valueLongitudinal_stateAlpha_lon.brake_max = valueLongitudinal_stateAlpha_lon.brake_min;
+  valueLongitudinal_state.alpha_lon = valueLongitudinal_stateAlpha_lon;
+  ::ad::rss::state::RssStateInformation valueLongitudinal_stateRss_state_information;
+  ::ad::physics::Distance valueLongitudinal_stateRss_state_informationSafe_distance(-1e9);
+  valueLongitudinal_stateRss_state_information.safe_distance
+    = valueLongitudinal_stateRss_state_informationSafe_distance;
+  ::ad::physics::Distance valueLongitudinal_stateRss_state_informationCurrent_distance(-1e9);
+  valueLongitudinal_stateRss_state_information.current_distance
+    = valueLongitudinal_stateRss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator valueLongitudinal_stateRss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::None);
-  valueLongitudinalStateRssStateInformation.evaluator = valueLongitudinalStateRssStateInformationEvaluator;
-  valueLongitudinalState.rssStateInformation = valueLongitudinalStateRssStateInformation;
-  value.longitudinalState = valueLongitudinalState;
-  ::ad::rss::state::LateralRssState valueLateralStateRight;
-  bool valueLateralStateRightIsSafe{true};
-  valueLateralStateRight.isSafe = valueLateralStateRightIsSafe;
-  ::ad::rss::state::LateralResponse valueLateralStateRightResponse(::ad::rss::state::LateralResponse::None);
-  valueLateralStateRight.response = valueLateralStateRightResponse;
-  ::ad::rss::world::LateralRssAccelerationValues valueLateralStateRightAlphaLat;
-  ::ad::physics::Acceleration valueLateralStateRightAlphaLatAccelMax(-1e2);
-  valueLateralStateRightAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueLateralStateRightAlphaLat.accelMax = valueLateralStateRightAlphaLatAccelMax;
-  ::ad::physics::Acceleration valueLateralStateRightAlphaLatBrakeMin(-1e2);
-  valueLateralStateRightAlphaLat.brakeMin = valueLateralStateRightAlphaLatBrakeMin;
-  valueLateralStateRight.alphaLat = valueLateralStateRightAlphaLat;
-  ::ad::rss::state::RssStateInformation valueLateralStateRightRssStateInformation;
-  ::ad::physics::Distance valueLateralStateRightRssStateInformationSafeDistance(-1e9);
-  valueLateralStateRightRssStateInformation.safeDistance = valueLateralStateRightRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueLateralStateRightRssStateInformationCurrentDistance(-1e9);
-  valueLateralStateRightRssStateInformation.currentDistance = valueLateralStateRightRssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator valueLateralStateRightRssStateInformationEvaluator(
+  valueLongitudinal_stateRss_state_information.evaluator = valueLongitudinal_stateRss_state_informationEvaluator;
+  valueLongitudinal_state.rss_state_information = valueLongitudinal_stateRss_state_information;
+  value.longitudinal_state = valueLongitudinal_state;
+  ::ad::rss::state::LateralRssState valueLateral_state_right;
+  bool valueLateral_state_rightIs_safe{true};
+  valueLateral_state_right.is_safe = valueLateral_state_rightIs_safe;
+  ::ad::rss::state::LateralResponse valueLateral_state_rightResponse(::ad::rss::state::LateralResponse::None);
+  valueLateral_state_right.response = valueLateral_state_rightResponse;
+  ::ad::rss::world::LateralRssAccelerationValues valueLateral_state_rightAlpha_lat;
+  ::ad::physics::Acceleration valueLateral_state_rightAlpha_latAccel_max(-1e2);
+  valueLateral_state_rightAlpha_latAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueLateral_state_rightAlpha_lat.accel_max = valueLateral_state_rightAlpha_latAccel_max;
+  ::ad::physics::Acceleration valueLateral_state_rightAlpha_latBrake_min(-1e2);
+  valueLateral_state_rightAlpha_lat.brake_min = valueLateral_state_rightAlpha_latBrake_min;
+  valueLateral_state_right.alpha_lat = valueLateral_state_rightAlpha_lat;
+  ::ad::rss::state::RssStateInformation valueLateral_state_rightRss_state_information;
+  ::ad::physics::Distance valueLateral_state_rightRss_state_informationSafe_distance(-1e9);
+  valueLateral_state_rightRss_state_information.safe_distance
+    = valueLateral_state_rightRss_state_informationSafe_distance;
+  ::ad::physics::Distance valueLateral_state_rightRss_state_informationCurrent_distance(-1e9);
+  valueLateral_state_rightRss_state_information.current_distance
+    = valueLateral_state_rightRss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator valueLateral_state_rightRss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::None);
-  valueLateralStateRightRssStateInformation.evaluator = valueLateralStateRightRssStateInformationEvaluator;
-  valueLateralStateRight.rssStateInformation = valueLateralStateRightRssStateInformation;
-  value.lateralStateRight = valueLateralStateRight;
-  ::ad::rss::state::LateralRssState valueLateralStateLeft;
-  bool valueLateralStateLeftIsSafe{true};
-  valueLateralStateLeft.isSafe = valueLateralStateLeftIsSafe;
-  ::ad::rss::state::LateralResponse valueLateralStateLeftResponse(::ad::rss::state::LateralResponse::None);
-  valueLateralStateLeft.response = valueLateralStateLeftResponse;
-  ::ad::rss::world::LateralRssAccelerationValues valueLateralStateLeftAlphaLat;
-  ::ad::physics::Acceleration valueLateralStateLeftAlphaLatAccelMax(-1e2);
-  valueLateralStateLeftAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueLateralStateLeftAlphaLat.accelMax = valueLateralStateLeftAlphaLatAccelMax;
-  ::ad::physics::Acceleration valueLateralStateLeftAlphaLatBrakeMin(-1e2);
-  valueLateralStateLeftAlphaLat.brakeMin = valueLateralStateLeftAlphaLatBrakeMin;
-  valueLateralStateLeft.alphaLat = valueLateralStateLeftAlphaLat;
-  ::ad::rss::state::RssStateInformation valueLateralStateLeftRssStateInformation;
-  ::ad::physics::Distance valueLateralStateLeftRssStateInformationSafeDistance(-1e9);
-  valueLateralStateLeftRssStateInformation.safeDistance = valueLateralStateLeftRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueLateralStateLeftRssStateInformationCurrentDistance(-1e9);
-  valueLateralStateLeftRssStateInformation.currentDistance = valueLateralStateLeftRssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator valueLateralStateLeftRssStateInformationEvaluator(
+  valueLateral_state_rightRss_state_information.evaluator = valueLateral_state_rightRss_state_informationEvaluator;
+  valueLateral_state_right.rss_state_information = valueLateral_state_rightRss_state_information;
+  value.lateral_state_right = valueLateral_state_right;
+  ::ad::rss::state::LateralRssState valueLateral_state_left;
+  bool valueLateral_state_leftIs_safe{true};
+  valueLateral_state_left.is_safe = valueLateral_state_leftIs_safe;
+  ::ad::rss::state::LateralResponse valueLateral_state_leftResponse(::ad::rss::state::LateralResponse::None);
+  valueLateral_state_left.response = valueLateral_state_leftResponse;
+  ::ad::rss::world::LateralRssAccelerationValues valueLateral_state_leftAlpha_lat;
+  ::ad::physics::Acceleration valueLateral_state_leftAlpha_latAccel_max(-1e2);
+  valueLateral_state_leftAlpha_latAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueLateral_state_leftAlpha_lat.accel_max = valueLateral_state_leftAlpha_latAccel_max;
+  ::ad::physics::Acceleration valueLateral_state_leftAlpha_latBrake_min(-1e2);
+  valueLateral_state_leftAlpha_lat.brake_min = valueLateral_state_leftAlpha_latBrake_min;
+  valueLateral_state_left.alpha_lat = valueLateral_state_leftAlpha_lat;
+  ::ad::rss::state::RssStateInformation valueLateral_state_leftRss_state_information;
+  ::ad::physics::Distance valueLateral_state_leftRss_state_informationSafe_distance(-1e9);
+  valueLateral_state_leftRss_state_information.safe_distance
+    = valueLateral_state_leftRss_state_informationSafe_distance;
+  ::ad::physics::Distance valueLateral_state_leftRss_state_informationCurrent_distance(-1e9);
+  valueLateral_state_leftRss_state_information.current_distance
+    = valueLateral_state_leftRss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator valueLateral_state_leftRss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::None);
-  valueLateralStateLeftRssStateInformation.evaluator = valueLateralStateLeftRssStateInformationEvaluator;
-  valueLateralStateLeft.rssStateInformation = valueLateralStateLeftRssStateInformation;
-  value.lateralStateLeft = valueLateralStateLeft;
-  ::ad::rss::state::UnstructuredSceneRssState valueUnstructuredSceneState;
-  bool valueUnstructuredSceneStateIsSafe{true};
-  valueUnstructuredSceneState.isSafe = valueUnstructuredSceneStateIsSafe;
-  ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneStateResponse(
-    ::ad::rss::state::UnstructuredSceneResponse::None);
-  valueUnstructuredSceneState.response = valueUnstructuredSceneStateResponse;
-  ::ad::rss::state::HeadingRange valueUnstructuredSceneStateHeadingRange;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeBegin(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.begin = valueUnstructuredSceneStateHeadingRangeBegin;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeEnd(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.end = valueUnstructuredSceneStateHeadingRangeEnd;
-  valueUnstructuredSceneState.headingRange = valueUnstructuredSceneStateHeadingRange;
-  ::ad::rss::state::UnstructuredSceneStateInformation valueUnstructuredSceneStateRssStateInformation;
-  ::ad::physics::Distance2DList valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
-  ::ad::physics::Distance2D valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX(-1e9);
-  valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.x
-    = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementY(-1e9);
-  valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.y
-    = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementY;
-  valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet.resize(
-    1, valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement);
-  valueUnstructuredSceneStateRssStateInformation.brakeTrajectorySet
-    = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
-  ::ad::physics::Distance2DList valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
-  ::ad::physics::Distance2D valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX(-1e9);
-  valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.x
-    = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementY(-1e9);
-  valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.y
-    = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementY;
-  valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet.resize(
-    1, valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement);
-  valueUnstructuredSceneStateRssStateInformation.continueForwardTrajectorySet
-    = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
-  valueUnstructuredSceneState.rssStateInformation = valueUnstructuredSceneStateRssStateInformation;
-  ::ad::rss::world::LongitudinalRssAccelerationValues valueUnstructuredSceneStateAlphaLon;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonAccelMax(-1e2);
-  valueUnstructuredSceneStateAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueUnstructuredSceneStateAlphaLon.accelMax = valueUnstructuredSceneStateAlphaLonAccelMax;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMax(-1e2);
-  valueUnstructuredSceneStateAlphaLon.brakeMax = valueUnstructuredSceneStateAlphaLonBrakeMax;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMin(-1e2);
-  valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLonBrakeMin;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMinCorrect(-1e2);
-  valueUnstructuredSceneStateAlphaLon.brakeMinCorrect = valueUnstructuredSceneStateAlphaLonBrakeMinCorrect;
-  valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLon.brakeMax;
-  valueUnstructuredSceneStateAlphaLon.brakeMinCorrect = valueUnstructuredSceneStateAlphaLon.brakeMin;
-  valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLon.brakeMinCorrect;
-  valueUnstructuredSceneStateAlphaLon.brakeMax = valueUnstructuredSceneStateAlphaLon.brakeMin;
-  valueUnstructuredSceneState.alphaLon = valueUnstructuredSceneStateAlphaLon;
-  value.unstructuredSceneState = valueUnstructuredSceneState;
-  ::ad::rss::situation::SituationType valueSituationType(::ad::rss::situation::SituationType::NotRelevant);
-  value.situationType = valueSituationType;
+  valueLateral_state_leftRss_state_information.evaluator = valueLateral_state_leftRss_state_informationEvaluator;
+  valueLateral_state_left.rss_state_information = valueLateral_state_leftRss_state_information;
+  value.lateral_state_left = valueLateral_state_left;
+  ::ad::rss::state::UnstructuredConstellationRssState valueUnstructured_constellation_state;
+  bool valueUnstructured_constellation_stateIs_safe{true};
+  valueUnstructured_constellation_state.is_safe = valueUnstructured_constellation_stateIs_safe;
+  ::ad::rss::state::UnstructuredConstellationResponse valueUnstructured_constellation_stateResponse(
+    ::ad::rss::state::UnstructuredConstellationResponse::None);
+  valueUnstructured_constellation_state.response = valueUnstructured_constellation_stateResponse;
+  ::ad::geometry::HeadingRange valueUnstructured_constellation_stateHeading_range;
+  ::ad::physics::Angle valueUnstructured_constellation_stateHeading_rangeBegin(-6.283185308);
+  valueUnstructured_constellation_stateHeading_range.begin = valueUnstructured_constellation_stateHeading_rangeBegin;
+  ::ad::physics::Angle valueUnstructured_constellation_stateHeading_rangeEnd(-6.283185308);
+  valueUnstructured_constellation_stateHeading_range.end = valueUnstructured_constellation_stateHeading_rangeEnd;
+  valueUnstructured_constellation_state.heading_range = valueUnstructured_constellation_stateHeading_range;
+  ::ad::rss::state::UnstructuredConstellationStateInformation
+    valueUnstructured_constellation_stateRss_state_information;
+  ::ad::physics::Distance2DList valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_set;
+  ::ad::physics::Distance2D valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement;
+  ::ad::physics::Distance valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementX(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement.x
+    = valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementX;
+  ::ad::physics::Distance valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementY(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement.y
+    = valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementY;
+  valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_set.resize(
+    1, valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement);
+  valueUnstructured_constellation_stateRss_state_information.brake_trajectory_set
+    = valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_set;
+  ::ad::physics::Distance2DList
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_set;
+  ::ad::physics::Distance2D
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement;
+  ::ad::physics::Distance
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementX(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement.x
+    = valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementX;
+  ::ad::physics::Distance
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementY(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement.y
+    = valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementY;
+  valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_set.resize(
+    1, valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement);
+  valueUnstructured_constellation_stateRss_state_information.continue_forward_trajectory_set
+    = valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_set;
+  ::ad::physics::Angle valueUnstructured_constellation_stateRss_state_informationConsidered_drive_away_steering_angle(
+    -6.283185308);
+  valueUnstructured_constellation_stateRss_state_information.considered_drive_away_steering_angle
+    = valueUnstructured_constellation_stateRss_state_informationConsidered_drive_away_steering_angle;
+  valueUnstructured_constellation_state.rss_state_information
+    = valueUnstructured_constellation_stateRss_state_information;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueUnstructured_constellation_stateAlpha_lon;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonAccel_max(-1e2);
+  valueUnstructured_constellation_stateAlpha_lonAccel_max
+    = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueUnstructured_constellation_stateAlpha_lon.accel_max = valueUnstructured_constellation_stateAlpha_lonAccel_max;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonBrake_max(-1e2);
+  valueUnstructured_constellation_stateAlpha_lon.brake_max = valueUnstructured_constellation_stateAlpha_lonBrake_max;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonBrake_min(-1e2);
+  valueUnstructured_constellation_stateAlpha_lon.brake_min = valueUnstructured_constellation_stateAlpha_lonBrake_min;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonBrake_min_correct(-1e2);
+  valueUnstructured_constellation_stateAlpha_lon.brake_min_correct
+    = valueUnstructured_constellation_stateAlpha_lonBrake_min_correct;
+  valueUnstructured_constellation_stateAlpha_lon.brake_min = valueUnstructured_constellation_stateAlpha_lon.brake_max;
+  valueUnstructured_constellation_stateAlpha_lon.brake_min_correct
+    = valueUnstructured_constellation_stateAlpha_lon.brake_min;
+  valueUnstructured_constellation_stateAlpha_lon.brake_min
+    = valueUnstructured_constellation_stateAlpha_lon.brake_min_correct;
+  valueUnstructured_constellation_stateAlpha_lon.brake_max = valueUnstructured_constellation_stateAlpha_lon.brake_min;
+  valueUnstructured_constellation_state.alpha_lon = valueUnstructured_constellation_stateAlpha_lon;
+  value.unstructured_constellation_state = valueUnstructured_constellation_state;
+  ::ad::rss::world::ConstellationType valueConstellation_type(::ad::rss::world::ConstellationType::NotRelevant);
+  value.constellation_type = valueConstellation_type;
 
   // override member with data type value above input range maximum
   ::ad::rss::state::LongitudinalRssState invalidInitializedMember;
   ::ad::rss::state::LongitudinalResponse invalidInitializedMemberResponse(
     static_cast<::ad::rss::state::LongitudinalResponse>(-1));
   invalidInitializedMember.response = invalidInitializedMemberResponse;
-  value.longitudinalState = invalidInitializedMember;
+  value.longitudinal_state = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(RssStateValidInputRangeTests, testValidInputRangeLateralStateRightTooSmall)
+TEST(RssStateValidInputRangeTests, testValidInputRangeLateral_state_rightTooSmall)
 {
   ::ad::rss::state::RssState value;
-  ::ad::rss::world::ObjectId valueObjectId(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
-  value.objectId = valueObjectId;
-  ::ad::rss::situation::SituationId valueSituationId(std::numeric_limits<::ad::rss::situation::SituationId>::lowest());
-  value.situationId = valueSituationId;
-  ::ad::rss::state::LongitudinalRssState valueLongitudinalState;
-  bool valueLongitudinalStateIsSafe{true};
-  valueLongitudinalState.isSafe = valueLongitudinalStateIsSafe;
-  ::ad::rss::state::LongitudinalResponse valueLongitudinalStateResponse(::ad::rss::state::LongitudinalResponse::None);
-  valueLongitudinalState.response = valueLongitudinalStateResponse;
-  ::ad::rss::world::LongitudinalRssAccelerationValues valueLongitudinalStateAlphaLon;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonAccelMax(-1e2);
-  valueLongitudinalStateAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueLongitudinalStateAlphaLon.accelMax = valueLongitudinalStateAlphaLonAccelMax;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonBrakeMax(-1e2);
-  valueLongitudinalStateAlphaLon.brakeMax = valueLongitudinalStateAlphaLonBrakeMax;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonBrakeMin(-1e2);
-  valueLongitudinalStateAlphaLon.brakeMin = valueLongitudinalStateAlphaLonBrakeMin;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonBrakeMinCorrect(-1e2);
-  valueLongitudinalStateAlphaLon.brakeMinCorrect = valueLongitudinalStateAlphaLonBrakeMinCorrect;
-  valueLongitudinalStateAlphaLon.brakeMin = valueLongitudinalStateAlphaLon.brakeMax;
-  valueLongitudinalStateAlphaLon.brakeMinCorrect = valueLongitudinalStateAlphaLon.brakeMin;
-  valueLongitudinalStateAlphaLon.brakeMin = valueLongitudinalStateAlphaLon.brakeMinCorrect;
-  valueLongitudinalStateAlphaLon.brakeMax = valueLongitudinalStateAlphaLon.brakeMin;
-  valueLongitudinalState.alphaLon = valueLongitudinalStateAlphaLon;
-  ::ad::rss::state::RssStateInformation valueLongitudinalStateRssStateInformation;
-  ::ad::physics::Distance valueLongitudinalStateRssStateInformationSafeDistance(-1e9);
-  valueLongitudinalStateRssStateInformation.safeDistance = valueLongitudinalStateRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueLongitudinalStateRssStateInformationCurrentDistance(-1e9);
-  valueLongitudinalStateRssStateInformation.currentDistance = valueLongitudinalStateRssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator valueLongitudinalStateRssStateInformationEvaluator(
+  ::ad::rss::world::ObjectId valueEgo_id(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  value.ego_id = valueEgo_id;
+  ::ad::rss::world::ObjectId valueObject_id(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  value.object_id = valueObject_id;
+  ::ad::rss::core::RelativeConstellationId valueConstellation_id(
+    std::numeric_limits<::ad::rss::core::RelativeConstellationId>::lowest());
+  value.constellation_id = valueConstellation_id;
+  ::ad::rss::state::LongitudinalRssState valueLongitudinal_state;
+  bool valueLongitudinal_stateIs_safe{true};
+  valueLongitudinal_state.is_safe = valueLongitudinal_stateIs_safe;
+  ::ad::rss::state::LongitudinalResponse valueLongitudinal_stateResponse(::ad::rss::state::LongitudinalResponse::None);
+  valueLongitudinal_state.response = valueLongitudinal_stateResponse;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueLongitudinal_stateAlpha_lon;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonAccel_max(-1e2);
+  valueLongitudinal_stateAlpha_lonAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueLongitudinal_stateAlpha_lon.accel_max = valueLongitudinal_stateAlpha_lonAccel_max;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonBrake_max(-1e2);
+  valueLongitudinal_stateAlpha_lon.brake_max = valueLongitudinal_stateAlpha_lonBrake_max;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonBrake_min(-1e2);
+  valueLongitudinal_stateAlpha_lon.brake_min = valueLongitudinal_stateAlpha_lonBrake_min;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonBrake_min_correct(-1e2);
+  valueLongitudinal_stateAlpha_lon.brake_min_correct = valueLongitudinal_stateAlpha_lonBrake_min_correct;
+  valueLongitudinal_stateAlpha_lon.brake_min = valueLongitudinal_stateAlpha_lon.brake_max;
+  valueLongitudinal_stateAlpha_lon.brake_min_correct = valueLongitudinal_stateAlpha_lon.brake_min;
+  valueLongitudinal_stateAlpha_lon.brake_min = valueLongitudinal_stateAlpha_lon.brake_min_correct;
+  valueLongitudinal_stateAlpha_lon.brake_max = valueLongitudinal_stateAlpha_lon.brake_min;
+  valueLongitudinal_state.alpha_lon = valueLongitudinal_stateAlpha_lon;
+  ::ad::rss::state::RssStateInformation valueLongitudinal_stateRss_state_information;
+  ::ad::physics::Distance valueLongitudinal_stateRss_state_informationSafe_distance(-1e9);
+  valueLongitudinal_stateRss_state_information.safe_distance
+    = valueLongitudinal_stateRss_state_informationSafe_distance;
+  ::ad::physics::Distance valueLongitudinal_stateRss_state_informationCurrent_distance(-1e9);
+  valueLongitudinal_stateRss_state_information.current_distance
+    = valueLongitudinal_stateRss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator valueLongitudinal_stateRss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::None);
-  valueLongitudinalStateRssStateInformation.evaluator = valueLongitudinalStateRssStateInformationEvaluator;
-  valueLongitudinalState.rssStateInformation = valueLongitudinalStateRssStateInformation;
-  value.longitudinalState = valueLongitudinalState;
-  ::ad::rss::state::LateralRssState valueLateralStateRight;
-  bool valueLateralStateRightIsSafe{true};
-  valueLateralStateRight.isSafe = valueLateralStateRightIsSafe;
-  ::ad::rss::state::LateralResponse valueLateralStateRightResponse(::ad::rss::state::LateralResponse::None);
-  valueLateralStateRight.response = valueLateralStateRightResponse;
-  ::ad::rss::world::LateralRssAccelerationValues valueLateralStateRightAlphaLat;
-  ::ad::physics::Acceleration valueLateralStateRightAlphaLatAccelMax(-1e2);
-  valueLateralStateRightAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueLateralStateRightAlphaLat.accelMax = valueLateralStateRightAlphaLatAccelMax;
-  ::ad::physics::Acceleration valueLateralStateRightAlphaLatBrakeMin(-1e2);
-  valueLateralStateRightAlphaLat.brakeMin = valueLateralStateRightAlphaLatBrakeMin;
-  valueLateralStateRight.alphaLat = valueLateralStateRightAlphaLat;
-  ::ad::rss::state::RssStateInformation valueLateralStateRightRssStateInformation;
-  ::ad::physics::Distance valueLateralStateRightRssStateInformationSafeDistance(-1e9);
-  valueLateralStateRightRssStateInformation.safeDistance = valueLateralStateRightRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueLateralStateRightRssStateInformationCurrentDistance(-1e9);
-  valueLateralStateRightRssStateInformation.currentDistance = valueLateralStateRightRssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator valueLateralStateRightRssStateInformationEvaluator(
+  valueLongitudinal_stateRss_state_information.evaluator = valueLongitudinal_stateRss_state_informationEvaluator;
+  valueLongitudinal_state.rss_state_information = valueLongitudinal_stateRss_state_information;
+  value.longitudinal_state = valueLongitudinal_state;
+  ::ad::rss::state::LateralRssState valueLateral_state_right;
+  bool valueLateral_state_rightIs_safe{true};
+  valueLateral_state_right.is_safe = valueLateral_state_rightIs_safe;
+  ::ad::rss::state::LateralResponse valueLateral_state_rightResponse(::ad::rss::state::LateralResponse::None);
+  valueLateral_state_right.response = valueLateral_state_rightResponse;
+  ::ad::rss::world::LateralRssAccelerationValues valueLateral_state_rightAlpha_lat;
+  ::ad::physics::Acceleration valueLateral_state_rightAlpha_latAccel_max(-1e2);
+  valueLateral_state_rightAlpha_latAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueLateral_state_rightAlpha_lat.accel_max = valueLateral_state_rightAlpha_latAccel_max;
+  ::ad::physics::Acceleration valueLateral_state_rightAlpha_latBrake_min(-1e2);
+  valueLateral_state_rightAlpha_lat.brake_min = valueLateral_state_rightAlpha_latBrake_min;
+  valueLateral_state_right.alpha_lat = valueLateral_state_rightAlpha_lat;
+  ::ad::rss::state::RssStateInformation valueLateral_state_rightRss_state_information;
+  ::ad::physics::Distance valueLateral_state_rightRss_state_informationSafe_distance(-1e9);
+  valueLateral_state_rightRss_state_information.safe_distance
+    = valueLateral_state_rightRss_state_informationSafe_distance;
+  ::ad::physics::Distance valueLateral_state_rightRss_state_informationCurrent_distance(-1e9);
+  valueLateral_state_rightRss_state_information.current_distance
+    = valueLateral_state_rightRss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator valueLateral_state_rightRss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::None);
-  valueLateralStateRightRssStateInformation.evaluator = valueLateralStateRightRssStateInformationEvaluator;
-  valueLateralStateRight.rssStateInformation = valueLateralStateRightRssStateInformation;
-  value.lateralStateRight = valueLateralStateRight;
-  ::ad::rss::state::LateralRssState valueLateralStateLeft;
-  bool valueLateralStateLeftIsSafe{true};
-  valueLateralStateLeft.isSafe = valueLateralStateLeftIsSafe;
-  ::ad::rss::state::LateralResponse valueLateralStateLeftResponse(::ad::rss::state::LateralResponse::None);
-  valueLateralStateLeft.response = valueLateralStateLeftResponse;
-  ::ad::rss::world::LateralRssAccelerationValues valueLateralStateLeftAlphaLat;
-  ::ad::physics::Acceleration valueLateralStateLeftAlphaLatAccelMax(-1e2);
-  valueLateralStateLeftAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueLateralStateLeftAlphaLat.accelMax = valueLateralStateLeftAlphaLatAccelMax;
-  ::ad::physics::Acceleration valueLateralStateLeftAlphaLatBrakeMin(-1e2);
-  valueLateralStateLeftAlphaLat.brakeMin = valueLateralStateLeftAlphaLatBrakeMin;
-  valueLateralStateLeft.alphaLat = valueLateralStateLeftAlphaLat;
-  ::ad::rss::state::RssStateInformation valueLateralStateLeftRssStateInformation;
-  ::ad::physics::Distance valueLateralStateLeftRssStateInformationSafeDistance(-1e9);
-  valueLateralStateLeftRssStateInformation.safeDistance = valueLateralStateLeftRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueLateralStateLeftRssStateInformationCurrentDistance(-1e9);
-  valueLateralStateLeftRssStateInformation.currentDistance = valueLateralStateLeftRssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator valueLateralStateLeftRssStateInformationEvaluator(
+  valueLateral_state_rightRss_state_information.evaluator = valueLateral_state_rightRss_state_informationEvaluator;
+  valueLateral_state_right.rss_state_information = valueLateral_state_rightRss_state_information;
+  value.lateral_state_right = valueLateral_state_right;
+  ::ad::rss::state::LateralRssState valueLateral_state_left;
+  bool valueLateral_state_leftIs_safe{true};
+  valueLateral_state_left.is_safe = valueLateral_state_leftIs_safe;
+  ::ad::rss::state::LateralResponse valueLateral_state_leftResponse(::ad::rss::state::LateralResponse::None);
+  valueLateral_state_left.response = valueLateral_state_leftResponse;
+  ::ad::rss::world::LateralRssAccelerationValues valueLateral_state_leftAlpha_lat;
+  ::ad::physics::Acceleration valueLateral_state_leftAlpha_latAccel_max(-1e2);
+  valueLateral_state_leftAlpha_latAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueLateral_state_leftAlpha_lat.accel_max = valueLateral_state_leftAlpha_latAccel_max;
+  ::ad::physics::Acceleration valueLateral_state_leftAlpha_latBrake_min(-1e2);
+  valueLateral_state_leftAlpha_lat.brake_min = valueLateral_state_leftAlpha_latBrake_min;
+  valueLateral_state_left.alpha_lat = valueLateral_state_leftAlpha_lat;
+  ::ad::rss::state::RssStateInformation valueLateral_state_leftRss_state_information;
+  ::ad::physics::Distance valueLateral_state_leftRss_state_informationSafe_distance(-1e9);
+  valueLateral_state_leftRss_state_information.safe_distance
+    = valueLateral_state_leftRss_state_informationSafe_distance;
+  ::ad::physics::Distance valueLateral_state_leftRss_state_informationCurrent_distance(-1e9);
+  valueLateral_state_leftRss_state_information.current_distance
+    = valueLateral_state_leftRss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator valueLateral_state_leftRss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::None);
-  valueLateralStateLeftRssStateInformation.evaluator = valueLateralStateLeftRssStateInformationEvaluator;
-  valueLateralStateLeft.rssStateInformation = valueLateralStateLeftRssStateInformation;
-  value.lateralStateLeft = valueLateralStateLeft;
-  ::ad::rss::state::UnstructuredSceneRssState valueUnstructuredSceneState;
-  bool valueUnstructuredSceneStateIsSafe{true};
-  valueUnstructuredSceneState.isSafe = valueUnstructuredSceneStateIsSafe;
-  ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneStateResponse(
-    ::ad::rss::state::UnstructuredSceneResponse::None);
-  valueUnstructuredSceneState.response = valueUnstructuredSceneStateResponse;
-  ::ad::rss::state::HeadingRange valueUnstructuredSceneStateHeadingRange;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeBegin(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.begin = valueUnstructuredSceneStateHeadingRangeBegin;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeEnd(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.end = valueUnstructuredSceneStateHeadingRangeEnd;
-  valueUnstructuredSceneState.headingRange = valueUnstructuredSceneStateHeadingRange;
-  ::ad::rss::state::UnstructuredSceneStateInformation valueUnstructuredSceneStateRssStateInformation;
-  ::ad::physics::Distance2DList valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
-  ::ad::physics::Distance2D valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX(-1e9);
-  valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.x
-    = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementY(-1e9);
-  valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.y
-    = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementY;
-  valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet.resize(
-    1, valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement);
-  valueUnstructuredSceneStateRssStateInformation.brakeTrajectorySet
-    = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
-  ::ad::physics::Distance2DList valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
-  ::ad::physics::Distance2D valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX(-1e9);
-  valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.x
-    = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementY(-1e9);
-  valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.y
-    = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementY;
-  valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet.resize(
-    1, valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement);
-  valueUnstructuredSceneStateRssStateInformation.continueForwardTrajectorySet
-    = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
-  valueUnstructuredSceneState.rssStateInformation = valueUnstructuredSceneStateRssStateInformation;
-  ::ad::rss::world::LongitudinalRssAccelerationValues valueUnstructuredSceneStateAlphaLon;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonAccelMax(-1e2);
-  valueUnstructuredSceneStateAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueUnstructuredSceneStateAlphaLon.accelMax = valueUnstructuredSceneStateAlphaLonAccelMax;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMax(-1e2);
-  valueUnstructuredSceneStateAlphaLon.brakeMax = valueUnstructuredSceneStateAlphaLonBrakeMax;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMin(-1e2);
-  valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLonBrakeMin;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMinCorrect(-1e2);
-  valueUnstructuredSceneStateAlphaLon.brakeMinCorrect = valueUnstructuredSceneStateAlphaLonBrakeMinCorrect;
-  valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLon.brakeMax;
-  valueUnstructuredSceneStateAlphaLon.brakeMinCorrect = valueUnstructuredSceneStateAlphaLon.brakeMin;
-  valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLon.brakeMinCorrect;
-  valueUnstructuredSceneStateAlphaLon.brakeMax = valueUnstructuredSceneStateAlphaLon.brakeMin;
-  valueUnstructuredSceneState.alphaLon = valueUnstructuredSceneStateAlphaLon;
-  value.unstructuredSceneState = valueUnstructuredSceneState;
-  ::ad::rss::situation::SituationType valueSituationType(::ad::rss::situation::SituationType::NotRelevant);
-  value.situationType = valueSituationType;
+  valueLateral_state_leftRss_state_information.evaluator = valueLateral_state_leftRss_state_informationEvaluator;
+  valueLateral_state_left.rss_state_information = valueLateral_state_leftRss_state_information;
+  value.lateral_state_left = valueLateral_state_left;
+  ::ad::rss::state::UnstructuredConstellationRssState valueUnstructured_constellation_state;
+  bool valueUnstructured_constellation_stateIs_safe{true};
+  valueUnstructured_constellation_state.is_safe = valueUnstructured_constellation_stateIs_safe;
+  ::ad::rss::state::UnstructuredConstellationResponse valueUnstructured_constellation_stateResponse(
+    ::ad::rss::state::UnstructuredConstellationResponse::None);
+  valueUnstructured_constellation_state.response = valueUnstructured_constellation_stateResponse;
+  ::ad::geometry::HeadingRange valueUnstructured_constellation_stateHeading_range;
+  ::ad::physics::Angle valueUnstructured_constellation_stateHeading_rangeBegin(-6.283185308);
+  valueUnstructured_constellation_stateHeading_range.begin = valueUnstructured_constellation_stateHeading_rangeBegin;
+  ::ad::physics::Angle valueUnstructured_constellation_stateHeading_rangeEnd(-6.283185308);
+  valueUnstructured_constellation_stateHeading_range.end = valueUnstructured_constellation_stateHeading_rangeEnd;
+  valueUnstructured_constellation_state.heading_range = valueUnstructured_constellation_stateHeading_range;
+  ::ad::rss::state::UnstructuredConstellationStateInformation
+    valueUnstructured_constellation_stateRss_state_information;
+  ::ad::physics::Distance2DList valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_set;
+  ::ad::physics::Distance2D valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement;
+  ::ad::physics::Distance valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementX(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement.x
+    = valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementX;
+  ::ad::physics::Distance valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementY(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement.y
+    = valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementY;
+  valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_set.resize(
+    1, valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement);
+  valueUnstructured_constellation_stateRss_state_information.brake_trajectory_set
+    = valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_set;
+  ::ad::physics::Distance2DList
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_set;
+  ::ad::physics::Distance2D
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement;
+  ::ad::physics::Distance
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementX(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement.x
+    = valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementX;
+  ::ad::physics::Distance
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementY(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement.y
+    = valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementY;
+  valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_set.resize(
+    1, valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement);
+  valueUnstructured_constellation_stateRss_state_information.continue_forward_trajectory_set
+    = valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_set;
+  ::ad::physics::Angle valueUnstructured_constellation_stateRss_state_informationConsidered_drive_away_steering_angle(
+    -6.283185308);
+  valueUnstructured_constellation_stateRss_state_information.considered_drive_away_steering_angle
+    = valueUnstructured_constellation_stateRss_state_informationConsidered_drive_away_steering_angle;
+  valueUnstructured_constellation_state.rss_state_information
+    = valueUnstructured_constellation_stateRss_state_information;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueUnstructured_constellation_stateAlpha_lon;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonAccel_max(-1e2);
+  valueUnstructured_constellation_stateAlpha_lonAccel_max
+    = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueUnstructured_constellation_stateAlpha_lon.accel_max = valueUnstructured_constellation_stateAlpha_lonAccel_max;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonBrake_max(-1e2);
+  valueUnstructured_constellation_stateAlpha_lon.brake_max = valueUnstructured_constellation_stateAlpha_lonBrake_max;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonBrake_min(-1e2);
+  valueUnstructured_constellation_stateAlpha_lon.brake_min = valueUnstructured_constellation_stateAlpha_lonBrake_min;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonBrake_min_correct(-1e2);
+  valueUnstructured_constellation_stateAlpha_lon.brake_min_correct
+    = valueUnstructured_constellation_stateAlpha_lonBrake_min_correct;
+  valueUnstructured_constellation_stateAlpha_lon.brake_min = valueUnstructured_constellation_stateAlpha_lon.brake_max;
+  valueUnstructured_constellation_stateAlpha_lon.brake_min_correct
+    = valueUnstructured_constellation_stateAlpha_lon.brake_min;
+  valueUnstructured_constellation_stateAlpha_lon.brake_min
+    = valueUnstructured_constellation_stateAlpha_lon.brake_min_correct;
+  valueUnstructured_constellation_stateAlpha_lon.brake_max = valueUnstructured_constellation_stateAlpha_lon.brake_min;
+  valueUnstructured_constellation_state.alpha_lon = valueUnstructured_constellation_stateAlpha_lon;
+  value.unstructured_constellation_state = valueUnstructured_constellation_state;
+  ::ad::rss::world::ConstellationType valueConstellation_type(::ad::rss::world::ConstellationType::NotRelevant);
+  value.constellation_type = valueConstellation_type;
 
   // override member with data type value below input range minimum
   ::ad::rss::state::LateralRssState invalidInitializedMember;
   ::ad::rss::state::LateralResponse invalidInitializedMemberResponse(
     static_cast<::ad::rss::state::LateralResponse>(-1));
   invalidInitializedMember.response = invalidInitializedMemberResponse;
-  value.lateralStateRight = invalidInitializedMember;
+  value.lateral_state_right = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(RssStateValidInputRangeTests, testValidInputRangeLateralStateRightTooBig)
+TEST(RssStateValidInputRangeTests, testValidInputRangeLateral_state_rightTooBig)
 {
   ::ad::rss::state::RssState value;
-  ::ad::rss::world::ObjectId valueObjectId(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
-  value.objectId = valueObjectId;
-  ::ad::rss::situation::SituationId valueSituationId(std::numeric_limits<::ad::rss::situation::SituationId>::lowest());
-  value.situationId = valueSituationId;
-  ::ad::rss::state::LongitudinalRssState valueLongitudinalState;
-  bool valueLongitudinalStateIsSafe{true};
-  valueLongitudinalState.isSafe = valueLongitudinalStateIsSafe;
-  ::ad::rss::state::LongitudinalResponse valueLongitudinalStateResponse(::ad::rss::state::LongitudinalResponse::None);
-  valueLongitudinalState.response = valueLongitudinalStateResponse;
-  ::ad::rss::world::LongitudinalRssAccelerationValues valueLongitudinalStateAlphaLon;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonAccelMax(-1e2);
-  valueLongitudinalStateAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueLongitudinalStateAlphaLon.accelMax = valueLongitudinalStateAlphaLonAccelMax;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonBrakeMax(-1e2);
-  valueLongitudinalStateAlphaLon.brakeMax = valueLongitudinalStateAlphaLonBrakeMax;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonBrakeMin(-1e2);
-  valueLongitudinalStateAlphaLon.brakeMin = valueLongitudinalStateAlphaLonBrakeMin;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonBrakeMinCorrect(-1e2);
-  valueLongitudinalStateAlphaLon.brakeMinCorrect = valueLongitudinalStateAlphaLonBrakeMinCorrect;
-  valueLongitudinalStateAlphaLon.brakeMin = valueLongitudinalStateAlphaLon.brakeMax;
-  valueLongitudinalStateAlphaLon.brakeMinCorrect = valueLongitudinalStateAlphaLon.brakeMin;
-  valueLongitudinalStateAlphaLon.brakeMin = valueLongitudinalStateAlphaLon.brakeMinCorrect;
-  valueLongitudinalStateAlphaLon.brakeMax = valueLongitudinalStateAlphaLon.brakeMin;
-  valueLongitudinalState.alphaLon = valueLongitudinalStateAlphaLon;
-  ::ad::rss::state::RssStateInformation valueLongitudinalStateRssStateInformation;
-  ::ad::physics::Distance valueLongitudinalStateRssStateInformationSafeDistance(-1e9);
-  valueLongitudinalStateRssStateInformation.safeDistance = valueLongitudinalStateRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueLongitudinalStateRssStateInformationCurrentDistance(-1e9);
-  valueLongitudinalStateRssStateInformation.currentDistance = valueLongitudinalStateRssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator valueLongitudinalStateRssStateInformationEvaluator(
+  ::ad::rss::world::ObjectId valueEgo_id(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  value.ego_id = valueEgo_id;
+  ::ad::rss::world::ObjectId valueObject_id(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  value.object_id = valueObject_id;
+  ::ad::rss::core::RelativeConstellationId valueConstellation_id(
+    std::numeric_limits<::ad::rss::core::RelativeConstellationId>::lowest());
+  value.constellation_id = valueConstellation_id;
+  ::ad::rss::state::LongitudinalRssState valueLongitudinal_state;
+  bool valueLongitudinal_stateIs_safe{true};
+  valueLongitudinal_state.is_safe = valueLongitudinal_stateIs_safe;
+  ::ad::rss::state::LongitudinalResponse valueLongitudinal_stateResponse(::ad::rss::state::LongitudinalResponse::None);
+  valueLongitudinal_state.response = valueLongitudinal_stateResponse;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueLongitudinal_stateAlpha_lon;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonAccel_max(-1e2);
+  valueLongitudinal_stateAlpha_lonAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueLongitudinal_stateAlpha_lon.accel_max = valueLongitudinal_stateAlpha_lonAccel_max;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonBrake_max(-1e2);
+  valueLongitudinal_stateAlpha_lon.brake_max = valueLongitudinal_stateAlpha_lonBrake_max;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonBrake_min(-1e2);
+  valueLongitudinal_stateAlpha_lon.brake_min = valueLongitudinal_stateAlpha_lonBrake_min;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonBrake_min_correct(-1e2);
+  valueLongitudinal_stateAlpha_lon.brake_min_correct = valueLongitudinal_stateAlpha_lonBrake_min_correct;
+  valueLongitudinal_stateAlpha_lon.brake_min = valueLongitudinal_stateAlpha_lon.brake_max;
+  valueLongitudinal_stateAlpha_lon.brake_min_correct = valueLongitudinal_stateAlpha_lon.brake_min;
+  valueLongitudinal_stateAlpha_lon.brake_min = valueLongitudinal_stateAlpha_lon.brake_min_correct;
+  valueLongitudinal_stateAlpha_lon.brake_max = valueLongitudinal_stateAlpha_lon.brake_min;
+  valueLongitudinal_state.alpha_lon = valueLongitudinal_stateAlpha_lon;
+  ::ad::rss::state::RssStateInformation valueLongitudinal_stateRss_state_information;
+  ::ad::physics::Distance valueLongitudinal_stateRss_state_informationSafe_distance(-1e9);
+  valueLongitudinal_stateRss_state_information.safe_distance
+    = valueLongitudinal_stateRss_state_informationSafe_distance;
+  ::ad::physics::Distance valueLongitudinal_stateRss_state_informationCurrent_distance(-1e9);
+  valueLongitudinal_stateRss_state_information.current_distance
+    = valueLongitudinal_stateRss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator valueLongitudinal_stateRss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::None);
-  valueLongitudinalStateRssStateInformation.evaluator = valueLongitudinalStateRssStateInformationEvaluator;
-  valueLongitudinalState.rssStateInformation = valueLongitudinalStateRssStateInformation;
-  value.longitudinalState = valueLongitudinalState;
-  ::ad::rss::state::LateralRssState valueLateralStateRight;
-  bool valueLateralStateRightIsSafe{true};
-  valueLateralStateRight.isSafe = valueLateralStateRightIsSafe;
-  ::ad::rss::state::LateralResponse valueLateralStateRightResponse(::ad::rss::state::LateralResponse::None);
-  valueLateralStateRight.response = valueLateralStateRightResponse;
-  ::ad::rss::world::LateralRssAccelerationValues valueLateralStateRightAlphaLat;
-  ::ad::physics::Acceleration valueLateralStateRightAlphaLatAccelMax(-1e2);
-  valueLateralStateRightAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueLateralStateRightAlphaLat.accelMax = valueLateralStateRightAlphaLatAccelMax;
-  ::ad::physics::Acceleration valueLateralStateRightAlphaLatBrakeMin(-1e2);
-  valueLateralStateRightAlphaLat.brakeMin = valueLateralStateRightAlphaLatBrakeMin;
-  valueLateralStateRight.alphaLat = valueLateralStateRightAlphaLat;
-  ::ad::rss::state::RssStateInformation valueLateralStateRightRssStateInformation;
-  ::ad::physics::Distance valueLateralStateRightRssStateInformationSafeDistance(-1e9);
-  valueLateralStateRightRssStateInformation.safeDistance = valueLateralStateRightRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueLateralStateRightRssStateInformationCurrentDistance(-1e9);
-  valueLateralStateRightRssStateInformation.currentDistance = valueLateralStateRightRssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator valueLateralStateRightRssStateInformationEvaluator(
+  valueLongitudinal_stateRss_state_information.evaluator = valueLongitudinal_stateRss_state_informationEvaluator;
+  valueLongitudinal_state.rss_state_information = valueLongitudinal_stateRss_state_information;
+  value.longitudinal_state = valueLongitudinal_state;
+  ::ad::rss::state::LateralRssState valueLateral_state_right;
+  bool valueLateral_state_rightIs_safe{true};
+  valueLateral_state_right.is_safe = valueLateral_state_rightIs_safe;
+  ::ad::rss::state::LateralResponse valueLateral_state_rightResponse(::ad::rss::state::LateralResponse::None);
+  valueLateral_state_right.response = valueLateral_state_rightResponse;
+  ::ad::rss::world::LateralRssAccelerationValues valueLateral_state_rightAlpha_lat;
+  ::ad::physics::Acceleration valueLateral_state_rightAlpha_latAccel_max(-1e2);
+  valueLateral_state_rightAlpha_latAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueLateral_state_rightAlpha_lat.accel_max = valueLateral_state_rightAlpha_latAccel_max;
+  ::ad::physics::Acceleration valueLateral_state_rightAlpha_latBrake_min(-1e2);
+  valueLateral_state_rightAlpha_lat.brake_min = valueLateral_state_rightAlpha_latBrake_min;
+  valueLateral_state_right.alpha_lat = valueLateral_state_rightAlpha_lat;
+  ::ad::rss::state::RssStateInformation valueLateral_state_rightRss_state_information;
+  ::ad::physics::Distance valueLateral_state_rightRss_state_informationSafe_distance(-1e9);
+  valueLateral_state_rightRss_state_information.safe_distance
+    = valueLateral_state_rightRss_state_informationSafe_distance;
+  ::ad::physics::Distance valueLateral_state_rightRss_state_informationCurrent_distance(-1e9);
+  valueLateral_state_rightRss_state_information.current_distance
+    = valueLateral_state_rightRss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator valueLateral_state_rightRss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::None);
-  valueLateralStateRightRssStateInformation.evaluator = valueLateralStateRightRssStateInformationEvaluator;
-  valueLateralStateRight.rssStateInformation = valueLateralStateRightRssStateInformation;
-  value.lateralStateRight = valueLateralStateRight;
-  ::ad::rss::state::LateralRssState valueLateralStateLeft;
-  bool valueLateralStateLeftIsSafe{true};
-  valueLateralStateLeft.isSafe = valueLateralStateLeftIsSafe;
-  ::ad::rss::state::LateralResponse valueLateralStateLeftResponse(::ad::rss::state::LateralResponse::None);
-  valueLateralStateLeft.response = valueLateralStateLeftResponse;
-  ::ad::rss::world::LateralRssAccelerationValues valueLateralStateLeftAlphaLat;
-  ::ad::physics::Acceleration valueLateralStateLeftAlphaLatAccelMax(-1e2);
-  valueLateralStateLeftAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueLateralStateLeftAlphaLat.accelMax = valueLateralStateLeftAlphaLatAccelMax;
-  ::ad::physics::Acceleration valueLateralStateLeftAlphaLatBrakeMin(-1e2);
-  valueLateralStateLeftAlphaLat.brakeMin = valueLateralStateLeftAlphaLatBrakeMin;
-  valueLateralStateLeft.alphaLat = valueLateralStateLeftAlphaLat;
-  ::ad::rss::state::RssStateInformation valueLateralStateLeftRssStateInformation;
-  ::ad::physics::Distance valueLateralStateLeftRssStateInformationSafeDistance(-1e9);
-  valueLateralStateLeftRssStateInformation.safeDistance = valueLateralStateLeftRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueLateralStateLeftRssStateInformationCurrentDistance(-1e9);
-  valueLateralStateLeftRssStateInformation.currentDistance = valueLateralStateLeftRssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator valueLateralStateLeftRssStateInformationEvaluator(
+  valueLateral_state_rightRss_state_information.evaluator = valueLateral_state_rightRss_state_informationEvaluator;
+  valueLateral_state_right.rss_state_information = valueLateral_state_rightRss_state_information;
+  value.lateral_state_right = valueLateral_state_right;
+  ::ad::rss::state::LateralRssState valueLateral_state_left;
+  bool valueLateral_state_leftIs_safe{true};
+  valueLateral_state_left.is_safe = valueLateral_state_leftIs_safe;
+  ::ad::rss::state::LateralResponse valueLateral_state_leftResponse(::ad::rss::state::LateralResponse::None);
+  valueLateral_state_left.response = valueLateral_state_leftResponse;
+  ::ad::rss::world::LateralRssAccelerationValues valueLateral_state_leftAlpha_lat;
+  ::ad::physics::Acceleration valueLateral_state_leftAlpha_latAccel_max(-1e2);
+  valueLateral_state_leftAlpha_latAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueLateral_state_leftAlpha_lat.accel_max = valueLateral_state_leftAlpha_latAccel_max;
+  ::ad::physics::Acceleration valueLateral_state_leftAlpha_latBrake_min(-1e2);
+  valueLateral_state_leftAlpha_lat.brake_min = valueLateral_state_leftAlpha_latBrake_min;
+  valueLateral_state_left.alpha_lat = valueLateral_state_leftAlpha_lat;
+  ::ad::rss::state::RssStateInformation valueLateral_state_leftRss_state_information;
+  ::ad::physics::Distance valueLateral_state_leftRss_state_informationSafe_distance(-1e9);
+  valueLateral_state_leftRss_state_information.safe_distance
+    = valueLateral_state_leftRss_state_informationSafe_distance;
+  ::ad::physics::Distance valueLateral_state_leftRss_state_informationCurrent_distance(-1e9);
+  valueLateral_state_leftRss_state_information.current_distance
+    = valueLateral_state_leftRss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator valueLateral_state_leftRss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::None);
-  valueLateralStateLeftRssStateInformation.evaluator = valueLateralStateLeftRssStateInformationEvaluator;
-  valueLateralStateLeft.rssStateInformation = valueLateralStateLeftRssStateInformation;
-  value.lateralStateLeft = valueLateralStateLeft;
-  ::ad::rss::state::UnstructuredSceneRssState valueUnstructuredSceneState;
-  bool valueUnstructuredSceneStateIsSafe{true};
-  valueUnstructuredSceneState.isSafe = valueUnstructuredSceneStateIsSafe;
-  ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneStateResponse(
-    ::ad::rss::state::UnstructuredSceneResponse::None);
-  valueUnstructuredSceneState.response = valueUnstructuredSceneStateResponse;
-  ::ad::rss::state::HeadingRange valueUnstructuredSceneStateHeadingRange;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeBegin(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.begin = valueUnstructuredSceneStateHeadingRangeBegin;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeEnd(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.end = valueUnstructuredSceneStateHeadingRangeEnd;
-  valueUnstructuredSceneState.headingRange = valueUnstructuredSceneStateHeadingRange;
-  ::ad::rss::state::UnstructuredSceneStateInformation valueUnstructuredSceneStateRssStateInformation;
-  ::ad::physics::Distance2DList valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
-  ::ad::physics::Distance2D valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX(-1e9);
-  valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.x
-    = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementY(-1e9);
-  valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.y
-    = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementY;
-  valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet.resize(
-    1, valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement);
-  valueUnstructuredSceneStateRssStateInformation.brakeTrajectorySet
-    = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
-  ::ad::physics::Distance2DList valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
-  ::ad::physics::Distance2D valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX(-1e9);
-  valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.x
-    = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementY(-1e9);
-  valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.y
-    = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementY;
-  valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet.resize(
-    1, valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement);
-  valueUnstructuredSceneStateRssStateInformation.continueForwardTrajectorySet
-    = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
-  valueUnstructuredSceneState.rssStateInformation = valueUnstructuredSceneStateRssStateInformation;
-  ::ad::rss::world::LongitudinalRssAccelerationValues valueUnstructuredSceneStateAlphaLon;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonAccelMax(-1e2);
-  valueUnstructuredSceneStateAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueUnstructuredSceneStateAlphaLon.accelMax = valueUnstructuredSceneStateAlphaLonAccelMax;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMax(-1e2);
-  valueUnstructuredSceneStateAlphaLon.brakeMax = valueUnstructuredSceneStateAlphaLonBrakeMax;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMin(-1e2);
-  valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLonBrakeMin;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMinCorrect(-1e2);
-  valueUnstructuredSceneStateAlphaLon.brakeMinCorrect = valueUnstructuredSceneStateAlphaLonBrakeMinCorrect;
-  valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLon.brakeMax;
-  valueUnstructuredSceneStateAlphaLon.brakeMinCorrect = valueUnstructuredSceneStateAlphaLon.brakeMin;
-  valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLon.brakeMinCorrect;
-  valueUnstructuredSceneStateAlphaLon.brakeMax = valueUnstructuredSceneStateAlphaLon.brakeMin;
-  valueUnstructuredSceneState.alphaLon = valueUnstructuredSceneStateAlphaLon;
-  value.unstructuredSceneState = valueUnstructuredSceneState;
-  ::ad::rss::situation::SituationType valueSituationType(::ad::rss::situation::SituationType::NotRelevant);
-  value.situationType = valueSituationType;
+  valueLateral_state_leftRss_state_information.evaluator = valueLateral_state_leftRss_state_informationEvaluator;
+  valueLateral_state_left.rss_state_information = valueLateral_state_leftRss_state_information;
+  value.lateral_state_left = valueLateral_state_left;
+  ::ad::rss::state::UnstructuredConstellationRssState valueUnstructured_constellation_state;
+  bool valueUnstructured_constellation_stateIs_safe{true};
+  valueUnstructured_constellation_state.is_safe = valueUnstructured_constellation_stateIs_safe;
+  ::ad::rss::state::UnstructuredConstellationResponse valueUnstructured_constellation_stateResponse(
+    ::ad::rss::state::UnstructuredConstellationResponse::None);
+  valueUnstructured_constellation_state.response = valueUnstructured_constellation_stateResponse;
+  ::ad::geometry::HeadingRange valueUnstructured_constellation_stateHeading_range;
+  ::ad::physics::Angle valueUnstructured_constellation_stateHeading_rangeBegin(-6.283185308);
+  valueUnstructured_constellation_stateHeading_range.begin = valueUnstructured_constellation_stateHeading_rangeBegin;
+  ::ad::physics::Angle valueUnstructured_constellation_stateHeading_rangeEnd(-6.283185308);
+  valueUnstructured_constellation_stateHeading_range.end = valueUnstructured_constellation_stateHeading_rangeEnd;
+  valueUnstructured_constellation_state.heading_range = valueUnstructured_constellation_stateHeading_range;
+  ::ad::rss::state::UnstructuredConstellationStateInformation
+    valueUnstructured_constellation_stateRss_state_information;
+  ::ad::physics::Distance2DList valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_set;
+  ::ad::physics::Distance2D valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement;
+  ::ad::physics::Distance valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementX(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement.x
+    = valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementX;
+  ::ad::physics::Distance valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementY(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement.y
+    = valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementY;
+  valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_set.resize(
+    1, valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement);
+  valueUnstructured_constellation_stateRss_state_information.brake_trajectory_set
+    = valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_set;
+  ::ad::physics::Distance2DList
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_set;
+  ::ad::physics::Distance2D
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement;
+  ::ad::physics::Distance
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementX(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement.x
+    = valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementX;
+  ::ad::physics::Distance
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementY(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement.y
+    = valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementY;
+  valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_set.resize(
+    1, valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement);
+  valueUnstructured_constellation_stateRss_state_information.continue_forward_trajectory_set
+    = valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_set;
+  ::ad::physics::Angle valueUnstructured_constellation_stateRss_state_informationConsidered_drive_away_steering_angle(
+    -6.283185308);
+  valueUnstructured_constellation_stateRss_state_information.considered_drive_away_steering_angle
+    = valueUnstructured_constellation_stateRss_state_informationConsidered_drive_away_steering_angle;
+  valueUnstructured_constellation_state.rss_state_information
+    = valueUnstructured_constellation_stateRss_state_information;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueUnstructured_constellation_stateAlpha_lon;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonAccel_max(-1e2);
+  valueUnstructured_constellation_stateAlpha_lonAccel_max
+    = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueUnstructured_constellation_stateAlpha_lon.accel_max = valueUnstructured_constellation_stateAlpha_lonAccel_max;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonBrake_max(-1e2);
+  valueUnstructured_constellation_stateAlpha_lon.brake_max = valueUnstructured_constellation_stateAlpha_lonBrake_max;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonBrake_min(-1e2);
+  valueUnstructured_constellation_stateAlpha_lon.brake_min = valueUnstructured_constellation_stateAlpha_lonBrake_min;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonBrake_min_correct(-1e2);
+  valueUnstructured_constellation_stateAlpha_lon.brake_min_correct
+    = valueUnstructured_constellation_stateAlpha_lonBrake_min_correct;
+  valueUnstructured_constellation_stateAlpha_lon.brake_min = valueUnstructured_constellation_stateAlpha_lon.brake_max;
+  valueUnstructured_constellation_stateAlpha_lon.brake_min_correct
+    = valueUnstructured_constellation_stateAlpha_lon.brake_min;
+  valueUnstructured_constellation_stateAlpha_lon.brake_min
+    = valueUnstructured_constellation_stateAlpha_lon.brake_min_correct;
+  valueUnstructured_constellation_stateAlpha_lon.brake_max = valueUnstructured_constellation_stateAlpha_lon.brake_min;
+  valueUnstructured_constellation_state.alpha_lon = valueUnstructured_constellation_stateAlpha_lon;
+  value.unstructured_constellation_state = valueUnstructured_constellation_state;
+  ::ad::rss::world::ConstellationType valueConstellation_type(::ad::rss::world::ConstellationType::NotRelevant);
+  value.constellation_type = valueConstellation_type;
 
   // override member with data type value above input range maximum
   ::ad::rss::state::LateralRssState invalidInitializedMember;
   ::ad::rss::state::LateralResponse invalidInitializedMemberResponse(
     static_cast<::ad::rss::state::LateralResponse>(-1));
   invalidInitializedMember.response = invalidInitializedMemberResponse;
-  value.lateralStateRight = invalidInitializedMember;
+  value.lateral_state_right = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(RssStateValidInputRangeTests, testValidInputRangeLateralStateLeftTooSmall)
+TEST(RssStateValidInputRangeTests, testValidInputRangeLateral_state_leftTooSmall)
 {
   ::ad::rss::state::RssState value;
-  ::ad::rss::world::ObjectId valueObjectId(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
-  value.objectId = valueObjectId;
-  ::ad::rss::situation::SituationId valueSituationId(std::numeric_limits<::ad::rss::situation::SituationId>::lowest());
-  value.situationId = valueSituationId;
-  ::ad::rss::state::LongitudinalRssState valueLongitudinalState;
-  bool valueLongitudinalStateIsSafe{true};
-  valueLongitudinalState.isSafe = valueLongitudinalStateIsSafe;
-  ::ad::rss::state::LongitudinalResponse valueLongitudinalStateResponse(::ad::rss::state::LongitudinalResponse::None);
-  valueLongitudinalState.response = valueLongitudinalStateResponse;
-  ::ad::rss::world::LongitudinalRssAccelerationValues valueLongitudinalStateAlphaLon;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonAccelMax(-1e2);
-  valueLongitudinalStateAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueLongitudinalStateAlphaLon.accelMax = valueLongitudinalStateAlphaLonAccelMax;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonBrakeMax(-1e2);
-  valueLongitudinalStateAlphaLon.brakeMax = valueLongitudinalStateAlphaLonBrakeMax;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonBrakeMin(-1e2);
-  valueLongitudinalStateAlphaLon.brakeMin = valueLongitudinalStateAlphaLonBrakeMin;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonBrakeMinCorrect(-1e2);
-  valueLongitudinalStateAlphaLon.brakeMinCorrect = valueLongitudinalStateAlphaLonBrakeMinCorrect;
-  valueLongitudinalStateAlphaLon.brakeMin = valueLongitudinalStateAlphaLon.brakeMax;
-  valueLongitudinalStateAlphaLon.brakeMinCorrect = valueLongitudinalStateAlphaLon.brakeMin;
-  valueLongitudinalStateAlphaLon.brakeMin = valueLongitudinalStateAlphaLon.brakeMinCorrect;
-  valueLongitudinalStateAlphaLon.brakeMax = valueLongitudinalStateAlphaLon.brakeMin;
-  valueLongitudinalState.alphaLon = valueLongitudinalStateAlphaLon;
-  ::ad::rss::state::RssStateInformation valueLongitudinalStateRssStateInformation;
-  ::ad::physics::Distance valueLongitudinalStateRssStateInformationSafeDistance(-1e9);
-  valueLongitudinalStateRssStateInformation.safeDistance = valueLongitudinalStateRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueLongitudinalStateRssStateInformationCurrentDistance(-1e9);
-  valueLongitudinalStateRssStateInformation.currentDistance = valueLongitudinalStateRssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator valueLongitudinalStateRssStateInformationEvaluator(
+  ::ad::rss::world::ObjectId valueEgo_id(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  value.ego_id = valueEgo_id;
+  ::ad::rss::world::ObjectId valueObject_id(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  value.object_id = valueObject_id;
+  ::ad::rss::core::RelativeConstellationId valueConstellation_id(
+    std::numeric_limits<::ad::rss::core::RelativeConstellationId>::lowest());
+  value.constellation_id = valueConstellation_id;
+  ::ad::rss::state::LongitudinalRssState valueLongitudinal_state;
+  bool valueLongitudinal_stateIs_safe{true};
+  valueLongitudinal_state.is_safe = valueLongitudinal_stateIs_safe;
+  ::ad::rss::state::LongitudinalResponse valueLongitudinal_stateResponse(::ad::rss::state::LongitudinalResponse::None);
+  valueLongitudinal_state.response = valueLongitudinal_stateResponse;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueLongitudinal_stateAlpha_lon;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonAccel_max(-1e2);
+  valueLongitudinal_stateAlpha_lonAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueLongitudinal_stateAlpha_lon.accel_max = valueLongitudinal_stateAlpha_lonAccel_max;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonBrake_max(-1e2);
+  valueLongitudinal_stateAlpha_lon.brake_max = valueLongitudinal_stateAlpha_lonBrake_max;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonBrake_min(-1e2);
+  valueLongitudinal_stateAlpha_lon.brake_min = valueLongitudinal_stateAlpha_lonBrake_min;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonBrake_min_correct(-1e2);
+  valueLongitudinal_stateAlpha_lon.brake_min_correct = valueLongitudinal_stateAlpha_lonBrake_min_correct;
+  valueLongitudinal_stateAlpha_lon.brake_min = valueLongitudinal_stateAlpha_lon.brake_max;
+  valueLongitudinal_stateAlpha_lon.brake_min_correct = valueLongitudinal_stateAlpha_lon.brake_min;
+  valueLongitudinal_stateAlpha_lon.brake_min = valueLongitudinal_stateAlpha_lon.brake_min_correct;
+  valueLongitudinal_stateAlpha_lon.brake_max = valueLongitudinal_stateAlpha_lon.brake_min;
+  valueLongitudinal_state.alpha_lon = valueLongitudinal_stateAlpha_lon;
+  ::ad::rss::state::RssStateInformation valueLongitudinal_stateRss_state_information;
+  ::ad::physics::Distance valueLongitudinal_stateRss_state_informationSafe_distance(-1e9);
+  valueLongitudinal_stateRss_state_information.safe_distance
+    = valueLongitudinal_stateRss_state_informationSafe_distance;
+  ::ad::physics::Distance valueLongitudinal_stateRss_state_informationCurrent_distance(-1e9);
+  valueLongitudinal_stateRss_state_information.current_distance
+    = valueLongitudinal_stateRss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator valueLongitudinal_stateRss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::None);
-  valueLongitudinalStateRssStateInformation.evaluator = valueLongitudinalStateRssStateInformationEvaluator;
-  valueLongitudinalState.rssStateInformation = valueLongitudinalStateRssStateInformation;
-  value.longitudinalState = valueLongitudinalState;
-  ::ad::rss::state::LateralRssState valueLateralStateRight;
-  bool valueLateralStateRightIsSafe{true};
-  valueLateralStateRight.isSafe = valueLateralStateRightIsSafe;
-  ::ad::rss::state::LateralResponse valueLateralStateRightResponse(::ad::rss::state::LateralResponse::None);
-  valueLateralStateRight.response = valueLateralStateRightResponse;
-  ::ad::rss::world::LateralRssAccelerationValues valueLateralStateRightAlphaLat;
-  ::ad::physics::Acceleration valueLateralStateRightAlphaLatAccelMax(-1e2);
-  valueLateralStateRightAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueLateralStateRightAlphaLat.accelMax = valueLateralStateRightAlphaLatAccelMax;
-  ::ad::physics::Acceleration valueLateralStateRightAlphaLatBrakeMin(-1e2);
-  valueLateralStateRightAlphaLat.brakeMin = valueLateralStateRightAlphaLatBrakeMin;
-  valueLateralStateRight.alphaLat = valueLateralStateRightAlphaLat;
-  ::ad::rss::state::RssStateInformation valueLateralStateRightRssStateInformation;
-  ::ad::physics::Distance valueLateralStateRightRssStateInformationSafeDistance(-1e9);
-  valueLateralStateRightRssStateInformation.safeDistance = valueLateralStateRightRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueLateralStateRightRssStateInformationCurrentDistance(-1e9);
-  valueLateralStateRightRssStateInformation.currentDistance = valueLateralStateRightRssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator valueLateralStateRightRssStateInformationEvaluator(
+  valueLongitudinal_stateRss_state_information.evaluator = valueLongitudinal_stateRss_state_informationEvaluator;
+  valueLongitudinal_state.rss_state_information = valueLongitudinal_stateRss_state_information;
+  value.longitudinal_state = valueLongitudinal_state;
+  ::ad::rss::state::LateralRssState valueLateral_state_right;
+  bool valueLateral_state_rightIs_safe{true};
+  valueLateral_state_right.is_safe = valueLateral_state_rightIs_safe;
+  ::ad::rss::state::LateralResponse valueLateral_state_rightResponse(::ad::rss::state::LateralResponse::None);
+  valueLateral_state_right.response = valueLateral_state_rightResponse;
+  ::ad::rss::world::LateralRssAccelerationValues valueLateral_state_rightAlpha_lat;
+  ::ad::physics::Acceleration valueLateral_state_rightAlpha_latAccel_max(-1e2);
+  valueLateral_state_rightAlpha_latAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueLateral_state_rightAlpha_lat.accel_max = valueLateral_state_rightAlpha_latAccel_max;
+  ::ad::physics::Acceleration valueLateral_state_rightAlpha_latBrake_min(-1e2);
+  valueLateral_state_rightAlpha_lat.brake_min = valueLateral_state_rightAlpha_latBrake_min;
+  valueLateral_state_right.alpha_lat = valueLateral_state_rightAlpha_lat;
+  ::ad::rss::state::RssStateInformation valueLateral_state_rightRss_state_information;
+  ::ad::physics::Distance valueLateral_state_rightRss_state_informationSafe_distance(-1e9);
+  valueLateral_state_rightRss_state_information.safe_distance
+    = valueLateral_state_rightRss_state_informationSafe_distance;
+  ::ad::physics::Distance valueLateral_state_rightRss_state_informationCurrent_distance(-1e9);
+  valueLateral_state_rightRss_state_information.current_distance
+    = valueLateral_state_rightRss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator valueLateral_state_rightRss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::None);
-  valueLateralStateRightRssStateInformation.evaluator = valueLateralStateRightRssStateInformationEvaluator;
-  valueLateralStateRight.rssStateInformation = valueLateralStateRightRssStateInformation;
-  value.lateralStateRight = valueLateralStateRight;
-  ::ad::rss::state::LateralRssState valueLateralStateLeft;
-  bool valueLateralStateLeftIsSafe{true};
-  valueLateralStateLeft.isSafe = valueLateralStateLeftIsSafe;
-  ::ad::rss::state::LateralResponse valueLateralStateLeftResponse(::ad::rss::state::LateralResponse::None);
-  valueLateralStateLeft.response = valueLateralStateLeftResponse;
-  ::ad::rss::world::LateralRssAccelerationValues valueLateralStateLeftAlphaLat;
-  ::ad::physics::Acceleration valueLateralStateLeftAlphaLatAccelMax(-1e2);
-  valueLateralStateLeftAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueLateralStateLeftAlphaLat.accelMax = valueLateralStateLeftAlphaLatAccelMax;
-  ::ad::physics::Acceleration valueLateralStateLeftAlphaLatBrakeMin(-1e2);
-  valueLateralStateLeftAlphaLat.brakeMin = valueLateralStateLeftAlphaLatBrakeMin;
-  valueLateralStateLeft.alphaLat = valueLateralStateLeftAlphaLat;
-  ::ad::rss::state::RssStateInformation valueLateralStateLeftRssStateInformation;
-  ::ad::physics::Distance valueLateralStateLeftRssStateInformationSafeDistance(-1e9);
-  valueLateralStateLeftRssStateInformation.safeDistance = valueLateralStateLeftRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueLateralStateLeftRssStateInformationCurrentDistance(-1e9);
-  valueLateralStateLeftRssStateInformation.currentDistance = valueLateralStateLeftRssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator valueLateralStateLeftRssStateInformationEvaluator(
+  valueLateral_state_rightRss_state_information.evaluator = valueLateral_state_rightRss_state_informationEvaluator;
+  valueLateral_state_right.rss_state_information = valueLateral_state_rightRss_state_information;
+  value.lateral_state_right = valueLateral_state_right;
+  ::ad::rss::state::LateralRssState valueLateral_state_left;
+  bool valueLateral_state_leftIs_safe{true};
+  valueLateral_state_left.is_safe = valueLateral_state_leftIs_safe;
+  ::ad::rss::state::LateralResponse valueLateral_state_leftResponse(::ad::rss::state::LateralResponse::None);
+  valueLateral_state_left.response = valueLateral_state_leftResponse;
+  ::ad::rss::world::LateralRssAccelerationValues valueLateral_state_leftAlpha_lat;
+  ::ad::physics::Acceleration valueLateral_state_leftAlpha_latAccel_max(-1e2);
+  valueLateral_state_leftAlpha_latAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueLateral_state_leftAlpha_lat.accel_max = valueLateral_state_leftAlpha_latAccel_max;
+  ::ad::physics::Acceleration valueLateral_state_leftAlpha_latBrake_min(-1e2);
+  valueLateral_state_leftAlpha_lat.brake_min = valueLateral_state_leftAlpha_latBrake_min;
+  valueLateral_state_left.alpha_lat = valueLateral_state_leftAlpha_lat;
+  ::ad::rss::state::RssStateInformation valueLateral_state_leftRss_state_information;
+  ::ad::physics::Distance valueLateral_state_leftRss_state_informationSafe_distance(-1e9);
+  valueLateral_state_leftRss_state_information.safe_distance
+    = valueLateral_state_leftRss_state_informationSafe_distance;
+  ::ad::physics::Distance valueLateral_state_leftRss_state_informationCurrent_distance(-1e9);
+  valueLateral_state_leftRss_state_information.current_distance
+    = valueLateral_state_leftRss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator valueLateral_state_leftRss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::None);
-  valueLateralStateLeftRssStateInformation.evaluator = valueLateralStateLeftRssStateInformationEvaluator;
-  valueLateralStateLeft.rssStateInformation = valueLateralStateLeftRssStateInformation;
-  value.lateralStateLeft = valueLateralStateLeft;
-  ::ad::rss::state::UnstructuredSceneRssState valueUnstructuredSceneState;
-  bool valueUnstructuredSceneStateIsSafe{true};
-  valueUnstructuredSceneState.isSafe = valueUnstructuredSceneStateIsSafe;
-  ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneStateResponse(
-    ::ad::rss::state::UnstructuredSceneResponse::None);
-  valueUnstructuredSceneState.response = valueUnstructuredSceneStateResponse;
-  ::ad::rss::state::HeadingRange valueUnstructuredSceneStateHeadingRange;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeBegin(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.begin = valueUnstructuredSceneStateHeadingRangeBegin;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeEnd(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.end = valueUnstructuredSceneStateHeadingRangeEnd;
-  valueUnstructuredSceneState.headingRange = valueUnstructuredSceneStateHeadingRange;
-  ::ad::rss::state::UnstructuredSceneStateInformation valueUnstructuredSceneStateRssStateInformation;
-  ::ad::physics::Distance2DList valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
-  ::ad::physics::Distance2D valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX(-1e9);
-  valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.x
-    = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementY(-1e9);
-  valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.y
-    = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementY;
-  valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet.resize(
-    1, valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement);
-  valueUnstructuredSceneStateRssStateInformation.brakeTrajectorySet
-    = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
-  ::ad::physics::Distance2DList valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
-  ::ad::physics::Distance2D valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX(-1e9);
-  valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.x
-    = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementY(-1e9);
-  valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.y
-    = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementY;
-  valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet.resize(
-    1, valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement);
-  valueUnstructuredSceneStateRssStateInformation.continueForwardTrajectorySet
-    = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
-  valueUnstructuredSceneState.rssStateInformation = valueUnstructuredSceneStateRssStateInformation;
-  ::ad::rss::world::LongitudinalRssAccelerationValues valueUnstructuredSceneStateAlphaLon;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonAccelMax(-1e2);
-  valueUnstructuredSceneStateAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueUnstructuredSceneStateAlphaLon.accelMax = valueUnstructuredSceneStateAlphaLonAccelMax;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMax(-1e2);
-  valueUnstructuredSceneStateAlphaLon.brakeMax = valueUnstructuredSceneStateAlphaLonBrakeMax;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMin(-1e2);
-  valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLonBrakeMin;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMinCorrect(-1e2);
-  valueUnstructuredSceneStateAlphaLon.brakeMinCorrect = valueUnstructuredSceneStateAlphaLonBrakeMinCorrect;
-  valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLon.brakeMax;
-  valueUnstructuredSceneStateAlphaLon.brakeMinCorrect = valueUnstructuredSceneStateAlphaLon.brakeMin;
-  valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLon.brakeMinCorrect;
-  valueUnstructuredSceneStateAlphaLon.brakeMax = valueUnstructuredSceneStateAlphaLon.brakeMin;
-  valueUnstructuredSceneState.alphaLon = valueUnstructuredSceneStateAlphaLon;
-  value.unstructuredSceneState = valueUnstructuredSceneState;
-  ::ad::rss::situation::SituationType valueSituationType(::ad::rss::situation::SituationType::NotRelevant);
-  value.situationType = valueSituationType;
+  valueLateral_state_leftRss_state_information.evaluator = valueLateral_state_leftRss_state_informationEvaluator;
+  valueLateral_state_left.rss_state_information = valueLateral_state_leftRss_state_information;
+  value.lateral_state_left = valueLateral_state_left;
+  ::ad::rss::state::UnstructuredConstellationRssState valueUnstructured_constellation_state;
+  bool valueUnstructured_constellation_stateIs_safe{true};
+  valueUnstructured_constellation_state.is_safe = valueUnstructured_constellation_stateIs_safe;
+  ::ad::rss::state::UnstructuredConstellationResponse valueUnstructured_constellation_stateResponse(
+    ::ad::rss::state::UnstructuredConstellationResponse::None);
+  valueUnstructured_constellation_state.response = valueUnstructured_constellation_stateResponse;
+  ::ad::geometry::HeadingRange valueUnstructured_constellation_stateHeading_range;
+  ::ad::physics::Angle valueUnstructured_constellation_stateHeading_rangeBegin(-6.283185308);
+  valueUnstructured_constellation_stateHeading_range.begin = valueUnstructured_constellation_stateHeading_rangeBegin;
+  ::ad::physics::Angle valueUnstructured_constellation_stateHeading_rangeEnd(-6.283185308);
+  valueUnstructured_constellation_stateHeading_range.end = valueUnstructured_constellation_stateHeading_rangeEnd;
+  valueUnstructured_constellation_state.heading_range = valueUnstructured_constellation_stateHeading_range;
+  ::ad::rss::state::UnstructuredConstellationStateInformation
+    valueUnstructured_constellation_stateRss_state_information;
+  ::ad::physics::Distance2DList valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_set;
+  ::ad::physics::Distance2D valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement;
+  ::ad::physics::Distance valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementX(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement.x
+    = valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementX;
+  ::ad::physics::Distance valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementY(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement.y
+    = valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementY;
+  valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_set.resize(
+    1, valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement);
+  valueUnstructured_constellation_stateRss_state_information.brake_trajectory_set
+    = valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_set;
+  ::ad::physics::Distance2DList
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_set;
+  ::ad::physics::Distance2D
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement;
+  ::ad::physics::Distance
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementX(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement.x
+    = valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementX;
+  ::ad::physics::Distance
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementY(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement.y
+    = valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementY;
+  valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_set.resize(
+    1, valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement);
+  valueUnstructured_constellation_stateRss_state_information.continue_forward_trajectory_set
+    = valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_set;
+  ::ad::physics::Angle valueUnstructured_constellation_stateRss_state_informationConsidered_drive_away_steering_angle(
+    -6.283185308);
+  valueUnstructured_constellation_stateRss_state_information.considered_drive_away_steering_angle
+    = valueUnstructured_constellation_stateRss_state_informationConsidered_drive_away_steering_angle;
+  valueUnstructured_constellation_state.rss_state_information
+    = valueUnstructured_constellation_stateRss_state_information;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueUnstructured_constellation_stateAlpha_lon;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonAccel_max(-1e2);
+  valueUnstructured_constellation_stateAlpha_lonAccel_max
+    = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueUnstructured_constellation_stateAlpha_lon.accel_max = valueUnstructured_constellation_stateAlpha_lonAccel_max;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonBrake_max(-1e2);
+  valueUnstructured_constellation_stateAlpha_lon.brake_max = valueUnstructured_constellation_stateAlpha_lonBrake_max;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonBrake_min(-1e2);
+  valueUnstructured_constellation_stateAlpha_lon.brake_min = valueUnstructured_constellation_stateAlpha_lonBrake_min;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonBrake_min_correct(-1e2);
+  valueUnstructured_constellation_stateAlpha_lon.brake_min_correct
+    = valueUnstructured_constellation_stateAlpha_lonBrake_min_correct;
+  valueUnstructured_constellation_stateAlpha_lon.brake_min = valueUnstructured_constellation_stateAlpha_lon.brake_max;
+  valueUnstructured_constellation_stateAlpha_lon.brake_min_correct
+    = valueUnstructured_constellation_stateAlpha_lon.brake_min;
+  valueUnstructured_constellation_stateAlpha_lon.brake_min
+    = valueUnstructured_constellation_stateAlpha_lon.brake_min_correct;
+  valueUnstructured_constellation_stateAlpha_lon.brake_max = valueUnstructured_constellation_stateAlpha_lon.brake_min;
+  valueUnstructured_constellation_state.alpha_lon = valueUnstructured_constellation_stateAlpha_lon;
+  value.unstructured_constellation_state = valueUnstructured_constellation_state;
+  ::ad::rss::world::ConstellationType valueConstellation_type(::ad::rss::world::ConstellationType::NotRelevant);
+  value.constellation_type = valueConstellation_type;
 
   // override member with data type value below input range minimum
   ::ad::rss::state::LateralRssState invalidInitializedMember;
   ::ad::rss::state::LateralResponse invalidInitializedMemberResponse(
     static_cast<::ad::rss::state::LateralResponse>(-1));
   invalidInitializedMember.response = invalidInitializedMemberResponse;
-  value.lateralStateLeft = invalidInitializedMember;
+  value.lateral_state_left = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(RssStateValidInputRangeTests, testValidInputRangeLateralStateLeftTooBig)
+TEST(RssStateValidInputRangeTests, testValidInputRangeLateral_state_leftTooBig)
 {
   ::ad::rss::state::RssState value;
-  ::ad::rss::world::ObjectId valueObjectId(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
-  value.objectId = valueObjectId;
-  ::ad::rss::situation::SituationId valueSituationId(std::numeric_limits<::ad::rss::situation::SituationId>::lowest());
-  value.situationId = valueSituationId;
-  ::ad::rss::state::LongitudinalRssState valueLongitudinalState;
-  bool valueLongitudinalStateIsSafe{true};
-  valueLongitudinalState.isSafe = valueLongitudinalStateIsSafe;
-  ::ad::rss::state::LongitudinalResponse valueLongitudinalStateResponse(::ad::rss::state::LongitudinalResponse::None);
-  valueLongitudinalState.response = valueLongitudinalStateResponse;
-  ::ad::rss::world::LongitudinalRssAccelerationValues valueLongitudinalStateAlphaLon;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonAccelMax(-1e2);
-  valueLongitudinalStateAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueLongitudinalStateAlphaLon.accelMax = valueLongitudinalStateAlphaLonAccelMax;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonBrakeMax(-1e2);
-  valueLongitudinalStateAlphaLon.brakeMax = valueLongitudinalStateAlphaLonBrakeMax;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonBrakeMin(-1e2);
-  valueLongitudinalStateAlphaLon.brakeMin = valueLongitudinalStateAlphaLonBrakeMin;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonBrakeMinCorrect(-1e2);
-  valueLongitudinalStateAlphaLon.brakeMinCorrect = valueLongitudinalStateAlphaLonBrakeMinCorrect;
-  valueLongitudinalStateAlphaLon.brakeMin = valueLongitudinalStateAlphaLon.brakeMax;
-  valueLongitudinalStateAlphaLon.brakeMinCorrect = valueLongitudinalStateAlphaLon.brakeMin;
-  valueLongitudinalStateAlphaLon.brakeMin = valueLongitudinalStateAlphaLon.brakeMinCorrect;
-  valueLongitudinalStateAlphaLon.brakeMax = valueLongitudinalStateAlphaLon.brakeMin;
-  valueLongitudinalState.alphaLon = valueLongitudinalStateAlphaLon;
-  ::ad::rss::state::RssStateInformation valueLongitudinalStateRssStateInformation;
-  ::ad::physics::Distance valueLongitudinalStateRssStateInformationSafeDistance(-1e9);
-  valueLongitudinalStateRssStateInformation.safeDistance = valueLongitudinalStateRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueLongitudinalStateRssStateInformationCurrentDistance(-1e9);
-  valueLongitudinalStateRssStateInformation.currentDistance = valueLongitudinalStateRssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator valueLongitudinalStateRssStateInformationEvaluator(
+  ::ad::rss::world::ObjectId valueEgo_id(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  value.ego_id = valueEgo_id;
+  ::ad::rss::world::ObjectId valueObject_id(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  value.object_id = valueObject_id;
+  ::ad::rss::core::RelativeConstellationId valueConstellation_id(
+    std::numeric_limits<::ad::rss::core::RelativeConstellationId>::lowest());
+  value.constellation_id = valueConstellation_id;
+  ::ad::rss::state::LongitudinalRssState valueLongitudinal_state;
+  bool valueLongitudinal_stateIs_safe{true};
+  valueLongitudinal_state.is_safe = valueLongitudinal_stateIs_safe;
+  ::ad::rss::state::LongitudinalResponse valueLongitudinal_stateResponse(::ad::rss::state::LongitudinalResponse::None);
+  valueLongitudinal_state.response = valueLongitudinal_stateResponse;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueLongitudinal_stateAlpha_lon;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonAccel_max(-1e2);
+  valueLongitudinal_stateAlpha_lonAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueLongitudinal_stateAlpha_lon.accel_max = valueLongitudinal_stateAlpha_lonAccel_max;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonBrake_max(-1e2);
+  valueLongitudinal_stateAlpha_lon.brake_max = valueLongitudinal_stateAlpha_lonBrake_max;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonBrake_min(-1e2);
+  valueLongitudinal_stateAlpha_lon.brake_min = valueLongitudinal_stateAlpha_lonBrake_min;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonBrake_min_correct(-1e2);
+  valueLongitudinal_stateAlpha_lon.brake_min_correct = valueLongitudinal_stateAlpha_lonBrake_min_correct;
+  valueLongitudinal_stateAlpha_lon.brake_min = valueLongitudinal_stateAlpha_lon.brake_max;
+  valueLongitudinal_stateAlpha_lon.brake_min_correct = valueLongitudinal_stateAlpha_lon.brake_min;
+  valueLongitudinal_stateAlpha_lon.brake_min = valueLongitudinal_stateAlpha_lon.brake_min_correct;
+  valueLongitudinal_stateAlpha_lon.brake_max = valueLongitudinal_stateAlpha_lon.brake_min;
+  valueLongitudinal_state.alpha_lon = valueLongitudinal_stateAlpha_lon;
+  ::ad::rss::state::RssStateInformation valueLongitudinal_stateRss_state_information;
+  ::ad::physics::Distance valueLongitudinal_stateRss_state_informationSafe_distance(-1e9);
+  valueLongitudinal_stateRss_state_information.safe_distance
+    = valueLongitudinal_stateRss_state_informationSafe_distance;
+  ::ad::physics::Distance valueLongitudinal_stateRss_state_informationCurrent_distance(-1e9);
+  valueLongitudinal_stateRss_state_information.current_distance
+    = valueLongitudinal_stateRss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator valueLongitudinal_stateRss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::None);
-  valueLongitudinalStateRssStateInformation.evaluator = valueLongitudinalStateRssStateInformationEvaluator;
-  valueLongitudinalState.rssStateInformation = valueLongitudinalStateRssStateInformation;
-  value.longitudinalState = valueLongitudinalState;
-  ::ad::rss::state::LateralRssState valueLateralStateRight;
-  bool valueLateralStateRightIsSafe{true};
-  valueLateralStateRight.isSafe = valueLateralStateRightIsSafe;
-  ::ad::rss::state::LateralResponse valueLateralStateRightResponse(::ad::rss::state::LateralResponse::None);
-  valueLateralStateRight.response = valueLateralStateRightResponse;
-  ::ad::rss::world::LateralRssAccelerationValues valueLateralStateRightAlphaLat;
-  ::ad::physics::Acceleration valueLateralStateRightAlphaLatAccelMax(-1e2);
-  valueLateralStateRightAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueLateralStateRightAlphaLat.accelMax = valueLateralStateRightAlphaLatAccelMax;
-  ::ad::physics::Acceleration valueLateralStateRightAlphaLatBrakeMin(-1e2);
-  valueLateralStateRightAlphaLat.brakeMin = valueLateralStateRightAlphaLatBrakeMin;
-  valueLateralStateRight.alphaLat = valueLateralStateRightAlphaLat;
-  ::ad::rss::state::RssStateInformation valueLateralStateRightRssStateInformation;
-  ::ad::physics::Distance valueLateralStateRightRssStateInformationSafeDistance(-1e9);
-  valueLateralStateRightRssStateInformation.safeDistance = valueLateralStateRightRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueLateralStateRightRssStateInformationCurrentDistance(-1e9);
-  valueLateralStateRightRssStateInformation.currentDistance = valueLateralStateRightRssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator valueLateralStateRightRssStateInformationEvaluator(
+  valueLongitudinal_stateRss_state_information.evaluator = valueLongitudinal_stateRss_state_informationEvaluator;
+  valueLongitudinal_state.rss_state_information = valueLongitudinal_stateRss_state_information;
+  value.longitudinal_state = valueLongitudinal_state;
+  ::ad::rss::state::LateralRssState valueLateral_state_right;
+  bool valueLateral_state_rightIs_safe{true};
+  valueLateral_state_right.is_safe = valueLateral_state_rightIs_safe;
+  ::ad::rss::state::LateralResponse valueLateral_state_rightResponse(::ad::rss::state::LateralResponse::None);
+  valueLateral_state_right.response = valueLateral_state_rightResponse;
+  ::ad::rss::world::LateralRssAccelerationValues valueLateral_state_rightAlpha_lat;
+  ::ad::physics::Acceleration valueLateral_state_rightAlpha_latAccel_max(-1e2);
+  valueLateral_state_rightAlpha_latAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueLateral_state_rightAlpha_lat.accel_max = valueLateral_state_rightAlpha_latAccel_max;
+  ::ad::physics::Acceleration valueLateral_state_rightAlpha_latBrake_min(-1e2);
+  valueLateral_state_rightAlpha_lat.brake_min = valueLateral_state_rightAlpha_latBrake_min;
+  valueLateral_state_right.alpha_lat = valueLateral_state_rightAlpha_lat;
+  ::ad::rss::state::RssStateInformation valueLateral_state_rightRss_state_information;
+  ::ad::physics::Distance valueLateral_state_rightRss_state_informationSafe_distance(-1e9);
+  valueLateral_state_rightRss_state_information.safe_distance
+    = valueLateral_state_rightRss_state_informationSafe_distance;
+  ::ad::physics::Distance valueLateral_state_rightRss_state_informationCurrent_distance(-1e9);
+  valueLateral_state_rightRss_state_information.current_distance
+    = valueLateral_state_rightRss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator valueLateral_state_rightRss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::None);
-  valueLateralStateRightRssStateInformation.evaluator = valueLateralStateRightRssStateInformationEvaluator;
-  valueLateralStateRight.rssStateInformation = valueLateralStateRightRssStateInformation;
-  value.lateralStateRight = valueLateralStateRight;
-  ::ad::rss::state::LateralRssState valueLateralStateLeft;
-  bool valueLateralStateLeftIsSafe{true};
-  valueLateralStateLeft.isSafe = valueLateralStateLeftIsSafe;
-  ::ad::rss::state::LateralResponse valueLateralStateLeftResponse(::ad::rss::state::LateralResponse::None);
-  valueLateralStateLeft.response = valueLateralStateLeftResponse;
-  ::ad::rss::world::LateralRssAccelerationValues valueLateralStateLeftAlphaLat;
-  ::ad::physics::Acceleration valueLateralStateLeftAlphaLatAccelMax(-1e2);
-  valueLateralStateLeftAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueLateralStateLeftAlphaLat.accelMax = valueLateralStateLeftAlphaLatAccelMax;
-  ::ad::physics::Acceleration valueLateralStateLeftAlphaLatBrakeMin(-1e2);
-  valueLateralStateLeftAlphaLat.brakeMin = valueLateralStateLeftAlphaLatBrakeMin;
-  valueLateralStateLeft.alphaLat = valueLateralStateLeftAlphaLat;
-  ::ad::rss::state::RssStateInformation valueLateralStateLeftRssStateInformation;
-  ::ad::physics::Distance valueLateralStateLeftRssStateInformationSafeDistance(-1e9);
-  valueLateralStateLeftRssStateInformation.safeDistance = valueLateralStateLeftRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueLateralStateLeftRssStateInformationCurrentDistance(-1e9);
-  valueLateralStateLeftRssStateInformation.currentDistance = valueLateralStateLeftRssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator valueLateralStateLeftRssStateInformationEvaluator(
+  valueLateral_state_rightRss_state_information.evaluator = valueLateral_state_rightRss_state_informationEvaluator;
+  valueLateral_state_right.rss_state_information = valueLateral_state_rightRss_state_information;
+  value.lateral_state_right = valueLateral_state_right;
+  ::ad::rss::state::LateralRssState valueLateral_state_left;
+  bool valueLateral_state_leftIs_safe{true};
+  valueLateral_state_left.is_safe = valueLateral_state_leftIs_safe;
+  ::ad::rss::state::LateralResponse valueLateral_state_leftResponse(::ad::rss::state::LateralResponse::None);
+  valueLateral_state_left.response = valueLateral_state_leftResponse;
+  ::ad::rss::world::LateralRssAccelerationValues valueLateral_state_leftAlpha_lat;
+  ::ad::physics::Acceleration valueLateral_state_leftAlpha_latAccel_max(-1e2);
+  valueLateral_state_leftAlpha_latAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueLateral_state_leftAlpha_lat.accel_max = valueLateral_state_leftAlpha_latAccel_max;
+  ::ad::physics::Acceleration valueLateral_state_leftAlpha_latBrake_min(-1e2);
+  valueLateral_state_leftAlpha_lat.brake_min = valueLateral_state_leftAlpha_latBrake_min;
+  valueLateral_state_left.alpha_lat = valueLateral_state_leftAlpha_lat;
+  ::ad::rss::state::RssStateInformation valueLateral_state_leftRss_state_information;
+  ::ad::physics::Distance valueLateral_state_leftRss_state_informationSafe_distance(-1e9);
+  valueLateral_state_leftRss_state_information.safe_distance
+    = valueLateral_state_leftRss_state_informationSafe_distance;
+  ::ad::physics::Distance valueLateral_state_leftRss_state_informationCurrent_distance(-1e9);
+  valueLateral_state_leftRss_state_information.current_distance
+    = valueLateral_state_leftRss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator valueLateral_state_leftRss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::None);
-  valueLateralStateLeftRssStateInformation.evaluator = valueLateralStateLeftRssStateInformationEvaluator;
-  valueLateralStateLeft.rssStateInformation = valueLateralStateLeftRssStateInformation;
-  value.lateralStateLeft = valueLateralStateLeft;
-  ::ad::rss::state::UnstructuredSceneRssState valueUnstructuredSceneState;
-  bool valueUnstructuredSceneStateIsSafe{true};
-  valueUnstructuredSceneState.isSafe = valueUnstructuredSceneStateIsSafe;
-  ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneStateResponse(
-    ::ad::rss::state::UnstructuredSceneResponse::None);
-  valueUnstructuredSceneState.response = valueUnstructuredSceneStateResponse;
-  ::ad::rss::state::HeadingRange valueUnstructuredSceneStateHeadingRange;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeBegin(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.begin = valueUnstructuredSceneStateHeadingRangeBegin;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeEnd(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.end = valueUnstructuredSceneStateHeadingRangeEnd;
-  valueUnstructuredSceneState.headingRange = valueUnstructuredSceneStateHeadingRange;
-  ::ad::rss::state::UnstructuredSceneStateInformation valueUnstructuredSceneStateRssStateInformation;
-  ::ad::physics::Distance2DList valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
-  ::ad::physics::Distance2D valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX(-1e9);
-  valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.x
-    = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementY(-1e9);
-  valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.y
-    = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementY;
-  valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet.resize(
-    1, valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement);
-  valueUnstructuredSceneStateRssStateInformation.brakeTrajectorySet
-    = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
-  ::ad::physics::Distance2DList valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
-  ::ad::physics::Distance2D valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX(-1e9);
-  valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.x
-    = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementY(-1e9);
-  valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.y
-    = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementY;
-  valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet.resize(
-    1, valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement);
-  valueUnstructuredSceneStateRssStateInformation.continueForwardTrajectorySet
-    = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
-  valueUnstructuredSceneState.rssStateInformation = valueUnstructuredSceneStateRssStateInformation;
-  ::ad::rss::world::LongitudinalRssAccelerationValues valueUnstructuredSceneStateAlphaLon;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonAccelMax(-1e2);
-  valueUnstructuredSceneStateAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueUnstructuredSceneStateAlphaLon.accelMax = valueUnstructuredSceneStateAlphaLonAccelMax;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMax(-1e2);
-  valueUnstructuredSceneStateAlphaLon.brakeMax = valueUnstructuredSceneStateAlphaLonBrakeMax;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMin(-1e2);
-  valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLonBrakeMin;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMinCorrect(-1e2);
-  valueUnstructuredSceneStateAlphaLon.brakeMinCorrect = valueUnstructuredSceneStateAlphaLonBrakeMinCorrect;
-  valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLon.brakeMax;
-  valueUnstructuredSceneStateAlphaLon.brakeMinCorrect = valueUnstructuredSceneStateAlphaLon.brakeMin;
-  valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLon.brakeMinCorrect;
-  valueUnstructuredSceneStateAlphaLon.brakeMax = valueUnstructuredSceneStateAlphaLon.brakeMin;
-  valueUnstructuredSceneState.alphaLon = valueUnstructuredSceneStateAlphaLon;
-  value.unstructuredSceneState = valueUnstructuredSceneState;
-  ::ad::rss::situation::SituationType valueSituationType(::ad::rss::situation::SituationType::NotRelevant);
-  value.situationType = valueSituationType;
+  valueLateral_state_leftRss_state_information.evaluator = valueLateral_state_leftRss_state_informationEvaluator;
+  valueLateral_state_left.rss_state_information = valueLateral_state_leftRss_state_information;
+  value.lateral_state_left = valueLateral_state_left;
+  ::ad::rss::state::UnstructuredConstellationRssState valueUnstructured_constellation_state;
+  bool valueUnstructured_constellation_stateIs_safe{true};
+  valueUnstructured_constellation_state.is_safe = valueUnstructured_constellation_stateIs_safe;
+  ::ad::rss::state::UnstructuredConstellationResponse valueUnstructured_constellation_stateResponse(
+    ::ad::rss::state::UnstructuredConstellationResponse::None);
+  valueUnstructured_constellation_state.response = valueUnstructured_constellation_stateResponse;
+  ::ad::geometry::HeadingRange valueUnstructured_constellation_stateHeading_range;
+  ::ad::physics::Angle valueUnstructured_constellation_stateHeading_rangeBegin(-6.283185308);
+  valueUnstructured_constellation_stateHeading_range.begin = valueUnstructured_constellation_stateHeading_rangeBegin;
+  ::ad::physics::Angle valueUnstructured_constellation_stateHeading_rangeEnd(-6.283185308);
+  valueUnstructured_constellation_stateHeading_range.end = valueUnstructured_constellation_stateHeading_rangeEnd;
+  valueUnstructured_constellation_state.heading_range = valueUnstructured_constellation_stateHeading_range;
+  ::ad::rss::state::UnstructuredConstellationStateInformation
+    valueUnstructured_constellation_stateRss_state_information;
+  ::ad::physics::Distance2DList valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_set;
+  ::ad::physics::Distance2D valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement;
+  ::ad::physics::Distance valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementX(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement.x
+    = valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementX;
+  ::ad::physics::Distance valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementY(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement.y
+    = valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementY;
+  valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_set.resize(
+    1, valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement);
+  valueUnstructured_constellation_stateRss_state_information.brake_trajectory_set
+    = valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_set;
+  ::ad::physics::Distance2DList
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_set;
+  ::ad::physics::Distance2D
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement;
+  ::ad::physics::Distance
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementX(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement.x
+    = valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementX;
+  ::ad::physics::Distance
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementY(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement.y
+    = valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementY;
+  valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_set.resize(
+    1, valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement);
+  valueUnstructured_constellation_stateRss_state_information.continue_forward_trajectory_set
+    = valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_set;
+  ::ad::physics::Angle valueUnstructured_constellation_stateRss_state_informationConsidered_drive_away_steering_angle(
+    -6.283185308);
+  valueUnstructured_constellation_stateRss_state_information.considered_drive_away_steering_angle
+    = valueUnstructured_constellation_stateRss_state_informationConsidered_drive_away_steering_angle;
+  valueUnstructured_constellation_state.rss_state_information
+    = valueUnstructured_constellation_stateRss_state_information;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueUnstructured_constellation_stateAlpha_lon;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonAccel_max(-1e2);
+  valueUnstructured_constellation_stateAlpha_lonAccel_max
+    = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueUnstructured_constellation_stateAlpha_lon.accel_max = valueUnstructured_constellation_stateAlpha_lonAccel_max;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonBrake_max(-1e2);
+  valueUnstructured_constellation_stateAlpha_lon.brake_max = valueUnstructured_constellation_stateAlpha_lonBrake_max;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonBrake_min(-1e2);
+  valueUnstructured_constellation_stateAlpha_lon.brake_min = valueUnstructured_constellation_stateAlpha_lonBrake_min;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonBrake_min_correct(-1e2);
+  valueUnstructured_constellation_stateAlpha_lon.brake_min_correct
+    = valueUnstructured_constellation_stateAlpha_lonBrake_min_correct;
+  valueUnstructured_constellation_stateAlpha_lon.brake_min = valueUnstructured_constellation_stateAlpha_lon.brake_max;
+  valueUnstructured_constellation_stateAlpha_lon.brake_min_correct
+    = valueUnstructured_constellation_stateAlpha_lon.brake_min;
+  valueUnstructured_constellation_stateAlpha_lon.brake_min
+    = valueUnstructured_constellation_stateAlpha_lon.brake_min_correct;
+  valueUnstructured_constellation_stateAlpha_lon.brake_max = valueUnstructured_constellation_stateAlpha_lon.brake_min;
+  valueUnstructured_constellation_state.alpha_lon = valueUnstructured_constellation_stateAlpha_lon;
+  value.unstructured_constellation_state = valueUnstructured_constellation_state;
+  ::ad::rss::world::ConstellationType valueConstellation_type(::ad::rss::world::ConstellationType::NotRelevant);
+  value.constellation_type = valueConstellation_type;
 
   // override member with data type value above input range maximum
   ::ad::rss::state::LateralRssState invalidInitializedMember;
   ::ad::rss::state::LateralResponse invalidInitializedMemberResponse(
     static_cast<::ad::rss::state::LateralResponse>(-1));
   invalidInitializedMember.response = invalidInitializedMemberResponse;
-  value.lateralStateLeft = invalidInitializedMember;
+  value.lateral_state_left = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(RssStateValidInputRangeTests, testValidInputRangeUnstructuredSceneStateTooSmall)
+TEST(RssStateValidInputRangeTests, testValidInputRangeUnstructured_constellation_stateTooSmall)
 {
   ::ad::rss::state::RssState value;
-  ::ad::rss::world::ObjectId valueObjectId(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
-  value.objectId = valueObjectId;
-  ::ad::rss::situation::SituationId valueSituationId(std::numeric_limits<::ad::rss::situation::SituationId>::lowest());
-  value.situationId = valueSituationId;
-  ::ad::rss::state::LongitudinalRssState valueLongitudinalState;
-  bool valueLongitudinalStateIsSafe{true};
-  valueLongitudinalState.isSafe = valueLongitudinalStateIsSafe;
-  ::ad::rss::state::LongitudinalResponse valueLongitudinalStateResponse(::ad::rss::state::LongitudinalResponse::None);
-  valueLongitudinalState.response = valueLongitudinalStateResponse;
-  ::ad::rss::world::LongitudinalRssAccelerationValues valueLongitudinalStateAlphaLon;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonAccelMax(-1e2);
-  valueLongitudinalStateAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueLongitudinalStateAlphaLon.accelMax = valueLongitudinalStateAlphaLonAccelMax;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonBrakeMax(-1e2);
-  valueLongitudinalStateAlphaLon.brakeMax = valueLongitudinalStateAlphaLonBrakeMax;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonBrakeMin(-1e2);
-  valueLongitudinalStateAlphaLon.brakeMin = valueLongitudinalStateAlphaLonBrakeMin;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonBrakeMinCorrect(-1e2);
-  valueLongitudinalStateAlphaLon.brakeMinCorrect = valueLongitudinalStateAlphaLonBrakeMinCorrect;
-  valueLongitudinalStateAlphaLon.brakeMin = valueLongitudinalStateAlphaLon.brakeMax;
-  valueLongitudinalStateAlphaLon.brakeMinCorrect = valueLongitudinalStateAlphaLon.brakeMin;
-  valueLongitudinalStateAlphaLon.brakeMin = valueLongitudinalStateAlphaLon.brakeMinCorrect;
-  valueLongitudinalStateAlphaLon.brakeMax = valueLongitudinalStateAlphaLon.brakeMin;
-  valueLongitudinalState.alphaLon = valueLongitudinalStateAlphaLon;
-  ::ad::rss::state::RssStateInformation valueLongitudinalStateRssStateInformation;
-  ::ad::physics::Distance valueLongitudinalStateRssStateInformationSafeDistance(-1e9);
-  valueLongitudinalStateRssStateInformation.safeDistance = valueLongitudinalStateRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueLongitudinalStateRssStateInformationCurrentDistance(-1e9);
-  valueLongitudinalStateRssStateInformation.currentDistance = valueLongitudinalStateRssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator valueLongitudinalStateRssStateInformationEvaluator(
+  ::ad::rss::world::ObjectId valueEgo_id(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  value.ego_id = valueEgo_id;
+  ::ad::rss::world::ObjectId valueObject_id(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  value.object_id = valueObject_id;
+  ::ad::rss::core::RelativeConstellationId valueConstellation_id(
+    std::numeric_limits<::ad::rss::core::RelativeConstellationId>::lowest());
+  value.constellation_id = valueConstellation_id;
+  ::ad::rss::state::LongitudinalRssState valueLongitudinal_state;
+  bool valueLongitudinal_stateIs_safe{true};
+  valueLongitudinal_state.is_safe = valueLongitudinal_stateIs_safe;
+  ::ad::rss::state::LongitudinalResponse valueLongitudinal_stateResponse(::ad::rss::state::LongitudinalResponse::None);
+  valueLongitudinal_state.response = valueLongitudinal_stateResponse;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueLongitudinal_stateAlpha_lon;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonAccel_max(-1e2);
+  valueLongitudinal_stateAlpha_lonAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueLongitudinal_stateAlpha_lon.accel_max = valueLongitudinal_stateAlpha_lonAccel_max;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonBrake_max(-1e2);
+  valueLongitudinal_stateAlpha_lon.brake_max = valueLongitudinal_stateAlpha_lonBrake_max;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonBrake_min(-1e2);
+  valueLongitudinal_stateAlpha_lon.brake_min = valueLongitudinal_stateAlpha_lonBrake_min;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonBrake_min_correct(-1e2);
+  valueLongitudinal_stateAlpha_lon.brake_min_correct = valueLongitudinal_stateAlpha_lonBrake_min_correct;
+  valueLongitudinal_stateAlpha_lon.brake_min = valueLongitudinal_stateAlpha_lon.brake_max;
+  valueLongitudinal_stateAlpha_lon.brake_min_correct = valueLongitudinal_stateAlpha_lon.brake_min;
+  valueLongitudinal_stateAlpha_lon.brake_min = valueLongitudinal_stateAlpha_lon.brake_min_correct;
+  valueLongitudinal_stateAlpha_lon.brake_max = valueLongitudinal_stateAlpha_lon.brake_min;
+  valueLongitudinal_state.alpha_lon = valueLongitudinal_stateAlpha_lon;
+  ::ad::rss::state::RssStateInformation valueLongitudinal_stateRss_state_information;
+  ::ad::physics::Distance valueLongitudinal_stateRss_state_informationSafe_distance(-1e9);
+  valueLongitudinal_stateRss_state_information.safe_distance
+    = valueLongitudinal_stateRss_state_informationSafe_distance;
+  ::ad::physics::Distance valueLongitudinal_stateRss_state_informationCurrent_distance(-1e9);
+  valueLongitudinal_stateRss_state_information.current_distance
+    = valueLongitudinal_stateRss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator valueLongitudinal_stateRss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::None);
-  valueLongitudinalStateRssStateInformation.evaluator = valueLongitudinalStateRssStateInformationEvaluator;
-  valueLongitudinalState.rssStateInformation = valueLongitudinalStateRssStateInformation;
-  value.longitudinalState = valueLongitudinalState;
-  ::ad::rss::state::LateralRssState valueLateralStateRight;
-  bool valueLateralStateRightIsSafe{true};
-  valueLateralStateRight.isSafe = valueLateralStateRightIsSafe;
-  ::ad::rss::state::LateralResponse valueLateralStateRightResponse(::ad::rss::state::LateralResponse::None);
-  valueLateralStateRight.response = valueLateralStateRightResponse;
-  ::ad::rss::world::LateralRssAccelerationValues valueLateralStateRightAlphaLat;
-  ::ad::physics::Acceleration valueLateralStateRightAlphaLatAccelMax(-1e2);
-  valueLateralStateRightAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueLateralStateRightAlphaLat.accelMax = valueLateralStateRightAlphaLatAccelMax;
-  ::ad::physics::Acceleration valueLateralStateRightAlphaLatBrakeMin(-1e2);
-  valueLateralStateRightAlphaLat.brakeMin = valueLateralStateRightAlphaLatBrakeMin;
-  valueLateralStateRight.alphaLat = valueLateralStateRightAlphaLat;
-  ::ad::rss::state::RssStateInformation valueLateralStateRightRssStateInformation;
-  ::ad::physics::Distance valueLateralStateRightRssStateInformationSafeDistance(-1e9);
-  valueLateralStateRightRssStateInformation.safeDistance = valueLateralStateRightRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueLateralStateRightRssStateInformationCurrentDistance(-1e9);
-  valueLateralStateRightRssStateInformation.currentDistance = valueLateralStateRightRssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator valueLateralStateRightRssStateInformationEvaluator(
+  valueLongitudinal_stateRss_state_information.evaluator = valueLongitudinal_stateRss_state_informationEvaluator;
+  valueLongitudinal_state.rss_state_information = valueLongitudinal_stateRss_state_information;
+  value.longitudinal_state = valueLongitudinal_state;
+  ::ad::rss::state::LateralRssState valueLateral_state_right;
+  bool valueLateral_state_rightIs_safe{true};
+  valueLateral_state_right.is_safe = valueLateral_state_rightIs_safe;
+  ::ad::rss::state::LateralResponse valueLateral_state_rightResponse(::ad::rss::state::LateralResponse::None);
+  valueLateral_state_right.response = valueLateral_state_rightResponse;
+  ::ad::rss::world::LateralRssAccelerationValues valueLateral_state_rightAlpha_lat;
+  ::ad::physics::Acceleration valueLateral_state_rightAlpha_latAccel_max(-1e2);
+  valueLateral_state_rightAlpha_latAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueLateral_state_rightAlpha_lat.accel_max = valueLateral_state_rightAlpha_latAccel_max;
+  ::ad::physics::Acceleration valueLateral_state_rightAlpha_latBrake_min(-1e2);
+  valueLateral_state_rightAlpha_lat.brake_min = valueLateral_state_rightAlpha_latBrake_min;
+  valueLateral_state_right.alpha_lat = valueLateral_state_rightAlpha_lat;
+  ::ad::rss::state::RssStateInformation valueLateral_state_rightRss_state_information;
+  ::ad::physics::Distance valueLateral_state_rightRss_state_informationSafe_distance(-1e9);
+  valueLateral_state_rightRss_state_information.safe_distance
+    = valueLateral_state_rightRss_state_informationSafe_distance;
+  ::ad::physics::Distance valueLateral_state_rightRss_state_informationCurrent_distance(-1e9);
+  valueLateral_state_rightRss_state_information.current_distance
+    = valueLateral_state_rightRss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator valueLateral_state_rightRss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::None);
-  valueLateralStateRightRssStateInformation.evaluator = valueLateralStateRightRssStateInformationEvaluator;
-  valueLateralStateRight.rssStateInformation = valueLateralStateRightRssStateInformation;
-  value.lateralStateRight = valueLateralStateRight;
-  ::ad::rss::state::LateralRssState valueLateralStateLeft;
-  bool valueLateralStateLeftIsSafe{true};
-  valueLateralStateLeft.isSafe = valueLateralStateLeftIsSafe;
-  ::ad::rss::state::LateralResponse valueLateralStateLeftResponse(::ad::rss::state::LateralResponse::None);
-  valueLateralStateLeft.response = valueLateralStateLeftResponse;
-  ::ad::rss::world::LateralRssAccelerationValues valueLateralStateLeftAlphaLat;
-  ::ad::physics::Acceleration valueLateralStateLeftAlphaLatAccelMax(-1e2);
-  valueLateralStateLeftAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueLateralStateLeftAlphaLat.accelMax = valueLateralStateLeftAlphaLatAccelMax;
-  ::ad::physics::Acceleration valueLateralStateLeftAlphaLatBrakeMin(-1e2);
-  valueLateralStateLeftAlphaLat.brakeMin = valueLateralStateLeftAlphaLatBrakeMin;
-  valueLateralStateLeft.alphaLat = valueLateralStateLeftAlphaLat;
-  ::ad::rss::state::RssStateInformation valueLateralStateLeftRssStateInformation;
-  ::ad::physics::Distance valueLateralStateLeftRssStateInformationSafeDistance(-1e9);
-  valueLateralStateLeftRssStateInformation.safeDistance = valueLateralStateLeftRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueLateralStateLeftRssStateInformationCurrentDistance(-1e9);
-  valueLateralStateLeftRssStateInformation.currentDistance = valueLateralStateLeftRssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator valueLateralStateLeftRssStateInformationEvaluator(
+  valueLateral_state_rightRss_state_information.evaluator = valueLateral_state_rightRss_state_informationEvaluator;
+  valueLateral_state_right.rss_state_information = valueLateral_state_rightRss_state_information;
+  value.lateral_state_right = valueLateral_state_right;
+  ::ad::rss::state::LateralRssState valueLateral_state_left;
+  bool valueLateral_state_leftIs_safe{true};
+  valueLateral_state_left.is_safe = valueLateral_state_leftIs_safe;
+  ::ad::rss::state::LateralResponse valueLateral_state_leftResponse(::ad::rss::state::LateralResponse::None);
+  valueLateral_state_left.response = valueLateral_state_leftResponse;
+  ::ad::rss::world::LateralRssAccelerationValues valueLateral_state_leftAlpha_lat;
+  ::ad::physics::Acceleration valueLateral_state_leftAlpha_latAccel_max(-1e2);
+  valueLateral_state_leftAlpha_latAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueLateral_state_leftAlpha_lat.accel_max = valueLateral_state_leftAlpha_latAccel_max;
+  ::ad::physics::Acceleration valueLateral_state_leftAlpha_latBrake_min(-1e2);
+  valueLateral_state_leftAlpha_lat.brake_min = valueLateral_state_leftAlpha_latBrake_min;
+  valueLateral_state_left.alpha_lat = valueLateral_state_leftAlpha_lat;
+  ::ad::rss::state::RssStateInformation valueLateral_state_leftRss_state_information;
+  ::ad::physics::Distance valueLateral_state_leftRss_state_informationSafe_distance(-1e9);
+  valueLateral_state_leftRss_state_information.safe_distance
+    = valueLateral_state_leftRss_state_informationSafe_distance;
+  ::ad::physics::Distance valueLateral_state_leftRss_state_informationCurrent_distance(-1e9);
+  valueLateral_state_leftRss_state_information.current_distance
+    = valueLateral_state_leftRss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator valueLateral_state_leftRss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::None);
-  valueLateralStateLeftRssStateInformation.evaluator = valueLateralStateLeftRssStateInformationEvaluator;
-  valueLateralStateLeft.rssStateInformation = valueLateralStateLeftRssStateInformation;
-  value.lateralStateLeft = valueLateralStateLeft;
-  ::ad::rss::state::UnstructuredSceneRssState valueUnstructuredSceneState;
-  bool valueUnstructuredSceneStateIsSafe{true};
-  valueUnstructuredSceneState.isSafe = valueUnstructuredSceneStateIsSafe;
-  ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneStateResponse(
-    ::ad::rss::state::UnstructuredSceneResponse::None);
-  valueUnstructuredSceneState.response = valueUnstructuredSceneStateResponse;
-  ::ad::rss::state::HeadingRange valueUnstructuredSceneStateHeadingRange;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeBegin(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.begin = valueUnstructuredSceneStateHeadingRangeBegin;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeEnd(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.end = valueUnstructuredSceneStateHeadingRangeEnd;
-  valueUnstructuredSceneState.headingRange = valueUnstructuredSceneStateHeadingRange;
-  ::ad::rss::state::UnstructuredSceneStateInformation valueUnstructuredSceneStateRssStateInformation;
-  ::ad::physics::Distance2DList valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
-  ::ad::physics::Distance2D valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX(-1e9);
-  valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.x
-    = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementY(-1e9);
-  valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.y
-    = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementY;
-  valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet.resize(
-    1, valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement);
-  valueUnstructuredSceneStateRssStateInformation.brakeTrajectorySet
-    = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
-  ::ad::physics::Distance2DList valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
-  ::ad::physics::Distance2D valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX(-1e9);
-  valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.x
-    = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementY(-1e9);
-  valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.y
-    = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementY;
-  valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet.resize(
-    1, valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement);
-  valueUnstructuredSceneStateRssStateInformation.continueForwardTrajectorySet
-    = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
-  valueUnstructuredSceneState.rssStateInformation = valueUnstructuredSceneStateRssStateInformation;
-  ::ad::rss::world::LongitudinalRssAccelerationValues valueUnstructuredSceneStateAlphaLon;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonAccelMax(-1e2);
-  valueUnstructuredSceneStateAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueUnstructuredSceneStateAlphaLon.accelMax = valueUnstructuredSceneStateAlphaLonAccelMax;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMax(-1e2);
-  valueUnstructuredSceneStateAlphaLon.brakeMax = valueUnstructuredSceneStateAlphaLonBrakeMax;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMin(-1e2);
-  valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLonBrakeMin;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMinCorrect(-1e2);
-  valueUnstructuredSceneStateAlphaLon.brakeMinCorrect = valueUnstructuredSceneStateAlphaLonBrakeMinCorrect;
-  valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLon.brakeMax;
-  valueUnstructuredSceneStateAlphaLon.brakeMinCorrect = valueUnstructuredSceneStateAlphaLon.brakeMin;
-  valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLon.brakeMinCorrect;
-  valueUnstructuredSceneStateAlphaLon.brakeMax = valueUnstructuredSceneStateAlphaLon.brakeMin;
-  valueUnstructuredSceneState.alphaLon = valueUnstructuredSceneStateAlphaLon;
-  value.unstructuredSceneState = valueUnstructuredSceneState;
-  ::ad::rss::situation::SituationType valueSituationType(::ad::rss::situation::SituationType::NotRelevant);
-  value.situationType = valueSituationType;
+  valueLateral_state_leftRss_state_information.evaluator = valueLateral_state_leftRss_state_informationEvaluator;
+  valueLateral_state_left.rss_state_information = valueLateral_state_leftRss_state_information;
+  value.lateral_state_left = valueLateral_state_left;
+  ::ad::rss::state::UnstructuredConstellationRssState valueUnstructured_constellation_state;
+  bool valueUnstructured_constellation_stateIs_safe{true};
+  valueUnstructured_constellation_state.is_safe = valueUnstructured_constellation_stateIs_safe;
+  ::ad::rss::state::UnstructuredConstellationResponse valueUnstructured_constellation_stateResponse(
+    ::ad::rss::state::UnstructuredConstellationResponse::None);
+  valueUnstructured_constellation_state.response = valueUnstructured_constellation_stateResponse;
+  ::ad::geometry::HeadingRange valueUnstructured_constellation_stateHeading_range;
+  ::ad::physics::Angle valueUnstructured_constellation_stateHeading_rangeBegin(-6.283185308);
+  valueUnstructured_constellation_stateHeading_range.begin = valueUnstructured_constellation_stateHeading_rangeBegin;
+  ::ad::physics::Angle valueUnstructured_constellation_stateHeading_rangeEnd(-6.283185308);
+  valueUnstructured_constellation_stateHeading_range.end = valueUnstructured_constellation_stateHeading_rangeEnd;
+  valueUnstructured_constellation_state.heading_range = valueUnstructured_constellation_stateHeading_range;
+  ::ad::rss::state::UnstructuredConstellationStateInformation
+    valueUnstructured_constellation_stateRss_state_information;
+  ::ad::physics::Distance2DList valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_set;
+  ::ad::physics::Distance2D valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement;
+  ::ad::physics::Distance valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementX(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement.x
+    = valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementX;
+  ::ad::physics::Distance valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementY(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement.y
+    = valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementY;
+  valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_set.resize(
+    1, valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement);
+  valueUnstructured_constellation_stateRss_state_information.brake_trajectory_set
+    = valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_set;
+  ::ad::physics::Distance2DList
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_set;
+  ::ad::physics::Distance2D
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement;
+  ::ad::physics::Distance
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementX(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement.x
+    = valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementX;
+  ::ad::physics::Distance
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementY(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement.y
+    = valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementY;
+  valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_set.resize(
+    1, valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement);
+  valueUnstructured_constellation_stateRss_state_information.continue_forward_trajectory_set
+    = valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_set;
+  ::ad::physics::Angle valueUnstructured_constellation_stateRss_state_informationConsidered_drive_away_steering_angle(
+    -6.283185308);
+  valueUnstructured_constellation_stateRss_state_information.considered_drive_away_steering_angle
+    = valueUnstructured_constellation_stateRss_state_informationConsidered_drive_away_steering_angle;
+  valueUnstructured_constellation_state.rss_state_information
+    = valueUnstructured_constellation_stateRss_state_information;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueUnstructured_constellation_stateAlpha_lon;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonAccel_max(-1e2);
+  valueUnstructured_constellation_stateAlpha_lonAccel_max
+    = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueUnstructured_constellation_stateAlpha_lon.accel_max = valueUnstructured_constellation_stateAlpha_lonAccel_max;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonBrake_max(-1e2);
+  valueUnstructured_constellation_stateAlpha_lon.brake_max = valueUnstructured_constellation_stateAlpha_lonBrake_max;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonBrake_min(-1e2);
+  valueUnstructured_constellation_stateAlpha_lon.brake_min = valueUnstructured_constellation_stateAlpha_lonBrake_min;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonBrake_min_correct(-1e2);
+  valueUnstructured_constellation_stateAlpha_lon.brake_min_correct
+    = valueUnstructured_constellation_stateAlpha_lonBrake_min_correct;
+  valueUnstructured_constellation_stateAlpha_lon.brake_min = valueUnstructured_constellation_stateAlpha_lon.brake_max;
+  valueUnstructured_constellation_stateAlpha_lon.brake_min_correct
+    = valueUnstructured_constellation_stateAlpha_lon.brake_min;
+  valueUnstructured_constellation_stateAlpha_lon.brake_min
+    = valueUnstructured_constellation_stateAlpha_lon.brake_min_correct;
+  valueUnstructured_constellation_stateAlpha_lon.brake_max = valueUnstructured_constellation_stateAlpha_lon.brake_min;
+  valueUnstructured_constellation_state.alpha_lon = valueUnstructured_constellation_stateAlpha_lon;
+  value.unstructured_constellation_state = valueUnstructured_constellation_state;
+  ::ad::rss::world::ConstellationType valueConstellation_type(::ad::rss::world::ConstellationType::NotRelevant);
+  value.constellation_type = valueConstellation_type;
 
   // override member with data type value below input range minimum
-  ::ad::rss::state::UnstructuredSceneRssState invalidInitializedMember;
-  ::ad::rss::state::UnstructuredSceneResponse invalidInitializedMemberResponse(
-    static_cast<::ad::rss::state::UnstructuredSceneResponse>(-1));
+  ::ad::rss::state::UnstructuredConstellationRssState invalidInitializedMember;
+  ::ad::rss::state::UnstructuredConstellationResponse invalidInitializedMemberResponse(
+    static_cast<::ad::rss::state::UnstructuredConstellationResponse>(-1));
   invalidInitializedMember.response = invalidInitializedMemberResponse;
-  value.unstructuredSceneState = invalidInitializedMember;
+  value.unstructured_constellation_state = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(RssStateValidInputRangeTests, testValidInputRangeUnstructuredSceneStateTooBig)
+TEST(RssStateValidInputRangeTests, testValidInputRangeUnstructured_constellation_stateTooBig)
 {
   ::ad::rss::state::RssState value;
-  ::ad::rss::world::ObjectId valueObjectId(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
-  value.objectId = valueObjectId;
-  ::ad::rss::situation::SituationId valueSituationId(std::numeric_limits<::ad::rss::situation::SituationId>::lowest());
-  value.situationId = valueSituationId;
-  ::ad::rss::state::LongitudinalRssState valueLongitudinalState;
-  bool valueLongitudinalStateIsSafe{true};
-  valueLongitudinalState.isSafe = valueLongitudinalStateIsSafe;
-  ::ad::rss::state::LongitudinalResponse valueLongitudinalStateResponse(::ad::rss::state::LongitudinalResponse::None);
-  valueLongitudinalState.response = valueLongitudinalStateResponse;
-  ::ad::rss::world::LongitudinalRssAccelerationValues valueLongitudinalStateAlphaLon;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonAccelMax(-1e2);
-  valueLongitudinalStateAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueLongitudinalStateAlphaLon.accelMax = valueLongitudinalStateAlphaLonAccelMax;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonBrakeMax(-1e2);
-  valueLongitudinalStateAlphaLon.brakeMax = valueLongitudinalStateAlphaLonBrakeMax;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonBrakeMin(-1e2);
-  valueLongitudinalStateAlphaLon.brakeMin = valueLongitudinalStateAlphaLonBrakeMin;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonBrakeMinCorrect(-1e2);
-  valueLongitudinalStateAlphaLon.brakeMinCorrect = valueLongitudinalStateAlphaLonBrakeMinCorrect;
-  valueLongitudinalStateAlphaLon.brakeMin = valueLongitudinalStateAlphaLon.brakeMax;
-  valueLongitudinalStateAlphaLon.brakeMinCorrect = valueLongitudinalStateAlphaLon.brakeMin;
-  valueLongitudinalStateAlphaLon.brakeMin = valueLongitudinalStateAlphaLon.brakeMinCorrect;
-  valueLongitudinalStateAlphaLon.brakeMax = valueLongitudinalStateAlphaLon.brakeMin;
-  valueLongitudinalState.alphaLon = valueLongitudinalStateAlphaLon;
-  ::ad::rss::state::RssStateInformation valueLongitudinalStateRssStateInformation;
-  ::ad::physics::Distance valueLongitudinalStateRssStateInformationSafeDistance(-1e9);
-  valueLongitudinalStateRssStateInformation.safeDistance = valueLongitudinalStateRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueLongitudinalStateRssStateInformationCurrentDistance(-1e9);
-  valueLongitudinalStateRssStateInformation.currentDistance = valueLongitudinalStateRssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator valueLongitudinalStateRssStateInformationEvaluator(
+  ::ad::rss::world::ObjectId valueEgo_id(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  value.ego_id = valueEgo_id;
+  ::ad::rss::world::ObjectId valueObject_id(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  value.object_id = valueObject_id;
+  ::ad::rss::core::RelativeConstellationId valueConstellation_id(
+    std::numeric_limits<::ad::rss::core::RelativeConstellationId>::lowest());
+  value.constellation_id = valueConstellation_id;
+  ::ad::rss::state::LongitudinalRssState valueLongitudinal_state;
+  bool valueLongitudinal_stateIs_safe{true};
+  valueLongitudinal_state.is_safe = valueLongitudinal_stateIs_safe;
+  ::ad::rss::state::LongitudinalResponse valueLongitudinal_stateResponse(::ad::rss::state::LongitudinalResponse::None);
+  valueLongitudinal_state.response = valueLongitudinal_stateResponse;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueLongitudinal_stateAlpha_lon;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonAccel_max(-1e2);
+  valueLongitudinal_stateAlpha_lonAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueLongitudinal_stateAlpha_lon.accel_max = valueLongitudinal_stateAlpha_lonAccel_max;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonBrake_max(-1e2);
+  valueLongitudinal_stateAlpha_lon.brake_max = valueLongitudinal_stateAlpha_lonBrake_max;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonBrake_min(-1e2);
+  valueLongitudinal_stateAlpha_lon.brake_min = valueLongitudinal_stateAlpha_lonBrake_min;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonBrake_min_correct(-1e2);
+  valueLongitudinal_stateAlpha_lon.brake_min_correct = valueLongitudinal_stateAlpha_lonBrake_min_correct;
+  valueLongitudinal_stateAlpha_lon.brake_min = valueLongitudinal_stateAlpha_lon.brake_max;
+  valueLongitudinal_stateAlpha_lon.brake_min_correct = valueLongitudinal_stateAlpha_lon.brake_min;
+  valueLongitudinal_stateAlpha_lon.brake_min = valueLongitudinal_stateAlpha_lon.brake_min_correct;
+  valueLongitudinal_stateAlpha_lon.brake_max = valueLongitudinal_stateAlpha_lon.brake_min;
+  valueLongitudinal_state.alpha_lon = valueLongitudinal_stateAlpha_lon;
+  ::ad::rss::state::RssStateInformation valueLongitudinal_stateRss_state_information;
+  ::ad::physics::Distance valueLongitudinal_stateRss_state_informationSafe_distance(-1e9);
+  valueLongitudinal_stateRss_state_information.safe_distance
+    = valueLongitudinal_stateRss_state_informationSafe_distance;
+  ::ad::physics::Distance valueLongitudinal_stateRss_state_informationCurrent_distance(-1e9);
+  valueLongitudinal_stateRss_state_information.current_distance
+    = valueLongitudinal_stateRss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator valueLongitudinal_stateRss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::None);
-  valueLongitudinalStateRssStateInformation.evaluator = valueLongitudinalStateRssStateInformationEvaluator;
-  valueLongitudinalState.rssStateInformation = valueLongitudinalStateRssStateInformation;
-  value.longitudinalState = valueLongitudinalState;
-  ::ad::rss::state::LateralRssState valueLateralStateRight;
-  bool valueLateralStateRightIsSafe{true};
-  valueLateralStateRight.isSafe = valueLateralStateRightIsSafe;
-  ::ad::rss::state::LateralResponse valueLateralStateRightResponse(::ad::rss::state::LateralResponse::None);
-  valueLateralStateRight.response = valueLateralStateRightResponse;
-  ::ad::rss::world::LateralRssAccelerationValues valueLateralStateRightAlphaLat;
-  ::ad::physics::Acceleration valueLateralStateRightAlphaLatAccelMax(-1e2);
-  valueLateralStateRightAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueLateralStateRightAlphaLat.accelMax = valueLateralStateRightAlphaLatAccelMax;
-  ::ad::physics::Acceleration valueLateralStateRightAlphaLatBrakeMin(-1e2);
-  valueLateralStateRightAlphaLat.brakeMin = valueLateralStateRightAlphaLatBrakeMin;
-  valueLateralStateRight.alphaLat = valueLateralStateRightAlphaLat;
-  ::ad::rss::state::RssStateInformation valueLateralStateRightRssStateInformation;
-  ::ad::physics::Distance valueLateralStateRightRssStateInformationSafeDistance(-1e9);
-  valueLateralStateRightRssStateInformation.safeDistance = valueLateralStateRightRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueLateralStateRightRssStateInformationCurrentDistance(-1e9);
-  valueLateralStateRightRssStateInformation.currentDistance = valueLateralStateRightRssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator valueLateralStateRightRssStateInformationEvaluator(
+  valueLongitudinal_stateRss_state_information.evaluator = valueLongitudinal_stateRss_state_informationEvaluator;
+  valueLongitudinal_state.rss_state_information = valueLongitudinal_stateRss_state_information;
+  value.longitudinal_state = valueLongitudinal_state;
+  ::ad::rss::state::LateralRssState valueLateral_state_right;
+  bool valueLateral_state_rightIs_safe{true};
+  valueLateral_state_right.is_safe = valueLateral_state_rightIs_safe;
+  ::ad::rss::state::LateralResponse valueLateral_state_rightResponse(::ad::rss::state::LateralResponse::None);
+  valueLateral_state_right.response = valueLateral_state_rightResponse;
+  ::ad::rss::world::LateralRssAccelerationValues valueLateral_state_rightAlpha_lat;
+  ::ad::physics::Acceleration valueLateral_state_rightAlpha_latAccel_max(-1e2);
+  valueLateral_state_rightAlpha_latAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueLateral_state_rightAlpha_lat.accel_max = valueLateral_state_rightAlpha_latAccel_max;
+  ::ad::physics::Acceleration valueLateral_state_rightAlpha_latBrake_min(-1e2);
+  valueLateral_state_rightAlpha_lat.brake_min = valueLateral_state_rightAlpha_latBrake_min;
+  valueLateral_state_right.alpha_lat = valueLateral_state_rightAlpha_lat;
+  ::ad::rss::state::RssStateInformation valueLateral_state_rightRss_state_information;
+  ::ad::physics::Distance valueLateral_state_rightRss_state_informationSafe_distance(-1e9);
+  valueLateral_state_rightRss_state_information.safe_distance
+    = valueLateral_state_rightRss_state_informationSafe_distance;
+  ::ad::physics::Distance valueLateral_state_rightRss_state_informationCurrent_distance(-1e9);
+  valueLateral_state_rightRss_state_information.current_distance
+    = valueLateral_state_rightRss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator valueLateral_state_rightRss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::None);
-  valueLateralStateRightRssStateInformation.evaluator = valueLateralStateRightRssStateInformationEvaluator;
-  valueLateralStateRight.rssStateInformation = valueLateralStateRightRssStateInformation;
-  value.lateralStateRight = valueLateralStateRight;
-  ::ad::rss::state::LateralRssState valueLateralStateLeft;
-  bool valueLateralStateLeftIsSafe{true};
-  valueLateralStateLeft.isSafe = valueLateralStateLeftIsSafe;
-  ::ad::rss::state::LateralResponse valueLateralStateLeftResponse(::ad::rss::state::LateralResponse::None);
-  valueLateralStateLeft.response = valueLateralStateLeftResponse;
-  ::ad::rss::world::LateralRssAccelerationValues valueLateralStateLeftAlphaLat;
-  ::ad::physics::Acceleration valueLateralStateLeftAlphaLatAccelMax(-1e2);
-  valueLateralStateLeftAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueLateralStateLeftAlphaLat.accelMax = valueLateralStateLeftAlphaLatAccelMax;
-  ::ad::physics::Acceleration valueLateralStateLeftAlphaLatBrakeMin(-1e2);
-  valueLateralStateLeftAlphaLat.brakeMin = valueLateralStateLeftAlphaLatBrakeMin;
-  valueLateralStateLeft.alphaLat = valueLateralStateLeftAlphaLat;
-  ::ad::rss::state::RssStateInformation valueLateralStateLeftRssStateInformation;
-  ::ad::physics::Distance valueLateralStateLeftRssStateInformationSafeDistance(-1e9);
-  valueLateralStateLeftRssStateInformation.safeDistance = valueLateralStateLeftRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueLateralStateLeftRssStateInformationCurrentDistance(-1e9);
-  valueLateralStateLeftRssStateInformation.currentDistance = valueLateralStateLeftRssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator valueLateralStateLeftRssStateInformationEvaluator(
+  valueLateral_state_rightRss_state_information.evaluator = valueLateral_state_rightRss_state_informationEvaluator;
+  valueLateral_state_right.rss_state_information = valueLateral_state_rightRss_state_information;
+  value.lateral_state_right = valueLateral_state_right;
+  ::ad::rss::state::LateralRssState valueLateral_state_left;
+  bool valueLateral_state_leftIs_safe{true};
+  valueLateral_state_left.is_safe = valueLateral_state_leftIs_safe;
+  ::ad::rss::state::LateralResponse valueLateral_state_leftResponse(::ad::rss::state::LateralResponse::None);
+  valueLateral_state_left.response = valueLateral_state_leftResponse;
+  ::ad::rss::world::LateralRssAccelerationValues valueLateral_state_leftAlpha_lat;
+  ::ad::physics::Acceleration valueLateral_state_leftAlpha_latAccel_max(-1e2);
+  valueLateral_state_leftAlpha_latAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueLateral_state_leftAlpha_lat.accel_max = valueLateral_state_leftAlpha_latAccel_max;
+  ::ad::physics::Acceleration valueLateral_state_leftAlpha_latBrake_min(-1e2);
+  valueLateral_state_leftAlpha_lat.brake_min = valueLateral_state_leftAlpha_latBrake_min;
+  valueLateral_state_left.alpha_lat = valueLateral_state_leftAlpha_lat;
+  ::ad::rss::state::RssStateInformation valueLateral_state_leftRss_state_information;
+  ::ad::physics::Distance valueLateral_state_leftRss_state_informationSafe_distance(-1e9);
+  valueLateral_state_leftRss_state_information.safe_distance
+    = valueLateral_state_leftRss_state_informationSafe_distance;
+  ::ad::physics::Distance valueLateral_state_leftRss_state_informationCurrent_distance(-1e9);
+  valueLateral_state_leftRss_state_information.current_distance
+    = valueLateral_state_leftRss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator valueLateral_state_leftRss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::None);
-  valueLateralStateLeftRssStateInformation.evaluator = valueLateralStateLeftRssStateInformationEvaluator;
-  valueLateralStateLeft.rssStateInformation = valueLateralStateLeftRssStateInformation;
-  value.lateralStateLeft = valueLateralStateLeft;
-  ::ad::rss::state::UnstructuredSceneRssState valueUnstructuredSceneState;
-  bool valueUnstructuredSceneStateIsSafe{true};
-  valueUnstructuredSceneState.isSafe = valueUnstructuredSceneStateIsSafe;
-  ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneStateResponse(
-    ::ad::rss::state::UnstructuredSceneResponse::None);
-  valueUnstructuredSceneState.response = valueUnstructuredSceneStateResponse;
-  ::ad::rss::state::HeadingRange valueUnstructuredSceneStateHeadingRange;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeBegin(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.begin = valueUnstructuredSceneStateHeadingRangeBegin;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeEnd(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.end = valueUnstructuredSceneStateHeadingRangeEnd;
-  valueUnstructuredSceneState.headingRange = valueUnstructuredSceneStateHeadingRange;
-  ::ad::rss::state::UnstructuredSceneStateInformation valueUnstructuredSceneStateRssStateInformation;
-  ::ad::physics::Distance2DList valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
-  ::ad::physics::Distance2D valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX(-1e9);
-  valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.x
-    = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementY(-1e9);
-  valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.y
-    = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementY;
-  valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet.resize(
-    1, valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement);
-  valueUnstructuredSceneStateRssStateInformation.brakeTrajectorySet
-    = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
-  ::ad::physics::Distance2DList valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
-  ::ad::physics::Distance2D valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX(-1e9);
-  valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.x
-    = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementY(-1e9);
-  valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.y
-    = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementY;
-  valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet.resize(
-    1, valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement);
-  valueUnstructuredSceneStateRssStateInformation.continueForwardTrajectorySet
-    = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
-  valueUnstructuredSceneState.rssStateInformation = valueUnstructuredSceneStateRssStateInformation;
-  ::ad::rss::world::LongitudinalRssAccelerationValues valueUnstructuredSceneStateAlphaLon;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonAccelMax(-1e2);
-  valueUnstructuredSceneStateAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueUnstructuredSceneStateAlphaLon.accelMax = valueUnstructuredSceneStateAlphaLonAccelMax;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMax(-1e2);
-  valueUnstructuredSceneStateAlphaLon.brakeMax = valueUnstructuredSceneStateAlphaLonBrakeMax;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMin(-1e2);
-  valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLonBrakeMin;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMinCorrect(-1e2);
-  valueUnstructuredSceneStateAlphaLon.brakeMinCorrect = valueUnstructuredSceneStateAlphaLonBrakeMinCorrect;
-  valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLon.brakeMax;
-  valueUnstructuredSceneStateAlphaLon.brakeMinCorrect = valueUnstructuredSceneStateAlphaLon.brakeMin;
-  valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLon.brakeMinCorrect;
-  valueUnstructuredSceneStateAlphaLon.brakeMax = valueUnstructuredSceneStateAlphaLon.brakeMin;
-  valueUnstructuredSceneState.alphaLon = valueUnstructuredSceneStateAlphaLon;
-  value.unstructuredSceneState = valueUnstructuredSceneState;
-  ::ad::rss::situation::SituationType valueSituationType(::ad::rss::situation::SituationType::NotRelevant);
-  value.situationType = valueSituationType;
+  valueLateral_state_leftRss_state_information.evaluator = valueLateral_state_leftRss_state_informationEvaluator;
+  valueLateral_state_left.rss_state_information = valueLateral_state_leftRss_state_information;
+  value.lateral_state_left = valueLateral_state_left;
+  ::ad::rss::state::UnstructuredConstellationRssState valueUnstructured_constellation_state;
+  bool valueUnstructured_constellation_stateIs_safe{true};
+  valueUnstructured_constellation_state.is_safe = valueUnstructured_constellation_stateIs_safe;
+  ::ad::rss::state::UnstructuredConstellationResponse valueUnstructured_constellation_stateResponse(
+    ::ad::rss::state::UnstructuredConstellationResponse::None);
+  valueUnstructured_constellation_state.response = valueUnstructured_constellation_stateResponse;
+  ::ad::geometry::HeadingRange valueUnstructured_constellation_stateHeading_range;
+  ::ad::physics::Angle valueUnstructured_constellation_stateHeading_rangeBegin(-6.283185308);
+  valueUnstructured_constellation_stateHeading_range.begin = valueUnstructured_constellation_stateHeading_rangeBegin;
+  ::ad::physics::Angle valueUnstructured_constellation_stateHeading_rangeEnd(-6.283185308);
+  valueUnstructured_constellation_stateHeading_range.end = valueUnstructured_constellation_stateHeading_rangeEnd;
+  valueUnstructured_constellation_state.heading_range = valueUnstructured_constellation_stateHeading_range;
+  ::ad::rss::state::UnstructuredConstellationStateInformation
+    valueUnstructured_constellation_stateRss_state_information;
+  ::ad::physics::Distance2DList valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_set;
+  ::ad::physics::Distance2D valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement;
+  ::ad::physics::Distance valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementX(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement.x
+    = valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementX;
+  ::ad::physics::Distance valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementY(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement.y
+    = valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementY;
+  valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_set.resize(
+    1, valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement);
+  valueUnstructured_constellation_stateRss_state_information.brake_trajectory_set
+    = valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_set;
+  ::ad::physics::Distance2DList
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_set;
+  ::ad::physics::Distance2D
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement;
+  ::ad::physics::Distance
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementX(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement.x
+    = valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementX;
+  ::ad::physics::Distance
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementY(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement.y
+    = valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementY;
+  valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_set.resize(
+    1, valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement);
+  valueUnstructured_constellation_stateRss_state_information.continue_forward_trajectory_set
+    = valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_set;
+  ::ad::physics::Angle valueUnstructured_constellation_stateRss_state_informationConsidered_drive_away_steering_angle(
+    -6.283185308);
+  valueUnstructured_constellation_stateRss_state_information.considered_drive_away_steering_angle
+    = valueUnstructured_constellation_stateRss_state_informationConsidered_drive_away_steering_angle;
+  valueUnstructured_constellation_state.rss_state_information
+    = valueUnstructured_constellation_stateRss_state_information;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueUnstructured_constellation_stateAlpha_lon;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonAccel_max(-1e2);
+  valueUnstructured_constellation_stateAlpha_lonAccel_max
+    = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueUnstructured_constellation_stateAlpha_lon.accel_max = valueUnstructured_constellation_stateAlpha_lonAccel_max;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonBrake_max(-1e2);
+  valueUnstructured_constellation_stateAlpha_lon.brake_max = valueUnstructured_constellation_stateAlpha_lonBrake_max;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonBrake_min(-1e2);
+  valueUnstructured_constellation_stateAlpha_lon.brake_min = valueUnstructured_constellation_stateAlpha_lonBrake_min;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonBrake_min_correct(-1e2);
+  valueUnstructured_constellation_stateAlpha_lon.brake_min_correct
+    = valueUnstructured_constellation_stateAlpha_lonBrake_min_correct;
+  valueUnstructured_constellation_stateAlpha_lon.brake_min = valueUnstructured_constellation_stateAlpha_lon.brake_max;
+  valueUnstructured_constellation_stateAlpha_lon.brake_min_correct
+    = valueUnstructured_constellation_stateAlpha_lon.brake_min;
+  valueUnstructured_constellation_stateAlpha_lon.brake_min
+    = valueUnstructured_constellation_stateAlpha_lon.brake_min_correct;
+  valueUnstructured_constellation_stateAlpha_lon.brake_max = valueUnstructured_constellation_stateAlpha_lon.brake_min;
+  valueUnstructured_constellation_state.alpha_lon = valueUnstructured_constellation_stateAlpha_lon;
+  value.unstructured_constellation_state = valueUnstructured_constellation_state;
+  ::ad::rss::world::ConstellationType valueConstellation_type(::ad::rss::world::ConstellationType::NotRelevant);
+  value.constellation_type = valueConstellation_type;
 
   // override member with data type value above input range maximum
-  ::ad::rss::state::UnstructuredSceneRssState invalidInitializedMember;
-  ::ad::rss::state::UnstructuredSceneResponse invalidInitializedMemberResponse(
-    static_cast<::ad::rss::state::UnstructuredSceneResponse>(-1));
+  ::ad::rss::state::UnstructuredConstellationRssState invalidInitializedMember;
+  ::ad::rss::state::UnstructuredConstellationResponse invalidInitializedMemberResponse(
+    static_cast<::ad::rss::state::UnstructuredConstellationResponse>(-1));
   invalidInitializedMember.response = invalidInitializedMemberResponse;
-  value.unstructuredSceneState = invalidInitializedMember;
+  value.unstructured_constellation_state = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(RssStateValidInputRangeTests, testValidInputRangeSituationTypeTooSmall)
+TEST(RssStateValidInputRangeTests, testValidInputRangeConstellation_typeTooSmall)
 {
   ::ad::rss::state::RssState value;
-  ::ad::rss::world::ObjectId valueObjectId(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
-  value.objectId = valueObjectId;
-  ::ad::rss::situation::SituationId valueSituationId(std::numeric_limits<::ad::rss::situation::SituationId>::lowest());
-  value.situationId = valueSituationId;
-  ::ad::rss::state::LongitudinalRssState valueLongitudinalState;
-  bool valueLongitudinalStateIsSafe{true};
-  valueLongitudinalState.isSafe = valueLongitudinalStateIsSafe;
-  ::ad::rss::state::LongitudinalResponse valueLongitudinalStateResponse(::ad::rss::state::LongitudinalResponse::None);
-  valueLongitudinalState.response = valueLongitudinalStateResponse;
-  ::ad::rss::world::LongitudinalRssAccelerationValues valueLongitudinalStateAlphaLon;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonAccelMax(-1e2);
-  valueLongitudinalStateAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueLongitudinalStateAlphaLon.accelMax = valueLongitudinalStateAlphaLonAccelMax;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonBrakeMax(-1e2);
-  valueLongitudinalStateAlphaLon.brakeMax = valueLongitudinalStateAlphaLonBrakeMax;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonBrakeMin(-1e2);
-  valueLongitudinalStateAlphaLon.brakeMin = valueLongitudinalStateAlphaLonBrakeMin;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonBrakeMinCorrect(-1e2);
-  valueLongitudinalStateAlphaLon.brakeMinCorrect = valueLongitudinalStateAlphaLonBrakeMinCorrect;
-  valueLongitudinalStateAlphaLon.brakeMin = valueLongitudinalStateAlphaLon.brakeMax;
-  valueLongitudinalStateAlphaLon.brakeMinCorrect = valueLongitudinalStateAlphaLon.brakeMin;
-  valueLongitudinalStateAlphaLon.brakeMin = valueLongitudinalStateAlphaLon.brakeMinCorrect;
-  valueLongitudinalStateAlphaLon.brakeMax = valueLongitudinalStateAlphaLon.brakeMin;
-  valueLongitudinalState.alphaLon = valueLongitudinalStateAlphaLon;
-  ::ad::rss::state::RssStateInformation valueLongitudinalStateRssStateInformation;
-  ::ad::physics::Distance valueLongitudinalStateRssStateInformationSafeDistance(-1e9);
-  valueLongitudinalStateRssStateInformation.safeDistance = valueLongitudinalStateRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueLongitudinalStateRssStateInformationCurrentDistance(-1e9);
-  valueLongitudinalStateRssStateInformation.currentDistance = valueLongitudinalStateRssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator valueLongitudinalStateRssStateInformationEvaluator(
+  ::ad::rss::world::ObjectId valueEgo_id(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  value.ego_id = valueEgo_id;
+  ::ad::rss::world::ObjectId valueObject_id(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  value.object_id = valueObject_id;
+  ::ad::rss::core::RelativeConstellationId valueConstellation_id(
+    std::numeric_limits<::ad::rss::core::RelativeConstellationId>::lowest());
+  value.constellation_id = valueConstellation_id;
+  ::ad::rss::state::LongitudinalRssState valueLongitudinal_state;
+  bool valueLongitudinal_stateIs_safe{true};
+  valueLongitudinal_state.is_safe = valueLongitudinal_stateIs_safe;
+  ::ad::rss::state::LongitudinalResponse valueLongitudinal_stateResponse(::ad::rss::state::LongitudinalResponse::None);
+  valueLongitudinal_state.response = valueLongitudinal_stateResponse;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueLongitudinal_stateAlpha_lon;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonAccel_max(-1e2);
+  valueLongitudinal_stateAlpha_lonAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueLongitudinal_stateAlpha_lon.accel_max = valueLongitudinal_stateAlpha_lonAccel_max;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonBrake_max(-1e2);
+  valueLongitudinal_stateAlpha_lon.brake_max = valueLongitudinal_stateAlpha_lonBrake_max;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonBrake_min(-1e2);
+  valueLongitudinal_stateAlpha_lon.brake_min = valueLongitudinal_stateAlpha_lonBrake_min;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonBrake_min_correct(-1e2);
+  valueLongitudinal_stateAlpha_lon.brake_min_correct = valueLongitudinal_stateAlpha_lonBrake_min_correct;
+  valueLongitudinal_stateAlpha_lon.brake_min = valueLongitudinal_stateAlpha_lon.brake_max;
+  valueLongitudinal_stateAlpha_lon.brake_min_correct = valueLongitudinal_stateAlpha_lon.brake_min;
+  valueLongitudinal_stateAlpha_lon.brake_min = valueLongitudinal_stateAlpha_lon.brake_min_correct;
+  valueLongitudinal_stateAlpha_lon.brake_max = valueLongitudinal_stateAlpha_lon.brake_min;
+  valueLongitudinal_state.alpha_lon = valueLongitudinal_stateAlpha_lon;
+  ::ad::rss::state::RssStateInformation valueLongitudinal_stateRss_state_information;
+  ::ad::physics::Distance valueLongitudinal_stateRss_state_informationSafe_distance(-1e9);
+  valueLongitudinal_stateRss_state_information.safe_distance
+    = valueLongitudinal_stateRss_state_informationSafe_distance;
+  ::ad::physics::Distance valueLongitudinal_stateRss_state_informationCurrent_distance(-1e9);
+  valueLongitudinal_stateRss_state_information.current_distance
+    = valueLongitudinal_stateRss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator valueLongitudinal_stateRss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::None);
-  valueLongitudinalStateRssStateInformation.evaluator = valueLongitudinalStateRssStateInformationEvaluator;
-  valueLongitudinalState.rssStateInformation = valueLongitudinalStateRssStateInformation;
-  value.longitudinalState = valueLongitudinalState;
-  ::ad::rss::state::LateralRssState valueLateralStateRight;
-  bool valueLateralStateRightIsSafe{true};
-  valueLateralStateRight.isSafe = valueLateralStateRightIsSafe;
-  ::ad::rss::state::LateralResponse valueLateralStateRightResponse(::ad::rss::state::LateralResponse::None);
-  valueLateralStateRight.response = valueLateralStateRightResponse;
-  ::ad::rss::world::LateralRssAccelerationValues valueLateralStateRightAlphaLat;
-  ::ad::physics::Acceleration valueLateralStateRightAlphaLatAccelMax(-1e2);
-  valueLateralStateRightAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueLateralStateRightAlphaLat.accelMax = valueLateralStateRightAlphaLatAccelMax;
-  ::ad::physics::Acceleration valueLateralStateRightAlphaLatBrakeMin(-1e2);
-  valueLateralStateRightAlphaLat.brakeMin = valueLateralStateRightAlphaLatBrakeMin;
-  valueLateralStateRight.alphaLat = valueLateralStateRightAlphaLat;
-  ::ad::rss::state::RssStateInformation valueLateralStateRightRssStateInformation;
-  ::ad::physics::Distance valueLateralStateRightRssStateInformationSafeDistance(-1e9);
-  valueLateralStateRightRssStateInformation.safeDistance = valueLateralStateRightRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueLateralStateRightRssStateInformationCurrentDistance(-1e9);
-  valueLateralStateRightRssStateInformation.currentDistance = valueLateralStateRightRssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator valueLateralStateRightRssStateInformationEvaluator(
+  valueLongitudinal_stateRss_state_information.evaluator = valueLongitudinal_stateRss_state_informationEvaluator;
+  valueLongitudinal_state.rss_state_information = valueLongitudinal_stateRss_state_information;
+  value.longitudinal_state = valueLongitudinal_state;
+  ::ad::rss::state::LateralRssState valueLateral_state_right;
+  bool valueLateral_state_rightIs_safe{true};
+  valueLateral_state_right.is_safe = valueLateral_state_rightIs_safe;
+  ::ad::rss::state::LateralResponse valueLateral_state_rightResponse(::ad::rss::state::LateralResponse::None);
+  valueLateral_state_right.response = valueLateral_state_rightResponse;
+  ::ad::rss::world::LateralRssAccelerationValues valueLateral_state_rightAlpha_lat;
+  ::ad::physics::Acceleration valueLateral_state_rightAlpha_latAccel_max(-1e2);
+  valueLateral_state_rightAlpha_latAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueLateral_state_rightAlpha_lat.accel_max = valueLateral_state_rightAlpha_latAccel_max;
+  ::ad::physics::Acceleration valueLateral_state_rightAlpha_latBrake_min(-1e2);
+  valueLateral_state_rightAlpha_lat.brake_min = valueLateral_state_rightAlpha_latBrake_min;
+  valueLateral_state_right.alpha_lat = valueLateral_state_rightAlpha_lat;
+  ::ad::rss::state::RssStateInformation valueLateral_state_rightRss_state_information;
+  ::ad::physics::Distance valueLateral_state_rightRss_state_informationSafe_distance(-1e9);
+  valueLateral_state_rightRss_state_information.safe_distance
+    = valueLateral_state_rightRss_state_informationSafe_distance;
+  ::ad::physics::Distance valueLateral_state_rightRss_state_informationCurrent_distance(-1e9);
+  valueLateral_state_rightRss_state_information.current_distance
+    = valueLateral_state_rightRss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator valueLateral_state_rightRss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::None);
-  valueLateralStateRightRssStateInformation.evaluator = valueLateralStateRightRssStateInformationEvaluator;
-  valueLateralStateRight.rssStateInformation = valueLateralStateRightRssStateInformation;
-  value.lateralStateRight = valueLateralStateRight;
-  ::ad::rss::state::LateralRssState valueLateralStateLeft;
-  bool valueLateralStateLeftIsSafe{true};
-  valueLateralStateLeft.isSafe = valueLateralStateLeftIsSafe;
-  ::ad::rss::state::LateralResponse valueLateralStateLeftResponse(::ad::rss::state::LateralResponse::None);
-  valueLateralStateLeft.response = valueLateralStateLeftResponse;
-  ::ad::rss::world::LateralRssAccelerationValues valueLateralStateLeftAlphaLat;
-  ::ad::physics::Acceleration valueLateralStateLeftAlphaLatAccelMax(-1e2);
-  valueLateralStateLeftAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueLateralStateLeftAlphaLat.accelMax = valueLateralStateLeftAlphaLatAccelMax;
-  ::ad::physics::Acceleration valueLateralStateLeftAlphaLatBrakeMin(-1e2);
-  valueLateralStateLeftAlphaLat.brakeMin = valueLateralStateLeftAlphaLatBrakeMin;
-  valueLateralStateLeft.alphaLat = valueLateralStateLeftAlphaLat;
-  ::ad::rss::state::RssStateInformation valueLateralStateLeftRssStateInformation;
-  ::ad::physics::Distance valueLateralStateLeftRssStateInformationSafeDistance(-1e9);
-  valueLateralStateLeftRssStateInformation.safeDistance = valueLateralStateLeftRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueLateralStateLeftRssStateInformationCurrentDistance(-1e9);
-  valueLateralStateLeftRssStateInformation.currentDistance = valueLateralStateLeftRssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator valueLateralStateLeftRssStateInformationEvaluator(
+  valueLateral_state_rightRss_state_information.evaluator = valueLateral_state_rightRss_state_informationEvaluator;
+  valueLateral_state_right.rss_state_information = valueLateral_state_rightRss_state_information;
+  value.lateral_state_right = valueLateral_state_right;
+  ::ad::rss::state::LateralRssState valueLateral_state_left;
+  bool valueLateral_state_leftIs_safe{true};
+  valueLateral_state_left.is_safe = valueLateral_state_leftIs_safe;
+  ::ad::rss::state::LateralResponse valueLateral_state_leftResponse(::ad::rss::state::LateralResponse::None);
+  valueLateral_state_left.response = valueLateral_state_leftResponse;
+  ::ad::rss::world::LateralRssAccelerationValues valueLateral_state_leftAlpha_lat;
+  ::ad::physics::Acceleration valueLateral_state_leftAlpha_latAccel_max(-1e2);
+  valueLateral_state_leftAlpha_latAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueLateral_state_leftAlpha_lat.accel_max = valueLateral_state_leftAlpha_latAccel_max;
+  ::ad::physics::Acceleration valueLateral_state_leftAlpha_latBrake_min(-1e2);
+  valueLateral_state_leftAlpha_lat.brake_min = valueLateral_state_leftAlpha_latBrake_min;
+  valueLateral_state_left.alpha_lat = valueLateral_state_leftAlpha_lat;
+  ::ad::rss::state::RssStateInformation valueLateral_state_leftRss_state_information;
+  ::ad::physics::Distance valueLateral_state_leftRss_state_informationSafe_distance(-1e9);
+  valueLateral_state_leftRss_state_information.safe_distance
+    = valueLateral_state_leftRss_state_informationSafe_distance;
+  ::ad::physics::Distance valueLateral_state_leftRss_state_informationCurrent_distance(-1e9);
+  valueLateral_state_leftRss_state_information.current_distance
+    = valueLateral_state_leftRss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator valueLateral_state_leftRss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::None);
-  valueLateralStateLeftRssStateInformation.evaluator = valueLateralStateLeftRssStateInformationEvaluator;
-  valueLateralStateLeft.rssStateInformation = valueLateralStateLeftRssStateInformation;
-  value.lateralStateLeft = valueLateralStateLeft;
-  ::ad::rss::state::UnstructuredSceneRssState valueUnstructuredSceneState;
-  bool valueUnstructuredSceneStateIsSafe{true};
-  valueUnstructuredSceneState.isSafe = valueUnstructuredSceneStateIsSafe;
-  ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneStateResponse(
-    ::ad::rss::state::UnstructuredSceneResponse::None);
-  valueUnstructuredSceneState.response = valueUnstructuredSceneStateResponse;
-  ::ad::rss::state::HeadingRange valueUnstructuredSceneStateHeadingRange;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeBegin(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.begin = valueUnstructuredSceneStateHeadingRangeBegin;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeEnd(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.end = valueUnstructuredSceneStateHeadingRangeEnd;
-  valueUnstructuredSceneState.headingRange = valueUnstructuredSceneStateHeadingRange;
-  ::ad::rss::state::UnstructuredSceneStateInformation valueUnstructuredSceneStateRssStateInformation;
-  ::ad::physics::Distance2DList valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
-  ::ad::physics::Distance2D valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX(-1e9);
-  valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.x
-    = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementY(-1e9);
-  valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.y
-    = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementY;
-  valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet.resize(
-    1, valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement);
-  valueUnstructuredSceneStateRssStateInformation.brakeTrajectorySet
-    = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
-  ::ad::physics::Distance2DList valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
-  ::ad::physics::Distance2D valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX(-1e9);
-  valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.x
-    = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementY(-1e9);
-  valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.y
-    = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementY;
-  valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet.resize(
-    1, valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement);
-  valueUnstructuredSceneStateRssStateInformation.continueForwardTrajectorySet
-    = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
-  valueUnstructuredSceneState.rssStateInformation = valueUnstructuredSceneStateRssStateInformation;
-  ::ad::rss::world::LongitudinalRssAccelerationValues valueUnstructuredSceneStateAlphaLon;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonAccelMax(-1e2);
-  valueUnstructuredSceneStateAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueUnstructuredSceneStateAlphaLon.accelMax = valueUnstructuredSceneStateAlphaLonAccelMax;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMax(-1e2);
-  valueUnstructuredSceneStateAlphaLon.brakeMax = valueUnstructuredSceneStateAlphaLonBrakeMax;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMin(-1e2);
-  valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLonBrakeMin;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMinCorrect(-1e2);
-  valueUnstructuredSceneStateAlphaLon.brakeMinCorrect = valueUnstructuredSceneStateAlphaLonBrakeMinCorrect;
-  valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLon.brakeMax;
-  valueUnstructuredSceneStateAlphaLon.brakeMinCorrect = valueUnstructuredSceneStateAlphaLon.brakeMin;
-  valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLon.brakeMinCorrect;
-  valueUnstructuredSceneStateAlphaLon.brakeMax = valueUnstructuredSceneStateAlphaLon.brakeMin;
-  valueUnstructuredSceneState.alphaLon = valueUnstructuredSceneStateAlphaLon;
-  value.unstructuredSceneState = valueUnstructuredSceneState;
-  ::ad::rss::situation::SituationType valueSituationType(::ad::rss::situation::SituationType::NotRelevant);
-  value.situationType = valueSituationType;
+  valueLateral_state_leftRss_state_information.evaluator = valueLateral_state_leftRss_state_informationEvaluator;
+  valueLateral_state_left.rss_state_information = valueLateral_state_leftRss_state_information;
+  value.lateral_state_left = valueLateral_state_left;
+  ::ad::rss::state::UnstructuredConstellationRssState valueUnstructured_constellation_state;
+  bool valueUnstructured_constellation_stateIs_safe{true};
+  valueUnstructured_constellation_state.is_safe = valueUnstructured_constellation_stateIs_safe;
+  ::ad::rss::state::UnstructuredConstellationResponse valueUnstructured_constellation_stateResponse(
+    ::ad::rss::state::UnstructuredConstellationResponse::None);
+  valueUnstructured_constellation_state.response = valueUnstructured_constellation_stateResponse;
+  ::ad::geometry::HeadingRange valueUnstructured_constellation_stateHeading_range;
+  ::ad::physics::Angle valueUnstructured_constellation_stateHeading_rangeBegin(-6.283185308);
+  valueUnstructured_constellation_stateHeading_range.begin = valueUnstructured_constellation_stateHeading_rangeBegin;
+  ::ad::physics::Angle valueUnstructured_constellation_stateHeading_rangeEnd(-6.283185308);
+  valueUnstructured_constellation_stateHeading_range.end = valueUnstructured_constellation_stateHeading_rangeEnd;
+  valueUnstructured_constellation_state.heading_range = valueUnstructured_constellation_stateHeading_range;
+  ::ad::rss::state::UnstructuredConstellationStateInformation
+    valueUnstructured_constellation_stateRss_state_information;
+  ::ad::physics::Distance2DList valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_set;
+  ::ad::physics::Distance2D valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement;
+  ::ad::physics::Distance valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementX(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement.x
+    = valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementX;
+  ::ad::physics::Distance valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementY(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement.y
+    = valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementY;
+  valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_set.resize(
+    1, valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement);
+  valueUnstructured_constellation_stateRss_state_information.brake_trajectory_set
+    = valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_set;
+  ::ad::physics::Distance2DList
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_set;
+  ::ad::physics::Distance2D
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement;
+  ::ad::physics::Distance
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementX(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement.x
+    = valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementX;
+  ::ad::physics::Distance
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementY(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement.y
+    = valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementY;
+  valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_set.resize(
+    1, valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement);
+  valueUnstructured_constellation_stateRss_state_information.continue_forward_trajectory_set
+    = valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_set;
+  ::ad::physics::Angle valueUnstructured_constellation_stateRss_state_informationConsidered_drive_away_steering_angle(
+    -6.283185308);
+  valueUnstructured_constellation_stateRss_state_information.considered_drive_away_steering_angle
+    = valueUnstructured_constellation_stateRss_state_informationConsidered_drive_away_steering_angle;
+  valueUnstructured_constellation_state.rss_state_information
+    = valueUnstructured_constellation_stateRss_state_information;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueUnstructured_constellation_stateAlpha_lon;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonAccel_max(-1e2);
+  valueUnstructured_constellation_stateAlpha_lonAccel_max
+    = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueUnstructured_constellation_stateAlpha_lon.accel_max = valueUnstructured_constellation_stateAlpha_lonAccel_max;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonBrake_max(-1e2);
+  valueUnstructured_constellation_stateAlpha_lon.brake_max = valueUnstructured_constellation_stateAlpha_lonBrake_max;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonBrake_min(-1e2);
+  valueUnstructured_constellation_stateAlpha_lon.brake_min = valueUnstructured_constellation_stateAlpha_lonBrake_min;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonBrake_min_correct(-1e2);
+  valueUnstructured_constellation_stateAlpha_lon.brake_min_correct
+    = valueUnstructured_constellation_stateAlpha_lonBrake_min_correct;
+  valueUnstructured_constellation_stateAlpha_lon.brake_min = valueUnstructured_constellation_stateAlpha_lon.brake_max;
+  valueUnstructured_constellation_stateAlpha_lon.brake_min_correct
+    = valueUnstructured_constellation_stateAlpha_lon.brake_min;
+  valueUnstructured_constellation_stateAlpha_lon.brake_min
+    = valueUnstructured_constellation_stateAlpha_lon.brake_min_correct;
+  valueUnstructured_constellation_stateAlpha_lon.brake_max = valueUnstructured_constellation_stateAlpha_lon.brake_min;
+  valueUnstructured_constellation_state.alpha_lon = valueUnstructured_constellation_stateAlpha_lon;
+  value.unstructured_constellation_state = valueUnstructured_constellation_state;
+  ::ad::rss::world::ConstellationType valueConstellation_type(::ad::rss::world::ConstellationType::NotRelevant);
+  value.constellation_type = valueConstellation_type;
 
   // override member with data type value below input range minimum
-  ::ad::rss::situation::SituationType invalidInitializedMember(static_cast<::ad::rss::situation::SituationType>(-1));
-  value.situationType = invalidInitializedMember;
+  ::ad::rss::world::ConstellationType invalidInitializedMember(static_cast<::ad::rss::world::ConstellationType>(-1));
+  value.constellation_type = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }
 
-TEST(RssStateValidInputRangeTests, testValidInputRangeSituationTypeTooBig)
+TEST(RssStateValidInputRangeTests, testValidInputRangeConstellation_typeTooBig)
 {
   ::ad::rss::state::RssState value;
-  ::ad::rss::world::ObjectId valueObjectId(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
-  value.objectId = valueObjectId;
-  ::ad::rss::situation::SituationId valueSituationId(std::numeric_limits<::ad::rss::situation::SituationId>::lowest());
-  value.situationId = valueSituationId;
-  ::ad::rss::state::LongitudinalRssState valueLongitudinalState;
-  bool valueLongitudinalStateIsSafe{true};
-  valueLongitudinalState.isSafe = valueLongitudinalStateIsSafe;
-  ::ad::rss::state::LongitudinalResponse valueLongitudinalStateResponse(::ad::rss::state::LongitudinalResponse::None);
-  valueLongitudinalState.response = valueLongitudinalStateResponse;
-  ::ad::rss::world::LongitudinalRssAccelerationValues valueLongitudinalStateAlphaLon;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonAccelMax(-1e2);
-  valueLongitudinalStateAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueLongitudinalStateAlphaLon.accelMax = valueLongitudinalStateAlphaLonAccelMax;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonBrakeMax(-1e2);
-  valueLongitudinalStateAlphaLon.brakeMax = valueLongitudinalStateAlphaLonBrakeMax;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonBrakeMin(-1e2);
-  valueLongitudinalStateAlphaLon.brakeMin = valueLongitudinalStateAlphaLonBrakeMin;
-  ::ad::physics::Acceleration valueLongitudinalStateAlphaLonBrakeMinCorrect(-1e2);
-  valueLongitudinalStateAlphaLon.brakeMinCorrect = valueLongitudinalStateAlphaLonBrakeMinCorrect;
-  valueLongitudinalStateAlphaLon.brakeMin = valueLongitudinalStateAlphaLon.brakeMax;
-  valueLongitudinalStateAlphaLon.brakeMinCorrect = valueLongitudinalStateAlphaLon.brakeMin;
-  valueLongitudinalStateAlphaLon.brakeMin = valueLongitudinalStateAlphaLon.brakeMinCorrect;
-  valueLongitudinalStateAlphaLon.brakeMax = valueLongitudinalStateAlphaLon.brakeMin;
-  valueLongitudinalState.alphaLon = valueLongitudinalStateAlphaLon;
-  ::ad::rss::state::RssStateInformation valueLongitudinalStateRssStateInformation;
-  ::ad::physics::Distance valueLongitudinalStateRssStateInformationSafeDistance(-1e9);
-  valueLongitudinalStateRssStateInformation.safeDistance = valueLongitudinalStateRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueLongitudinalStateRssStateInformationCurrentDistance(-1e9);
-  valueLongitudinalStateRssStateInformation.currentDistance = valueLongitudinalStateRssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator valueLongitudinalStateRssStateInformationEvaluator(
+  ::ad::rss::world::ObjectId valueEgo_id(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  value.ego_id = valueEgo_id;
+  ::ad::rss::world::ObjectId valueObject_id(std::numeric_limits<::ad::rss::world::ObjectId>::lowest());
+  value.object_id = valueObject_id;
+  ::ad::rss::core::RelativeConstellationId valueConstellation_id(
+    std::numeric_limits<::ad::rss::core::RelativeConstellationId>::lowest());
+  value.constellation_id = valueConstellation_id;
+  ::ad::rss::state::LongitudinalRssState valueLongitudinal_state;
+  bool valueLongitudinal_stateIs_safe{true};
+  valueLongitudinal_state.is_safe = valueLongitudinal_stateIs_safe;
+  ::ad::rss::state::LongitudinalResponse valueLongitudinal_stateResponse(::ad::rss::state::LongitudinalResponse::None);
+  valueLongitudinal_state.response = valueLongitudinal_stateResponse;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueLongitudinal_stateAlpha_lon;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonAccel_max(-1e2);
+  valueLongitudinal_stateAlpha_lonAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueLongitudinal_stateAlpha_lon.accel_max = valueLongitudinal_stateAlpha_lonAccel_max;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonBrake_max(-1e2);
+  valueLongitudinal_stateAlpha_lon.brake_max = valueLongitudinal_stateAlpha_lonBrake_max;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonBrake_min(-1e2);
+  valueLongitudinal_stateAlpha_lon.brake_min = valueLongitudinal_stateAlpha_lonBrake_min;
+  ::ad::physics::Acceleration valueLongitudinal_stateAlpha_lonBrake_min_correct(-1e2);
+  valueLongitudinal_stateAlpha_lon.brake_min_correct = valueLongitudinal_stateAlpha_lonBrake_min_correct;
+  valueLongitudinal_stateAlpha_lon.brake_min = valueLongitudinal_stateAlpha_lon.brake_max;
+  valueLongitudinal_stateAlpha_lon.brake_min_correct = valueLongitudinal_stateAlpha_lon.brake_min;
+  valueLongitudinal_stateAlpha_lon.brake_min = valueLongitudinal_stateAlpha_lon.brake_min_correct;
+  valueLongitudinal_stateAlpha_lon.brake_max = valueLongitudinal_stateAlpha_lon.brake_min;
+  valueLongitudinal_state.alpha_lon = valueLongitudinal_stateAlpha_lon;
+  ::ad::rss::state::RssStateInformation valueLongitudinal_stateRss_state_information;
+  ::ad::physics::Distance valueLongitudinal_stateRss_state_informationSafe_distance(-1e9);
+  valueLongitudinal_stateRss_state_information.safe_distance
+    = valueLongitudinal_stateRss_state_informationSafe_distance;
+  ::ad::physics::Distance valueLongitudinal_stateRss_state_informationCurrent_distance(-1e9);
+  valueLongitudinal_stateRss_state_information.current_distance
+    = valueLongitudinal_stateRss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator valueLongitudinal_stateRss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::None);
-  valueLongitudinalStateRssStateInformation.evaluator = valueLongitudinalStateRssStateInformationEvaluator;
-  valueLongitudinalState.rssStateInformation = valueLongitudinalStateRssStateInformation;
-  value.longitudinalState = valueLongitudinalState;
-  ::ad::rss::state::LateralRssState valueLateralStateRight;
-  bool valueLateralStateRightIsSafe{true};
-  valueLateralStateRight.isSafe = valueLateralStateRightIsSafe;
-  ::ad::rss::state::LateralResponse valueLateralStateRightResponse(::ad::rss::state::LateralResponse::None);
-  valueLateralStateRight.response = valueLateralStateRightResponse;
-  ::ad::rss::world::LateralRssAccelerationValues valueLateralStateRightAlphaLat;
-  ::ad::physics::Acceleration valueLateralStateRightAlphaLatAccelMax(-1e2);
-  valueLateralStateRightAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueLateralStateRightAlphaLat.accelMax = valueLateralStateRightAlphaLatAccelMax;
-  ::ad::physics::Acceleration valueLateralStateRightAlphaLatBrakeMin(-1e2);
-  valueLateralStateRightAlphaLat.brakeMin = valueLateralStateRightAlphaLatBrakeMin;
-  valueLateralStateRight.alphaLat = valueLateralStateRightAlphaLat;
-  ::ad::rss::state::RssStateInformation valueLateralStateRightRssStateInformation;
-  ::ad::physics::Distance valueLateralStateRightRssStateInformationSafeDistance(-1e9);
-  valueLateralStateRightRssStateInformation.safeDistance = valueLateralStateRightRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueLateralStateRightRssStateInformationCurrentDistance(-1e9);
-  valueLateralStateRightRssStateInformation.currentDistance = valueLateralStateRightRssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator valueLateralStateRightRssStateInformationEvaluator(
+  valueLongitudinal_stateRss_state_information.evaluator = valueLongitudinal_stateRss_state_informationEvaluator;
+  valueLongitudinal_state.rss_state_information = valueLongitudinal_stateRss_state_information;
+  value.longitudinal_state = valueLongitudinal_state;
+  ::ad::rss::state::LateralRssState valueLateral_state_right;
+  bool valueLateral_state_rightIs_safe{true};
+  valueLateral_state_right.is_safe = valueLateral_state_rightIs_safe;
+  ::ad::rss::state::LateralResponse valueLateral_state_rightResponse(::ad::rss::state::LateralResponse::None);
+  valueLateral_state_right.response = valueLateral_state_rightResponse;
+  ::ad::rss::world::LateralRssAccelerationValues valueLateral_state_rightAlpha_lat;
+  ::ad::physics::Acceleration valueLateral_state_rightAlpha_latAccel_max(-1e2);
+  valueLateral_state_rightAlpha_latAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueLateral_state_rightAlpha_lat.accel_max = valueLateral_state_rightAlpha_latAccel_max;
+  ::ad::physics::Acceleration valueLateral_state_rightAlpha_latBrake_min(-1e2);
+  valueLateral_state_rightAlpha_lat.brake_min = valueLateral_state_rightAlpha_latBrake_min;
+  valueLateral_state_right.alpha_lat = valueLateral_state_rightAlpha_lat;
+  ::ad::rss::state::RssStateInformation valueLateral_state_rightRss_state_information;
+  ::ad::physics::Distance valueLateral_state_rightRss_state_informationSafe_distance(-1e9);
+  valueLateral_state_rightRss_state_information.safe_distance
+    = valueLateral_state_rightRss_state_informationSafe_distance;
+  ::ad::physics::Distance valueLateral_state_rightRss_state_informationCurrent_distance(-1e9);
+  valueLateral_state_rightRss_state_information.current_distance
+    = valueLateral_state_rightRss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator valueLateral_state_rightRss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::None);
-  valueLateralStateRightRssStateInformation.evaluator = valueLateralStateRightRssStateInformationEvaluator;
-  valueLateralStateRight.rssStateInformation = valueLateralStateRightRssStateInformation;
-  value.lateralStateRight = valueLateralStateRight;
-  ::ad::rss::state::LateralRssState valueLateralStateLeft;
-  bool valueLateralStateLeftIsSafe{true};
-  valueLateralStateLeft.isSafe = valueLateralStateLeftIsSafe;
-  ::ad::rss::state::LateralResponse valueLateralStateLeftResponse(::ad::rss::state::LateralResponse::None);
-  valueLateralStateLeft.response = valueLateralStateLeftResponse;
-  ::ad::rss::world::LateralRssAccelerationValues valueLateralStateLeftAlphaLat;
-  ::ad::physics::Acceleration valueLateralStateLeftAlphaLatAccelMax(-1e2);
-  valueLateralStateLeftAlphaLatAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueLateralStateLeftAlphaLat.accelMax = valueLateralStateLeftAlphaLatAccelMax;
-  ::ad::physics::Acceleration valueLateralStateLeftAlphaLatBrakeMin(-1e2);
-  valueLateralStateLeftAlphaLat.brakeMin = valueLateralStateLeftAlphaLatBrakeMin;
-  valueLateralStateLeft.alphaLat = valueLateralStateLeftAlphaLat;
-  ::ad::rss::state::RssStateInformation valueLateralStateLeftRssStateInformation;
-  ::ad::physics::Distance valueLateralStateLeftRssStateInformationSafeDistance(-1e9);
-  valueLateralStateLeftRssStateInformation.safeDistance = valueLateralStateLeftRssStateInformationSafeDistance;
-  ::ad::physics::Distance valueLateralStateLeftRssStateInformationCurrentDistance(-1e9);
-  valueLateralStateLeftRssStateInformation.currentDistance = valueLateralStateLeftRssStateInformationCurrentDistance;
-  ::ad::rss::state::RssStateEvaluator valueLateralStateLeftRssStateInformationEvaluator(
+  valueLateral_state_rightRss_state_information.evaluator = valueLateral_state_rightRss_state_informationEvaluator;
+  valueLateral_state_right.rss_state_information = valueLateral_state_rightRss_state_information;
+  value.lateral_state_right = valueLateral_state_right;
+  ::ad::rss::state::LateralRssState valueLateral_state_left;
+  bool valueLateral_state_leftIs_safe{true};
+  valueLateral_state_left.is_safe = valueLateral_state_leftIs_safe;
+  ::ad::rss::state::LateralResponse valueLateral_state_leftResponse(::ad::rss::state::LateralResponse::None);
+  valueLateral_state_left.response = valueLateral_state_leftResponse;
+  ::ad::rss::world::LateralRssAccelerationValues valueLateral_state_leftAlpha_lat;
+  ::ad::physics::Acceleration valueLateral_state_leftAlpha_latAccel_max(-1e2);
+  valueLateral_state_leftAlpha_latAccel_max = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueLateral_state_leftAlpha_lat.accel_max = valueLateral_state_leftAlpha_latAccel_max;
+  ::ad::physics::Acceleration valueLateral_state_leftAlpha_latBrake_min(-1e2);
+  valueLateral_state_leftAlpha_lat.brake_min = valueLateral_state_leftAlpha_latBrake_min;
+  valueLateral_state_left.alpha_lat = valueLateral_state_leftAlpha_lat;
+  ::ad::rss::state::RssStateInformation valueLateral_state_leftRss_state_information;
+  ::ad::physics::Distance valueLateral_state_leftRss_state_informationSafe_distance(-1e9);
+  valueLateral_state_leftRss_state_information.safe_distance
+    = valueLateral_state_leftRss_state_informationSafe_distance;
+  ::ad::physics::Distance valueLateral_state_leftRss_state_informationCurrent_distance(-1e9);
+  valueLateral_state_leftRss_state_information.current_distance
+    = valueLateral_state_leftRss_state_informationCurrent_distance;
+  ::ad::rss::state::RssStateEvaluator valueLateral_state_leftRss_state_informationEvaluator(
     ::ad::rss::state::RssStateEvaluator::None);
-  valueLateralStateLeftRssStateInformation.evaluator = valueLateralStateLeftRssStateInformationEvaluator;
-  valueLateralStateLeft.rssStateInformation = valueLateralStateLeftRssStateInformation;
-  value.lateralStateLeft = valueLateralStateLeft;
-  ::ad::rss::state::UnstructuredSceneRssState valueUnstructuredSceneState;
-  bool valueUnstructuredSceneStateIsSafe{true};
-  valueUnstructuredSceneState.isSafe = valueUnstructuredSceneStateIsSafe;
-  ::ad::rss::state::UnstructuredSceneResponse valueUnstructuredSceneStateResponse(
-    ::ad::rss::state::UnstructuredSceneResponse::None);
-  valueUnstructuredSceneState.response = valueUnstructuredSceneStateResponse;
-  ::ad::rss::state::HeadingRange valueUnstructuredSceneStateHeadingRange;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeBegin(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.begin = valueUnstructuredSceneStateHeadingRangeBegin;
-  ::ad::physics::Angle valueUnstructuredSceneStateHeadingRangeEnd(-6.283185308);
-  valueUnstructuredSceneStateHeadingRange.end = valueUnstructuredSceneStateHeadingRangeEnd;
-  valueUnstructuredSceneState.headingRange = valueUnstructuredSceneStateHeadingRange;
-  ::ad::rss::state::UnstructuredSceneStateInformation valueUnstructuredSceneStateRssStateInformation;
-  ::ad::physics::Distance2DList valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
-  ::ad::physics::Distance2D valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX(-1e9);
-  valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.x
-    = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementX;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementY(-1e9);
-  valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement.y
-    = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElementY;
-  valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet.resize(
-    1, valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySetElement);
-  valueUnstructuredSceneStateRssStateInformation.brakeTrajectorySet
-    = valueUnstructuredSceneStateRssStateInformationBrakeTrajectorySet;
-  ::ad::physics::Distance2DList valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
-  ::ad::physics::Distance2D valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX(-1e9);
-  valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.x
-    = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementX;
-  ::ad::physics::Distance valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementY(-1e9);
-  valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement.y
-    = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElementY;
-  valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet.resize(
-    1, valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySetElement);
-  valueUnstructuredSceneStateRssStateInformation.continueForwardTrajectorySet
-    = valueUnstructuredSceneStateRssStateInformationContinueForwardTrajectorySet;
-  valueUnstructuredSceneState.rssStateInformation = valueUnstructuredSceneStateRssStateInformation;
-  ::ad::rss::world::LongitudinalRssAccelerationValues valueUnstructuredSceneStateAlphaLon;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonAccelMax(-1e2);
-  valueUnstructuredSceneStateAlphaLonAccelMax = ::ad::physics::Acceleration(0.); // set to valid value within struct
-  valueUnstructuredSceneStateAlphaLon.accelMax = valueUnstructuredSceneStateAlphaLonAccelMax;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMax(-1e2);
-  valueUnstructuredSceneStateAlphaLon.brakeMax = valueUnstructuredSceneStateAlphaLonBrakeMax;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMin(-1e2);
-  valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLonBrakeMin;
-  ::ad::physics::Acceleration valueUnstructuredSceneStateAlphaLonBrakeMinCorrect(-1e2);
-  valueUnstructuredSceneStateAlphaLon.brakeMinCorrect = valueUnstructuredSceneStateAlphaLonBrakeMinCorrect;
-  valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLon.brakeMax;
-  valueUnstructuredSceneStateAlphaLon.brakeMinCorrect = valueUnstructuredSceneStateAlphaLon.brakeMin;
-  valueUnstructuredSceneStateAlphaLon.brakeMin = valueUnstructuredSceneStateAlphaLon.brakeMinCorrect;
-  valueUnstructuredSceneStateAlphaLon.brakeMax = valueUnstructuredSceneStateAlphaLon.brakeMin;
-  valueUnstructuredSceneState.alphaLon = valueUnstructuredSceneStateAlphaLon;
-  value.unstructuredSceneState = valueUnstructuredSceneState;
-  ::ad::rss::situation::SituationType valueSituationType(::ad::rss::situation::SituationType::NotRelevant);
-  value.situationType = valueSituationType;
+  valueLateral_state_leftRss_state_information.evaluator = valueLateral_state_leftRss_state_informationEvaluator;
+  valueLateral_state_left.rss_state_information = valueLateral_state_leftRss_state_information;
+  value.lateral_state_left = valueLateral_state_left;
+  ::ad::rss::state::UnstructuredConstellationRssState valueUnstructured_constellation_state;
+  bool valueUnstructured_constellation_stateIs_safe{true};
+  valueUnstructured_constellation_state.is_safe = valueUnstructured_constellation_stateIs_safe;
+  ::ad::rss::state::UnstructuredConstellationResponse valueUnstructured_constellation_stateResponse(
+    ::ad::rss::state::UnstructuredConstellationResponse::None);
+  valueUnstructured_constellation_state.response = valueUnstructured_constellation_stateResponse;
+  ::ad::geometry::HeadingRange valueUnstructured_constellation_stateHeading_range;
+  ::ad::physics::Angle valueUnstructured_constellation_stateHeading_rangeBegin(-6.283185308);
+  valueUnstructured_constellation_stateHeading_range.begin = valueUnstructured_constellation_stateHeading_rangeBegin;
+  ::ad::physics::Angle valueUnstructured_constellation_stateHeading_rangeEnd(-6.283185308);
+  valueUnstructured_constellation_stateHeading_range.end = valueUnstructured_constellation_stateHeading_rangeEnd;
+  valueUnstructured_constellation_state.heading_range = valueUnstructured_constellation_stateHeading_range;
+  ::ad::rss::state::UnstructuredConstellationStateInformation
+    valueUnstructured_constellation_stateRss_state_information;
+  ::ad::physics::Distance2DList valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_set;
+  ::ad::physics::Distance2D valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement;
+  ::ad::physics::Distance valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementX(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement.x
+    = valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementX;
+  ::ad::physics::Distance valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementY(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement.y
+    = valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElementY;
+  valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_set.resize(
+    1, valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_setElement);
+  valueUnstructured_constellation_stateRss_state_information.brake_trajectory_set
+    = valueUnstructured_constellation_stateRss_state_informationBrake_trajectory_set;
+  ::ad::physics::Distance2DList
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_set;
+  ::ad::physics::Distance2D
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement;
+  ::ad::physics::Distance
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementX(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement.x
+    = valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementX;
+  ::ad::physics::Distance
+    valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementY(-1e9);
+  valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement.y
+    = valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElementY;
+  valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_set.resize(
+    1, valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_setElement);
+  valueUnstructured_constellation_stateRss_state_information.continue_forward_trajectory_set
+    = valueUnstructured_constellation_stateRss_state_informationContinue_forward_trajectory_set;
+  ::ad::physics::Angle valueUnstructured_constellation_stateRss_state_informationConsidered_drive_away_steering_angle(
+    -6.283185308);
+  valueUnstructured_constellation_stateRss_state_information.considered_drive_away_steering_angle
+    = valueUnstructured_constellation_stateRss_state_informationConsidered_drive_away_steering_angle;
+  valueUnstructured_constellation_state.rss_state_information
+    = valueUnstructured_constellation_stateRss_state_information;
+  ::ad::rss::world::LongitudinalRssAccelerationValues valueUnstructured_constellation_stateAlpha_lon;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonAccel_max(-1e2);
+  valueUnstructured_constellation_stateAlpha_lonAccel_max
+    = ::ad::physics::Acceleration(0.); // set to valid value within struct
+  valueUnstructured_constellation_stateAlpha_lon.accel_max = valueUnstructured_constellation_stateAlpha_lonAccel_max;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonBrake_max(-1e2);
+  valueUnstructured_constellation_stateAlpha_lon.brake_max = valueUnstructured_constellation_stateAlpha_lonBrake_max;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonBrake_min(-1e2);
+  valueUnstructured_constellation_stateAlpha_lon.brake_min = valueUnstructured_constellation_stateAlpha_lonBrake_min;
+  ::ad::physics::Acceleration valueUnstructured_constellation_stateAlpha_lonBrake_min_correct(-1e2);
+  valueUnstructured_constellation_stateAlpha_lon.brake_min_correct
+    = valueUnstructured_constellation_stateAlpha_lonBrake_min_correct;
+  valueUnstructured_constellation_stateAlpha_lon.brake_min = valueUnstructured_constellation_stateAlpha_lon.brake_max;
+  valueUnstructured_constellation_stateAlpha_lon.brake_min_correct
+    = valueUnstructured_constellation_stateAlpha_lon.brake_min;
+  valueUnstructured_constellation_stateAlpha_lon.brake_min
+    = valueUnstructured_constellation_stateAlpha_lon.brake_min_correct;
+  valueUnstructured_constellation_stateAlpha_lon.brake_max = valueUnstructured_constellation_stateAlpha_lon.brake_min;
+  valueUnstructured_constellation_state.alpha_lon = valueUnstructured_constellation_stateAlpha_lon;
+  value.unstructured_constellation_state = valueUnstructured_constellation_state;
+  ::ad::rss::world::ConstellationType valueConstellation_type(::ad::rss::world::ConstellationType::NotRelevant);
+  value.constellation_type = valueConstellation_type;
 
   // override member with data type value above input range maximum
-  ::ad::rss::situation::SituationType invalidInitializedMember(static_cast<::ad::rss::situation::SituationType>(-1));
-  value.situationType = invalidInitializedMember;
+  ::ad::rss::world::ConstellationType invalidInitializedMember(static_cast<::ad::rss::world::ConstellationType>(-1));
+  value.constellation_type = invalidInitializedMember;
   ASSERT_FALSE(withinValidInputRange(value));
 }

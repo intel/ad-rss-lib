@@ -20,7 +20,7 @@ protected:
     return TESTBASE::objectOnSegment1;
   }
 
-  world::Object &getSceneObject(uint32_t) override
+  world::Object &getConstellationObject(uint32_t) override
   {
     return TESTBASE::objectOnSegment7;
   }
@@ -39,7 +39,7 @@ protected:
     return TESTBASE::objectOnSegment7;
   }
 
-  world::Object &getSceneObject(uint32_t) override
+  world::Object &getConstellationObject(uint32_t) override
   {
     return TESTBASE::objectOnSegment1;
   }
@@ -64,56 +64,56 @@ TEST_F(RssCheckSameDirectionOtherLeadingTest, DifferentVelocities)
 
 TEST_F(RssCheckSameDirectionOtherLeadingTest, DifferentVelocities_DifferentLaneSegements)
 {
-  worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId = 2;
+  worldModel.constellations[0].ego_vehicle.occupied_regions[0].segment_id = 2;
   performDifferentVelocitiesTest(state::LongitudinalResponse::BrakeMin);
 }
 
 TEST_F(RssCheckSameDirectionOtherLeadingTest, DifferentVelocities_NoLateralConflict)
 {
-  worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId = 0;
-  worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.0);
-  worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.1);
+  worldModel.constellations[0].ego_vehicle.occupied_regions[0].segment_id = 0;
+  worldModel.constellations[0].ego_vehicle.occupied_regions[0].lat_range.minimum = ParametricValue(0.0);
+  worldModel.constellations[0].ego_vehicle.occupied_regions[0].lat_range.maximum = ParametricValue(0.1);
 
-  worldModel.scenes[0].object.occupiedRegions[0].segmentId = 8;
+  worldModel.constellations[0].object.occupied_regions[0].segment_id = 8;
 
   state::ProperResponse properResponse;
   core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
   {
-    worldModel.scenes[0].egoVehicle.velocity.speedLonMin = kmhToMeterPerSec(i);
-    worldModel.scenes[0].egoVehicle.velocity.speedLonMax = kmhToMeterPerSec(i);
-    worldModel.timeIndex++;
+    worldModel.constellations[0].ego_vehicle.velocity.speed_lon_min = kmhToMeterPerSec(i);
+    worldModel.constellations[0].ego_vehicle.velocity.speed_lon_max = kmhToMeterPerSec(i);
+    worldModel.time_index++;
 
     ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));
 
-    testRestrictions(properResponse.accelerationRestrictions);
+    testRestrictions(properResponse.acceleration_restrictions);
   }
 }
 
 TEST_F(RssCheckSameDirectionOtherLeadingTest, _DifferentVelocities_NoLateralConflict_2Objects)
 {
-  worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId = 0;
-  worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.0);
-  worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.1);
+  worldModel.constellations[0].ego_vehicle.occupied_regions[0].segment_id = 0;
+  worldModel.constellations[0].ego_vehicle.occupied_regions[0].lat_range.minimum = ParametricValue(0.0);
+  worldModel.constellations[0].ego_vehicle.occupied_regions[0].lat_range.maximum = ParametricValue(0.1);
 
-  worldModel.scenes.push_back(worldModel.scenes.front());
-  worldModel.scenes[0].object.occupiedRegions[0].segmentId = 8;
-  worldModel.scenes[1].object.occupiedRegions[0].segmentId = 8;
-  worldModel.scenes[1].object.objectId = 2;
+  worldModel.constellations.push_back(worldModel.constellations.front());
+  worldModel.constellations[0].object.occupied_regions[0].segment_id = 8;
+  worldModel.constellations[1].object.occupied_regions[0].segment_id = 8;
+  worldModel.constellations[1].object.object_id = 2;
 
   state::ProperResponse properResponse;
   core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
   {
-    worldModel.scenes[0].egoVehicle.velocity.speedLonMin = kmhToMeterPerSec(i);
-    worldModel.scenes[0].egoVehicle.velocity.speedLonMax = kmhToMeterPerSec(i);
-    worldModel.timeIndex++;
+    worldModel.constellations[0].ego_vehicle.velocity.speed_lon_min = kmhToMeterPerSec(i);
+    worldModel.constellations[0].ego_vehicle.velocity.speed_lon_max = kmhToMeterPerSec(i);
+    worldModel.time_index++;
 
     ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));
 
-    testRestrictions(properResponse.accelerationRestrictions);
+    testRestrictions(properResponse.acceleration_restrictions);
   }
 }
 
@@ -126,92 +126,92 @@ TEST_F(RssCheckSameDirectionEgoLeadingTest, DifferentVelocities)
 
   for (uint32_t i = 0; i < 100; i++)
   {
-    worldModel.scenes[0].object.velocity.speedLonMin = kmhToMeterPerSec(i);
-    worldModel.scenes[0].object.velocity.speedLonMax = kmhToMeterPerSec(i);
-    worldModel.timeIndex++;
+    worldModel.constellations[0].object.velocity.speed_lon_min = kmhToMeterPerSec(i);
+    worldModel.constellations[0].object.velocity.speed_lon_max = kmhToMeterPerSec(i);
+    worldModel.time_index++;
 
     ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));
 
     // no matter how fast the following vehicle is, the ego must never brake as it leads
-    testRestrictions(properResponse.accelerationRestrictions);
+    testRestrictions(properResponse.acceleration_restrictions);
   }
 }
 
 TEST_F(RssCheckSameDirectionEgoLeadingTest, Overlap_Front)
 {
-  worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId = 8;
-  worldModel.scenes[0].egoVehicle.occupiedRegions[0].lonRange.maximum = ParametricValue(0.5);
-  worldModel.scenes[0].egoVehicle.occupiedRegions[0].lonRange.minimum = ParametricValue(0.4);
+  worldModel.constellations[0].ego_vehicle.occupied_regions[0].segment_id = 8;
+  worldModel.constellations[0].ego_vehicle.occupied_regions[0].lon_range.maximum = ParametricValue(0.5);
+  worldModel.constellations[0].ego_vehicle.occupied_regions[0].lon_range.minimum = ParametricValue(0.4);
 
-  worldModel.scenes[0].object.occupiedRegions[0].segmentId = 6;
-  worldModel.scenes[0].object.occupiedRegions[0].lonRange.maximum = ParametricValue(0.45);
-  worldModel.scenes[0].object.occupiedRegions[0].lonRange.minimum = ParametricValue(0.35);
+  worldModel.constellations[0].object.occupied_regions[0].segment_id = 6;
+  worldModel.constellations[0].object.occupied_regions[0].lon_range.maximum = ParametricValue(0.45);
+  worldModel.constellations[0].object.occupied_regions[0].lon_range.minimum = ParametricValue(0.35);
 
   state::ProperResponse properResponse;
   core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
   {
-    worldModel.scenes[0].object.velocity.speedLonMin = kmhToMeterPerSec(i);
-    worldModel.scenes[0].object.velocity.speedLonMax = kmhToMeterPerSec(i);
-    worldModel.timeIndex++;
+    worldModel.constellations[0].object.velocity.speed_lon_min = kmhToMeterPerSec(i);
+    worldModel.constellations[0].object.velocity.speed_lon_max = kmhToMeterPerSec(i);
+    worldModel.time_index++;
 
     ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));
 
     // no matter how fast the following vehicle is, the ego must never brake as it leads
-    testRestrictions(properResponse.accelerationRestrictions);
+    testRestrictions(properResponse.acceleration_restrictions);
   }
 }
 
 TEST_F(RssCheckSameDirectionEgoLeadingTest, Overlap_Right)
 {
-  worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId = 5;
-  worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.5);
-  worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.4);
+  worldModel.constellations[0].ego_vehicle.occupied_regions[0].segment_id = 5;
+  worldModel.constellations[0].ego_vehicle.occupied_regions[0].lat_range.maximum = ParametricValue(0.5);
+  worldModel.constellations[0].ego_vehicle.occupied_regions[0].lat_range.minimum = ParametricValue(0.4);
 
-  worldModel.scenes[0].object.occupiedRegions[0].segmentId = 2;
-  worldModel.scenes[0].object.occupiedRegions[0].latRange.maximum = ParametricValue(0.45);
-  worldModel.scenes[0].object.occupiedRegions[0].latRange.minimum = ParametricValue(0.35);
+  worldModel.constellations[0].object.occupied_regions[0].segment_id = 2;
+  worldModel.constellations[0].object.occupied_regions[0].lat_range.maximum = ParametricValue(0.45);
+  worldModel.constellations[0].object.occupied_regions[0].lat_range.minimum = ParametricValue(0.35);
 
   state::ProperResponse properResponse;
   core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
   {
-    worldModel.scenes[0].object.velocity.speedLonMin = kmhToMeterPerSec(i);
-    worldModel.scenes[0].object.velocity.speedLonMax = kmhToMeterPerSec(i);
-    worldModel.timeIndex++;
+    worldModel.constellations[0].object.velocity.speed_lon_min = kmhToMeterPerSec(i);
+    worldModel.constellations[0].object.velocity.speed_lon_max = kmhToMeterPerSec(i);
+    worldModel.time_index++;
 
     ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));
 
     // no matter how fast the following vehicle is, the ego must never brake as it leads
-    testRestrictions(properResponse.accelerationRestrictions);
+    testRestrictions(properResponse.acceleration_restrictions);
   }
 }
 
 TEST_F(RssCheckSameDirectionEgoLeadingTest, Overlap_Left)
 {
-  worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId = 5;
-  worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.4);
-  worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.3);
+  worldModel.constellations[0].ego_vehicle.occupied_regions[0].segment_id = 5;
+  worldModel.constellations[0].ego_vehicle.occupied_regions[0].lat_range.maximum = ParametricValue(0.4);
+  worldModel.constellations[0].ego_vehicle.occupied_regions[0].lat_range.minimum = ParametricValue(0.3);
 
-  worldModel.scenes[0].object.occupiedRegions[0].segmentId = 2;
-  worldModel.scenes[0].object.occupiedRegions[0].latRange.maximum = ParametricValue(0.45);
-  worldModel.scenes[0].object.occupiedRegions[0].latRange.minimum = ParametricValue(0.35);
+  worldModel.constellations[0].object.occupied_regions[0].segment_id = 2;
+  worldModel.constellations[0].object.occupied_regions[0].lat_range.maximum = ParametricValue(0.45);
+  worldModel.constellations[0].object.occupied_regions[0].lat_range.minimum = ParametricValue(0.35);
 
   state::ProperResponse properResponse;
   core::RssCheck rssCheck;
 
   for (uint32_t i = 0; i < 100; i++)
   {
-    worldModel.scenes[0].object.velocity.speedLonMin = kmhToMeterPerSec(i);
-    worldModel.scenes[0].object.velocity.speedLonMax = kmhToMeterPerSec(i);
-    worldModel.timeIndex++;
+    worldModel.constellations[0].object.velocity.speed_lon_min = kmhToMeterPerSec(i);
+    worldModel.constellations[0].object.velocity.speed_lon_max = kmhToMeterPerSec(i);
+    worldModel.time_index++;
 
     ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));
 
     // no matter how fast the following vehicle is, the ego must never brake as it leads
-    testRestrictions(properResponse.accelerationRestrictions);
+    testRestrictions(properResponse.acceleration_restrictions);
   }
 }
 
@@ -222,25 +222,25 @@ protected:
   void SetUp() override
   {
     TESTBASE::SetUp();
-    // now we have to shorten the road areas for the two scenes otherwhise
+    // now we have to shorten the road areas for the two constellations otherwhise
     // the area is too big which restricts too much to handle in our test code
-    worldModel.scenes[0].egoVehicleRoad.erase(worldModel.scenes[0].egoVehicleRoad.begin() + 2);
-    worldModel.scenes[1].egoVehicleRoad.erase(worldModel.scenes[1].egoVehicleRoad.begin());
+    worldModel.constellations[0].ego_vehicle_road.erase(worldModel.constellations[0].ego_vehicle_road.begin() + 2);
+    worldModel.constellations[1].ego_vehicle_road.erase(worldModel.constellations[1].ego_vehicle_road.begin());
   }
 
   world::Object &getEgoObject() override
   {
-    TESTBASE::objectOnSegment3.occupiedRegions[0].latRange.minimum = ParametricValue(0.8);
-    TESTBASE::objectOnSegment3.occupiedRegions[0].latRange.maximum = ParametricValue(0.9);
+    TESTBASE::objectOnSegment3.occupied_regions[0].lat_range.minimum = ParametricValue(0.8);
+    TESTBASE::objectOnSegment3.occupied_regions[0].lat_range.maximum = ParametricValue(0.9);
     return TESTBASE::objectOnSegment3;
   }
 
-  uint32_t getNumberOfSceneObjects() override
+  uint32_t getNumberOfConstellationObjects() override
   {
     return 2u;
   }
 
-  world::Object &getSceneObject(uint32_t index) override
+  world::Object &getConstellationObject(uint32_t index) override
   {
     if (index == 0u)
     {

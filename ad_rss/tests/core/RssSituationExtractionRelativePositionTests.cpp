@@ -19,18 +19,18 @@ void performCalculateRelativePositionTest(Distance minA,
                                           Distance maxA,
                                           Distance minB,
                                           Distance maxB,
-                                          situation::LateralRelativePosition expectedPositionLatAtoB,
-                                          situation::LongitudinalRelativePosition expectedPositionLonAtoB,
-                                          situation::LateralRelativePosition expectedPositionLatBtoA,
-                                          situation::LongitudinalRelativePosition expectedPositionLonBtoA,
+                                          core::LateralRelativePosition expectedPositionLatAtoB,
+                                          core::LongitudinalRelativePosition expectedPositionLonAtoB,
+                                          core::LateralRelativePosition expectedPositionLatBtoA,
+                                          core::LongitudinalRelativePosition expectedPositionLonBtoA,
                                           Distance expectedDistance)
 {
-  RssSituationExtraction situationExtraction;
+  RssSituationExtraction constellationExtraction;
   MetricRange vehicleALonMetricRange;
   MetricRange vehicleALatMetricRange;
   MetricRange vehicleBLonMetricRange;
   MetricRange vehicleBLatMetricRange;
-  situation::RelativePosition relativePosition;
+  core::RelativePosition relative_position;
 
   vehicleALatMetricRange.minimum = minA;
   vehicleALatMetricRange.maximum = maxA;
@@ -40,29 +40,33 @@ void performCalculateRelativePositionTest(Distance minA,
   vehicleBLatMetricRange.maximum = maxB;
   vehicleBLonMetricRange = vehicleBLatMetricRange;
 
-  situationExtraction.calcluateRelativeLongitudinalPosition(vehicleALonMetricRange,
-                                                            vehicleBLonMetricRange,
-                                                            relativePosition.longitudinalPosition,
-                                                            relativePosition.longitudinalDistance);
-  situationExtraction.calcluateRelativeLateralPosition(
-    vehicleALatMetricRange, vehicleBLatMetricRange, relativePosition.lateralPosition, relativePosition.lateralDistance);
+  constellationExtraction.calcluateRelativeLongitudinalPosition(vehicleALonMetricRange,
+                                                                vehicleBLonMetricRange,
+                                                                relative_position.longitudinal_position,
+                                                                relative_position.longitudinal_distance);
+  constellationExtraction.calcluateRelativeLateralPosition(vehicleALatMetricRange,
+                                                           vehicleBLatMetricRange,
+                                                           relative_position.lateral_position,
+                                                           relative_position.lateral_distance);
 
-  ASSERT_EQ(expectedPositionLatAtoB, relativePosition.lateralPosition);
-  ASSERT_EQ(expectedPositionLonAtoB, relativePosition.longitudinalPosition);
-  ASSERT_EQ(expectedDistance, relativePosition.lateralDistance);
-  ASSERT_EQ(expectedDistance, relativePosition.longitudinalDistance);
+  ASSERT_EQ(expectedPositionLatAtoB, relative_position.lateral_position);
+  ASSERT_EQ(expectedPositionLonAtoB, relative_position.longitudinal_position);
+  ASSERT_EQ(expectedDistance, relative_position.lateral_distance);
+  ASSERT_EQ(expectedDistance, relative_position.longitudinal_distance);
 
-  situationExtraction.calcluateRelativeLongitudinalPosition(vehicleBLonMetricRange,
-                                                            vehicleALonMetricRange,
-                                                            relativePosition.longitudinalPosition,
-                                                            relativePosition.longitudinalDistance);
-  situationExtraction.calcluateRelativeLateralPosition(
-    vehicleBLatMetricRange, vehicleALatMetricRange, relativePosition.lateralPosition, relativePosition.lateralDistance);
+  constellationExtraction.calcluateRelativeLongitudinalPosition(vehicleBLonMetricRange,
+                                                                vehicleALonMetricRange,
+                                                                relative_position.longitudinal_position,
+                                                                relative_position.longitudinal_distance);
+  constellationExtraction.calcluateRelativeLateralPosition(vehicleBLatMetricRange,
+                                                           vehicleALatMetricRange,
+                                                           relative_position.lateral_position,
+                                                           relative_position.lateral_distance);
 
-  ASSERT_EQ(expectedPositionLatBtoA, relativePosition.lateralPosition);
-  ASSERT_EQ(expectedPositionLonBtoA, relativePosition.longitudinalPosition);
-  ASSERT_EQ(expectedDistance, relativePosition.lateralDistance);
-  ASSERT_EQ(expectedDistance, relativePosition.longitudinalDistance);
+  ASSERT_EQ(expectedPositionLatBtoA, relative_position.lateral_position);
+  ASSERT_EQ(expectedPositionLonBtoA, relative_position.longitudinal_position);
+  ASSERT_EQ(expectedDistance, relative_position.lateral_distance);
+  ASSERT_EQ(expectedDistance, relative_position.longitudinal_distance);
 }
 
 TEST(CalcluateRelativePositionTest, no_overlap_positive)
@@ -71,10 +75,10 @@ TEST(CalcluateRelativePositionTest, no_overlap_positive)
                                        Distance(2.),
                                        Distance(3.),
                                        Distance(5.),
-                                       situation::LateralRelativePosition::AtLeft,
-                                       situation::LongitudinalRelativePosition::AtBack,
-                                       situation::LateralRelativePosition::AtRight,
-                                       situation::LongitudinalRelativePosition::InFront,
+                                       core::LateralRelativePosition::AtLeft,
+                                       core::LongitudinalRelativePosition::AtBack,
+                                       core::LateralRelativePosition::AtRight,
+                                       core::LongitudinalRelativePosition::InFront,
                                        Distance(1.));
 }
 
@@ -84,10 +88,10 @@ TEST(CalcluateRelativePositionTest, no_overlap_negative)
                                        Distance(-8.),
                                        Distance(-5.),
                                        Distance(-8.),
-                                       situation::LateralRelativePosition::AtLeft,
-                                       situation::LongitudinalRelativePosition::AtBack,
-                                       situation::LateralRelativePosition::AtRight,
-                                       situation::LongitudinalRelativePosition::InFront,
+                                       core::LateralRelativePosition::AtLeft,
+                                       core::LongitudinalRelativePosition::AtBack,
+                                       core::LateralRelativePosition::AtRight,
+                                       core::LongitudinalRelativePosition::InFront,
                                        Distance(3.));
 }
 
@@ -97,10 +101,10 @@ TEST(CalcluateRelativePositionTest, no_overlap_mixed)
                                        Distance(-8.),
                                        Distance(3.),
                                        Distance(5.),
-                                       situation::LateralRelativePosition::AtLeft,
-                                       situation::LongitudinalRelativePosition::AtBack,
-                                       situation::LateralRelativePosition::AtRight,
-                                       situation::LongitudinalRelativePosition::InFront,
+                                       core::LateralRelativePosition::AtLeft,
+                                       core::LongitudinalRelativePosition::AtBack,
+                                       core::LateralRelativePosition::AtRight,
+                                       core::LongitudinalRelativePosition::InFront,
                                        Distance(11.));
 }
 
@@ -110,10 +114,10 @@ TEST(CalcluateRelativePositionTest, no_overlap_vehicle_crossing_null)
                                        Distance(-8.),
                                        Distance(-3.),
                                        Distance(5.),
-                                       situation::LateralRelativePosition::AtLeft,
-                                       situation::LongitudinalRelativePosition::AtBack,
-                                       situation::LateralRelativePosition::AtRight,
-                                       situation::LongitudinalRelativePosition::InFront,
+                                       core::LateralRelativePosition::AtLeft,
+                                       core::LongitudinalRelativePosition::AtBack,
+                                       core::LateralRelativePosition::AtRight,
+                                       core::LongitudinalRelativePosition::InFront,
                                        Distance(5.));
 }
 
@@ -123,10 +127,10 @@ TEST(CalcluateRelativePositionTest, partly_overlap_positive)
                                        Distance(4.),
                                        Distance(3.),
                                        Distance(5.),
-                                       situation::LateralRelativePosition::OverlapLeft,
-                                       situation::LongitudinalRelativePosition::OverlapBack,
-                                       situation::LateralRelativePosition::OverlapRight,
-                                       situation::LongitudinalRelativePosition::OverlapFront,
+                                       core::LateralRelativePosition::OverlapLeft,
+                                       core::LongitudinalRelativePosition::OverlapBack,
+                                       core::LateralRelativePosition::OverlapRight,
+                                       core::LongitudinalRelativePosition::OverlapFront,
                                        Distance(0.));
 }
 
@@ -136,10 +140,10 @@ TEST(CalcluateRelativePositionTest, partly_overlap_negative)
                                        Distance(-8.),
                                        Distance(-9.),
                                        Distance(-3.),
-                                       situation::LateralRelativePosition::OverlapLeft,
-                                       situation::LongitudinalRelativePosition::OverlapBack,
-                                       situation::LateralRelativePosition::OverlapRight,
-                                       situation::LongitudinalRelativePosition::OverlapFront,
+                                       core::LateralRelativePosition::OverlapLeft,
+                                       core::LongitudinalRelativePosition::OverlapBack,
+                                       core::LateralRelativePosition::OverlapRight,
+                                       core::LongitudinalRelativePosition::OverlapFront,
                                        Distance(0.));
 }
 
@@ -149,10 +153,10 @@ TEST(CalcluateRelativePositionTest, partly_overlap_mixed)
                                        Distance(-8.),
                                        Distance(-9.),
                                        Distance(5.),
-                                       situation::LateralRelativePosition::OverlapLeft,
-                                       situation::LongitudinalRelativePosition::OverlapBack,
-                                       situation::LateralRelativePosition::OverlapRight,
-                                       situation::LongitudinalRelativePosition::OverlapFront,
+                                       core::LateralRelativePosition::OverlapLeft,
+                                       core::LongitudinalRelativePosition::OverlapBack,
+                                       core::LateralRelativePosition::OverlapRight,
+                                       core::LongitudinalRelativePosition::OverlapFront,
                                        Distance(0.));
 }
 
@@ -162,10 +166,10 @@ TEST(CalcluateRelativePositionTest, full_overlap_positive)
                                        Distance(4.),
                                        Distance(2.5),
                                        Distance(3.5),
-                                       situation::LateralRelativePosition::Overlap,
-                                       situation::LongitudinalRelativePosition::Overlap,
-                                       situation::LateralRelativePosition::Overlap,
-                                       situation::LongitudinalRelativePosition::Overlap,
+                                       core::LateralRelativePosition::Overlap,
+                                       core::LongitudinalRelativePosition::Overlap,
+                                       core::LateralRelativePosition::Overlap,
+                                       core::LongitudinalRelativePosition::Overlap,
                                        Distance(0.));
 }
 
@@ -175,10 +179,10 @@ TEST(CalcluateRelativePositionTest, full_overlap_negative)
                                        Distance(-8.),
                                        Distance(-9.),
                                        Distance(-8.1),
-                                       situation::LateralRelativePosition::Overlap,
-                                       situation::LongitudinalRelativePosition::Overlap,
-                                       situation::LateralRelativePosition::Overlap,
-                                       situation::LongitudinalRelativePosition::Overlap,
+                                       core::LateralRelativePosition::Overlap,
+                                       core::LongitudinalRelativePosition::Overlap,
+                                       core::LateralRelativePosition::Overlap,
+                                       core::LongitudinalRelativePosition::Overlap,
                                        Distance(0.));
 }
 
@@ -188,10 +192,10 @@ TEST(CalcluateRelativePositionTest, full_overlap_mixed)
                                        Distance(8.),
                                        Distance(-9.),
                                        Distance(5.),
-                                       situation::LateralRelativePosition::Overlap,
-                                       situation::LongitudinalRelativePosition::Overlap,
-                                       situation::LateralRelativePosition::Overlap,
-                                       situation::LongitudinalRelativePosition::Overlap,
+                                       core::LateralRelativePosition::Overlap,
+                                       core::LongitudinalRelativePosition::Overlap,
+                                       core::LateralRelativePosition::Overlap,
+                                       core::LongitudinalRelativePosition::Overlap,
                                        Distance(0.));
 }
 

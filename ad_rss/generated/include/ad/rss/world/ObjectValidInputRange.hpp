@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2020 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1997
+ * Generator Version : 11.0.0-2046
  */
 
 #pragma once
@@ -41,8 +41,8 @@ inline bool withinValidInputRange(::ad::rss::world::Object const &input, bool co
 {
   // check for generic member input ranges
   bool inValidInputRange = true;
-  inValidInputRange = withinValidInputRange(input.objectType, logErrors)
-    && withinValidInputRange(input.occupiedRegions, logErrors) && withinValidInputRange(input.velocity, logErrors)
+  inValidInputRange = withinValidInputRange(input.object_type, logErrors)
+    && withinValidInputRange(input.occupied_regions, logErrors) && withinValidInputRange(input.velocity, logErrors)
     && withinValidInputRange(input.state, logErrors);
   if (!inValidInputRange && logErrors)
   {

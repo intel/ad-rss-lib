@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2020 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1997
+ * Generator Version : 11.0.0-2046
  */
 
 #pragma once
@@ -99,8 +99,8 @@ struct LongitudinalRssAccelerationValues
    */
   bool operator==(const LongitudinalRssAccelerationValues &other) const
   {
-    return (accelMax == other.accelMax) && (brakeMax == other.brakeMax) && (brakeMin == other.brakeMin)
-      && (brakeMinCorrect == other.brakeMinCorrect);
+    return (accel_max == other.accel_max) && (brake_max == other.brake_max) && (brake_min == other.brake_min)
+      && (brake_min_correct == other.brake_min_correct);
   }
 
   /**
@@ -118,25 +118,25 @@ struct LongitudinalRssAccelerationValues
   /*!
    * Absolute amount of the maximum allowed acceleration.  This value has always to be positive, zero is allowed.
    */
-  ::ad::physics::Acceleration accelMax{0.0};
+  ::ad::physics::Acceleration accel_max{0.0};
 
   /*!
    * Absolute amount of the maximum allowed braking deceleration.  This value has always to be positive and not smaller
-   * than brakeMin.
+   * than brake_min.
    */
-  ::ad::physics::Acceleration brakeMax{0.0};
+  ::ad::physics::Acceleration brake_max{0.0};
 
   /*!
-   * Absolute amount of the minimum allowed breaking deceleration.  This value has always to be positive and not smaller
-   * than brakeMinCorrect.
+   * Absolute amount of the minimum allowed braking deceleration.  This value has always to be positive and not smaller
+   * than brake_min_correct.
    */
-  ::ad::physics::Acceleration brakeMin{0.0};
+  ::ad::physics::Acceleration brake_min{0.0};
 
   /*!
-   * Absolute amount of the minimum allowed breaking deceleration when driving on the correct lane.  This value has
+   * Absolute amount of the minimum allowed braking deceleration when driving on the correct lane.  This value has
    * always to be positive.
    */
-  ::ad::physics::Acceleration brakeMinCorrect{0.0};
+  ::ad::physics::Acceleration brake_min_correct{0.0};
 };
 
 } // namespace world
@@ -173,17 +173,17 @@ namespace world {
 inline std::ostream &operator<<(std::ostream &os, LongitudinalRssAccelerationValues const &_value)
 {
   os << "LongitudinalRssAccelerationValues(";
-  os << "accelMax:";
-  os << _value.accelMax;
+  os << "accel_max:";
+  os << _value.accel_max;
   os << ",";
-  os << "brakeMax:";
-  os << _value.brakeMax;
+  os << "brake_max:";
+  os << _value.brake_max;
   os << ",";
-  os << "brakeMin:";
-  os << _value.brakeMin;
+  os << "brake_min:";
+  os << _value.brake_min;
   os << ",";
-  os << "brakeMinCorrect:";
-  os << _value.brakeMinCorrect;
+  os << "brake_min_correct:";
+  os << _value.brake_min_correct;
   os << ")";
   return os;
 }
@@ -203,4 +203,17 @@ inline std::string to_string(::ad::rss::world::LongitudinalRssAccelerationValues
   return sstream.str();
 }
 } // namespace std
+
+/*!
+ * \brief overload of fmt::formatter calling std::to_string
+ */
+template <> struct fmt::formatter<::ad::rss::world::LongitudinalRssAccelerationValues> : formatter<string_view>
+{
+  template <typename FormatContext>
+  auto format(::ad::rss::world::LongitudinalRssAccelerationValues const &value, FormatContext &ctx)
+  {
+    return formatter<string_view>::format(std::to_string(value), ctx);
+  }
+};
+
 #endif // GEN_GUARD_AD_RSS_WORLD_LONGITUDINALRSSACCELERATIONVALUES

@@ -1,7 +1,7 @@
 /*
  * ----------------- BEGIN LICENSE BLOCK ---------------------------------
  *
- * Copyright (C) 2018-2020 Intel Corporation
+ * Copyright (C) 2018-2022 Intel Corporation
  *
  * SPDX-License-Identifier: LGPL-2.1-only
  *
@@ -12,7 +12,7 @@
  * Generated file
  * @file
  *
- * Generator Version : 11.0.0-1997
+ * Generator Version : 11.0.0-2046
  */
 
 #pragma once
@@ -104,8 +104,8 @@ struct Object
    */
   bool operator==(const Object &other) const
   {
-    return (objectId == other.objectId) && (objectType == other.objectType)
-      && (occupiedRegions == other.occupiedRegions) && (velocity == other.velocity) && (state == other.state);
+    return (object_id == other.object_id) && (object_type == other.object_type)
+      && (occupied_regions == other.occupied_regions) && (velocity == other.velocity) && (state == other.state);
   }
 
   /**
@@ -123,17 +123,17 @@ struct Object
   /*!
    * Defines the unique id of an object. This id has to be constant over time for the same object.
    */
-  ::ad::rss::world::ObjectId objectId;
+  ::ad::rss::world::ObjectId object_id;
 
   /*!
    * Defines the type of the object.
    */
-  ::ad::rss::world::ObjectType objectType{::ad::rss::world::ObjectType::Invalid};
+  ::ad::rss::world::ObjectType object_type{::ad::rss::world::ObjectType::Invalid};
 
   /*!
    * Defines the lane regions the object occupies.
    */
-  ::ad::rss::world::OccupiedRegionVector occupiedRegions;
+  ::ad::rss::world::OccupiedRegionVector occupied_regions;
 
   /*!
    * Defines the objects velocity in respect to its current major lane.
@@ -180,14 +180,14 @@ namespace world {
 inline std::ostream &operator<<(std::ostream &os, Object const &_value)
 {
   os << "Object(";
-  os << "objectId:";
-  os << _value.objectId;
+  os << "object_id:";
+  os << _value.object_id;
   os << ",";
-  os << "objectType:";
-  os << _value.objectType;
+  os << "object_type:";
+  os << _value.object_type;
   os << ",";
-  os << "occupiedRegions:";
-  os << _value.occupiedRegions;
+  os << "occupied_regions:";
+  os << _value.occupied_regions;
   os << ",";
   os << "velocity:";
   os << _value.velocity;
@@ -213,4 +213,16 @@ inline std::string to_string(::ad::rss::world::Object const &value)
   return sstream.str();
 }
 } // namespace std
+
+/*!
+ * \brief overload of fmt::formatter calling std::to_string
+ */
+template <> struct fmt::formatter<::ad::rss::world::Object> : formatter<string_view>
+{
+  template <typename FormatContext> auto format(::ad::rss::world::Object const &value, FormatContext &ctx)
+  {
+    return formatter<string_view>::format(std::to_string(value), ctx);
+  }
+};
+
 #endif // GEN_GUARD_AD_RSS_WORLD_OBJECT
