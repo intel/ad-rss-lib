@@ -76,7 +76,7 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="ad_rss_map_integration/Main/">Overview</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="ad_rss_map_integration/ConstructRSSScenes/">Construction of the RSS Scenes</a>
+                  <li class="toctree-l1"><a class="reference internal" href="ad_rss_map_integration/ConstructRSSConstellations/">Construction of the RSS Constellations</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="ad_rss_map_integration/HandleRoadBoundaries/">Handling of road boundaries</a>
                   </li>
@@ -151,6 +151,7 @@
 <li><a href="#license">License</a></li>
 <li><a href="#documentation">Documentation</a></li>
 <li><a href="#releases">Releases</a><ol>
+<li><a href="#release_5">Release 5.x</a></li>
 <li><a href="#release_4">Release 4.x</a></li>
 <li><a href="#release_3">Release 3.x</a></li>
 <li><a href="#release_2">Release 2.x</a></li>
@@ -170,7 +171,7 @@
 <ul>
 <li>On a Formal Model of Safe and Scalable Self-driving Cars, S. Shalev-Shwartz, S. Shammah, A. Shashua, Mobileye, arXiv:1708.06374, <a href="https://arxiv.org/abs/1708.06374">https://arxiv.org/abs/1708.06374</a></li>
 </ul>
-<p>The RSS module in this library receives (processed) sensor information as input and provides actuator command restrictions as output. The input to the RSS module is an object list, with information about all objects (road agents) in the surrounding environment of the ego vehicle. For each object, the RSS module creates a description of the object-ego vehicle pair and their properties, called a "situation". For each situation, the relevant RSS safety checks are performed and a proper response is calculated. Finally, one overall response is obtained by combining the responses calculated for each object-ego vehicle situation. The resulting actuation command restrictions, in the form of longitudinal and lateral limits on acceleration are provided as output.</p>
+<p>The RSS module in this library receives (processed) sensor information as input and provides a proper response including actuator command restrictions as output. The input to the RSS module is an object list, with information about all objects (road agents) in the surrounding environment of the ego vehicle. For each object, the RSS module creates a description of the object-ego vehicle pair and their properties, called a "constellation". For each constellation, the relevant RSS safety checks are performed and a proper response is calculated. Finally, one overall response is obtained by combining the responses calculated for each object-ego vehicle constellation. The proper response provided as output also contains the resulting actuation command restrictions, in the form of longitudinal and lateral limits on acceleration.</p>
 <p>The ad_rss library contains a stand-alone C++ implementation of the RSS module.</p>
 <ul>
 <li>Conversion of AV sensor data to the input object list required by the RSS module is outside the scope of the ad_rss library. This includes conversion of object location and motion in a Cartesian world coordinate system into a constellation based coordinate system.</li>
@@ -213,6 +214,8 @@ Please see the <a href="https://intel.github.io/ad-rss-lib/ad_rss/ad_rss_python/
 <p>If you have any additional question not answered therein, you might find more in the <a href="https://intel.github.io/ad-rss-lib/FAQ/index.html">FAQ</a></p>
 <h2 id="releases">Releases <a name="releases"></a><a class="headerlink" href="#releases" title="Permanent link">&para;</a></h2>
 <p>General release notes and changes can be found in the <a href="https://intel.github.io/ad-rss-lib/CHANGELOG/index.html">Changelog</a></p>
+<h4 id="release-5xx">Release 5.x.x <a name="release_5"></a><a class="headerlink" href="#release-5xx" title="Permanent link">&para;</a></h4>
+<p>These releases extends the 4.x version with extended capabilities for system integration</p>
 <h4 id="release-4xx">Release 4.x.x <a name="release_4"></a><a class="headerlink" href="#release-4xx" title="Permanent link">&para;</a></h4>
 <p>These releases extends the 3.x version with handling of unstructured roads and pedestrians.</p>
 <h4 id="release-3xx">Release 3.x.x <a name="release_3"></a><a class="headerlink" href="#release-3xx" title="Permanent link">&para;</a></h4>
@@ -345,5 +348,5 @@ ad-rss-lib$&gt; make clang-tidy
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2025-07-01 07:46:53.661779+00:00
+Build Date UTC : 2025-07-08 06:34:24.275042+00:00
 -->

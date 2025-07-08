@@ -31,13 +31,13 @@
             <td class="headerValue">ad_rss</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">26</td>
-            <td class="headerCovTableEntry">26</td>
+            <td class="headerCovTableEntry">27</td>
+            <td class="headerCovTableEntry">27</td>
             <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2025-07-01 07:46:10</td>
+            <td class="headerValue">2025-07-08 06:31:49</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -49,9 +49,9 @@
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">40</td>
-            <td class="headerCovTableEntry">50</td>
-            <td class="headerCovTableEntryMed">80.0 %</td>
+            <td class="headerCovTableEntry">44</td>
+            <td class="headerCovTableEntry">56</td>
+            <td class="headerCovTableEntryMed">78.6 %</td>
           </tr>
           <tr><td><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -72,7 +72,7 @@
 <a name="1"><span class="lineNum">       1 </span>                :            : /*</a>
 <a name="2"><span class="lineNum">       2 </span>                :            :  * ----------------- BEGIN LICENSE BLOCK ---------------------------------</a>
 <a name="3"><span class="lineNum">       3 </span>                :            :  *</a>
-<a name="4"><span class="lineNum">       4 </span>                :            :  * Copyright (C) 2018-2020 Intel Corporation</a>
+<a name="4"><span class="lineNum">       4 </span>                :            :  * Copyright (C) 2018-2022 Intel Corporation</a>
 <a name="5"><span class="lineNum">       5 </span>                :            :  *</a>
 <a name="6"><span class="lineNum">       6 </span>                :            :  * SPDX-License-Identifier: LGPL-2.1-only</a>
 <a name="7"><span class="lineNum">       7 </span>                :            :  *</a>
@@ -83,7 +83,7 @@
 <a name="12"><span class="lineNum">      12 </span>                :            :  * Generated file</a>
 <a name="13"><span class="lineNum">      13 </span>                :            :  * @file</a>
 <a name="14"><span class="lineNum">      14 </span>                :            :  *</a>
-<a name="15"><span class="lineNum">      15 </span>                :            :  * Generator Version : 11.0.0-1997</a>
+<a name="15"><span class="lineNum">      15 </span>                :            :  * Generator Version : 11.0.0-2046</a>
 <a name="16"><span class="lineNum">      16 </span>                :            :  */</a>
 <a name="17"><span class="lineNum">      17 </span>                :            : </a>
 <a name="18"><span class="lineNum">      18 </span>                :            : #pragma once</a>
@@ -109,60 +109,61 @@
 <a name="38"><span class="lineNum">      38 </span>                :            :  * \returns \c true if RssDynamics is considered to be within the specified input range</a>
 <a name="39"><span class="lineNum">      39 </span>                :            :  *</a>
 <a name="40"><span class="lineNum">      40 </span>                :            :  * \note the specified input range is defined by the ranges of all members, plus:</a>
-<a name="41"><span class="lineNum">      41 </span>                :            :  *       ::ad::physics::Distance(0.) &lt;= lateralFluctuationMargin &lt;= ::ad::physics::Distance(1.)</a>
-<a name="42"><span class="lineNum">      42 </span>                :            :  *       ::ad::physics::Duration(0.) &lt; responseTime &lt;= ::ad::physics::Duration(10.)</a>
+<a name="41"><span class="lineNum">      41 </span>                :            :  *       ::ad::physics::Distance(0.) &lt;= lateral_fluctuation_margin &lt;= ::ad::physics::Distance(1.)</a>
+<a name="42"><span class="lineNum">      42 </span>                :            :  *       ::ad::physics::Duration(0.) &lt; response_time &lt;= ::ad::physics::Duration(10.)</a>
 <a name="43"><span class="lineNum">      43 </span>                :            :  */</a>
-<a name="44"><span class="lineNum">      44 </span>                :<span class="lineCov">     269772 : inline bool withinValidInputRange(::ad::rss::world::RssDynamics const &amp;input, bool const logErrors = true)</span></a>
+<a name="44"><span class="lineNum">      44 </span>                :<span class="lineCov">     269647 : inline bool withinValidInputRange(::ad::rss::world::RssDynamics const &amp;input, bool const logErrors = true)</span></a>
 <a name="45"><span class="lineNum">      45 </span>                :            : {</a>
 <a name="46"><span class="lineNum">      46 </span>                :            :   // check for generic member input ranges</a>
-<a name="47"><span class="lineNum">      47 </span>                :<span class="lineCov">     269772 :   bool inValidInputRange = true;</span></a>
-<a name="48"><span class="lineNum">      48 </span>                :<span class="lineCov">     269772 :   inValidInputRange = withinValidInputRange(input.alphaLon, logErrors)</span></a>
-<a name="49"><span class="lineNum">      49 </span>        [<span class="branchCov" title="Branch 0 was taken 258743 times"> + </span><span class="branchCov" title="Branch 1 was taken 3005 times"> + </span>]:<span class="lineCov">     261748 :     &amp;&amp; withinValidInputRange(input.alphaLat, logErrors)</span></a>
-<a name="50"><span class="lineNum">      50 </span>        [<span class="branchCov" title="Branch 0 was taken 258741 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">     258743 :     &amp;&amp; withinValidInputRange(input.lateralFluctuationMargin, logErrors)</span></a>
-<a name="51"><span class="lineNum">      51 </span>        [<span class="branchCov" title="Branch 0 was taken 257737 times"> + </span><span class="branchCov" title="Branch 1 was taken 1004 times"> + </span>]:<span class="lineCov">     258741 :     &amp;&amp; withinValidInputRange(input.responseTime, logErrors)</span></a>
-<a name="52"><span class="lineNum">      52 </span>        [<span class="branchCov" title="Branch 0 was taken 257735 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">     257737 :     &amp;&amp; withinValidInputRange(input.maxSpeedOnAcceleration, logErrors)</span></a>
-<a name="53"><span class="lineNum">      53 </span>  [<span class="branchCov" title="Branch 0 was taken 261748 times"> + </span><span class="branchCov" title="Branch 1 was taken 8024 times"> + </span><span class="branchCov" title="Branch 2 was taken 257733 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>]:<span class="lineCov">     531520 :     &amp;&amp; withinValidInputRange(input.unstructuredSettings, logErrors);</span></a>
-<a name="54"><span class="lineNum">      54 </span>  [<span class="branchCov" title="Branch 0 was taken 12039 times"> + </span><span class="branchCov" title="Branch 1 was taken 257733 times"> + </span><span class="branchCov" title="Branch 2 was taken 12039 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     269772 :   if (!inValidInputRange &amp;&amp; logErrors)</span></a>
-<a name="55"><span class="lineNum">      55 </span>                :            :   {</a>
-<a name="56"><span class="lineNum">      56 </span>        [<span class="branchCov" title="Branch 0 was taken 12039 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">      12039 :     spdlog::error(&quot;withinValidInputRange(::ad::rss::world::RssDynamics)&gt;&gt; {} has invalid member&quot;,</span></a>
-<a name="57"><span class="lineNum">      57 </span>                :            :                   input); // LCOV_EXCL_BR_LINE</a>
-<a name="58"><span class="lineNum">      58 </span>                :            :   }</a>
-<a name="59"><span class="lineNum">      59 </span>                :            : </a>
-<a name="60"><span class="lineNum">      60 </span>                :            :   // check for individual input ranges</a>
-<a name="61"><span class="lineNum">      61 </span>        [<span class="branchCov" title="Branch 0 was taken 257733 times"> + </span><span class="branchCov" title="Branch 1 was taken 12039 times"> + </span>]:<span class="lineCov">     269772 :   if (inValidInputRange)</span></a>
-<a name="62"><span class="lineNum">      62 </span>                :            :   {</a>
-<a name="63"><span class="lineNum">      63 </span>        [<span class="branchCov" title="Branch 0 was taken 257733 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">     257733 :     inValidInputRange = (::ad::physics::Distance(0.) &lt;= input.lateralFluctuationMargin)</span></a>
-<a name="64"><span class="lineNum">      64 </span>  [<span class="branchCov" title="Branch 0 was taken 257732 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchCov" title="Branch 2 was taken 257732 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">     257733 :       &amp;&amp; (input.lateralFluctuationMargin &lt;= ::ad::physics::Distance(1.));</span></a>
-<span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 257731 times"> + </span><span class="branchCov" title="Branch 5 was taken 1 time"> + </span>]
-<a name="65"><span class="lineNum">      65 </span>  [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 257731 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     257733 :     if (!inValidInputRange &amp;&amp; logErrors)</span></a>
-<a name="66"><span class="lineNum">      66 </span>                :            :     {</a>
-<a name="67"><span class="lineNum">      67 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :       spdlog::error(</span></a>
-<a name="68"><span class="lineNum">      68 </span>                :            :         &quot;withinValidInputRange(::ad::rss::world::RssDynamics)&gt;&gt; {} element {} out of valid input range [{}, {}]&quot;,</a>
-<a name="69"><span class="lineNum">      69 </span>                :            :         input,</a>
-<a name="70"><span class="lineNum">      70 </span>                :<span class="lineCov">          2 :         input.lateralFluctuationMargin,</span></a>
-<a name="71"><span class="lineNum">      71 </span>                :<span class="lineCov">          2 :         ::ad::physics::Distance(0.),</span></a>
-<a name="72"><span class="lineNum">      72 </span>                :<span class="lineCov">          4 :         ::ad::physics::Distance(1.)); // LCOV_EXCL_BR_LINE</span></a>
-<a name="73"><span class="lineNum">      73 </span>                :            :     }</a>
-<a name="74"><span class="lineNum">      74 </span>                :            :   }</a>
-<a name="75"><span class="lineNum">      75 </span>                :            : </a>
-<a name="76"><span class="lineNum">      76 </span>        [<span class="branchCov" title="Branch 0 was taken 257731 times"> + </span><span class="branchCov" title="Branch 1 was taken 12041 times"> + </span>]:<span class="lineCov">     269772 :   if (inValidInputRange)</span></a>
-<a name="77"><span class="lineNum">      77 </span>                :            :   {</a>
-<a name="78"><span class="lineNum">      78 </span>                :            :     inValidInputRange</a>
-<a name="79"><span class="lineNum">      79 </span>  [<span class="branchCov" title="Branch 0 was taken 257731 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 257728 times"> + </span><span class="branchCov" title="Branch 3 was taken 3 times"> + </span> :<span class="lineCov">     257731 :       = (::ad::physics::Duration(0.) &lt; input.responseTime) &amp;&amp; (input.responseTime &lt;= ::ad::physics::Duration(10.));</span></a>
-<span class="lineNum">         </span>   <span class="branchCov" title="Branch 4 was taken 257728 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 257727 times"> + </span><span class="branchCov" title="Branch 7 was taken 1 time"> + </span>]
-<a name="80"><span class="lineNum">      80 </span>  [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchCov" title="Branch 1 was taken 257727 times"> + </span><span class="branchCov" title="Branch 2 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     257731 :     if (!inValidInputRange &amp;&amp; logErrors)</span></a>
-<a name="81"><span class="lineNum">      81 </span>                :            :     {</a>
-<a name="82"><span class="lineNum">      82 </span>        [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          4 :       spdlog::error(</span></a>
-<a name="83"><span class="lineNum">      83 </span>                :            :         &quot;withinValidInputRange(::ad::rss::world::RssDynamics)&gt;&gt; {} element {} out of valid input range [{}, {}]&quot;,</a>
-<a name="84"><span class="lineNum">      84 </span>                :            :         input,</a>
-<a name="85"><span class="lineNum">      85 </span>                :<span class="lineCov">          4 :         input.responseTime,</span></a>
-<a name="86"><span class="lineNum">      86 </span>                :<span class="lineCov">          4 :         ::ad::physics::Duration(0.),</span></a>
-<a name="87"><span class="lineNum">      87 </span>                :<span class="lineCov">          8 :         ::ad::physics::Duration(10.)); // LCOV_EXCL_BR_LINE</span></a>
-<a name="88"><span class="lineNum">      88 </span>                :            :     }</a>
-<a name="89"><span class="lineNum">      89 </span>                :            :   }</a>
-<a name="90"><span class="lineNum">      90 </span>                :            : </a>
-<a name="91"><span class="lineNum">      91 </span>                :<span class="lineCov">     269772 :   return inValidInputRange;</span></a>
-<a name="92"><span class="lineNum">      92 </span>                :            : }</a>
+<a name="47"><span class="lineNum">      47 </span>                :<span class="lineCov">     269647 :   bool inValidInputRange = true;</span></a>
+<a name="48"><span class="lineNum">      48 </span>                :<span class="lineCov">     269647 :   inValidInputRange = withinValidInputRange(input.alpha_lon, logErrors)</span></a>
+<a name="49"><span class="lineNum">      49 </span>        [<span class="branchCov" title="Branch 0 was taken 258617 times"> + </span><span class="branchCov" title="Branch 1 was taken 3005 times"> + </span>]:<span class="lineCov">     261622 :     &amp;&amp; withinValidInputRange(input.alpha_lat, logErrors)</span></a>
+<a name="50"><span class="lineNum">      50 </span>        [<span class="branchCov" title="Branch 0 was taken 258615 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">     258617 :     &amp;&amp; withinValidInputRange(input.lateral_fluctuation_margin, logErrors)</span></a>
+<a name="51"><span class="lineNum">      51 </span>        [<span class="branchCov" title="Branch 0 was taken 257611 times"> + </span><span class="branchCov" title="Branch 1 was taken 1004 times"> + </span>]:<span class="lineCov">     258615 :     &amp;&amp; withinValidInputRange(input.response_time, logErrors)</span></a>
+<a name="52"><span class="lineNum">      52 </span>        [<span class="branchCov" title="Branch 0 was taken 257609 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">     257611 :     &amp;&amp; withinValidInputRange(input.max_speed_on_acceleration, logErrors)</span></a>
+<a name="53"><span class="lineNum">      53 </span>        [<span class="branchCov" title="Branch 0 was taken 257607 times"> + </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">     257609 :     &amp;&amp; withinValidInputRange(input.unstructured_settings, logErrors)</span></a>
+<a name="54"><span class="lineNum">      54 </span>  [<span class="branchCov" title="Branch 0 was taken 261622 times"> + </span><span class="branchCov" title="Branch 1 was taken 8025 times"> + </span><span class="branchCov" title="Branch 2 was taken 257605 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>]:<span class="lineCov">     531269 :     &amp;&amp; withinValidInputRange(input.min_longitudinal_safety_distance, logErrors);</span></a>
+<a name="55"><span class="lineNum">      55 </span>  [<span class="branchCov" title="Branch 0 was taken 12042 times"> + </span><span class="branchCov" title="Branch 1 was taken 257605 times"> + </span><span class="branchCov" title="Branch 2 was taken 12042 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     269647 :   if (!inValidInputRange &amp;&amp; logErrors)</span></a>
+<a name="56"><span class="lineNum">      56 </span>                :            :   {</a>
+<a name="57"><span class="lineNum">      57 </span>        [<span class="branchCov" title="Branch 0 was taken 12042 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">      12042 :     spdlog::error(&quot;withinValidInputRange(::ad::rss::world::RssDynamics)&gt;&gt; {} has invalid member&quot;,</span></a>
+<a name="58"><span class="lineNum">      58 </span>                :            :                   input); // LCOV_EXCL_BR_LINE</a>
+<a name="59"><span class="lineNum">      59 </span>                :            :   }</a>
+<a name="60"><span class="lineNum">      60 </span>                :            : </a>
+<a name="61"><span class="lineNum">      61 </span>                :            :   // check for individual input ranges</a>
+<a name="62"><span class="lineNum">      62 </span>        [<span class="branchCov" title="Branch 0 was taken 257605 times"> + </span><span class="branchCov" title="Branch 1 was taken 12042 times"> + </span>]:<span class="lineCov">     269647 :   if (inValidInputRange)</span></a>
+<a name="63"><span class="lineNum">      63 </span>                :            :   {</a>
+<a name="64"><span class="lineNum">      64 </span>        [<span class="branchCov" title="Branch 0 was taken 257605 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">     257605 :     inValidInputRange = (::ad::physics::Distance(0.) &lt;= input.lateral_fluctuation_margin)</span></a>
+<a name="65"><span class="lineNum">      65 </span>  [<span class="branchCov" title="Branch 0 was taken 257604 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchCov" title="Branch 2 was taken 257604 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">     257605 :       &amp;&amp; (input.lateral_fluctuation_margin &lt;= ::ad::physics::Distance(1.));</span></a>
+<span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 257603 times"> + </span><span class="branchCov" title="Branch 5 was taken 1 time"> + </span>]
+<a name="66"><span class="lineNum">      66 </span>  [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 257603 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     257605 :     if (!inValidInputRange &amp;&amp; logErrors)</span></a>
+<a name="67"><span class="lineNum">      67 </span>                :            :     {</a>
+<a name="68"><span class="lineNum">      68 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :       spdlog::error(</span></a>
+<a name="69"><span class="lineNum">      69 </span>                :            :         &quot;withinValidInputRange(::ad::rss::world::RssDynamics)&gt;&gt; {} element {} out of valid input range [{}, {}]&quot;,</a>
+<a name="70"><span class="lineNum">      70 </span>                :            :         input,</a>
+<a name="71"><span class="lineNum">      71 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :         input.lateral_fluctuation_margin,</span></a>
+<a name="72"><span class="lineNum">      72 </span>                :<span class="lineCov">          2 :         ::ad::physics::Distance(0.),</span></a>
+<a name="73"><span class="lineNum">      73 </span>                :<span class="lineCov">          4 :         ::ad::physics::Distance(1.)); // LCOV_EXCL_BR_LINE</span></a>
+<a name="74"><span class="lineNum">      74 </span>                :            :     }</a>
+<a name="75"><span class="lineNum">      75 </span>                :            :   }</a>
+<a name="76"><span class="lineNum">      76 </span>                :            : </a>
+<a name="77"><span class="lineNum">      77 </span>        [<span class="branchCov" title="Branch 0 was taken 257603 times"> + </span><span class="branchCov" title="Branch 1 was taken 12044 times"> + </span>]:<span class="lineCov">     269647 :   if (inValidInputRange)</span></a>
+<a name="78"><span class="lineNum">      78 </span>                :            :   {</a>
+<a name="79"><span class="lineNum">      79 </span>                :            :     inValidInputRange</a>
+<a name="80"><span class="lineNum">      80 </span>  [<span class="branchCov" title="Branch 0 was taken 257603 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 257600 times"> + </span><span class="branchCov" title="Branch 3 was taken 3 times"> + </span> :<span class="lineCov">     257603 :       = (::ad::physics::Duration(0.) &lt; input.response_time) &amp;&amp; (input.response_time &lt;= ::ad::physics::Duration(10.));</span></a>
+<span class="lineNum">         </span>   <span class="branchCov" title="Branch 4 was taken 257600 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 257599 times"> + </span><span class="branchCov" title="Branch 7 was taken 1 time"> + </span>]
+<a name="81"><span class="lineNum">      81 </span>  [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchCov" title="Branch 1 was taken 257599 times"> + </span><span class="branchCov" title="Branch 2 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     257603 :     if (!inValidInputRange &amp;&amp; logErrors)</span></a>
+<a name="82"><span class="lineNum">      82 </span>                :            :     {</a>
+<a name="83"><span class="lineNum">      83 </span>        [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          4 :       spdlog::error(</span></a>
+<a name="84"><span class="lineNum">      84 </span>                :            :         &quot;withinValidInputRange(::ad::rss::world::RssDynamics)&gt;&gt; {} element {} out of valid input range [{}, {}]&quot;,</a>
+<a name="85"><span class="lineNum">      85 </span>                :            :         input,</a>
+<a name="86"><span class="lineNum">      86 </span>        [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          4 :         input.response_time,</span></a>
+<a name="87"><span class="lineNum">      87 </span>                :<span class="lineCov">          4 :         ::ad::physics::Duration(0.),</span></a>
+<a name="88"><span class="lineNum">      88 </span>                :<span class="lineCov">          8 :         ::ad::physics::Duration(10.)); // LCOV_EXCL_BR_LINE</span></a>
+<a name="89"><span class="lineNum">      89 </span>                :            :     }</a>
+<a name="90"><span class="lineNum">      90 </span>                :            :   }</a>
+<a name="91"><span class="lineNum">      91 </span>                :            : </a>
+<a name="92"><span class="lineNum">      92 </span>                :<span class="lineCov">     269647 :   return inValidInputRange;</span></a>
+<a name="93"><span class="lineNum">      93 </span>                :            : }</a>
 </pre>
       </td>
     </tr>

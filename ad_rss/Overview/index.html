@@ -76,7 +76,7 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../ad_rss_map_integration/Main/">Overview</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../ad_rss_map_integration/ConstructRSSScenes/">Construction of the RSS Scenes</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ad_rss_map_integration/ConstructRSSConstellations/">Construction of the RSS Constellations</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../ad_rss_map_integration/HandleRoadBoundaries/">Handling of road boundaries</a>
                   </li>
@@ -144,7 +144,7 @@
 <h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
 <p>The Responsibility-Sensitive Safety (RSS) model is designed to formalize and
 contextualize human judgment regarding all multi-agent driving situations and
-dilemmas. RSS formalizes terms like dangerous situations, proper response and
+dilemmas. RSS formalizes terms like dangerous situation, proper response and
 notion of blame in a mathematical way. From planning and decision-making
 perspective, RSS ensures that the AD system will not issue a command that would
 lead to an accident.</p>
@@ -234,7 +234,7 @@ command restrictions as output.</p>
 <p>In summary, the ad-rss-lib receives an object list, with information about all
 objects in the surrounding environment of the ego vehicle. Then, the ad-rss-lib
 creates an object - ego vehicle pair, for each object. This pair is usually
-referred to as <em>"Situation"</em>. For all situations, the aforementioned RSS checks
+referred to as <em>"Constellation"</em>. For all constellations, the aforementioned RSS checks
 are performed and a proper response is calculated. Finally, one overall
 response is computed by the ad-rss-lib, and the corresponding actuator command
 restrictions (i.e. lateral and longitudinal acceleration restrictions) are sent

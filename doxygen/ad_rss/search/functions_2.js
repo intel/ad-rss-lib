@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['drawline_605',['drawLine',['../classad_1_1rss_1_1unstructured_1_1DebugDrawing.html#a867f15b54b6bfa5c27ac5b2ff34f8c19',1,'ad::rss::unstructured::DebugDrawing']]],
-  ['drawpolygon_606',['drawPolygon',['../classad_1_1rss_1_1unstructured_1_1DebugDrawing.html#ab18baaa2a05e8d85ff189391c00ebf16',1,'ad::rss::unstructured::DebugDrawing']]]
+  ['dropconstellationids_773',['dropConstellationIds',['../classad_1_1rss_1_1structured_1_1RssConstellationIdProvider.html#a7e00975f06607045d7a12112904c7e2e',1,'ad::rss::structured::RssConstellationIdProvider']]],
+  ['dropobjecthistory_774',['dropObjectHistory',['../classad_1_1rss_1_1core_1_1RssCheck.html#ab2575668a31e06505af34f513b717bde',1,'ad::rss::core::RssCheck::dropObjectHistory()'],['../classad_1_1rss_1_1core_1_1RssSituationExtraction.html#ac6f0aabc8c0e9328124c3d379619cf07',1,'ad::rss::core::RssSituationExtraction::dropObjectHistory()']]]
 ];

@@ -1,14 +1,17 @@
 <map id="generated/include/ad/rss/world/RoadSegment.hpp" name="generated/include/ad/rss/world/RoadSegment.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="138,5,346,47"/>
-<area shape="rect" id="node2" href="$RoadArea_8hpp.html" title=" " alt="" coords="263,102,443,143"/>
-<area shape="rect" id="node12" href="$RoadSegmentValidInputRange_8hpp.html" title=" " alt="" coords="27,95,239,151"/>
-<area shape="rect" id="node3" href="$RoadAreaValidInputRange_8hpp.html" title=" " alt="" coords="28,199,245,255"/>
-<area shape="rect" id="node7" href="$Scene_8hpp.html" title=" " alt="" coords="273,206,432,247"/>
-<area shape="rect" id="node4" href="$SceneValidInputRange_8hpp.html" title=" " alt="" coords="5,303,268,344"/>
-<area shape="rect" id="node5" href="$SceneVectorValidInputRange_8hpp.html" title=" " alt="" coords="67,392,268,448"/>
-<area shape="rect" id="node6" href="$WorldModelValidInputRange_8hpp.html" title=" " alt="" coords="57,496,288,552"/>
-<area shape="rect" id="node8" href="$SceneVector_8hpp.html" title=" " alt="" coords="292,303,488,344"/>
-<area shape="rect" id="node9" href="$WorldModel_8hpp.html" title=" " alt="" coords="293,399,487,441"/>
-<area shape="rect" id="node10" href="$RssCheck_8hpp.html" title=" " alt="" coords="315,503,459,545"/>
-<area shape="rect" id="node11" href="$RssSituationExtraction_8hpp.html" title=" " alt="" coords="484,503,685,545"/>
+<area shape="rect" id="node1" title=" " alt="" coords="277,5,485,47"/>
+<area shape="rect" id="node2" href="$RoadArea_8hpp.html" title=" " alt="" coords="291,102,471,143"/>
+<area shape="rect" id="node14" href="$RoadSegmentValidInputRange_8hpp.html" title=" " alt="" coords="51,95,263,151"/>
+<area shape="rect" id="node15" href="$RssObjectPositionExtractor_8hpp.html" title=" " alt="" coords="563,206,793,247"/>
+<area shape="rect" id="node3" href="$Constellation_8hpp.html" title=" " alt="" coords="283,206,486,247"/>
+<area shape="rect" id="node13" href="$RoadAreaValidInputRange_8hpp.html" title=" " alt="" coords="41,199,259,255"/>
+<area shape="rect" id="node4" href="$ConstellationValidInputRange_8hpp.html" title=" " alt="" coords="5,303,212,359"/>
+<area shape="rect" id="node7" href="$ConstellationVector_8hpp.html" title=" " alt="" coords="237,310,479,351"/>
+<area shape="rect" id="node11" href="$RssConstellationIdProvider_8hpp.html" title=" " alt="" coords="469,414,697,455"/>
+<area shape="rect" id="node12" href="$RssLaneCoordinateSystemConversion_8hpp.html" title=" " alt="" coords="554,310,855,351"/>
+<area shape="rect" id="node5" href="$ConstellationVectorValidInputRange_8hpp.html" title=" " alt="" coords="10,407,226,463"/>
+<area shape="rect" id="node6" href="$WorldModelValidInputRange_8hpp.html" title=" " alt="" coords="115,511,345,567"/>
+<area shape="rect" id="node8" href="$WorldModel_8hpp.html" title=" " alt="" coords="250,414,445,455"/>
+<area shape="rect" id="node9" href="$RssSituationExtraction_8hpp.html" title=" " alt="" coords="425,518,627,559"/>
+<area shape="rect" id="node10" href="$RssCheck_8hpp.html" title=" " alt="" coords="454,615,598,656"/>
 </map>

@@ -1,0 +1,23 @@
+[colcon_core.extension_point]
+colcon_metadata.subverb = colcon_metadata.subverb:MetadataSubverbExtensionPoint
+
+[colcon_core.package_augmentation]
+colcon_meta = colcon_metadata.metadata.colcon_meta:ColconMetadataPackageIdentification
+colcon_pkg = colcon_metadata.metadata.colcon_pkg:ColconPkgPackageIdentification
+
+[colcon_core.package_discovery]
+colcon_meta = colcon_metadata.package_discovery.colcon_meta:ColconMetadataDiscovery
+
+[colcon_core.package_identification]
+colcon_meta = colcon_metadata.metadata.colcon_meta:ColconMetadataPackageIdentification
+colcon_pkg = colcon_metadata.metadata.colcon_pkg:ColconPkgPackageIdentification
+
+[colcon_core.verb]
+metadata = colcon_metadata.verb.metadata:MetadataVerb
+
+[colcon_metadata.subverb]
+add = colcon_metadata.subverb.add:AddMetadataSubverb
+list = colcon_metadata.subverb.list:ListMetadataSubverb
+remove = colcon_metadata.subverb.remove:RemoveMetadataSubverb
+update = colcon_metadata.subverb.update:UpdateMetadataSubverb
+

@@ -1,0 +1,52 @@
+Metadata-Version: 2.1
+Name: colcon-common-extensions
+Version: 0.3.0
+Summary: Meta package aggregating colcon-core and common extensions.
+Home-page: https://colcon.readthedocs.io
+Author: Dirk Thomas
+Author-email: web@dirk-thomas.net
+Maintainer: Dirk Thomas
+Maintainer-email: web@dirk-thomas.net
+License: Apache License, Version 2.0
+Project-URL: Changelog, https://github.com/colcon/colcon-common-extensions/milestones?direction=desc&sort=due_date&state=closed
+Project-URL: GitHub, https://github.com/colcon/colcon-common-extensions/
+Keywords: colcon
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Plugins
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: MacOS
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX
+Classifier: Programming Language :: Python
+Classifier: Topic :: Software Development :: Build Tools
+Requires-Dist: colcon-cmake
+Requires-Dist: colcon-core
+Requires-Dist: colcon-defaults
+Requires-Dist: colcon-devtools
+Requires-Dist: colcon-library-path
+Requires-Dist: colcon-metadata
+Requires-Dist: colcon-notification
+Requires-Dist: colcon-output
+Requires-Dist: colcon-package-information
+Requires-Dist: colcon-package-selection
+Requires-Dist: colcon-parallel-executor
+Requires-Dist: colcon-powershell
+Requires-Dist: colcon-python-setup-py
+Requires-Dist: colcon-recursive-crawl
+Requires-Dist: colcon-ros
+Requires-Dist: colcon-test-result
+Requires-Dist: colcon-argcomplete ; sys_platform != "win32"
+Requires-Dist: colcon-bash ; sys_platform != "win32"
+Requires-Dist: colcon-cd ; sys_platform != "win32"
+Requires-Dist: colcon-zsh ; sys_platform != "win32"
+Provides-Extra: recommended
+Requires-Dist: colcon-override-check ; extra == 'recommended'
+
+colcon-common-extensions
+========================
+
+A meta package aggregating `colcon-core <https://github.com/colcon/colcon-core>`_ as well as a set of common extensions.
+
+

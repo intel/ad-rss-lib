@@ -1,19 +1,14 @@
 var searchData=
 [
-  ['dangerousobjects_53',['dangerousObjects',['../structad_1_1rss_1_1state_1_1ProperResponse.html#abafcfd8ce8c7016b31293c6abbf9493c',1,'ad::rss::state::ProperResponse']]],
-  ['debugdrawing_54',['DebugDrawing',['../classad_1_1rss_1_1unstructured_1_1DebugDrawing.html',1,'ad::rss::unstructured']]],
-  ['debugdrawing_2ehpp_55',['DebugDrawing.hpp',['../DebugDrawing_8hpp.html',1,'']]],
-  ['debugline_56',['DebugLine',['../structad_1_1rss_1_1unstructured_1_1DebugDrawing_1_1DebugLine.html',1,'ad::rss::unstructured::DebugDrawing']]],
-  ['debugpoint_57',['DebugPoint',['../structad_1_1rss_1_1unstructured_1_1DebugDrawing_1_1DebugPoint.html',1,'ad::rss::unstructured::DebugDrawing']]],
-  ['debugpolygon_58',['DebugPolygon',['../structad_1_1rss_1_1unstructured_1_1DebugDrawing_1_1DebugPolygon.html',1,'ad::rss::unstructured::DebugDrawing']]],
-  ['defaultegovehiclerssdynamics_59',['defaultEgoVehicleRssDynamics',['../structad_1_1rss_1_1situation_1_1SituationSnapshot.html#ad594e837fc351babd79fca1f2c279094',1,'ad::rss::situation::SituationSnapshot::defaultEgoVehicleRssDynamics()'],['../structad_1_1rss_1_1state_1_1RssStateSnapshot.html#a7457d3da8bec067b3d7de5d890fd0ef3',1,'ad::rss::state::RssStateSnapshot::defaultEgoVehicleRssDynamics()'],['../structad_1_1rss_1_1world_1_1WorldModel.html#adc6764fdd63a5c2a3b1cae1a8461821b',1,'ad::rss::world::WorldModel::defaultEgoVehicleRssDynamics()']]],
-  ['dimension_60',['dimension',['../structad_1_1rss_1_1world_1_1ObjectState.html#a486a9d4c3b5609f0c9fec4d10f0dc95f',1,'ad::rss::world::ObjectState']]],
-  ['distancetoenterintersection_61',['distanceToEnterIntersection',['../structad_1_1rss_1_1situation_1_1VehicleState.html#ac5c26ecc8c6076bc91fa213b5fe60013',1,'ad::rss::situation::VehicleState']]],
-  ['distancetoleaveintersection_62',['distanceToLeaveIntersection',['../structad_1_1rss_1_1situation_1_1VehicleState.html#a77688a3f2caa416c1971046946bd4c9f',1,'ad::rss::situation::VehicleState']]],
-  ['drawline_63',['drawLine',['../classad_1_1rss_1_1unstructured_1_1DebugDrawing.html#a867f15b54b6bfa5c27ac5b2ff34f8c19',1,'ad::rss::unstructured::DebugDrawing']]],
-  ['drawpolygon_64',['drawPolygon',['../classad_1_1rss_1_1unstructured_1_1DebugDrawing.html#ab18baaa2a05e8d85ff189391c00ebf16',1,'ad::rss::unstructured::DebugDrawing']]],
-  ['driveaway_65',['DriveAway',['../namespacead_1_1rss_1_1state.html#a44dba2d932ae49a3c399416414b93b21ab5cd388d6fedf007ce2c6c0b70a2a4d3',1,'ad::rss::state']]],
-  ['driveawaymaxangle_66',['driveAwayMaxAngle',['../structad_1_1rss_1_1world_1_1UnstructuredSettings.html#a8665c0d943264fbaf008af8494e93b2b',1,'ad::rss::world::UnstructuredSettings']]],
-  ['drivingdirection_67',['drivingDirection',['../structad_1_1rss_1_1world_1_1LaneSegment.html#ab5a04816dffae3cae42f098eff399e99',1,'ad::rss::world::LaneSegment']]],
-  ['dynamics_68',['dynamics',['../structad_1_1rss_1_1situation_1_1VehicleState.html#ac163a34a86bba8e6a67db335d75b6055',1,'ad::rss::situation::VehicleState']]]
+  ['dangerous_5fobjects_80',['dangerous_objects',['../structad_1_1rss_1_1state_1_1ProperResponse.html#a2fbe5fe2a5f18784fe48aa1150d86aac',1,'ad::rss::state::ProperResponse']]],
+  ['default_5fego_5fvehicle_5frss_5fdynamics_81',['default_ego_vehicle_rss_dynamics',['../structad_1_1rss_1_1core_1_1RssSituationSnapshot.html#a550057f7041945017e53df82ae1443ae',1,'ad::rss::core::RssSituationSnapshot::default_ego_vehicle_rss_dynamics()'],['../structad_1_1rss_1_1state_1_1RssStateSnapshot.html#aa6e817e55649acbf44729b4efe5d8e17',1,'ad::rss::state::RssStateSnapshot::default_ego_vehicle_rss_dynamics()'],['../structad_1_1rss_1_1world_1_1WorldModel.html#af4e8eeffbe44b092d304226697638b57',1,'ad::rss::world::WorldModel::default_ego_vehicle_rss_dynamics()']]],
+  ['dimension_82',['dimension',['../structad_1_1rss_1_1world_1_1ObjectState.html#a486a9d4c3b5609f0c9fec4d10f0dc95f',1,'ad::rss::world::ObjectState']]],
+  ['distance_5fto_5fenter_5fintersection_83',['distance_to_enter_intersection',['../structad_1_1rss_1_1core_1_1StructuredObjectState.html#afca935a62066cf3da8764b9a58a145d5',1,'ad::rss::core::StructuredObjectState']]],
+  ['distance_5fto_5fleave_5fintersection_84',['distance_to_leave_intersection',['../structad_1_1rss_1_1core_1_1StructuredObjectState.html#a01d7d61ba94ee0b41b0c89e4f9e1d664',1,'ad::rss::core::StructuredObjectState']]],
+  ['drive_5faway_5fmax_5fangle_85',['drive_away_max_angle',['../structad_1_1rss_1_1world_1_1UnstructuredSettings.html#acf646a41c4bcb9173c1951565e5d082f',1,'ad::rss::world::UnstructuredSettings']]],
+  ['driveaway_86',['DriveAway',['../namespacead_1_1rss_1_1state.html#ad15f65f400e3e07fc3928bed614f9aa8ab5cd388d6fedf007ce2c6c0b70a2a4d3',1,'ad::rss::state']]],
+  ['driving_5fdirection_87',['driving_direction',['../structad_1_1rss_1_1world_1_1LaneSegment.html#ac8866bb343495e10ff17d1c0b24c29f9',1,'ad::rss::world::LaneSegment']]],
+  ['dropconstellationids_88',['dropConstellationIds',['../classad_1_1rss_1_1structured_1_1RssConstellationIdProvider.html#a7e00975f06607045d7a12112904c7e2e',1,'ad::rss::structured::RssConstellationIdProvider']]],
+  ['dropobjecthistory_89',['dropObjectHistory',['../classad_1_1rss_1_1core_1_1RssCheck.html#ab2575668a31e06505af34f513b717bde',1,'ad::rss::core::RssCheck::dropObjectHistory()'],['../classad_1_1rss_1_1core_1_1RssSituationExtraction.html#ac6f0aabc8c0e9328124c3d379619cf07',1,'ad::rss::core::RssSituationExtraction::dropObjectHistory()']]],
+  ['dynamics_90',['dynamics',['../structad_1_1rss_1_1core_1_1RelativeObjectState.html#adbc8aa65f43096dedc5d6cb7f46340ba',1,'ad::rss::core::RelativeObjectState']]]
 ];

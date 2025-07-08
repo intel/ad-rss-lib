@@ -1,0 +1,9 @@
+[colcon_core.extension_point]
+colcon_test_result.test_result = colcon_test_result.test_result:TestResultExtensionPoint
+
+[colcon_core.verb]
+test-result = colcon_test_result.verb.test_result:TestResultVerb
+
+[colcon_test_result.test_result]
+xunit = colcon_test_result.test_result.xunit:XunitTestResult
+

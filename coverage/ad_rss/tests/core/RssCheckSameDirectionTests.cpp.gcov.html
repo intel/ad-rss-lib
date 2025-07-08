@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2025-07-01 07:46:10</td>
+            <td class="headerValue">2025-07-08 06:31:49</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">68</td>
@@ -91,7 +91,7 @@
 <a name="20"><span class="lineNum">      20 </span>                :<span class="lineCov">         55 :     return TESTBASE::objectOnSegment1;</span></a>
 <a name="21"><span class="lineNum">      21 </span>                :            :   }</a>
 <a name="22"><span class="lineNum">      22 </span>                :            : </a>
-<a name="23"><span class="lineNum">      23 </span>                :<span class="lineCov">         55 :   world::Object &amp;getSceneObject(uint32_t) override</span></a>
+<a name="23"><span class="lineNum">      23 </span>                :<span class="lineCov">         55 :   world::Object &amp;getConstellationObject(uint32_t) override</span></a>
 <a name="24"><span class="lineNum">      24 </span>                :            :   {</a>
 <a name="25"><span class="lineNum">      25 </span>                :<span class="lineCov">         55 :     return TESTBASE::objectOnSegment7;</span></a>
 <a name="26"><span class="lineNum">      26 </span>                :            :   }</a>
@@ -110,7 +110,7 @@
 <a name="39"><span class="lineNum">      39 </span>                :<span class="lineCov">         54 :     return TESTBASE::objectOnSegment7;</span></a>
 <a name="40"><span class="lineNum">      40 </span>                :            :   }</a>
 <a name="41"><span class="lineNum">      41 </span>                :            : </a>
-<a name="42"><span class="lineNum">      42 </span>                :<span class="lineCov">         54 :   world::Object &amp;getSceneObject(uint32_t) override</span></a>
+<a name="42"><span class="lineNum">      42 </span>                :<span class="lineCov">         54 :   world::Object &amp;getConstellationObject(uint32_t) override</span></a>
 <a name="43"><span class="lineNum">      43 </span>                :            :   {</a>
 <a name="44"><span class="lineNum">      44 </span>                :<span class="lineCov">         54 :     return TESTBASE::objectOnSegment1;</span></a>
 <a name="45"><span class="lineNum">      45 </span>                :            :   }</a>
@@ -135,62 +135,62 @@
 <a name="64"><span class="lineNum">      64 </span>                :            : </a>
 <a name="65"><span class="lineNum">      65 </span>                :<span class="lineCov">          4 : TEST_F(RssCheckSameDirectionOtherLeadingTest, DifferentVelocities_DifferentLaneSegements)</span></a>
 <a name="66"><span class="lineNum">      66 </span>                :            : {</a>
-<a name="67"><span class="lineNum">      67 </span>                :<span class="lineCov">          1 :   worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId = 2;</span></a>
+<a name="67"><span class="lineNum">      67 </span>                :<span class="lineCov">          1 :   worldModel.constellations[0].ego_vehicle.occupied_regions[0].segment_id = 2;</span></a>
 <a name="68"><span class="lineNum">      68 </span>                :<span class="lineCov">          1 :   performDifferentVelocitiesTest(state::LongitudinalResponse::BrakeMin);</span></a>
 <a name="69"><span class="lineNum">      69 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="70"><span class="lineNum">      70 </span>                :            : </a>
 <a name="71"><span class="lineNum">      71 </span>                :<span class="lineCov">          4 : TEST_F(RssCheckSameDirectionOtherLeadingTest, DifferentVelocities_NoLateralConflict)</span></a>
 <a name="72"><span class="lineNum">      72 </span>                :            : {</a>
-<a name="73"><span class="lineNum">      73 </span>                :<span class="lineCov">          1 :   worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId = 0;</span></a>
-<a name="74"><span class="lineNum">      74 </span>                :<span class="lineCov">          1 :   worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.0);</span></a>
-<a name="75"><span class="lineNum">      75 </span>                :<span class="lineCov">          1 :   worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.1);</span></a>
+<a name="73"><span class="lineNum">      73 </span>                :<span class="lineCov">          1 :   worldModel.constellations[0].ego_vehicle.occupied_regions[0].segment_id = 0;</span></a>
+<a name="74"><span class="lineNum">      74 </span>                :<span class="lineCov">          1 :   worldModel.constellations[0].ego_vehicle.occupied_regions[0].lat_range.minimum = ParametricValue(0.0);</span></a>
+<a name="75"><span class="lineNum">      75 </span>                :<span class="lineCov">          1 :   worldModel.constellations[0].ego_vehicle.occupied_regions[0].lat_range.maximum = ParametricValue(0.1);</span></a>
 <a name="76"><span class="lineNum">      76 </span>                :            : </a>
-<a name="77"><span class="lineNum">      77 </span>                :<span class="lineCov">          1 :   worldModel.scenes[0].object.occupiedRegions[0].segmentId = 8;</span></a>
+<a name="77"><span class="lineNum">      77 </span>                :<span class="lineCov">          1 :   worldModel.constellations[0].object.occupied_regions[0].segment_id = 8;</span></a>
 <a name="78"><span class="lineNum">      78 </span>                :            : </a>
 <a name="79"><span class="lineNum">      79 </span>                :<span class="lineCov">          1 :   state::ProperResponse properResponse;</span></a>
 <a name="80"><span class="lineNum">      80 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   core::RssCheck rssCheck;</span></a>
 <a name="81"><span class="lineNum">      81 </span>                :            : </a>
 <a name="82"><span class="lineNum">      82 </span>        [<span class="branchCov" title="Branch 0 was taken 100 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">        101 :   for (uint32_t i = 0; i &lt; 100; i++)</span></a>
 <a name="83"><span class="lineNum">      83 </span>                :            :   {</a>
-<a name="84"><span class="lineNum">      84 </span>                :<span class="lineCov">        100 :     worldModel.scenes[0].egoVehicle.velocity.speedLonMin = kmhToMeterPerSec(i);</span></a>
-<a name="85"><span class="lineNum">      85 </span>                :<span class="lineCov">        100 :     worldModel.scenes[0].egoVehicle.velocity.speedLonMax = kmhToMeterPerSec(i);</span></a>
-<a name="86"><span class="lineNum">      86 </span>                :<span class="lineCov">        100 :     worldModel.timeIndex++;</span></a>
+<a name="84"><span class="lineNum">      84 </span>                :<span class="lineCov">        100 :     worldModel.constellations[0].ego_vehicle.velocity.speed_lon_min = kmhToMeterPerSec(i);</span></a>
+<a name="85"><span class="lineNum">      85 </span>                :<span class="lineCov">        100 :     worldModel.constellations[0].ego_vehicle.velocity.speed_lon_max = kmhToMeterPerSec(i);</span></a>
+<a name="86"><span class="lineNum">      86 </span>                :<span class="lineCov">        100 :     worldModel.time_index++;</span></a>
 <a name="87"><span class="lineNum">      87 </span>                :            : </a>
 <a name="88"><span class="lineNum">      88 </span>  [<span class="branchCov" title="Branch 0 was taken 100 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 100 times"> + </span> :<span class="lineCov">        100 :     ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
 <span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 100 times"> + </span> 
 <span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="89"><span class="lineNum">      89 </span>                :            : </a>
-<a name="90"><span class="lineNum">      90 </span>        [<span class="branchCov" title="Branch 0 was taken 100 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        100 :     testRestrictions(properResponse.accelerationRestrictions);</span></a>
+<a name="90"><span class="lineNum">      90 </span>        [<span class="branchCov" title="Branch 0 was taken 100 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        100 :     testRestrictions(properResponse.acceleration_restrictions);</span></a>
 <a name="91"><span class="lineNum">      91 </span>                :            :   }</a>
 <a name="92"><span class="lineNum">      92 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          1 : }</span></a>
 <a name="93"><span class="lineNum">      93 </span>                :            : </a>
 <a name="94"><span class="lineNum">      94 </span>                :<span class="lineCov">          4 : TEST_F(RssCheckSameDirectionOtherLeadingTest, _DifferentVelocities_NoLateralConflict_2Objects)</span></a>
 <a name="95"><span class="lineNum">      95 </span>                :            : {</a>
-<a name="96"><span class="lineNum">      96 </span>                :<span class="lineCov">          1 :   worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId = 0;</span></a>
-<a name="97"><span class="lineNum">      97 </span>                :<span class="lineCov">          1 :   worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.0);</span></a>
-<a name="98"><span class="lineNum">      98 </span>                :<span class="lineCov">          1 :   worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.1);</span></a>
+<a name="96"><span class="lineNum">      96 </span>                :<span class="lineCov">          1 :   worldModel.constellations[0].ego_vehicle.occupied_regions[0].segment_id = 0;</span></a>
+<a name="97"><span class="lineNum">      97 </span>                :<span class="lineCov">          1 :   worldModel.constellations[0].ego_vehicle.occupied_regions[0].lat_range.minimum = ParametricValue(0.0);</span></a>
+<a name="98"><span class="lineNum">      98 </span>                :<span class="lineCov">          1 :   worldModel.constellations[0].ego_vehicle.occupied_regions[0].lat_range.maximum = ParametricValue(0.1);</span></a>
 <a name="99"><span class="lineNum">      99 </span>                :            : </a>
-<a name="100"><span class="lineNum">     100 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   worldModel.scenes.push_back(worldModel.scenes.front());</span></a>
-<a name="101"><span class="lineNum">     101 </span>                :<span class="lineCov">          1 :   worldModel.scenes[0].object.occupiedRegions[0].segmentId = 8;</span></a>
-<a name="102"><span class="lineNum">     102 </span>                :<span class="lineCov">          1 :   worldModel.scenes[1].object.occupiedRegions[0].segmentId = 8;</span></a>
-<a name="103"><span class="lineNum">     103 </span>                :<span class="lineCov">          1 :   worldModel.scenes[1].object.objectId = 2;</span></a>
+<a name="100"><span class="lineNum">     100 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   worldModel.constellations.push_back(worldModel.constellations.front());</span></a>
+<a name="101"><span class="lineNum">     101 </span>                :<span class="lineCov">          1 :   worldModel.constellations[0].object.occupied_regions[0].segment_id = 8;</span></a>
+<a name="102"><span class="lineNum">     102 </span>                :<span class="lineCov">          1 :   worldModel.constellations[1].object.occupied_regions[0].segment_id = 8;</span></a>
+<a name="103"><span class="lineNum">     103 </span>                :<span class="lineCov">          1 :   worldModel.constellations[1].object.object_id = 2;</span></a>
 <a name="104"><span class="lineNum">     104 </span>                :            : </a>
 <a name="105"><span class="lineNum">     105 </span>                :<span class="lineCov">          1 :   state::ProperResponse properResponse;</span></a>
 <a name="106"><span class="lineNum">     106 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   core::RssCheck rssCheck;</span></a>
 <a name="107"><span class="lineNum">     107 </span>                :            : </a>
 <a name="108"><span class="lineNum">     108 </span>        [<span class="branchCov" title="Branch 0 was taken 100 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">        101 :   for (uint32_t i = 0; i &lt; 100; i++)</span></a>
 <a name="109"><span class="lineNum">     109 </span>                :            :   {</a>
-<a name="110"><span class="lineNum">     110 </span>                :<span class="lineCov">        100 :     worldModel.scenes[0].egoVehicle.velocity.speedLonMin = kmhToMeterPerSec(i);</span></a>
-<a name="111"><span class="lineNum">     111 </span>                :<span class="lineCov">        100 :     worldModel.scenes[0].egoVehicle.velocity.speedLonMax = kmhToMeterPerSec(i);</span></a>
-<a name="112"><span class="lineNum">     112 </span>                :<span class="lineCov">        100 :     worldModel.timeIndex++;</span></a>
+<a name="110"><span class="lineNum">     110 </span>                :<span class="lineCov">        100 :     worldModel.constellations[0].ego_vehicle.velocity.speed_lon_min = kmhToMeterPerSec(i);</span></a>
+<a name="111"><span class="lineNum">     111 </span>                :<span class="lineCov">        100 :     worldModel.constellations[0].ego_vehicle.velocity.speed_lon_max = kmhToMeterPerSec(i);</span></a>
+<a name="112"><span class="lineNum">     112 </span>                :<span class="lineCov">        100 :     worldModel.time_index++;</span></a>
 <a name="113"><span class="lineNum">     113 </span>                :            : </a>
 <a name="114"><span class="lineNum">     114 </span>  [<span class="branchCov" title="Branch 0 was taken 100 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 100 times"> + </span> :<span class="lineCov">        100 :     ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
 <span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 100 times"> + </span> 
 <span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="115"><span class="lineNum">     115 </span>                :            : </a>
-<a name="116"><span class="lineNum">     116 </span>        [<span class="branchCov" title="Branch 0 was taken 100 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        100 :     testRestrictions(properResponse.accelerationRestrictions);</span></a>
+<a name="116"><span class="lineNum">     116 </span>        [<span class="branchCov" title="Branch 0 was taken 100 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        100 :     testRestrictions(properResponse.acceleration_restrictions);</span></a>
 <a name="117"><span class="lineNum">     117 </span>                :            :   }</a>
 <a name="118"><span class="lineNum">     118 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          1 : }</span></a>
 <a name="119"><span class="lineNum">     119 </span>                :            : </a>
@@ -203,9 +203,9 @@
 <a name="126"><span class="lineNum">     126 </span>                :            : </a>
 <a name="127"><span class="lineNum">     127 </span>        [<span class="branchCov" title="Branch 0 was taken 100 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">        101 :   for (uint32_t i = 0; i &lt; 100; i++)</span></a>
 <a name="128"><span class="lineNum">     128 </span>                :            :   {</a>
-<a name="129"><span class="lineNum">     129 </span>                :<span class="lineCov">        100 :     worldModel.scenes[0].object.velocity.speedLonMin = kmhToMeterPerSec(i);</span></a>
-<a name="130"><span class="lineNum">     130 </span>                :<span class="lineCov">        100 :     worldModel.scenes[0].object.velocity.speedLonMax = kmhToMeterPerSec(i);</span></a>
-<a name="131"><span class="lineNum">     131 </span>                :<span class="lineCov">        100 :     worldModel.timeIndex++;</span></a>
+<a name="129"><span class="lineNum">     129 </span>                :<span class="lineCov">        100 :     worldModel.constellations[0].object.velocity.speed_lon_min = kmhToMeterPerSec(i);</span></a>
+<a name="130"><span class="lineNum">     130 </span>                :<span class="lineCov">        100 :     worldModel.constellations[0].object.velocity.speed_lon_max = kmhToMeterPerSec(i);</span></a>
+<a name="131"><span class="lineNum">     131 </span>                :<span class="lineCov">        100 :     worldModel.time_index++;</span></a>
 <a name="132"><span class="lineNum">     132 </span>                :            : </a>
 <a name="133"><span class="lineNum">     133 </span>  [<span class="branchCov" title="Branch 0 was taken 100 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 100 times"> + </span> :<span class="lineCov">        100 :     ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
@@ -213,28 +213,28 @@
 <span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="134"><span class="lineNum">     134 </span>                :            : </a>
 <a name="135"><span class="lineNum">     135 </span>                :            :     // no matter how fast the following vehicle is, the ego must never brake as it leads</a>
-<a name="136"><span class="lineNum">     136 </span>        [<span class="branchCov" title="Branch 0 was taken 100 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        100 :     testRestrictions(properResponse.accelerationRestrictions);</span></a>
+<a name="136"><span class="lineNum">     136 </span>        [<span class="branchCov" title="Branch 0 was taken 100 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        100 :     testRestrictions(properResponse.acceleration_restrictions);</span></a>
 <a name="137"><span class="lineNum">     137 </span>                :            :   }</a>
 <a name="138"><span class="lineNum">     138 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          1 : }</span></a>
 <a name="139"><span class="lineNum">     139 </span>                :            : </a>
 <a name="140"><span class="lineNum">     140 </span>                :<span class="lineCov">          4 : TEST_F(RssCheckSameDirectionEgoLeadingTest, Overlap_Front)</span></a>
 <a name="141"><span class="lineNum">     141 </span>                :            : {</a>
-<a name="142"><span class="lineNum">     142 </span>                :<span class="lineCov">          1 :   worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId = 8;</span></a>
-<a name="143"><span class="lineNum">     143 </span>                :<span class="lineCov">          1 :   worldModel.scenes[0].egoVehicle.occupiedRegions[0].lonRange.maximum = ParametricValue(0.5);</span></a>
-<a name="144"><span class="lineNum">     144 </span>                :<span class="lineCov">          1 :   worldModel.scenes[0].egoVehicle.occupiedRegions[0].lonRange.minimum = ParametricValue(0.4);</span></a>
+<a name="142"><span class="lineNum">     142 </span>                :<span class="lineCov">          1 :   worldModel.constellations[0].ego_vehicle.occupied_regions[0].segment_id = 8;</span></a>
+<a name="143"><span class="lineNum">     143 </span>                :<span class="lineCov">          1 :   worldModel.constellations[0].ego_vehicle.occupied_regions[0].lon_range.maximum = ParametricValue(0.5);</span></a>
+<a name="144"><span class="lineNum">     144 </span>                :<span class="lineCov">          1 :   worldModel.constellations[0].ego_vehicle.occupied_regions[0].lon_range.minimum = ParametricValue(0.4);</span></a>
 <a name="145"><span class="lineNum">     145 </span>                :            : </a>
-<a name="146"><span class="lineNum">     146 </span>                :<span class="lineCov">          1 :   worldModel.scenes[0].object.occupiedRegions[0].segmentId = 6;</span></a>
-<a name="147"><span class="lineNum">     147 </span>                :<span class="lineCov">          1 :   worldModel.scenes[0].object.occupiedRegions[0].lonRange.maximum = ParametricValue(0.45);</span></a>
-<a name="148"><span class="lineNum">     148 </span>                :<span class="lineCov">          1 :   worldModel.scenes[0].object.occupiedRegions[0].lonRange.minimum = ParametricValue(0.35);</span></a>
+<a name="146"><span class="lineNum">     146 </span>                :<span class="lineCov">          1 :   worldModel.constellations[0].object.occupied_regions[0].segment_id = 6;</span></a>
+<a name="147"><span class="lineNum">     147 </span>                :<span class="lineCov">          1 :   worldModel.constellations[0].object.occupied_regions[0].lon_range.maximum = ParametricValue(0.45);</span></a>
+<a name="148"><span class="lineNum">     148 </span>                :<span class="lineCov">          1 :   worldModel.constellations[0].object.occupied_regions[0].lon_range.minimum = ParametricValue(0.35);</span></a>
 <a name="149"><span class="lineNum">     149 </span>                :            : </a>
 <a name="150"><span class="lineNum">     150 </span>                :<span class="lineCov">          1 :   state::ProperResponse properResponse;</span></a>
 <a name="151"><span class="lineNum">     151 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   core::RssCheck rssCheck;</span></a>
 <a name="152"><span class="lineNum">     152 </span>                :            : </a>
 <a name="153"><span class="lineNum">     153 </span>        [<span class="branchCov" title="Branch 0 was taken 100 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">        101 :   for (uint32_t i = 0; i &lt; 100; i++)</span></a>
 <a name="154"><span class="lineNum">     154 </span>                :            :   {</a>
-<a name="155"><span class="lineNum">     155 </span>                :<span class="lineCov">        100 :     worldModel.scenes[0].object.velocity.speedLonMin = kmhToMeterPerSec(i);</span></a>
-<a name="156"><span class="lineNum">     156 </span>                :<span class="lineCov">        100 :     worldModel.scenes[0].object.velocity.speedLonMax = kmhToMeterPerSec(i);</span></a>
-<a name="157"><span class="lineNum">     157 </span>                :<span class="lineCov">        100 :     worldModel.timeIndex++;</span></a>
+<a name="155"><span class="lineNum">     155 </span>                :<span class="lineCov">        100 :     worldModel.constellations[0].object.velocity.speed_lon_min = kmhToMeterPerSec(i);</span></a>
+<a name="156"><span class="lineNum">     156 </span>                :<span class="lineCov">        100 :     worldModel.constellations[0].object.velocity.speed_lon_max = kmhToMeterPerSec(i);</span></a>
+<a name="157"><span class="lineNum">     157 </span>                :<span class="lineCov">        100 :     worldModel.time_index++;</span></a>
 <a name="158"><span class="lineNum">     158 </span>                :            : </a>
 <a name="159"><span class="lineNum">     159 </span>  [<span class="branchCov" title="Branch 0 was taken 100 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 100 times"> + </span> :<span class="lineCov">        100 :     ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
@@ -242,28 +242,28 @@
 <span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="160"><span class="lineNum">     160 </span>                :            : </a>
 <a name="161"><span class="lineNum">     161 </span>                :            :     // no matter how fast the following vehicle is, the ego must never brake as it leads</a>
-<a name="162"><span class="lineNum">     162 </span>        [<span class="branchCov" title="Branch 0 was taken 100 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        100 :     testRestrictions(properResponse.accelerationRestrictions);</span></a>
+<a name="162"><span class="lineNum">     162 </span>        [<span class="branchCov" title="Branch 0 was taken 100 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        100 :     testRestrictions(properResponse.acceleration_restrictions);</span></a>
 <a name="163"><span class="lineNum">     163 </span>                :            :   }</a>
 <a name="164"><span class="lineNum">     164 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          1 : }</span></a>
 <a name="165"><span class="lineNum">     165 </span>                :            : </a>
 <a name="166"><span class="lineNum">     166 </span>                :<span class="lineCov">          4 : TEST_F(RssCheckSameDirectionEgoLeadingTest, Overlap_Right)</span></a>
 <a name="167"><span class="lineNum">     167 </span>                :            : {</a>
-<a name="168"><span class="lineNum">     168 </span>                :<span class="lineCov">          1 :   worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId = 5;</span></a>
-<a name="169"><span class="lineNum">     169 </span>                :<span class="lineCov">          1 :   worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.5);</span></a>
-<a name="170"><span class="lineNum">     170 </span>                :<span class="lineCov">          1 :   worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.4);</span></a>
+<a name="168"><span class="lineNum">     168 </span>                :<span class="lineCov">          1 :   worldModel.constellations[0].ego_vehicle.occupied_regions[0].segment_id = 5;</span></a>
+<a name="169"><span class="lineNum">     169 </span>                :<span class="lineCov">          1 :   worldModel.constellations[0].ego_vehicle.occupied_regions[0].lat_range.maximum = ParametricValue(0.5);</span></a>
+<a name="170"><span class="lineNum">     170 </span>                :<span class="lineCov">          1 :   worldModel.constellations[0].ego_vehicle.occupied_regions[0].lat_range.minimum = ParametricValue(0.4);</span></a>
 <a name="171"><span class="lineNum">     171 </span>                :            : </a>
-<a name="172"><span class="lineNum">     172 </span>                :<span class="lineCov">          1 :   worldModel.scenes[0].object.occupiedRegions[0].segmentId = 2;</span></a>
-<a name="173"><span class="lineNum">     173 </span>                :<span class="lineCov">          1 :   worldModel.scenes[0].object.occupiedRegions[0].latRange.maximum = ParametricValue(0.45);</span></a>
-<a name="174"><span class="lineNum">     174 </span>                :<span class="lineCov">          1 :   worldModel.scenes[0].object.occupiedRegions[0].latRange.minimum = ParametricValue(0.35);</span></a>
+<a name="172"><span class="lineNum">     172 </span>                :<span class="lineCov">          1 :   worldModel.constellations[0].object.occupied_regions[0].segment_id = 2;</span></a>
+<a name="173"><span class="lineNum">     173 </span>                :<span class="lineCov">          1 :   worldModel.constellations[0].object.occupied_regions[0].lat_range.maximum = ParametricValue(0.45);</span></a>
+<a name="174"><span class="lineNum">     174 </span>                :<span class="lineCov">          1 :   worldModel.constellations[0].object.occupied_regions[0].lat_range.minimum = ParametricValue(0.35);</span></a>
 <a name="175"><span class="lineNum">     175 </span>                :            : </a>
 <a name="176"><span class="lineNum">     176 </span>                :<span class="lineCov">          1 :   state::ProperResponse properResponse;</span></a>
 <a name="177"><span class="lineNum">     177 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   core::RssCheck rssCheck;</span></a>
 <a name="178"><span class="lineNum">     178 </span>                :            : </a>
 <a name="179"><span class="lineNum">     179 </span>        [<span class="branchCov" title="Branch 0 was taken 100 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">        101 :   for (uint32_t i = 0; i &lt; 100; i++)</span></a>
 <a name="180"><span class="lineNum">     180 </span>                :            :   {</a>
-<a name="181"><span class="lineNum">     181 </span>                :<span class="lineCov">        100 :     worldModel.scenes[0].object.velocity.speedLonMin = kmhToMeterPerSec(i);</span></a>
-<a name="182"><span class="lineNum">     182 </span>                :<span class="lineCov">        100 :     worldModel.scenes[0].object.velocity.speedLonMax = kmhToMeterPerSec(i);</span></a>
-<a name="183"><span class="lineNum">     183 </span>                :<span class="lineCov">        100 :     worldModel.timeIndex++;</span></a>
+<a name="181"><span class="lineNum">     181 </span>                :<span class="lineCov">        100 :     worldModel.constellations[0].object.velocity.speed_lon_min = kmhToMeterPerSec(i);</span></a>
+<a name="182"><span class="lineNum">     182 </span>                :<span class="lineCov">        100 :     worldModel.constellations[0].object.velocity.speed_lon_max = kmhToMeterPerSec(i);</span></a>
+<a name="183"><span class="lineNum">     183 </span>                :<span class="lineCov">        100 :     worldModel.time_index++;</span></a>
 <a name="184"><span class="lineNum">     184 </span>                :            : </a>
 <a name="185"><span class="lineNum">     185 </span>  [<span class="branchCov" title="Branch 0 was taken 100 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 100 times"> + </span> :<span class="lineCov">        100 :     ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
@@ -271,28 +271,28 @@
 <span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="186"><span class="lineNum">     186 </span>                :            : </a>
 <a name="187"><span class="lineNum">     187 </span>                :            :     // no matter how fast the following vehicle is, the ego must never brake as it leads</a>
-<a name="188"><span class="lineNum">     188 </span>        [<span class="branchCov" title="Branch 0 was taken 100 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        100 :     testRestrictions(properResponse.accelerationRestrictions);</span></a>
+<a name="188"><span class="lineNum">     188 </span>        [<span class="branchCov" title="Branch 0 was taken 100 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        100 :     testRestrictions(properResponse.acceleration_restrictions);</span></a>
 <a name="189"><span class="lineNum">     189 </span>                :            :   }</a>
 <a name="190"><span class="lineNum">     190 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          1 : }</span></a>
 <a name="191"><span class="lineNum">     191 </span>                :            : </a>
 <a name="192"><span class="lineNum">     192 </span>                :<span class="lineCov">          4 : TEST_F(RssCheckSameDirectionEgoLeadingTest, Overlap_Left)</span></a>
 <a name="193"><span class="lineNum">     193 </span>                :            : {</a>
-<a name="194"><span class="lineNum">     194 </span>                :<span class="lineCov">          1 :   worldModel.scenes[0].egoVehicle.occupiedRegions[0].segmentId = 5;</span></a>
-<a name="195"><span class="lineNum">     195 </span>                :<span class="lineCov">          1 :   worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.maximum = ParametricValue(0.4);</span></a>
-<a name="196"><span class="lineNum">     196 </span>                :<span class="lineCov">          1 :   worldModel.scenes[0].egoVehicle.occupiedRegions[0].latRange.minimum = ParametricValue(0.3);</span></a>
+<a name="194"><span class="lineNum">     194 </span>                :<span class="lineCov">          1 :   worldModel.constellations[0].ego_vehicle.occupied_regions[0].segment_id = 5;</span></a>
+<a name="195"><span class="lineNum">     195 </span>                :<span class="lineCov">          1 :   worldModel.constellations[0].ego_vehicle.occupied_regions[0].lat_range.maximum = ParametricValue(0.4);</span></a>
+<a name="196"><span class="lineNum">     196 </span>                :<span class="lineCov">          1 :   worldModel.constellations[0].ego_vehicle.occupied_regions[0].lat_range.minimum = ParametricValue(0.3);</span></a>
 <a name="197"><span class="lineNum">     197 </span>                :            : </a>
-<a name="198"><span class="lineNum">     198 </span>                :<span class="lineCov">          1 :   worldModel.scenes[0].object.occupiedRegions[0].segmentId = 2;</span></a>
-<a name="199"><span class="lineNum">     199 </span>                :<span class="lineCov">          1 :   worldModel.scenes[0].object.occupiedRegions[0].latRange.maximum = ParametricValue(0.45);</span></a>
-<a name="200"><span class="lineNum">     200 </span>                :<span class="lineCov">          1 :   worldModel.scenes[0].object.occupiedRegions[0].latRange.minimum = ParametricValue(0.35);</span></a>
+<a name="198"><span class="lineNum">     198 </span>                :<span class="lineCov">          1 :   worldModel.constellations[0].object.occupied_regions[0].segment_id = 2;</span></a>
+<a name="199"><span class="lineNum">     199 </span>                :<span class="lineCov">          1 :   worldModel.constellations[0].object.occupied_regions[0].lat_range.maximum = ParametricValue(0.45);</span></a>
+<a name="200"><span class="lineNum">     200 </span>                :<span class="lineCov">          1 :   worldModel.constellations[0].object.occupied_regions[0].lat_range.minimum = ParametricValue(0.35);</span></a>
 <a name="201"><span class="lineNum">     201 </span>                :            : </a>
 <a name="202"><span class="lineNum">     202 </span>                :<span class="lineCov">          1 :   state::ProperResponse properResponse;</span></a>
 <a name="203"><span class="lineNum">     203 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :   core::RssCheck rssCheck;</span></a>
 <a name="204"><span class="lineNum">     204 </span>                :            : </a>
 <a name="205"><span class="lineNum">     205 </span>        [<span class="branchCov" title="Branch 0 was taken 100 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">        101 :   for (uint32_t i = 0; i &lt; 100; i++)</span></a>
 <a name="206"><span class="lineNum">     206 </span>                :            :   {</a>
-<a name="207"><span class="lineNum">     207 </span>                :<span class="lineCov">        100 :     worldModel.scenes[0].object.velocity.speedLonMin = kmhToMeterPerSec(i);</span></a>
-<a name="208"><span class="lineNum">     208 </span>                :<span class="lineCov">        100 :     worldModel.scenes[0].object.velocity.speedLonMax = kmhToMeterPerSec(i);</span></a>
-<a name="209"><span class="lineNum">     209 </span>                :<span class="lineCov">        100 :     worldModel.timeIndex++;</span></a>
+<a name="207"><span class="lineNum">     207 </span>                :<span class="lineCov">        100 :     worldModel.constellations[0].object.velocity.speed_lon_min = kmhToMeterPerSec(i);</span></a>
+<a name="208"><span class="lineNum">     208 </span>                :<span class="lineCov">        100 :     worldModel.constellations[0].object.velocity.speed_lon_max = kmhToMeterPerSec(i);</span></a>
+<a name="209"><span class="lineNum">     209 </span>                :<span class="lineCov">        100 :     worldModel.time_index++;</span></a>
 <a name="210"><span class="lineNum">     210 </span>                :            : </a>
 <a name="211"><span class="lineNum">     211 </span>  [<span class="branchCov" title="Branch 0 was taken 100 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 100 times"> + </span> :<span class="lineCov">        100 :     ASSERT_TRUE(rssCheck.calculateProperResponse(worldModel, properResponse));</span></a>
 <span class="lineNum">         </span><span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
@@ -300,7 +300,7 @@
 <span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
 <a name="212"><span class="lineNum">     212 </span>                :            : </a>
 <a name="213"><span class="lineNum">     213 </span>                :            :     // no matter how fast the following vehicle is, the ego must never brake as it leads</a>
-<a name="214"><span class="lineNum">     214 </span>        [<span class="branchCov" title="Branch 0 was taken 100 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        100 :     testRestrictions(properResponse.accelerationRestrictions);</span></a>
+<a name="214"><span class="lineNum">     214 </span>        [<span class="branchCov" title="Branch 0 was taken 100 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        100 :     testRestrictions(properResponse.acceleration_restrictions);</span></a>
 <a name="215"><span class="lineNum">     215 </span>                :            :   }</a>
 <a name="216"><span class="lineNum">     216 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          1 : }</span></a>
 <a name="217"><span class="lineNum">     217 </span>                :            : </a>
@@ -311,25 +311,25 @@
 <a name="222"><span class="lineNum">     222 </span>                :<span class="lineCov">         52 :   void SetUp() override</span></a>
 <a name="223"><span class="lineNum">     223 </span>                :            :   {</a>
 <a name="224"><span class="lineNum">     224 </span>                :<span class="lineCov">         52 :     TESTBASE::SetUp();</span></a>
-<a name="225"><span class="lineNum">     225 </span>                :            :     // now we have to shorten the road areas for the two scenes otherwhise</a>
+<a name="225"><span class="lineNum">     225 </span>                :            :     // now we have to shorten the road areas for the two constellations otherwhise</a>
 <a name="226"><span class="lineNum">     226 </span>                :            :     // the area is too big which restricts too much to handle in our test code</a>
-<a name="227"><span class="lineNum">     227 </span>        [<span class="branchCov" title="Branch 0 was taken 52 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         52 :     worldModel.scenes[0].egoVehicleRoad.erase(worldModel.scenes[0].egoVehicleRoad.begin() + 2);</span></a>
-<a name="228"><span class="lineNum">     228 </span>        [<span class="branchCov" title="Branch 0 was taken 52 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         52 :     worldModel.scenes[1].egoVehicleRoad.erase(worldModel.scenes[1].egoVehicleRoad.begin());</span></a>
+<a name="227"><span class="lineNum">     227 </span>        [<span class="branchCov" title="Branch 0 was taken 52 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         52 :     worldModel.constellations[0].ego_vehicle_road.erase(worldModel.constellations[0].ego_vehicle_road.begin() + 2);</span></a>
+<a name="228"><span class="lineNum">     228 </span>        [<span class="branchCov" title="Branch 0 was taken 52 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         52 :     worldModel.constellations[1].ego_vehicle_road.erase(worldModel.constellations[1].ego_vehicle_road.begin());</span></a>
 <a name="229"><span class="lineNum">     229 </span>                :<span class="lineCov">         52 :   }</span></a>
 <a name="230"><span class="lineNum">     230 </span>                :            : </a>
 <a name="231"><span class="lineNum">     231 </span>                :<span class="lineCov">        104 :   world::Object &amp;getEgoObject() override</span></a>
 <a name="232"><span class="lineNum">     232 </span>                :            :   {</a>
-<a name="233"><span class="lineNum">     233 </span>                :<span class="lineCov">        104 :     TESTBASE::objectOnSegment3.occupiedRegions[0].latRange.minimum = ParametricValue(0.8);</span></a>
-<a name="234"><span class="lineNum">     234 </span>                :<span class="lineCov">        104 :     TESTBASE::objectOnSegment3.occupiedRegions[0].latRange.maximum = ParametricValue(0.9);</span></a>
+<a name="233"><span class="lineNum">     233 </span>                :<span class="lineCov">        104 :     TESTBASE::objectOnSegment3.occupied_regions[0].lat_range.minimum = ParametricValue(0.8);</span></a>
+<a name="234"><span class="lineNum">     234 </span>                :<span class="lineCov">        104 :     TESTBASE::objectOnSegment3.occupied_regions[0].lat_range.maximum = ParametricValue(0.9);</span></a>
 <a name="235"><span class="lineNum">     235 </span>                :<span class="lineCov">        104 :     return TESTBASE::objectOnSegment3;</span></a>
 <a name="236"><span class="lineNum">     236 </span>                :            :   }</a>
 <a name="237"><span class="lineNum">     237 </span>                :            : </a>
-<a name="238"><span class="lineNum">     238 </span>                :<span class="lineCov">        156 :   uint32_t getNumberOfSceneObjects() override</span></a>
+<a name="238"><span class="lineNum">     238 </span>                :<span class="lineCov">        156 :   uint32_t getNumberOfConstellationObjects() override</span></a>
 <a name="239"><span class="lineNum">     239 </span>                :            :   {</a>
 <a name="240"><span class="lineNum">     240 </span>                :<span class="lineCov">        156 :     return 2u;</span></a>
 <a name="241"><span class="lineNum">     241 </span>                :            :   }</a>
 <a name="242"><span class="lineNum">     242 </span>                :            : </a>
-<a name="243"><span class="lineNum">     243 </span>                :<span class="lineCov">        104 :   world::Object &amp;getSceneObject(uint32_t index) override</span></a>
+<a name="243"><span class="lineNum">     243 </span>                :<span class="lineCov">        104 :   world::Object &amp;getConstellationObject(uint32_t index) override</span></a>
 <a name="244"><span class="lineNum">     244 </span>                :            :   {</a>
 <a name="245"><span class="lineNum">     245 </span>        [<span class="branchCov" title="Branch 0 was taken 52 times"> + </span><span class="branchCov" title="Branch 1 was taken 52 times"> + </span>]:<span class="lineCov">        104 :     if (index == 0u)</span></a>
 <a name="246"><span class="lineNum">     246 </span>                :            :     {</a>

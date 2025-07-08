@@ -1,0 +1,61 @@
+Metadata-Version: 2.1
+Name: colcon-core
+Version: 0.19.0
+Summary: Command line tool to build sets of software packages.
+Home-page: https://colcon.readthedocs.io
+Author: Dirk Thomas
+Author-email: web@dirk-thomas.net
+Maintainer: Dirk Thomas
+Maintainer-email: web@dirk-thomas.net
+License: Apache License, Version 2.0
+Project-URL: Changelog, https://github.com/colcon/colcon-core/milestones?direction=desc&sort=due_date&state=closed
+Project-URL: GitHub, https://github.com/colcon/colcon-core/
+Keywords: colcon
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: MacOS
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX
+Classifier: Programming Language :: Python
+Classifier: Topic :: Software Development :: Build Tools
+Requires-Python: >=3.6
+License-File: LICENSE
+Requires-Dist: distlib
+Requires-Dist: EmPy
+Requires-Dist: packaging
+Requires-Dist: pytest
+Requires-Dist: pytest-cov
+Requires-Dist: pytest-repeat
+Requires-Dist: pytest-rerunfailures
+Requires-Dist: setuptools (>=30.3.0)
+Requires-Dist: tomli (>=1.0.0) ; python_version < "3.11"
+Requires-Dist: importlib-metadata ; python_version < "3.8"
+Requires-Dist: coloredlogs ; sys_platform == "win32"
+Provides-Extra: test
+Requires-Dist: flake8 (>=3.6.0) ; extra == 'test'
+Requires-Dist: flake8-blind-except ; extra == 'test'
+Requires-Dist: flake8-builtins ; extra == 'test'
+Requires-Dist: flake8-class-newline ; extra == 'test'
+Requires-Dist: flake8-comprehensions ; extra == 'test'
+Requires-Dist: flake8-deprecated ; extra == 'test'
+Requires-Dist: flake8-docstrings ; extra == 'test'
+Requires-Dist: flake8-import-order ; extra == 'test'
+Requires-Dist: flake8-quotes ; extra == 'test'
+Requires-Dist: pep8-naming ; extra == 'test'
+Requires-Dist: pylint ; extra == 'test'
+Requires-Dist: pytest ; extra == 'test'
+Requires-Dist: pytest-cov ; extra == 'test'
+Requires-Dist: scspell3k (>=2.2) ; (python_version < "3.13") and extra == 'test'
+
+colcon - collective construction
+================================
+
+``colcon`` is a command line tool to improve the workflow of building, testing and using multiple software packages.
+It automates the process, handles the ordering and sets up the environment to use the packages.
+
+For more information see `colcon.readthedocs.io <https://colcon.readthedocs.io>`_.
+
+

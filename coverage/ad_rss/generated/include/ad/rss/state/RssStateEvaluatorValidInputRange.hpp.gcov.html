@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2025-07-01 07:46:10</td>
+            <td class="headerValue">2025-07-08 06:31:49</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">1</td>
@@ -72,7 +72,7 @@
 <a name="1"><span class="lineNum">       1 </span>                :            : /*</a>
 <a name="2"><span class="lineNum">       2 </span>                :            :  * ----------------- BEGIN LICENSE BLOCK ---------------------------------</a>
 <a name="3"><span class="lineNum">       3 </span>                :            :  *</a>
-<a name="4"><span class="lineNum">       4 </span>                :            :  * Copyright (C) 2018-2020 Intel Corporation</a>
+<a name="4"><span class="lineNum">       4 </span>                :            :  * Copyright (C) 2018-2022 Intel Corporation</a>
 <a name="5"><span class="lineNum">       5 </span>                :            :  *</a>
 <a name="6"><span class="lineNum">       6 </span>                :            :  * SPDX-License-Identifier: LGPL-2.1-only</a>
 <a name="7"><span class="lineNum">       7 </span>                :            :  *</a>
@@ -83,7 +83,7 @@
 <a name="12"><span class="lineNum">      12 </span>                :            :  * Generated file</a>
 <a name="13"><span class="lineNum">      13 </span>                :            :  * @file</a>
 <a name="14"><span class="lineNum">      14 </span>                :            :  *</a>
-<a name="15"><span class="lineNum">      15 </span>                :            :  * Generator Version : 11.0.0-1997</a>
+<a name="15"><span class="lineNum">      15 </span>                :            :  * Generator Version : 11.0.0-2046</a>
 <a name="16"><span class="lineNum">      16 </span>                :            :  */</a>
 <a name="17"><span class="lineNum">      17 </span>                :            : </a>
 <a name="18"><span class="lineNum">      18 </span>                :            : #pragma once</a>
@@ -104,26 +104,26 @@
 <a name="33"><span class="lineNum">      33 </span>                :            :  *</a>
 <a name="34"><span class="lineNum">      34 </span>                :            :  * \note the specified input range is defined by the valid enum literals.</a>
 <a name="35"><span class="lineNum">      35 </span>                :            :  */</a>
-<a name="36"><span class="lineNum">      36 </span>                :<span class="lineCov">      16754 : inline bool withinValidInputRange(::ad::rss::state::RssStateEvaluator const &amp;input, bool const logErrors = true)</span></a>
+<a name="36"><span class="lineNum">      36 </span>                :<span class="lineCov">      16688 : inline bool withinValidInputRange(::ad::rss::state::RssStateEvaluator const &amp;input, bool const logErrors = true)</span></a>
 <a name="37"><span class="lineNum">      37 </span>                :            : {</a>
-<a name="38"><span class="lineNum">      38 </span>                :<span class="lineCov">      33508 :   bool inValidInputRange = (input == ::ad::rss::state::RssStateEvaluator::None)</span></a>
-<a name="39"><span class="lineNum">      39 </span>        [<span class="branchCov" title="Branch 0 was taken 10435 times"> + </span><span class="branchCov" title="Branch 1 was taken 735 times"> + </span>]:<span class="lineCov">      11170 :     || (input == ::ad::rss::state::RssStateEvaluator::LongitudinalDistanceOppositeDirectionEgoCorrectLane)</span></a>
-<a name="40"><span class="lineNum">      40 </span>        [<span class="branchCov" title="Branch 0 was taken 10117 times"> + </span><span class="branchCov" title="Branch 1 was taken 318 times"> + </span>]:<span class="lineCov">      10435 :     || (input == ::ad::rss::state::RssStateEvaluator::LongitudinalDistanceOppositeDirection)</span></a>
-<a name="41"><span class="lineNum">      41 </span>        [<span class="branchCov" title="Branch 0 was taken 9489 times"> + </span><span class="branchCov" title="Branch 1 was taken 628 times"> + </span>]:<span class="lineCov">      10117 :     || (input == ::ad::rss::state::RssStateEvaluator::LongitudinalDistanceSameDirectionEgoFront)</span></a>
-<a name="42"><span class="lineNum">      42 </span>        [<span class="branchCov" title="Branch 0 was taken 7562 times"> + </span><span class="branchCov" title="Branch 1 was taken 1927 times"> + </span>]:<span class="lineCov">       9489 :     || (input == ::ad::rss::state::RssStateEvaluator::LongitudinalDistanceSameDirectionOtherInFront)</span></a>
-<a name="43"><span class="lineNum">      43 </span>        [<span class="branchCov" title="Branch 0 was taken 781 times"> + </span><span class="branchCov" title="Branch 1 was taken 6781 times"> + </span>]:<span class="lineCov">       7562 :     || (input == ::ad::rss::state::RssStateEvaluator::LateralDistance)</span></a>
-<a name="44"><span class="lineNum">      44 </span>        [<span class="branchCov" title="Branch 0 was taken 458 times"> + </span><span class="branchCov" title="Branch 1 was taken 323 times"> + </span>]:<span class="lineCov">        781 :     || (input == ::ad::rss::state::RssStateEvaluator::IntersectionOtherPriorityEgoAbleToStop)</span></a>
-<a name="45"><span class="lineNum">      45 </span>        [<span class="branchCov" title="Branch 0 was taken 457 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">        458 :     || (input == ::ad::rss::state::RssStateEvaluator::IntersectionEgoPriorityOtherAbleToStop)</span></a>
-<a name="46"><span class="lineNum">      46 </span>        [<span class="branchCov" title="Branch 0 was taken 456 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">        457 :     || (input == ::ad::rss::state::RssStateEvaluator::IntersectionEgoInFront)</span></a>
-<a name="47"><span class="lineNum">      47 </span>        [<span class="branchCov" title="Branch 0 was taken 236 times"> + </span><span class="branchCov" title="Branch 1 was taken 220 times"> + </span>]:<span class="lineCov">        456 :     || (input == ::ad::rss::state::RssStateEvaluator::IntersectionOtherInFront)</span></a>
-<a name="48"><span class="lineNum">      48 </span>  [<span class="branchCov" title="Branch 0 was taken 11170 times"> + </span><span class="branchCov" title="Branch 1 was taken 5584 times"> + </span><span class="branchCov" title="Branch 2 was taken 233 times"> + </span><span class="branchCov" title="Branch 3 was taken 3 times"> + </span>]:<span class="lineCov">      27924 :     || (input == ::ad::rss::state::RssStateEvaluator::IntersectionOverlap);</span></a>
-<a name="49"><span class="lineNum">      49 </span>  [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 16751 times"> + </span><span class="branchCov" title="Branch 2 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">      16754 :   if (!inValidInputRange &amp;&amp; logErrors)</span></a>
+<a name="38"><span class="lineNum">      38 </span>                :<span class="lineCov">      33376 :   bool inValidInputRange = (input == ::ad::rss::state::RssStateEvaluator::None)</span></a>
+<a name="39"><span class="lineNum">      39 </span>        [<span class="branchCov" title="Branch 0 was taken 10383 times"> + </span><span class="branchCov" title="Branch 1 was taken 733 times"> + </span>]:<span class="lineCov">      11116 :     || (input == ::ad::rss::state::RssStateEvaluator::LongitudinalDistanceOppositeDirectionEgoCorrectLane)</span></a>
+<a name="40"><span class="lineNum">      40 </span>        [<span class="branchCov" title="Branch 0 was taken 10066 times"> + </span><span class="branchCov" title="Branch 1 was taken 317 times"> + </span>]:<span class="lineCov">      10383 :     || (input == ::ad::rss::state::RssStateEvaluator::LongitudinalDistanceOppositeDirection)</span></a>
+<a name="41"><span class="lineNum">      41 </span>        [<span class="branchCov" title="Branch 0 was taken 9447 times"> + </span><span class="branchCov" title="Branch 1 was taken 619 times"> + </span>]:<span class="lineCov">      10066 :     || (input == ::ad::rss::state::RssStateEvaluator::LongitudinalDistanceSameDirectionEgoFront)</span></a>
+<a name="42"><span class="lineNum">      42 </span>        [<span class="branchCov" title="Branch 0 was taken 7540 times"> + </span><span class="branchCov" title="Branch 1 was taken 1907 times"> + </span>]:<span class="lineCov">       9447 :     || (input == ::ad::rss::state::RssStateEvaluator::LongitudinalDistanceSameDirectionOtherInFront)</span></a>
+<a name="43"><span class="lineNum">      43 </span>        [<span class="branchCov" title="Branch 0 was taken 790 times"> + </span><span class="branchCov" title="Branch 1 was taken 6750 times"> + </span>]:<span class="lineCov">       7540 :     || (input == ::ad::rss::state::RssStateEvaluator::LateralDistance)</span></a>
+<a name="44"><span class="lineNum">      44 </span>        [<span class="branchCov" title="Branch 0 was taken 461 times"> + </span><span class="branchCov" title="Branch 1 was taken 329 times"> + </span>]:<span class="lineCov">        790 :     || (input == ::ad::rss::state::RssStateEvaluator::IntersectionOtherPriorityEgoAbleToStop)</span></a>
+<a name="45"><span class="lineNum">      45 </span>        [<span class="branchCov" title="Branch 0 was taken 460 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">        461 :     || (input == ::ad::rss::state::RssStateEvaluator::IntersectionEgoPriorityOtherAbleToStop)</span></a>
+<a name="46"><span class="lineNum">      46 </span>        [<span class="branchCov" title="Branch 0 was taken 459 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">        460 :     || (input == ::ad::rss::state::RssStateEvaluator::IntersectionEgoInFront)</span></a>
+<a name="47"><span class="lineNum">      47 </span>        [<span class="branchCov" title="Branch 0 was taken 236 times"> + </span><span class="branchCov" title="Branch 1 was taken 223 times"> + </span>]:<span class="lineCov">        459 :     || (input == ::ad::rss::state::RssStateEvaluator::IntersectionOtherInFront)</span></a>
+<a name="48"><span class="lineNum">      48 </span>  [<span class="branchCov" title="Branch 0 was taken 11116 times"> + </span><span class="branchCov" title="Branch 1 was taken 5572 times"> + </span><span class="branchCov" title="Branch 2 was taken 233 times"> + </span><span class="branchCov" title="Branch 3 was taken 3 times"> + </span>]:<span class="lineCov">      27804 :     || (input == ::ad::rss::state::RssStateEvaluator::IntersectionOverlap);</span></a>
+<a name="49"><span class="lineNum">      49 </span>  [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 16685 times"> + </span><span class="branchCov" title="Branch 2 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">      16688 :   if (!inValidInputRange &amp;&amp; logErrors)</span></a>
 <a name="50"><span class="lineNum">      50 </span>                :            :   {</a>
 <a name="51"><span class="lineNum">      51 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          3 :     spdlog::error(&quot;withinValidInputRange(::ad::rss::state::RssStateEvaluator)&gt;&gt; {}, raw value: {} &quot;,</span></a>
 <a name="52"><span class="lineNum">      52 </span>                :            :                   input,</a>
 <a name="53"><span class="lineNum">      53 </span>                :<span class="lineCov">          6 :                   static_cast&lt;int32_t&gt;(input)); // LCOV_EXCL_BR_LINE</span></a>
 <a name="54"><span class="lineNum">      54 </span>                :            :   }</a>
-<a name="55"><span class="lineNum">      55 </span>                :<span class="lineCov">      16754 :   return inValidInputRange;</span></a>
+<a name="55"><span class="lineNum">      55 </span>                :<span class="lineCov">      16688 :   return inValidInputRange;</span></a>
 <a name="56"><span class="lineNum">      56 </span>                :            : }</a>
 </pre>
       </td>

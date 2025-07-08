@@ -1,11 +1,12 @@
 var searchData=
 [
-  ['getid_16',['getId',['../classad_1_1rss_1_1map_1_1RssObjectConversion.html#a70b1a32a7112cf393228ebe643d89ffd',1,'ad::rss::map::RssObjectConversion']]],
-  ['getleftborderobjectid_17',['getLeftBorderObjectId',['../classad_1_1rss_1_1map_1_1RssSceneCreator.html#a054de71075e90670ae37975e8acf5aab',1,'ad::rss::map::RssSceneCreator']]],
-  ['getobjectmapmatchedposition_18',['getObjectMapMatchedPosition',['../classad_1_1rss_1_1map_1_1RssObjectConversion.html#a2b58308241935c0c615f3a4ef4ed109d',1,'ad::rss::map::RssObjectConversion']]],
-  ['getoriginalobjectspeed_19',['getOriginalObjectSpeed',['../classad_1_1rss_1_1map_1_1RssObjectConversion.html#ac4faa1ab1d67788e080a32066ee088af',1,'ad::rss::map::RssObjectConversion']]],
-  ['getrightborderobjectid_20',['getRightBorderObjectId',['../classad_1_1rss_1_1map_1_1RssSceneCreator.html#a91226880caec4879d5a7cb0c0b97984f',1,'ad::rss::map::RssSceneCreator']]],
-  ['getrssdynamics_21',['getRssDynamics',['../classad_1_1rss_1_1map_1_1RssObjectConversion.html#a2fe31e512135297d4b176c4f2f932436',1,'ad::rss::map::RssObjectConversion']]],
-  ['getrssobject_22',['getRssObject',['../classad_1_1rss_1_1map_1_1RssObjectConversion.html#a52dc7c47b457d272d397fa0d1c4005c8',1,'ad::rss::map::RssObjectConversion']]],
-  ['getworldmodel_23',['getWorldModel',['../classad_1_1rss_1_1map_1_1RssSceneCreation.html#af6e22163230d40372562af2a5367e559',1,'ad::rss::map::RssSceneCreation']]]
+  ['eallowmultipleroutes_40',['eAllowMultipleRoutes',['../classad_1_1rss_1_1map_1_1RssRouteCheckerVehicleData.html#a33cd11716ae70d575a0c51ad6926b4bea0d04260270924c27b144a31498cd280c',1,'ad::rss::map::RssRouteCheckerVehicleData']]],
+  ['eallowonlysingleroute_41',['eAllowOnlySingleRoute',['../classad_1_1rss_1_1map_1_1RssRouteCheckerVehicleData.html#a33cd11716ae70d575a0c51ad6926b4bea4b37ac4783f2edf1c2e961ed0a89635e',1,'ad::rss::map::RssRouteCheckerVehicleData']]],
+  ['eallowonlytargetroute_42',['eAllowOnlyTargetRoute',['../classad_1_1rss_1_1map_1_1RssRouteCheckerVehicleData.html#a33cd11716ae70d575a0c51ad6926b4bea62ec838732a8bccd2b51a44c4323f7d8',1,'ad::rss::map::RssRouteCheckerVehicleData']]],
+  ['ego_5fvehicle_5fdynamics_43',['ego_vehicle_dynamics',['../structad_1_1rss_1_1map_1_1RssConstellationConfiguration.html#a2c965cf7f4d36375fb550985c7bbd6e6',1,'ad::rss::map::RssConstellationConfiguration']]],
+  ['evaluateroutes_44',['evaluateRoutes',['../classad_1_1rss_1_1map_1_1RssRouteCheckerEgoVehicleData.html#ab718785754c98e9288385ca8cef7262b',1,'ad::rss::map::RssRouteCheckerEgoVehicleData']]],
+  ['exactspeedlimit_45',['ExactSpeedLimit',['../namespacead_1_1rss_1_1map.html#ada698b1a031db476ef945c19f8fd9cb6a11b07d3fc528d7508ce659379b112418',1,'ad::rss::map']]],
+  ['expandroutetoallneighbors_46',['ExpandRouteToAllNeighbors',['../namespacead_1_1rss_1_1map.html#aa5699b21726e09db451338e0d53e6f89aade3f3bfb4333202a3509242f6ce1b52',1,'ad::rss::map']]],
+  ['expandroutetooppositelanes_47',['ExpandRouteToOppositeLanes',['../namespacead_1_1rss_1_1map.html#aa5699b21726e09db451338e0d53e6f89a49b274f93693d2463023c5146e243fdb',1,'ad::rss::map']]],
+  ['extendroutes_48',['extendRoutes',['../classad_1_1rss_1_1map_1_1RssRouteCheckerVehicleData.html#a338048db38be0d7965b9ea2999be06ef',1,'ad::rss::map::RssRouteCheckerVehicleData']]]
 ];

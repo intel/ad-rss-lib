@@ -66,6 +66,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
@@ -77,15 +78,19 @@ $(function() {
 <div class="textblock"><code>#include &lt;iostream&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
+<code>#include &quot;spdlog/fmt/ostr.h&quot;</code><br />
+<code>#include &quot;spdlog/spdlog.h&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for LaneDrivingDirection.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="LaneDrivingDirection_8hpp__incl.png" border="0" usemap="#agenerated_2include_2ad_2rss_2world_2LaneDrivingDirection_8hpp" alt=""/></div>
 <map name="agenerated_2include_2ad_2rss_2world_2LaneDrivingDirection_8hpp" id="agenerated_2include_2ad_2rss_2world_2LaneDrivingDirection_8hpp">
-<area shape="rect" title=" " alt="" coords="21,5,275,47"/>
+<area shape="rect" title=" " alt="" coords="113,5,367,47"/>
 <area shape="rect" title=" " alt="" coords="5,95,85,121"/>
 <area shape="rect" title=" " alt="" coords="109,95,187,121"/>
 <area shape="rect" title=" " alt="" coords="211,95,269,121"/>
+<area shape="rect" title=" " alt="" coords="294,95,426,121"/>
+<area shape="rect" title=" " alt="" coords="450,95,574,121"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -93,27 +98,38 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="LaneDrivingDirection_8hpp__dep__incl.png" border="0" usemap="#agenerated_2include_2ad_2rss_2world_2LaneDrivingDirection_8hppdep" alt=""/></div>
 <map name="agenerated_2include_2ad_2rss_2world_2LaneDrivingDirection_8hppdep" id="agenerated_2include_2ad_2rss_2world_2LaneDrivingDirection_8hppdep">
-<area shape="rect" title=" " alt="" coords="111,5,366,47"/>
-<area shape="rect" href="LaneDrivingDirectionValidInputRange_8hpp.html" title=" " alt="" coords="5,95,232,151"/>
-<area shape="rect" href="LaneSegment_8hpp.html" title=" " alt="" coords="257,102,463,143"/>
-<area shape="rect" href="LaneSegmentValidInputRange_8hpp.html" title=" " alt="" coords="21,199,232,255"/>
-<area shape="rect" href="RoadSegmentValidInputRange_8hpp.html" title=" " alt="" coords="34,303,246,359"/>
-<area shape="rect" href="RoadAreaValidInputRange_8hpp.html" title=" " alt="" coords="35,407,253,463"/>
-<area shape="rect" href="SceneValidInputRange_8hpp.html" title=" " alt="" coords="13,511,275,552"/>
-<area shape="rect" href="SceneVectorValidInputRange_8hpp.html" title=" " alt="" coords="74,600,275,656"/>
-<area shape="rect" href="WorldModelValidInputRange_8hpp.html" title=" " alt="" coords="65,704,295,760"/>
-<area shape="rect" href="RoadSegment_8hpp.html" title=" " alt="" coords="256,206,464,247"/>
-<area shape="rect" href="RoadArea_8hpp.html" title=" " alt="" coords="270,310,450,351"/>
-<area shape="rect" href="Scene_8hpp.html" title=" " alt="" coords="281,414,439,455"/>
-<area shape="rect" href="SceneVector_8hpp.html" title=" " alt="" coords="299,511,495,552"/>
-<area shape="rect" href="WorldModel_8hpp.html" title=" " alt="" coords="300,607,495,649"/>
-<area shape="rect" href="RssCheck_8hpp.html" title=" " alt="" coords="323,711,467,753"/>
-<area shape="rect" href="RssSituationExtraction_8hpp.html" title=" " alt="" coords="491,711,693,753"/>
+<area shape="rect" title=" " alt="" coords="127,5,381,47"/>
+<area shape="rect" href="LaneDrivingDirectionValidInputRange_8hpp.html" title=" " alt="" coords="21,95,247,151"/>
+<area shape="rect" href="LaneSegment_8hpp.html" title=" " alt="" coords="272,102,479,143"/>
+<area shape="rect" href="LaneSegmentValidInputRange_8hpp.html" title=" " alt="" coords="29,199,239,255"/>
+<area shape="rect" href="LaneSegmentVectorValidInputRange_8hpp.html" title=" " alt="" coords="39,303,258,359"/>
+<area shape="rect" href="RoadSegmentValidInputRange_8hpp.html" title=" " alt="" coords="44,407,256,463"/>
+<area shape="rect" href="RoadAreaValidInputRange_8hpp.html" title=" " alt="" coords="41,511,259,567"/>
+<area shape="rect" href="ConstellationValidInputRange_8hpp.html" title=" " alt="" coords="5,615,212,671"/>
+<area shape="rect" href="ConstellationVectorValidInputRange_8hpp.html" title=" " alt="" coords="10,719,226,775"/>
+<area shape="rect" href="WorldModelValidInputRange_8hpp.html" title=" " alt="" coords="115,823,345,879"/>
+<area shape="rect" href="LaneSegmentVector_8hpp.html" title=" " alt="" coords="263,206,509,247"/>
+<area shape="rect" href="RoadSegment_8hpp.html" title=" " alt="" coords="282,310,490,351"/>
+<area shape="rect" href="RoadArea_8hpp.html" title=" " alt="" coords="295,414,475,455"/>
+<area shape="rect" href="RssObjectPositionExtractor_8hpp.html" title=" " alt="" coords="563,518,793,559"/>
+<area shape="rect" href="Constellation_8hpp.html" title=" " alt="" coords="283,518,486,559"/>
+<area shape="rect" href="ConstellationVector_8hpp.html" title=" " alt="" coords="237,622,479,663"/>
+<area shape="rect" href="RssConstellationIdProvider_8hpp.html" title=" " alt="" coords="469,726,697,767"/>
+<area shape="rect" href="RssLaneCoordinateSystemConversion_8hpp.html" title=" " alt="" coords="554,622,855,663"/>
+<area shape="rect" href="WorldModel_8hpp.html" title=" " alt="" coords="250,726,445,767"/>
+<area shape="rect" href="RssSituationExtraction_8hpp.html" title=" " alt="" coords="425,830,627,871"/>
+<area shape="rect" href="RssCheck_8hpp.html" title=" " alt="" coords="454,927,598,968"/>
 </map>
 </div>
 </div>
 <p><a href="LaneDrivingDirection_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfmt_1_1formatter_3_1_1ad_1_1rss_1_1world_1_1LaneDrivingDirection_01_4.html">fmt::formatter&lt;::ad::rss::world::LaneDrivingDirection &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">overload of fmt::formatter calling std::to_string  <a href="structfmt_1_1formatter_3_1_1ad_1_1rss_1_1world_1_1LaneDrivingDirection_01_4.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespacead"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead.html">ad</a></td></tr>
@@ -166,7 +182,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Generated file</p>
-<p>Generator Version : 11.0.0-1997 </p>
+<p>Generator Version : 11.0.0-2046 </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a0f27b88c1ff34782cd8e98a09e2871cb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0f27b88c1ff34782cd8e98a09e2871cb">&#9670;&nbsp;</a></span>fromString() <span class="overload">[1/2]</span></h2>

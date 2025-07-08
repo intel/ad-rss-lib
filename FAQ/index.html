@@ -70,7 +70,7 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../ad_rss_map_integration/Main/">Overview</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../ad_rss_map_integration/ConstructRSSScenes/">Construction of the RSS Scenes</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../ad_rss_map_integration/ConstructRSSConstellations/">Construction of the RSS Constellations</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ad_rss_map_integration/HandleRoadBoundaries/">Handling of road boundaries</a>
                   </li>
@@ -156,19 +156,19 @@
 <h6 id="how-can-i-perform-the-checks">How can I perform the checks?<a class="headerlink" href="#how-can-i-perform-the-checks" title="Permanent link">&para;</a></h6>
 <p>The <em>ad-rss-lib</em> provides more or less two ways of integrating the functionality into a system.</p>
 <ol>
-<li>The <em>ad::rss::core::RssCheck</em> class performs all required steps one after another. Create a permanent object instance of this class and call <em>calculateAccelerationRestriction()</em> for every step in time continuously. You have to provide the world model data as input and get the acceleration restrictions to be applied as output.</li>
+<li>The <em>ad::rss::core::RssCheck</em> class performs all required steps one after another. Create a permanent object instance of this class and call <em>calculateProperResponse()</em> for every step in time continuously. You have to provide the world model data as input and get the proper response including the acceleration restrictions to be applied as output.</li>
 <li>
-<p>If you are interested in the intermediate results you can to call the overloaded version of <em>calculateAccelerationRestriction()</em> or call the processing chain step by step. For this, you have to create permanent object instances of RssSituationExtraction, RssSituationChecking and RssResponseResolving classes and call the following processing chain for every step in time continuously:</p>
+<p>If you are interested in the intermediate results you can to call the overloaded version of <em>calculateProperResponse()</em> or call the processing chain step by step. For this, you have to create permanent object instances of RssSituationExtraction, RssSituationChecking and RssResponseResolving classes and call the following processing chain for every step in time continuously:</p>
 <ul>
-<li>ad::rss::core::RssSituationExtraction::extractSituations(worldModel, situationVector)</li>
-<li>ad::rss::core::SituationChecking::checkSituations(situationVector, responseStateVector)</li>
-<li>ad::rss::core::ResponseResolving::provideProperResponse(responseStateVector, properResponse, accelerationRestriction)</li>
+<li>ad::rss::core::RssSituationExtraction::extractSituation(worldModel, rssSituationSnapshot)</li>
+<li>ad::rss::core::SituationChecking::checkSituation(rssSituationSnapshot, rssStateSnapshot)</li>
+<li>ad::rss::core::ResponseResolving::provideProperResponse(rssStateSnapshot, properResponse)</li>
 </ul>
 </li>
 </ol>
 <p>Regardless which solution you prefer, you always have to respect the return value of the functions, before you further make use of the information!</p>
 <h6 id="why-are-the-functions-realized-within-classes">Why are the functions realized within classes?<a class="headerlink" href="#why-are-the-functions-realized-within-classes" title="Permanent link">&para;</a></h6>
-<p>The observed situations are analyzed by <em>RSS</em> over time. Therefore, the processing steps have to store the state of previous time steps. As a consequence, the object instances of the classes have to exist over time and must not be deleted!</p>
+<p>The observed constellations are analyzed by <em>RSS</em> over time. Therefore, the processing steps have to store the state of previous time steps. As a consequence, the object instances of the classes have to exist over time and must not be deleted!</p>
 <h3 id="input-world-model-data">Input: world model data<a class="headerlink" href="#input-world-model-data" title="Permanent link">&para;</a></h3>
 <p>The <em>worldModel</em> is the input to the <em>RSS</em> calculations.
 It is derived from the <a href="../ad_rss/HLD-ArchitectureOverview/#sense-subsystem"><em>Sense Subsystem</em></a>.</p>
@@ -178,9 +178,9 @@ It is derived from the <a href="../ad_rss/HLD-ArchitectureOverview/#sense-subsys
 <p>The <em>rssAccelerationRestrictions</em> is the output of the <em>RSS</em> calculations.
 It is given as input of the <a href="../ad_rss/HLD-ArchitectureOverview/#act-subsystem"><em>Act Subsystem</em></a>.</p>
 <h6 id="if-a-rss-restricted-acceleration-is-applied-on-the-actuators-does-it-mean-that-rss-is-not-only-a-checker">If a RSS restricted acceleration is applied on the actuators, does it mean that RSS is not only a checker?<a class="headerlink" href="#if-a-rss-restricted-acceleration-is-applied-on-the-actuators-does-it-mean-that-rss-is-not-only-a-checker" title="Permanent link">&para;</a></h6>
-<p>Yes, indeed. At one hand side RSS performs an analysis of the situation over time which detects if a situation is becoming dangerous. In addition, RSS derives also a proper response for the ego-vehicle on how to get out of such. If finally the resulting acceleration restrictions in longitudinal, lateral left and right directions are considered by the actuation system, the situation will become safe again.</p>
+<p>Yes, indeed. At one hand side RSS performs an analysis of the constellation over time which detects if a constellation is becoming dangerous. In addition, RSS derives also a proper response for the ego-vehicle on how to get out of such. If finally the resulting acceleration restrictions in longitudinal, lateral left and right directions are considered by the actuation system, the constellation will become safe again.</p>
 <h6 id="is-there-any-impact-on-the-plan-subsystem-should-it-be-adapted-since-it-undergoes-rss-acceleration-restrictions">Is there any impact on the <em>Plan Subsystem</em>? Should it be adapted since it undergoes RSS acceleration restrictions?<a class="headerlink" href="#is-there-any-impact-on-the-plan-subsystem-should-it-be-adapted-since-it-undergoes-rss-acceleration-restrictions" title="Permanent link">&para;</a></h6>
-<p>There are many possibilities on how the information on the <em>RSS</em> situation analysis can be deployed within a system. It can be used as a plain safety checking and enforcing entity being totally independent from the <em>Plan Subsystem</em>.
+<p>There are many possibilities on how the information on the <em>RSS</em> constellation analysis can be deployed within a system. It can be used as a plain safety checking and enforcing entity being totally independent from the <em>Plan Subsystem</em>.
 Then, the <em>Plan Subsystem</em> will only indirectly be influenced in a way, that the vehicle is not following the planing output. But for sure the planning algorithms might directly benefit when feeding back the information from <em>RSS</em>.
 Even beyond, if the planning algorithms evaluate different driving strategies, <em>RSS</em> can be applied directly within the planning algorithm to influence the rating. This includes also learning algorithms of AI-based planning approaches.</p>
               

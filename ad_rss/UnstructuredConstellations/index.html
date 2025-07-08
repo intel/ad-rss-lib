@@ -80,7 +80,7 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../ad_rss_map_integration/Main/">Overview</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../ad_rss_map_integration/ConstructRSSScenes/">Construction of the RSS Scenes</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ad_rss_map_integration/ConstructRSSConstellations/">Construction of the RSS Constellations</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../ad_rss_map_integration/HandleRoadBoundaries/">Handling of road boundaries</a>
                   </li>
@@ -148,7 +148,7 @@
 <p>Unstructured constellations implement unstructured roads (described in chapter 3.7.2 of the <a href="https://arxiv.org/abs/1708.06374">RSS paper</a>, definitions 19-22) and pedestrians (described in chapter 3.8).
 In contrast to the structured constellations, two dimensional trajectories with lateral and longitudinal component are calculated.</p>
 <h3 id="world-modeling">World Modeling<a class="headerlink" href="#world-modeling" title="Permanent link">&para;</a></h3>
-<p>To allow customization, every constellations within the <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1WorldModel.html"><code>ad::rss::world::WorldModel</code></a> can be calculated as unstructured, depending on the <code>situationType</code>.</p>
+<p>To allow customization, every constellation within the <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1WorldModel.html"><code>ad::rss::world::WorldModel</code></a> can be calculated as unstructured, depending on the <code>constellationType</code>.</p>
 <h3 id="behavior-modeltrajectory-set-calculation">Behavior Model/Trajectory Set Calculation<a class="headerlink" href="#behavior-modeltrajectory-set-calculation" title="Permanent link">&para;</a></h3>
 <p>To calculate a trajectory set, the maximum/minimum values for both, longitudinal and lateral component are applied.</p>
 <p>The longitudinal boundaries of a trajectory set are defined by the minimum/maximum accelerations, the lateral by the maximum heading change to the left and right.</p>
@@ -261,7 +261,7 @@ In contrast to the structured constellations, two dimensional trajectories with 
 <ul>
 <li><code>UnstructuredSettings::pedestrianContinueForwardIntermediateHeadingChangeRatioSteps</code> specifies the intermediate heading change ratio steps used while calculating the continue forward trajectory set.</li>
 <li><code>UnstructuredSettings::pedestrianContinueForwardIntermediateAccelerationSteps</code> specifies the intermediate steps used while calculating the continue forward trajectory set. (As the pedestrian at max moves on a circle, this value specifies how many points on the circle arc are used)</li>
-<li><code>UnstructuredSettings::pedestrianBrakeIntermediateAccelerationSteps</code> specifies the intermediate steps used while calculating the brake trajectory set. </li>
+<li><code>UnstructuredSettings::pedestrianBrakeIntermediateAccelerationSteps</code> specifies the intermediate steps used while calculating the brake trajectory set.</li>
 <li><code>UnstructuredSettings::pedestrianFrontIntermediateHeadingChangeRatioSteps</code> specifies the intermediate steps that are used. The value is specifying the steps on one side, therefore the resulting intermediate steps are twice this value. This value is used for the front of the trajectory set.</li>
 <li><code>UnstructuredSettings::pedestrianBackIntermediateHeadingChangeRatioSteps</code> specifies the intermediate steps that are used. The value is specifying the steps on one side, therefore the resulting intermediate steps are twice this value. This value is used for the front of the trajectory set.</li>
 </ul>
@@ -299,7 +299,7 @@ In contrast to the structured constellations, two dimensional trajectories with 
 <h4 id="brake">Brake<a class="headerlink" href="#brake" title="Permanent link">&para;</a></h4>
 <p>If the result is <em>brake</em>, the longitudinal acceleration restriction is set to <code>alphaLon.brakeMin</code> of the state.</p>
 <h4 id="driving-away">Driving away<a class="headerlink" href="#driving-away" title="Permanent link">&para;</a></h4>
-<p>In certain situations the ego vehicle might be allowed to drive away from a dangerous constellation using a given heading range.</p>
+<p>In certain constellations the ego vehicle might be allowed to drive away from a dangerous constellation using a given heading range.</p>
 <p>The heading range is calculated using the position vectors of the traffic participants and the velocity vector of the ego.</p>
 <p>The angle between <span class="arithmatex"><span class="MathJax_Preview">\tau_{ego}(t) − \tau_{other}(t)</span><script type="math/tex">\tau_{ego}(t) − \tau_{other}(t)</script></span>  and <span class="arithmatex"><span class="MathJax_Preview">\tau'_{ego}(t)</span><script type="math/tex">\tau'_{ego}(t)</script></span> needs to be <span class="arithmatex"><span class="MathJax_Preview">\le \theta</span><script type="math/tex">\le \theta</script></span></p>
 <p><span class="arithmatex"><span class="MathJax_Preview">\theta</span><script type="math/tex">\theta</script></span> can be specified by <code>UnstructuredSettings::driveAwayMaxAngle</code></p>

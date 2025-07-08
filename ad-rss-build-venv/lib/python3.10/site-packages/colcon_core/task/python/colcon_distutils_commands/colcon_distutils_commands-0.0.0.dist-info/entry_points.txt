@@ -1,0 +1,2 @@
+[distutils.commands]
+symlink_data = colcon_core.distutils.commands.symlink_data:symlink_data

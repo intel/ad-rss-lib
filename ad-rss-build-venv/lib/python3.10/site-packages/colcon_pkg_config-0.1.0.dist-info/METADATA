@@ -1,0 +1,31 @@
+Metadata-Version: 2.0
+Name: colcon-pkg-config
+Version: 0.1.0
+Summary: Extension for colcon adding an environment variable to find pkg-config files.
+Home-page: https://colcon.readthedocs.io
+Author: Dirk Thomas
+Author-email: web@dirk-thomas.net
+Maintainer: Dirk Thomas
+Maintainer-email: web@dirk-thomas.net
+License: Apache License, Version 2.0
+Project-URL: Changelog, https://github.com/colcon/colcon-pkg-config/milestones?state=closed
+Project-URL: GitHub, https://github.com/colcon/colcon-pkg-config/
+Keywords: colcon
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Plugins
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: MacOS
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX
+Classifier: Programming Language :: Python
+Classifier: Topic :: Software Development :: Build Tools
+Requires-Dist: colcon-core
+
+colcon-pkg-config
+===================
+
+An extension for `colcon-core <https://github.com/colcon/colcon-core>`_ to set an environment variable to find pkg-config files.
+
+

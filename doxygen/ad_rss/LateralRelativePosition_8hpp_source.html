@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ad_rss: generated/include/ad/rss/situation/LateralRelativePosition.hpp Source File</title>
+<title>ad_rss: generated/include/ad/rss/core/LateralRelativePosition.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_84fc5dba3506812825191c0c043e3c97.html">generated</a></li><li class="navelem"><a class="el" href="dir_24c9f63f161698e833b9baedb24b859b.html">include</a></li><li class="navelem"><a class="el" href="dir_abaa66552cda5912106532614814b822.html">ad</a></li><li class="navelem"><a class="el" href="dir_599fdbd0b656d682ea5784a63b853627.html">rss</a></li><li class="navelem"><a class="el" href="dir_0f0abd98a53d5ddab3670df892b5bdb0.html">situation</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_84fc5dba3506812825191c0c043e3c97.html">generated</a></li><li class="navelem"><a class="el" href="dir_24c9f63f161698e833b9baedb24b859b.html">include</a></li><li class="navelem"><a class="el" href="dir_abaa66552cda5912106532614814b822.html">ad</a></li><li class="navelem"><a class="el" href="dir_599fdbd0b656d682ea5784a63b853627.html">rss</a></li><li class="navelem"><a class="el" href="dir_78fbd87bb8eea861c972780daf59e307.html">core</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -72,7 +72,7 @@ $(function() {
 <a href="LateralRelativePosition_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * ----------------- BEGIN LICENSE BLOCK ---------------------------------</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * Copyright (C) 2018-2020 Intel Corporation</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * Copyright (C) 2018-2022 Intel Corporation</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> *</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> * SPDX-License-Identifier: LGPL-2.1-only</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> *</span></div>
@@ -84,65 +84,77 @@ $(function() {
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="namespacead.html">   26</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacead.html">ad</a> {</div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="namespacead_1_1rss.html">   30</a></span>&#160;<span class="keyword">namespace </span>rss {</div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="namespacead_1_1rss_1_1situation.html">   34</a></span>&#160;<span class="keyword">namespace </span>situation {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="namespacead_1_1rss_1_1situation.html#afd89df07613dfcd9cc98283a3d3eac74">   42</a></span>&#160;<span class="keyword">enum class</span> <a class="code" href="namespacead_1_1rss_1_1situation.html#afd89df07613dfcd9cc98283a3d3eac74">LateralRelativePosition</a> : int32_t</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;{</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <a class="code" href="namespacead_1_1rss_1_1situation.html#afd89df07613dfcd9cc98283a3d3eac74a6366699487ca1634114ed43ca6eb180b">AtLeft</a> = 0,</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <a class="code" href="namespacead_1_1rss_1_1situation.html#afd89df07613dfcd9cc98283a3d3eac74a7f274f0608dc5bdb242086028fe46eee">OverlapLeft</a> = 1,</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <a class="code" href="namespacead_1_1rss_1_1situation.html#afd89df07613dfcd9cc98283a3d3eac74a2359a16283d7b4bfaaff2f6e90cbd116">Overlap</a> = 2,</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <a class="code" href="namespacead_1_1rss_1_1situation.html#afd89df07613dfcd9cc98283a3d3eac74a88a1a975c29d12a7cc15a295b2da4e9c">OverlapRight</a> = 3,</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <a class="code" href="namespacead_1_1rss_1_1situation.html#afd89df07613dfcd9cc98283a3d3eac74af94321e369b6e42da147f7358f0dfc2d">AtRight</a> = 4</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;};</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;} <span class="comment">// namespace situation</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;} <span class="comment">// namespace rss</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;} <span class="comment">// namespace ad</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="LateralRelativePosition_8hpp.html#ac26210edcc40d0941e8329706a5f751b">   78</a></span>&#160;<span class="comment"></span>std::string <a class="code" href="LateralRelativePosition_8hpp.html#ac26210edcc40d0941e8329706a5f751b">toString</a>(::<a class="code" href="namespacead_1_1rss_1_1situation.html#afd89df07613dfcd9cc98283a3d3eac74">ad::rss::situation::LateralRelativePosition</a> <span class="keyword">const</span> e);</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="LateralRelativePosition_8hpp.html#a0f27b88c1ff34782cd8e98a09e2871cb">   98</a></span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> EnumType&gt; EnumType <a class="code" href="LateralRelativePosition_8hpp.html#a0f27b88c1ff34782cd8e98a09e2871cb">fromString</a>(std::string <span class="keyword">const</span> &amp;str);</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="LateralRelativePosition_8hpp.html#abc7414ef2a8f7fd6086c4ab391aeb799">  118</a></span>&#160;<a class="code" href="namespacead_1_1rss_1_1situation.html#afd89df07613dfcd9cc98283a3d3eac74">template &lt;&gt;::ad::rss::situation::LateralRelativePosition</a> <a class="code" href="LateralRelativePosition_8hpp.html#a0f27b88c1ff34782cd8e98a09e2871cb">fromString</a>(std::string <span class="keyword">const</span> &amp;str);</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="preprocessor">#ifndef GEN_GUARD_AD_RSS_SITUATION_LATERALRELATIVEPOSITION</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno"><a class="line" href="LateralRelativePosition_8hpp.html#a3c3ea6a1dd4ddb2059e2ca61dd23967d">  124</a></span>&#160;<span class="preprocessor">#define GEN_GUARD_AD_RSS_SITUATION_LATERALRELATIVEPOSITION</span></div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacead.html">ad</a> {</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="keyword">namespace </span>rss {</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="keyword">namespace </span>situation {</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
-<div class="line"><a name="l00147"></a><span class="lineno"><a class="line" href="namespacead_1_1rss_1_1situation.html#ad34de1fee1f0ba7a32a3ee717965f322">  147</a></span>&#160;<span class="keyword">inline</span> std::ostream &amp;<a class="code" href="namespacead_1_1rss_1_1situation.html#ad34de1fee1f0ba7a32a3ee717965f322">operator&lt;&lt;</a>(std::ostream &amp;os, <a class="code" href="namespacead_1_1rss_1_1situation.html#afd89df07613dfcd9cc98283a3d3eac74">LateralRelativePosition</a> <span class="keyword">const</span> &amp;value)</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;{</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;  <span class="keywordflow">return</span> os &lt;&lt; <a class="code" href="LateralRelativePosition_8hpp.html#ac26210edcc40d0941e8329706a5f751b">toString</a>(value);</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;}</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;} <span class="comment">// namespace situation</span></div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;} <span class="comment">// namespace rss</span></div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;} <span class="comment">// namespace ad</span></div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="keyword">namespace </span>std {</div>
-<div class="line"><a name="l00160"></a><span class="lineno"><a class="line" href="LateralRelativePosition_8hpp.html#ab3bd76bb498071eaf34f45371cc19c03">  160</a></span>&#160;<span class="keyword">inline</span> std::string <a class="code" href="LateralRelativePosition_8hpp.html#ab3bd76bb498071eaf34f45371cc19c03">to_string</a>(::<a class="code" href="namespacead_1_1rss_1_1situation.html#afd89df07613dfcd9cc98283a3d3eac74">ad::rss::situation::LateralRelativePosition</a> <span class="keyword">const</span> &amp;value)</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;{</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;  <a class="code" href="LateralRelativePosition_8hpp.html#ac26210edcc40d0941e8329706a5f751b">return ::toString</a>(value);</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;}</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;} <span class="comment">// namespace std</span></div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// GEN_GUARD_AD_RSS_SITUATION_LATERALRELATIVEPOSITION</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &quot;spdlog/fmt/ostr.h&quot;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &quot;spdlog/spdlog.h&quot;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="namespacead.html">   28</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacead.html">ad</a> {</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="namespacead_1_1rss.html">   32</a></span>&#160;<span class="keyword">namespace </span>rss {</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="namespacead_1_1rss_1_1core.html">   36</a></span>&#160;<span class="keyword">namespace </span>core {</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="namespacead_1_1rss_1_1core.html#afcb3dabef13a9ca621c7522c14a7c869">   44</a></span>&#160;<span class="keyword">enum class</span> <a class="code" href="namespacead_1_1rss_1_1core.html#afcb3dabef13a9ca621c7522c14a7c869">LateralRelativePosition</a> : int32_t</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;{</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <a class="code" href="namespacead_1_1rss_1_1core.html#afcb3dabef13a9ca621c7522c14a7c869a6366699487ca1634114ed43ca6eb180b">AtLeft</a> = 0,</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <a class="code" href="namespacead_1_1rss_1_1core.html#afcb3dabef13a9ca621c7522c14a7c869a7f274f0608dc5bdb242086028fe46eee">OverlapLeft</a> = 1,</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <a class="code" href="namespacead_1_1rss_1_1core.html#afcb3dabef13a9ca621c7522c14a7c869a2359a16283d7b4bfaaff2f6e90cbd116">Overlap</a> = 2,</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <a class="code" href="namespacead_1_1rss_1_1core.html#afcb3dabef13a9ca621c7522c14a7c869a88a1a975c29d12a7cc15a295b2da4e9c">OverlapRight</a> = 3,</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <a class="code" href="namespacead_1_1rss_1_1core.html#afcb3dabef13a9ca621c7522c14a7c869af94321e369b6e42da147f7358f0dfc2d">AtRight</a> = 4</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;};</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;} <span class="comment">// namespace rss</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;} <span class="comment">// namespace ad</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="LateralRelativePosition_8hpp.html#a7d566b721771363b24104fd4561ad4d5">   80</a></span>&#160;<span class="comment"></span>std::string <a class="code" href="LateralRelativePosition_8hpp.html#a7d566b721771363b24104fd4561ad4d5">toString</a>(::<a class="code" href="namespacead_1_1rss_1_1core.html#afcb3dabef13a9ca621c7522c14a7c869">ad::rss::core::LateralRelativePosition</a> <span class="keyword">const</span> e);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="LateralRelativePosition_8hpp.html#a0f27b88c1ff34782cd8e98a09e2871cb">  100</a></span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> EnumType&gt; EnumType <a class="code" href="LateralRelativePosition_8hpp.html#a0f27b88c1ff34782cd8e98a09e2871cb">fromString</a>(std::string <span class="keyword">const</span> &amp;str);</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="LateralRelativePosition_8hpp.html#a8cb02fc5681bd85d3863742c9d4ba026">  120</a></span>&#160;<a class="code" href="namespacead_1_1rss_1_1core.html#afcb3dabef13a9ca621c7522c14a7c869">template &lt;&gt;::ad::rss::core::LateralRelativePosition</a> <a class="code" href="LateralRelativePosition_8hpp.html#a0f27b88c1ff34782cd8e98a09e2871cb">fromString</a>(std::string <span class="keyword">const</span> &amp;str);</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="preprocessor">#ifndef GEN_GUARD_AD_RSS_CORE_LATERALRELATIVEPOSITION</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno"><a class="line" href="LateralRelativePosition_8hpp.html#a83d8b267318360fe06955f6543ad4bf0">  126</a></span>&#160;<span class="preprocessor">#define GEN_GUARD_AD_RSS_CORE_LATERALRELATIVEPOSITION</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacead.html">ad</a> {</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="keyword">namespace </span>rss {</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="keyword">namespace </span>core {</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
+<div class="line"><a name="l00149"></a><span class="lineno"><a class="line" href="namespacead_1_1rss_1_1core.html#a80c751ff87505da29c9997084dc6cf49">  149</a></span>&#160;<span class="keyword">inline</span> std::ostream &amp;<a class="code" href="namespacead_1_1rss_1_1core.html#a80c751ff87505da29c9997084dc6cf49">operator&lt;&lt;</a>(std::ostream &amp;os, <a class="code" href="namespacead_1_1rss_1_1core.html#afcb3dabef13a9ca621c7522c14a7c869">LateralRelativePosition</a> <span class="keyword">const</span> &amp;value)</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;{</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;  <span class="keywordflow">return</span> os &lt;&lt; <a class="code" href="LateralRelativePosition_8hpp.html#a7d566b721771363b24104fd4561ad4d5">toString</a>(value);</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;}</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;} <span class="comment">// namespace rss</span></div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;} <span class="comment">// namespace ad</span></div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="keyword">namespace </span>std {</div>
+<div class="line"><a name="l00162"></a><span class="lineno"><a class="line" href="LateralRelativePosition_8hpp.html#a66101ee8166a3476ff840449b40c4006">  162</a></span>&#160;<span class="keyword">inline</span> std::string <a class="code" href="LateralRelativePosition_8hpp.html#a66101ee8166a3476ff840449b40c4006">to_string</a>(::<a class="code" href="namespacead_1_1rss_1_1core.html#afcb3dabef13a9ca621c7522c14a7c869">ad::rss::core::LateralRelativePosition</a> <span class="keyword">const</span> &amp;value)</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;{</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;  <a class="code" href="LateralRelativePosition_8hpp.html#a7d566b721771363b24104fd4561ad4d5">return ::toString</a>(value);</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;}</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;} <span class="comment">// namespace std</span></div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
+<div class="line"><a name="l00171"></a><span class="lineno"><a class="line" href="structfmt_1_1formatter_3_1_1ad_1_1rss_1_1core_1_1LateralRelativePosition_01_4.html">  171</a></span>&#160;<span class="keyword">template</span> &lt;&gt; <span class="keyword">struct </span>fmt::formatter&lt;::<a class="code" href="namespacead_1_1rss_1_1core.html#afcb3dabef13a9ca621c7522c14a7c869">ad::rss::core::LateralRelativePosition</a>&gt; : formatter&lt;string_view&gt;</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;{</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> FormatContext&gt;</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;  <span class="keyword">auto</span> format(::<a class="code" href="namespacead_1_1rss_1_1core.html#afcb3dabef13a9ca621c7522c14a7c869">ad::rss::core::LateralRelativePosition</a> <span class="keyword">const</span> &amp;value, FormatContext &amp;ctx)</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;  {</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <span class="keywordflow">return</span> formatter&lt;string_view&gt;::format(std::to_string(value), ctx);</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;  }</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;};</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160; </div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// GEN_GUARD_AD_RSS_CORE_LATERALRELATIVEPOSITION</span></div>
 <div class="ttc" id="aLateralRelativePosition_8hpp_html_a0f27b88c1ff34782cd8e98a09e2871cb"><div class="ttname"><a href="LateralRelativePosition_8hpp.html#a0f27b88c1ff34782cd8e98a09e2871cb">fromString</a></div><div class="ttdeci">EnumType fromString(std::string const &amp;str)</div><div class="ttdoc">Conversion from std::string to enum type T helper.</div></div>
-<div class="ttc" id="aLateralRelativePosition_8hpp_html_ab3bd76bb498071eaf34f45371cc19c03"><div class="ttname"><a href="LateralRelativePosition_8hpp.html#ab3bd76bb498071eaf34f45371cc19c03">std::to_string</a></div><div class="ttdeci">std::string to_string(::ad::rss::situation::LateralRelativePosition const &amp;value)</div><div class="ttdoc">overload of the std::to_string for LateralRelativePosition</div><div class="ttdef"><b>Definition:</b> LateralRelativePosition.hpp:160</div></div>
-<div class="ttc" id="aLateralRelativePosition_8hpp_html_ac26210edcc40d0941e8329706a5f751b"><div class="ttname"><a href="LateralRelativePosition_8hpp.html#ac26210edcc40d0941e8329706a5f751b">toString</a></div><div class="ttdeci">std::string toString(::ad::rss::situation::LateralRelativePosition const e)</div><div class="ttdoc">Conversion of ad::rss::situation::LateralRelativePosition to std::string helper.</div></div>
-<div class="ttc" id="anamespacead_1_1rss_1_1situation_html_ad34de1fee1f0ba7a32a3ee717965f322"><div class="ttname"><a href="namespacead_1_1rss_1_1situation.html#ad34de1fee1f0ba7a32a3ee717965f322">ad::rss::situation::operator&lt;&lt;</a></div><div class="ttdeci">std::ostream &amp; operator&lt;&lt;(std::ostream &amp;os, LateralRelativePosition const &amp;value)</div><div class="ttdoc">standard ostream operator</div><div class="ttdef"><b>Definition:</b> LateralRelativePosition.hpp:147</div></div>
-<div class="ttc" id="anamespacead_1_1rss_1_1situation_html_afd89df07613dfcd9cc98283a3d3eac74"><div class="ttname"><a href="namespacead_1_1rss_1_1situation.html#afd89df07613dfcd9cc98283a3d3eac74">ad::rss::situation::LateralRelativePosition</a></div><div class="ttdeci">LateralRelativePosition</div><div class="ttdoc">DataType LateralRelativePosition.</div><div class="ttdef"><b>Definition:</b> LateralRelativePosition.hpp:43</div></div>
-<div class="ttc" id="anamespacead_1_1rss_1_1situation_html_afd89df07613dfcd9cc98283a3d3eac74a2359a16283d7b4bfaaff2f6e90cbd116"><div class="ttname"><a href="namespacead_1_1rss_1_1situation.html#afd89df07613dfcd9cc98283a3d3eac74a2359a16283d7b4bfaaff2f6e90cbd116">ad::rss::situation::LateralRelativePosition::Overlap</a></div><div class="ttdeci">@ Overlap</div></div>
-<div class="ttc" id="anamespacead_1_1rss_1_1situation_html_afd89df07613dfcd9cc98283a3d3eac74a6366699487ca1634114ed43ca6eb180b"><div class="ttname"><a href="namespacead_1_1rss_1_1situation.html#afd89df07613dfcd9cc98283a3d3eac74a6366699487ca1634114ed43ca6eb180b">ad::rss::situation::LateralRelativePosition::AtLeft</a></div><div class="ttdeci">@ AtLeft</div></div>
-<div class="ttc" id="anamespacead_1_1rss_1_1situation_html_afd89df07613dfcd9cc98283a3d3eac74a7f274f0608dc5bdb242086028fe46eee"><div class="ttname"><a href="namespacead_1_1rss_1_1situation.html#afd89df07613dfcd9cc98283a3d3eac74a7f274f0608dc5bdb242086028fe46eee">ad::rss::situation::LateralRelativePosition::OverlapLeft</a></div><div class="ttdeci">@ OverlapLeft</div></div>
-<div class="ttc" id="anamespacead_1_1rss_1_1situation_html_afd89df07613dfcd9cc98283a3d3eac74a88a1a975c29d12a7cc15a295b2da4e9c"><div class="ttname"><a href="namespacead_1_1rss_1_1situation.html#afd89df07613dfcd9cc98283a3d3eac74a88a1a975c29d12a7cc15a295b2da4e9c">ad::rss::situation::LateralRelativePosition::OverlapRight</a></div><div class="ttdeci">@ OverlapRight</div></div>
-<div class="ttc" id="anamespacead_1_1rss_1_1situation_html_afd89df07613dfcd9cc98283a3d3eac74af94321e369b6e42da147f7358f0dfc2d"><div class="ttname"><a href="namespacead_1_1rss_1_1situation.html#afd89df07613dfcd9cc98283a3d3eac74af94321e369b6e42da147f7358f0dfc2d">ad::rss::situation::LateralRelativePosition::AtRight</a></div><div class="ttdeci">@ AtRight</div></div>
-<div class="ttc" id="anamespacead_html"><div class="ttname"><a href="namespacead.html">ad</a></div><div class="ttdoc">namespace ad</div><div class="ttdef"><b>Definition:</b> LateralRelativePosition.hpp:26</div></div>
+<div class="ttc" id="aLateralRelativePosition_8hpp_html_a66101ee8166a3476ff840449b40c4006"><div class="ttname"><a href="LateralRelativePosition_8hpp.html#a66101ee8166a3476ff840449b40c4006">std::to_string</a></div><div class="ttdeci">std::string to_string(::ad::rss::core::LateralRelativePosition const &amp;value)</div><div class="ttdoc">overload of the std::to_string for LateralRelativePosition</div><div class="ttdef"><b>Definition:</b> LateralRelativePosition.hpp:162</div></div>
+<div class="ttc" id="aLateralRelativePosition_8hpp_html_a7d566b721771363b24104fd4561ad4d5"><div class="ttname"><a href="LateralRelativePosition_8hpp.html#a7d566b721771363b24104fd4561ad4d5">toString</a></div><div class="ttdeci">std::string toString(::ad::rss::core::LateralRelativePosition const e)</div><div class="ttdoc">Conversion of ad::rss::core::LateralRelativePosition to std::string helper.</div></div>
+<div class="ttc" id="anamespacead_1_1rss_1_1core_html_a80c751ff87505da29c9997084dc6cf49"><div class="ttname"><a href="namespacead_1_1rss_1_1core.html#a80c751ff87505da29c9997084dc6cf49">ad::rss::core::operator&lt;&lt;</a></div><div class="ttdeci">std::ostream &amp; operator&lt;&lt;(std::ostream &amp;os, LateralRelativePosition const &amp;value)</div><div class="ttdoc">standard ostream operator</div><div class="ttdef"><b>Definition:</b> LateralRelativePosition.hpp:149</div></div>
+<div class="ttc" id="anamespacead_1_1rss_1_1core_html_afcb3dabef13a9ca621c7522c14a7c869"><div class="ttname"><a href="namespacead_1_1rss_1_1core.html#afcb3dabef13a9ca621c7522c14a7c869">ad::rss::core::LateralRelativePosition</a></div><div class="ttdeci">LateralRelativePosition</div><div class="ttdoc">DataType LateralRelativePosition.</div><div class="ttdef"><b>Definition:</b> LateralRelativePosition.hpp:45</div></div>
+<div class="ttc" id="anamespacead_1_1rss_1_1core_html_afcb3dabef13a9ca621c7522c14a7c869a2359a16283d7b4bfaaff2f6e90cbd116"><div class="ttname"><a href="namespacead_1_1rss_1_1core.html#afcb3dabef13a9ca621c7522c14a7c869a2359a16283d7b4bfaaff2f6e90cbd116">ad::rss::core::LateralRelativePosition::Overlap</a></div><div class="ttdeci">@ Overlap</div></div>
+<div class="ttc" id="anamespacead_1_1rss_1_1core_html_afcb3dabef13a9ca621c7522c14a7c869a6366699487ca1634114ed43ca6eb180b"><div class="ttname"><a href="namespacead_1_1rss_1_1core.html#afcb3dabef13a9ca621c7522c14a7c869a6366699487ca1634114ed43ca6eb180b">ad::rss::core::LateralRelativePosition::AtLeft</a></div><div class="ttdeci">@ AtLeft</div></div>
+<div class="ttc" id="anamespacead_1_1rss_1_1core_html_afcb3dabef13a9ca621c7522c14a7c869a7f274f0608dc5bdb242086028fe46eee"><div class="ttname"><a href="namespacead_1_1rss_1_1core.html#afcb3dabef13a9ca621c7522c14a7c869a7f274f0608dc5bdb242086028fe46eee">ad::rss::core::LateralRelativePosition::OverlapLeft</a></div><div class="ttdeci">@ OverlapLeft</div></div>
+<div class="ttc" id="anamespacead_1_1rss_1_1core_html_afcb3dabef13a9ca621c7522c14a7c869a88a1a975c29d12a7cc15a295b2da4e9c"><div class="ttname"><a href="namespacead_1_1rss_1_1core.html#afcb3dabef13a9ca621c7522c14a7c869a88a1a975c29d12a7cc15a295b2da4e9c">ad::rss::core::LateralRelativePosition::OverlapRight</a></div><div class="ttdeci">@ OverlapRight</div></div>
+<div class="ttc" id="anamespacead_1_1rss_1_1core_html_afcb3dabef13a9ca621c7522c14a7c869af94321e369b6e42da147f7358f0dfc2d"><div class="ttname"><a href="namespacead_1_1rss_1_1core.html#afcb3dabef13a9ca621c7522c14a7c869af94321e369b6e42da147f7358f0dfc2d">ad::rss::core::LateralRelativePosition::AtRight</a></div><div class="ttdeci">@ AtRight</div></div>
+<div class="ttc" id="anamespacead_html"><div class="ttname"><a href="namespacead.html">ad</a></div><div class="ttdoc">namespace ad</div><div class="ttdef"><b>Definition:</b> LateralRelativePosition.hpp:28</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

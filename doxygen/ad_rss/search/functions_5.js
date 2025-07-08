@@ -1,7 +1,10 @@
 var searchData=
 [
-  ['getcircleorigin_610',['getCircleOrigin',['../namespacead_1_1rss_1_1unstructured.html#aabdd209f060ee2b9f99b0f900f06cd18',1,'ad::rss::unstructured']]],
-  ['getheadingoverlap_611',['getHeadingOverlap',['../namespacead_1_1rss_1_1unstructured.html#ada549175155d4dbfa34677530408f38c',1,'ad::rss::unstructured::getHeadingOverlap(state::HeadingRange const &amp;a, state::HeadingRange const &amp;b, std::vector&lt; state::HeadingRange &gt; &amp;overlapRanges)'],['../namespacead_1_1rss_1_1unstructured.html#a395493c2e84d92914cf79e5d08e7fb98',1,'ad::rss::unstructured::getHeadingOverlap(state::HeadingRange const &amp;headingRange, std::vector&lt; state::HeadingRange &gt; &amp;overlapRanges)']]],
-  ['getinstance_612',['getInstance',['../classad_1_1rss_1_1unstructured_1_1DebugDrawing.html#a92db28d81720e00f27d197cd73e95d62',1,'ad::rss::unstructured::DebugDrawing']]],
-  ['getpointoncircle_613',['getPointOnCircle',['../namespacead_1_1rss_1_1unstructured.html#a661824d0448907aa60f8a0fca31d7195',1,'ad::rss::unstructured']]]
+  ['getconstellationid_777',['getConstellationId',['../classad_1_1rss_1_1structured_1_1RssConstellationIdProvider.html#a223bb2cb4b2cd261c9332f946ff70019',1,'ad::rss::structured::RssConstellationIdProvider']]],
+  ['getleftborderobjectid_778',['getLeftBorderObjectId',['../namespacead_1_1rss_1_1structured.html#a77131761c5e4ec4663b7a9d6e8828004',1,'ad::rss::structured']]],
+  ['getlogger_779',['getLogger',['../namespacead_1_1rss_1_1core.html#aaa272274fbbf4e71c4342752a593c405',1,'ad::rss::core']]],
+  ['getloglevel_780',['getLogLevel',['../namespacead_1_1rss_1_1core.html#a650bfa5abe87c8c543861a479d155e52',1,'ad::rss::core']]],
+  ['getobjectdimensions_781',['getObjectDimensions',['../classad_1_1rss_1_1structured_1_1RssObjectPositionExtractor.html#acb09914ca32412016b2e00f359260d8a',1,'ad::rss::structured::RssObjectPositionExtractor']]],
+  ['getrightborderobjectid_782',['getRightBorderObjectId',['../namespacead_1_1rss_1_1structured.html#affeecbd55042bdafc8d474dc12a3fd9c',1,'ad::rss::structured']]],
+  ['getvehiclecorner_783',['getVehicleCorner',['../namespacead_1_1rss_1_1unstructured.html#aeebd72e29317cd0d2ba259cbfa1437dd',1,'ad::rss::unstructured']]]
 ];

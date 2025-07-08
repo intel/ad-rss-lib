@@ -72,7 +72,7 @@ $(function() {
 <a href="WorldModelValidInputRange_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * ----------------- BEGIN LICENSE BLOCK ---------------------------------</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * Copyright (C) 2018-2020 Intel Corporation</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * Copyright (C) 2018-2022 Intel Corporation</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> *</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> * SPDX-License-Identifier: LGPL-2.1-only</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> *</span></div>
@@ -83,8 +83,8 @@ $(function() {
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;cmath&gt;</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;limits&gt;</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="RssDynamicsValidInputRange_8hpp.html">ad/rss/world/RssDynamicsValidInputRange.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="SceneVectorValidInputRange_8hpp.html">ad/rss/world/SceneVectorValidInputRange.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ConstellationVectorValidInputRange_8hpp.html">ad/rss/world/ConstellationVectorValidInputRange.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="RssDynamicsValidInputRange_8hpp.html">ad/rss/world/RssDynamicsValidInputRange.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="WorldModel_8hpp.html">ad/rss/world/WorldModel.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &quot;spdlog/fmt/ostr.h&quot;</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &quot;spdlog/spdlog.h&quot;</span></div>
@@ -93,8 +93,8 @@ $(function() {
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;{</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="comment">// check for generic member input ranges</span></div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keywordtype">bool</span> inValidInputRange = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  inValidInputRange = <a class="code" href="WorldModelValidInputRange_8hpp.html#a8344014148a595a0482d491f8ad4896d">withinValidInputRange</a>(input.<a class="code" href="structad_1_1rss_1_1world_1_1WorldModel.html#adc6764fdd63a5c2a3b1cae1a8461821b">defaultEgoVehicleRssDynamics</a>, logErrors)</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    &amp;&amp; <a class="code" href="WorldModelValidInputRange_8hpp.html#a8344014148a595a0482d491f8ad4896d">withinValidInputRange</a>(input.<a class="code" href="structad_1_1rss_1_1world_1_1WorldModel.html#af8f8a4b1834dfaec326b1261682dcd04">scenes</a>, logErrors);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  inValidInputRange = <a class="code" href="WorldModelValidInputRange_8hpp.html#a8344014148a595a0482d491f8ad4896d">withinValidInputRange</a>(input.<a class="code" href="structad_1_1rss_1_1world_1_1WorldModel.html#af4e8eeffbe44b092d304226697638b57">default_ego_vehicle_rss_dynamics</a>, logErrors)</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    &amp;&amp; <a class="code" href="WorldModelValidInputRange_8hpp.html#a8344014148a595a0482d491f8ad4896d">withinValidInputRange</a>(input.<a class="code" href="structad_1_1rss_1_1world_1_1WorldModel.html#ad989ff8a6aa737cc5cac0da3aea33a48">constellations</a>, logErrors);</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="keywordflow">if</span> (!inValidInputRange &amp;&amp; logErrors)</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  {</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    spdlog::error(<span class="stringliteral">&quot;withinValidInputRange(::ad::rss::world::WorldModel)&gt;&gt; {} has invalid member&quot;</span>,</div>
@@ -104,13 +104,13 @@ $(function() {
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="comment">// check for individual input ranges</span></div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordflow">if</span> (inValidInputRange)</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    inValidInputRange = (<a class="code" href="namespacead_1_1rss_1_1world.html#abe42cf8b14cca8d78261eedf3df9722e">::ad::rss::world::TimeIndex</a>(1) &lt;= input.<a class="code" href="structad_1_1rss_1_1world_1_1WorldModel.html#a2f7eb1bc3e37a0f03ea3497257b54295">timeIndex</a>);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    inValidInputRange = (<a class="code" href="namespacead_1_1rss_1_1world.html#abe42cf8b14cca8d78261eedf3df9722e">::ad::rss::world::TimeIndex</a>(1) &lt;= input.<a class="code" href="structad_1_1rss_1_1world_1_1WorldModel.html#a9f0f6cdb779f97b07748f39110366ffa">time_index</a>);</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">if</span> (!inValidInputRange &amp;&amp; logErrors)</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    {</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      spdlog::error(</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="stringliteral">&quot;withinValidInputRange(::ad::rss::world::WorldModel)&gt;&gt; {} element {} out of valid input range [{}, {}]&quot;</span>,</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        input,</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        input.<a class="code" href="structad_1_1rss_1_1world_1_1WorldModel.html#a2f7eb1bc3e37a0f03ea3497257b54295">timeIndex</a>,</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        input.<a class="code" href="structad_1_1rss_1_1world_1_1WorldModel.html#a9f0f6cdb779f97b07748f39110366ffa">time_index</a>,</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        ::<a class="code" href="namespacead_1_1rss_1_1world.html#abe42cf8b14cca8d78261eedf3df9722e">ad::rss::world::TimeIndex</a>(1),</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="stringliteral">&quot;Undefined&quot;</span>); <span class="comment">// LCOV_EXCL_BR_LINE</span></div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    }</div>
@@ -118,15 +118,15 @@ $(function() {
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <span class="keywordflow">return</span> inValidInputRange;</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;}</div>
+<div class="ttc" id="aConstellationVectorValidInputRange_8hpp_html"><div class="ttname"><a href="ConstellationVectorValidInputRange_8hpp.html">ConstellationVectorValidInputRange.hpp</a></div></div>
 <div class="ttc" id="aRssDynamicsValidInputRange_8hpp_html"><div class="ttname"><a href="RssDynamicsValidInputRange_8hpp.html">RssDynamicsValidInputRange.hpp</a></div></div>
-<div class="ttc" id="aSceneVectorValidInputRange_8hpp_html"><div class="ttname"><a href="SceneVectorValidInputRange_8hpp.html">SceneVectorValidInputRange.hpp</a></div></div>
 <div class="ttc" id="aWorldModelValidInputRange_8hpp_html_a8344014148a595a0482d491f8ad4896d"><div class="ttname"><a href="WorldModelValidInputRange_8hpp.html#a8344014148a595a0482d491f8ad4896d">withinValidInputRange</a></div><div class="ttdeci">bool withinValidInputRange(::ad::rss::world::WorldModel const &amp;input, bool const logErrors=true)</div><div class="ttdoc">check if the given WorldModel is within valid input range</div><div class="ttdef"><b>Definition:</b> WorldModelValidInputRange.hpp:39</div></div>
 <div class="ttc" id="aWorldModel_8hpp_html"><div class="ttname"><a href="WorldModel_8hpp.html">WorldModel.hpp</a></div></div>
 <div class="ttc" id="anamespacead_1_1rss_1_1world_html_abe42cf8b14cca8d78261eedf3df9722e"><div class="ttname"><a href="namespacead_1_1rss_1_1world.html#abe42cf8b14cca8d78261eedf3df9722e">ad::rss::world::TimeIndex</a></div><div class="ttdeci">uint64_t TimeIndex</div><div class="ttdoc">DataType TimeIndex.</div><div class="ttdef"><b>Definition:</b> TimeIndex.hpp:39</div></div>
 <div class="ttc" id="astructad_1_1rss_1_1world_1_1WorldModel_html"><div class="ttname"><a href="structad_1_1rss_1_1world_1_1WorldModel.html">ad::rss::world::WorldModel</a></div><div class="ttdoc">DataType WorldModel.</div><div class="ttdef"><b>Definition:</b> WorldModel.hpp:47</div></div>
-<div class="ttc" id="astructad_1_1rss_1_1world_1_1WorldModel_html_a2f7eb1bc3e37a0f03ea3497257b54295"><div class="ttname"><a href="structad_1_1rss_1_1world_1_1WorldModel.html#a2f7eb1bc3e37a0f03ea3497257b54295">ad::rss::world::WorldModel::timeIndex</a></div><div class="ttdeci">::ad::rss::world::TimeIndex timeIndex</div><div class="ttdef"><b>Definition:</b> WorldModel.hpp:126</div></div>
-<div class="ttc" id="astructad_1_1rss_1_1world_1_1WorldModel_html_adc6764fdd63a5c2a3b1cae1a8461821b"><div class="ttname"><a href="structad_1_1rss_1_1world_1_1WorldModel.html#adc6764fdd63a5c2a3b1cae1a8461821b">ad::rss::world::WorldModel::defaultEgoVehicleRssDynamics</a></div><div class="ttdeci">::ad::rss::world::RssDynamics defaultEgoVehicleRssDynamics</div><div class="ttdef"><b>Definition:</b> WorldModel.hpp:134</div></div>
-<div class="ttc" id="astructad_1_1rss_1_1world_1_1WorldModel_html_af8f8a4b1834dfaec326b1261682dcd04"><div class="ttname"><a href="structad_1_1rss_1_1world_1_1WorldModel.html#af8f8a4b1834dfaec326b1261682dcd04">ad::rss::world::WorldModel::scenes</a></div><div class="ttdeci">::ad::rss::world::SceneVector scenes</div><div class="ttdef"><b>Definition:</b> WorldModel.hpp:139</div></div>
+<div class="ttc" id="astructad_1_1rss_1_1world_1_1WorldModel_html_a9f0f6cdb779f97b07748f39110366ffa"><div class="ttname"><a href="structad_1_1rss_1_1world_1_1WorldModel.html#a9f0f6cdb779f97b07748f39110366ffa">ad::rss::world::WorldModel::time_index</a></div><div class="ttdeci">::ad::rss::world::TimeIndex time_index</div><div class="ttdef"><b>Definition:</b> WorldModel.hpp:127</div></div>
+<div class="ttc" id="astructad_1_1rss_1_1world_1_1WorldModel_html_ad989ff8a6aa737cc5cac0da3aea33a48"><div class="ttname"><a href="structad_1_1rss_1_1world_1_1WorldModel.html#ad989ff8a6aa737cc5cac0da3aea33a48">ad::rss::world::WorldModel::constellations</a></div><div class="ttdeci">::ad::rss::world::ConstellationVector constellations</div><div class="ttdef"><b>Definition:</b> WorldModel.hpp:140</div></div>
+<div class="ttc" id="astructad_1_1rss_1_1world_1_1WorldModel_html_af4e8eeffbe44b092d304226697638b57"><div class="ttname"><a href="structad_1_1rss_1_1world_1_1WorldModel.html#af4e8eeffbe44b092d304226697638b57">ad::rss::world::WorldModel::default_ego_vehicle_rss_dynamics</a></div><div class="ttdeci">::ad::rss::world::RssDynamics default_ego_vehicle_rss_dynamics</div><div class="ttdef"><b>Definition:</b> WorldModel.hpp:135</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

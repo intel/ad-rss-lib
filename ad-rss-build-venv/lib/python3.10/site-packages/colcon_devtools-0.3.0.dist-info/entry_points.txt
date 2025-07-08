@@ -1,0 +1,5 @@
+[colcon_core.verb]
+extension-points = colcon_devtools.verb.extension_points:ExtensionPointsVerb
+extensions = colcon_devtools.verb.extensions:ExtensionsVerb
+version-check = colcon_devtools.verb.version_check:VersionCheckVerb
+

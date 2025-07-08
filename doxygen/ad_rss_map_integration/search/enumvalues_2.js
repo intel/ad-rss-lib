@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['none_116',['None',['../classad_1_1rss_1_1map_1_1RssSceneCreation.html#a403aae6dce3c77a8aec01dd9808dd964a6adf97f83acf6453d4a6a4b1070f3754',1,'ad::rss::map::RssSceneCreation']]],
-  ['notrelevant_117',['NotRelevant',['../namespacead_1_1rss_1_1map.html#adcb01232986ed83a0c540cd5d03ef495a19888364fb1076a2724fd072b768e304',1,'ad::rss::map']]]
+  ['ignore_776',['Ignore',['../namespacead_1_1rss_1_1map.html#ab75e25c016d62ce3f18a9b93b35725c5afd038fc7f319e48f3115d92bf5bdbef9',1,'ad::rss::map']]],
+  ['increasedspeedlimit10_777',['IncreasedSpeedLimit10',['../namespacead_1_1rss_1_1map.html#ada698b1a031db476ef945c19f8fd9cb6a249a5ca3412167f0c66e804f6b7012e8',1,'ad::rss::map']]],
+  ['increasedspeedlimit5_778',['IncreasedSpeedLimit5',['../namespacead_1_1rss_1_1map.html#ada698b1a031db476ef945c19f8fd9cb6a69c4b6ce533a6f047232e0d0427ddc1e',1,'ad::rss::map']]]
 ];

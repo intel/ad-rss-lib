@@ -1,0 +1,8 @@
+<map id="ad::rss::map::RssObjectAdapterData" name="ad::rss::map::RssObjectAdapterData">
+<area shape="rect" id="node1" title="DataType RssObjectAdapterData." alt="" coords="5,93,263,120"/>
+<area shape="rect" id="node2" href="$classad_1_1rss_1_1map_1_1RssObjectAdapter.html" title="Base class to access basic object information required to perform the RSS checks in conjunction with ..." alt="" coords="311,86,537,127"/>
+<area shape="rect" id="node3" href="$classad_1_1rss_1_1map_1_1RssArtificialObjectAdapter.html" title="Base class to access artificialObject information required to perform the RSS checks in conjunction w..." alt="" coords="588,5,845,61"/>
+<area shape="rect" id="node4" href="$classad_1_1rss_1_1map_1_1RssPedestrianAdapter.html" title=" " alt="" coords="585,86,848,127"/>
+<area shape="rect" id="node5" href="$classad_1_1rss_1_1map_1_1RssVehicleAdapter.html" title="Base class to access vehicle information required to perform the RSS checks in conjunction with the R..." alt="" coords="613,152,821,208"/>
+<area shape="rect" id="node6" href="$classad_1_1rss_1_1map_1_1RssEgoVehicleAdapter.html" title="Base class to access ego vehicle information required to perform the RSS checks in conjunction with t..." alt="" coords="896,159,1159,201"/>
+</map>

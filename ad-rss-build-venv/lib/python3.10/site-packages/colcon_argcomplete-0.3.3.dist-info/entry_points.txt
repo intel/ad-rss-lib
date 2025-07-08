@@ -1,0 +1,9 @@
+[colcon_core.argument_parser]
+argcomplete = colcon_argcomplete.argument_parser.argcomplete:ArgcompleteArgumentParserDecorator
+
+[colcon_core.environment_variable]
+argcomplete_timing = colcon_argcomplete.argument_parser.argcomplete:COMPLETION_LOGFILE_ENVIRONMENT_VARIABLE
+
+[colcon_core.extension_point]
+colcon_argcomplete.argcomplete_completer = colcon_argcomplete.argcomplete_completer:ArgcompleteCompleterExtensionPoint
+

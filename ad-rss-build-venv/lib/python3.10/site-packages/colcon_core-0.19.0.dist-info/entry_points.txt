@@ -1,0 +1,91 @@
+[colcon_core.argument_parser]
+
+
+[colcon_core.environment]
+path = colcon_core.environment.path:PathEnvironment
+pythonpath = colcon_core.environment.pythonpath:PythonPathEnvironment
+pythonscriptspath = colcon_core.environment.path:PythonScriptsPathEnvironment
+
+[colcon_core.environment_variable]
+all_shells = colcon_core.shell:ALL_SHELLS_ENVIRONMENT_VARIABLE
+default_executor = colcon_core.executor:DEFAULT_EXECUTOR_ENVIRONMENT_VARIABLE
+extension_blocklist = colcon_core.extension_point:EXTENSION_BLOCKLIST_ENVIRONMENT_VARIABLE
+home = colcon_core.command:HOME_ENVIRONMENT_VARIABLE
+log_level = colcon_core.command:LOG_LEVEL_ENVIRONMENT_VARIABLE
+output_style = colcon_core.output_style:DEFAULT_OUTPUT_STYLE_ENVIRONMENT_VARIABLE
+warnings = colcon_core.command:WARNINGS_ENVIRONMENT_VARIABLE
+
+[colcon_core.event_handler]
+console_direct = colcon_core.event_handler.console_direct:ConsoleDirectEventHandler
+console_start_end = colcon_core.event_handler.console_start_end:ConsoleStartEndEventHandler
+log_command = colcon_core.event_handler.log_command:LogCommandEventHandler
+
+[colcon_core.executor]
+sequential = colcon_core.executor.sequential:SequentialExecutor
+
+[colcon_core.extension_point]
+colcon_core.argument_parser = colcon_core.argument_parser:ArgumentParserDecoratorExtensionPoint
+colcon_core.environment = colcon_core.environment:EnvironmentExtensionPoint
+colcon_core.event_handler = colcon_core.event_handler:EventHandlerExtensionPoint
+colcon_core.executor = colcon_core.executor:ExecutorExtensionPoint
+colcon_core.output_style = colcon_core.output_style:OutputStyleExtensionPoint
+colcon_core.package_augmentation = colcon_core.package_augmentation:PackageAugmentationExtensionPoint
+colcon_core.package_discovery = colcon_core.package_discovery:PackageDiscoveryExtensionPoint
+colcon_core.package_identification = colcon_core.package_identification:PackageIdentificationExtensionPoint
+colcon_core.package_selection = colcon_core.package_selection:PackageSelectionExtensionPoint
+colcon_core.prefix_path = colcon_core.prefix_path:PrefixPathExtensionPoint
+colcon_core.python_testing = colcon_core.task.python.test:PythonTestingStepExtensionPoint
+colcon_core.shell = colcon_core.shell:ShellExtensionPoint
+colcon_core.shell.find_installed_packages = colcon_core.shell:FindInstalledPackagesExtensionPoint
+colcon_core.task.build = colcon_core.task:TaskExtensionPoint
+colcon_core.task.test = colcon_core.task:TaskExtensionPoint
+colcon_core.verb = colcon_core.verb:VerbExtensionPoint
+
+[colcon_core.output_style]
+
+
+[colcon_core.package_augmentation]
+python = colcon_core.package_augmentation.python:PythonPackageAugmentation
+
+[colcon_core.package_discovery]
+path = colcon_core.package_discovery.path:PathPackageDiscovery
+
+[colcon_core.package_identification]
+ignore = colcon_core.package_identification.ignore:IgnorePackageIdentification
+python = colcon_core.package_identification.python:PythonPackageIdentification
+
+[colcon_core.package_selection]
+
+
+[colcon_core.prefix_path]
+colcon = colcon_core.prefix_path.colcon:ColconPrefixPath
+
+[colcon_core.python_testing]
+pytest = colcon_core.task.python.test.pytest:PytestPythonTestingStep
+setuppy_test = colcon_core.task.python.test.setuppy_test:SetuppyPythonTestingStep
+
+[colcon_core.shell]
+bat = colcon_core.shell.bat:BatShell
+dsv = colcon_core.shell.dsv:DsvShell
+sh = colcon_core.shell.sh:ShShell
+
+[colcon_core.shell.find_installed_packages]
+colcon_isolated = colcon_core.shell.installed_packages:IsolatedInstalledPackageFinder
+colcon_merged = colcon_core.shell.installed_packages:MergedInstalledPackageFinder
+
+[colcon_core.task.build]
+python = colcon_core.task.python.build:PythonBuildTask
+
+[colcon_core.task.test]
+python = colcon_core.task.python.test:PythonTestTask
+
+[colcon_core.verb]
+build = colcon_core.verb.build:BuildVerb
+test = colcon_core.verb.test:TestVerb
+
+[console_scripts]
+colcon = colcon_core.command:main
+
+[pytest11]
+colcon_core_warnings_stderr = colcon_core.pytest.hooks
+

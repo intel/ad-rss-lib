@@ -1,0 +1,8 @@
+[colcon_core.package_augmentation]
+check_dependency_constraint = colcon_package_information.package_augmentation.check_dependency_constraint:CheckDependencyConstraintPackageAugmentation
+
+[colcon_core.verb]
+graph = colcon_package_information.verb.graph:GraphVerb
+info = colcon_package_information.verb.info:InfoVerb
+list = colcon_package_information.verb.list:ListVerb
+

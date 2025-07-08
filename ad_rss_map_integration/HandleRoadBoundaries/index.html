@@ -70,7 +70,7 @@
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../Main/">Overview</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../ConstructRSSScenes/">Construction of the RSS Scenes</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../ConstructRSSConstellations/">Construction of the RSS Constellations</a>
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">Handling of road boundaries</a>
                   </li>
@@ -166,25 +166,25 @@ and stays on the drivable road.</p>
 </thead>
 <tbody>
 <tr>
-<td><em>By adding the left and right border of the drivable road as artificial objects to the RSS scenes, RSS will ensure a safety distance to these virtual 'walls' and though make the vehicle to stay on its road.</em></td>
+<td><em>By adding the left and right border of the drivable road as artificial objects to the RSS constellations, RSS will ensure a safety distance to these virtual 'walls' and though make the vehicle to stay on its road.</em></td>
 </tr>
 </tbody>
 </table>
 <h4 id="virtual-road-border-objects">Virtual road border objects<a class="headerlink" href="#virtual-road-border-objects" title="Permanent link">&para;</a></h4>
-<p>When adding the road boundaries to the list of RSS scenes, there is still the question
+<p>When adding the road boundaries to the list of RSS constellations, there is still the question
 which borders to actually use. Do we want to restrict the vehicle to it's currently planned
 route? Do we want to allow the vehicle to be able to enter the opposite lanes where
 the speed difference towards other cars is expected to be much higher? Do we even want to
 allow the vehicle to enter non-drivable lanes like shoulder lanes or even pedestrian ways?
-As these questions may be answered differently in respect to the kind of road, the situation, etc.
-<em>ad_rss_map_integration</em> allows the user to select between different modes  (<code>ad::rss::map::RssSceneCreation::AppendRoadBoundariesMode</code>) when calling
-<code>ad::rss::map::RssSceneCreation::AppendRoadBoundaries()</code>.</p>
+As these questions may be answered differently in respect to the kind of road, the constellation, etc.
+<em>ad_rss_map_integration</em> allows the user to select between different modes  (<code>ad::rss::map::RssAppendRoadBoundariesMode</code>) when calling
+<code>ad::rss::map::RssWorldModelCreation::appendRoadBoundaries()</code>.</p>
 <p>On the other hand, since the virtual objects are of static nature, the current implementation sets the <code>ad::rss::world::RssDynamics</code> of the road boundary objects to some fixed values: no acceleration, minimal response time, etc. The same is true for the breadth of the road boundaries, which are just fixed to 0.001 of the respective lane segment.</p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../ConstructRSSScenes/" class="btn btn-neutral float-left" title="Construction of the RSS Scenes"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../ConstructRSSConstellations/" class="btn btn-neutral float-left" title="Construction of the RSS Constellations"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="../../BUILDING/" class="btn btn-neutral float-right" title="General build instructions">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
@@ -212,7 +212,7 @@ As these questions may be answered differently in respect to the kind of road, t
         </span>
     
     
-      <span><a href="../ConstructRSSScenes/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../ConstructRSSConstellations/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
       <span><a href="../../BUILDING/" style="color: #fcfcfc">Next &raquo;</a></span>

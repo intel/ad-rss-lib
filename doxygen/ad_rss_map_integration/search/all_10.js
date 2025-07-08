@@ -1,5 +1,9 @@
 var searchData=
 [
-  ['_7erssobjectconversion_62',['~RssObjectConversion',['../classad_1_1rss_1_1map_1_1RssObjectConversion.html#a272b3c559ff9a80fd2876acc3aedc083',1,'ad::rss::map::RssObjectConversion']]],
-  ['_7erssscenecreator_63',['~RssSceneCreator',['../classad_1_1rss_1_1map_1_1RssSceneCreator.html#a2600276836291394369c7dbf5c1e8614',1,'ad::rss::map::RssSceneCreator']]]
+  ['unstructured_348',['Unstructured',['../namespacead_1_1rss_1_1map.html#ab75e25c016d62ce3f18a9b93b35725c5ae7ef56695ea04d5a8ed28ad8f4c0057d',1,'ad::rss::map']]],
+  ['updateadapter_349',['updateAdapter',['../classad_1_1rss_1_1map_1_1RssRouteCheckerPedestrianData.html#ad3707868e355ff48a1503399b4a89011',1,'ad::rss::map::RssRouteCheckerPedestrianData::updateAdapter()'],['../classad_1_1rss_1_1map_1_1RssRouteCheckerVehicleData.html#a0ca5179725fc2f8b8c5fe60d3d60f8dc',1,'ad::rss::map::RssRouteCheckerVehicleData::updateAdapter()'],['../classad_1_1rss_1_1map_1_1RssRouteCheckerEgoVehicleData.html#a47b53e333cd6c67fb1418684f0a7d3e8',1,'ad::rss::map::RssRouteCheckerEgoVehicleData::updateAdapter()'],['../classad_1_1rss_1_1map_1_1RssRouteCheckerArtificialObjectData.html#a6ca6634ae48d96b1cf4c759e6c9e1ce5',1,'ad::rss::map::RssRouteCheckerArtificialObjectData::updateAdapter()']]],
+  ['updateroutes_350',['updateRoutes',['../classad_1_1rss_1_1map_1_1RssRouteCheckerVehicleData.html#a4846350faf1d95bdee5273d622b39a40',1,'ad::rss::map::RssRouteCheckerVehicleData']]],
+  ['updatespeedlimit_351',['updateSpeedLimit',['../classad_1_1rss_1_1map_1_1RssObjectConversion.html#a53a17256d03fa047b32127388aecb8c9',1,'ad::rss::map::RssObjectConversion']]],
+  ['updatevehicledynamicsonroutes_352',['updateVehicleDynamicsOnRoutes',['../classad_1_1rss_1_1map_1_1RssRouteCheckerEgoVehicleData.html#a264eea0f610b2a381d977cc5816b3445',1,'ad::rss::map::RssRouteCheckerEgoVehicleData']]],
+  ['updatevelocityonroute_353',['updateVelocityOnRoute',['../classad_1_1rss_1_1map_1_1RssObjectConversion.html#ab85008ea860c8e0133277c56fc15a4e7',1,'ad::rss::map::RssObjectConversion::updateVelocityOnRoute(::ad::map::point::ENUHeading const &amp;route_heading)'],['../classad_1_1rss_1_1map_1_1RssObjectConversion.html#a5ee46226501dd0291b940331592cf607',1,'ad::rss::map::RssObjectConversion::updateVelocityOnRoute(::ad::map::route::FullRoute const &amp;route)']]]
 ];

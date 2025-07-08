@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Construction of the RSS Constellations - Intel ad-rss-lib</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Construction of the RSS Constellations";
+        var mkdocs_page_input_path = "ad_rss_map_integration/ConstructRSSConstellations.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Intel ad-rss-lib
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../RELEASE_NOTES_AND_DISCLAIMERS/">Release Notes and Disclaimer</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Background</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ad_rss/Overview/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ad_rss/HLD-KeyDesignDecisionsAndAlternatives/">Design Discussions</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ad_rss/UnstructuredConstellations/">Unstructured Constellations</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ad_rss/HLD-ArchitectureOverview/">System Integration</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ad_rss/HLD-Safety/">Safety</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ad_rss/HLD-Security/">Security</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ad_rss/Appendix-ParameterDiscussion/">Parameter Discussion</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ad_rss/SupportedRssFeatures/">Supported RSS Features</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Map Integration</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../Main/">Overview</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Construction of the RSS Constellations</a>
+    <ul class="current">
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../HandleRoadBoundaries/">Handling of road boundaries</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Building</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../BUILDING/">General build instructions</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Python Integration</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ad_rss/ad_rss_python/">Core Library</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ad_rss_map_integration_python/">Map Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Doxygen</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/index.html">Core Library</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss_map_integration/index.html">Map Integration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Code Coverage</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="https://intel.github.io/ad-rss-lib/coverage/ad_rss/">Core Library</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://intel.github.io/ad-rss-lib/coverage/ad_rss_map_integration/">Map Integration</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../FAQ/">FAQ</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG/">Changelog</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Intel ad-rss-lib</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Map Integration</li>
+      <li class="breadcrumb-item active">Construction of the RSS Constellations</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/intel/ad-rss-lib/edit/main/doc/ad_rss_map_integration/ConstructRSSConstellations.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="construction-of-the-rss-constellations-between-two-vehicles">Construction of the RSS Constellations between two vehicles <a name="rssconstellations"></a><a class="headerlink" href="#construction-of-the-rss-constellations-between-two-vehicles" title="Permanent link">&para;</a></h1>
+<p>The RSS core implementation (<em>ad_rss</em>) proposes a constellation-specific lane coordinate system to
+perform the RSS calculations between two vehicles. This library provides an exemplary
+implementation on how a real-world constellation can be transformed into such
+coordinate system.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This implementation considers neither all possible road network layouts nor all
+configurations between two vehicles that may happen. In reality, many corner-cases have to be
+considered to cover all of that (e.g. a backward driving car).</p>
+</div>
+<h4 id="table-of-contents">Table of contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h4>
+<ol>
+<li><a href="#constructconstellations">Construct constellations</a></li>
+<li><a href="#constructroadarea">Construct Road Area</a></li>
+<li><a href="#convertvehicledata">Convert Vehicle Data</a></li>
+<li><a href="#considerspeedlimits">Consider Speed Limits</a></li>
+</ol>
+<h3 id="construction-of-the-individual-constellations">Construction of the individual constellations <a name="constructconstellations"></a><a class="headerlink" href="#construction-of-the-individual-constellations" title="Permanent link">&para;</a></h3>
+<p>In general, the real world road network is far more complex than just one straight road:
+the constellation between two vehicles is not necessarily unambiguous, especially
+as the vehicles can take different routes through intersections. Therefore, the
+worst-case has to be covered here, too. All potential configurations have to be
+considered when performing the situation analysis and creating the respective
+Constellation-specific Lane Coordinate System. As a result of this there might be multiple
+constellations at the same time to be considered between two vehicles.</p>
+<p>Before the actual road area of the vehicles can be calculated, the type of constellation
+has to be determined, which is performed within <code>ad::rss::map::RssWorldModelCreation::appendConstellations()</code> as follows:</p>
+<h4 id="calculate-the-connecting-route">Calculate the connecting route<a class="headerlink" href="#calculate-the-connecting-route" title="Permanent link">&para;</a></h4>
+<p>Based on road network data, the vehicle position and the object position, the shortest connecting route
+between these two is calculated (<code>ad::map::route::planning::calculateConnectingRoute()</code>).
+To cover also opposite direction and intersection use-cases, the nominal driving direction
+on the lanes is disregarded when the connecting route is calculated.
+Furthermore, as the map matched positions of vehicle and object might span over multiple
+lanes, all possible combinations are taken into account.</p>
+<h4 id="decide-on-the-kind-of-constellation-same-direction-opposite-direction-or-intersection">Decide on the kind of constellation: same direction, opposite direction or intersection<a class="headerlink" href="#decide-on-the-kind-of-constellation-same-direction-opposite-direction-or-intersection" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p>If both vehicles are driving in the same direction with respect to the connecting route
+a same direction constellation is created. This is done, regardless if there are intersections
+between the two vehicles present, because one vehicle just follows the other, potentially through the intersection.</p>
+<table>
+<thead>
+<tr>
+<th><img alt="same direction constellation" src="../../images/two_cars_same_direction.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>One vehicle is following the other on the same road by driving in the same direction: either on the same lane or on another parallel lane</em></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>If both vehicles drive in opposite direction and there is no intersection in between an opposite direction constellation is created.</p>
+<table>
+<thead>
+<tr>
+<th><img alt="opposite direction constellation" src="../../images/two_cars_opposite_direction.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Both vehicle are approaching each other on the same road by driving in the opposite direction: either on the same lane or on another parallel lane</em></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Otherwise, the potential future routes of the vehicles have
+to be calculated and combined with each other. As in an AD vehicle the ego route usually is known
+that route is taken as basis for the ego vehicle, if present. Every intersection present in both
+routes of these combinations might result in a new constellation to be considered:</p>
+<table>
+<thead>
+<tr>
+<th><img alt="special intersection constellation" src="../../images/two_cars_intersection_highway_entry.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Besides classical X-intersection or T-intersections also areas where lanes vanish and a lateral conflict is unavoidable have to be treated as intersection cases.</em></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>If both drive through the intersection coming from different intersection arms without crossing routes,
+  the vehicles pass each other and an opposite direction constellation is created</li>
+<li>Else, the routes within the intersection are crossing each other and an intersection constellation is created.
+  To decide which of the vehicles has priority within the intersection the capabilities of the class
+  <code>ad::map::intersection::Intersection()</code> are used. In case of traffic light intersections, the kind
+  and status of the relevant traffic light determines the current priorities.</li>
+</ul>
+</li>
+</ol>
+<h4 id="handling-of-similar-constellations">Handling of similar constellations<a class="headerlink" href="#handling-of-similar-constellations" title="Permanent link">&para;</a></h4>
+<p>The consideration of intersections with all the possible routes leads to an increase in the number
+of constellations. Therefore, to reduce the computational effort of the actual safety analysis,
+within the <em>ad_rss</em> core implementation constellations that represent the same configuration are merged
+if they describe the 'same' constellation (i.e. the same route through the intersection).
+To achieve this, and still be able to keep the worst case assessment, the distances to enter/leave the
+intersection both are intervals to provide the minimum and maximum observed distance to enter and leave
+the respective intersection.</p>
+<table>
+<thead>
+<tr>
+<th><img alt="Construct constellations" src="../../images/ad-rss-map-situation_analysis.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Steps to create the constellations required for safety calculations having the road network as well as the object data available as input</em></td>
+</tr>
+</tbody>
+</table>
+<h3 id="construction-of-the-constellation-specific-road-area">Construction of the constellation-specific Road Area <a name="constructroadarea"></a><a class="headerlink" href="#construction-of-the-constellation-specific-road-area" title="Permanent link">&para;</a></h3>
+<p>RSS incorporates the changes in the road geometries as minimum/maximum length and width
+parameters of the respective lane segments into the worst-case consideration of positions and distances.
+This makes the vehicle behaving over cautious if the road sections taken into account
+are selected unnecessarily large: the more the differences in minimal/maximal width
+or length of these segments are the more conservative the behavior of the vehicle gets.
+Therefore, the road area for the creation of the constellation is restricted to the direct
+surrounding of the two vehicles, which is represented by the connecting route as
+described in the last section for non-intersection constellation.</p>
+<table>
+<thead>
+<tr>
+<th><img alt="Road Area: same direction" src="../../images/rss_constellation_specific_lane_coordinate_system_creation_road_area.svg" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Construction of a same direction Road Area as basis for the Constellation-Based Coordinate System: The red area consists of all lane segments along the road relevant for the constellation between the two vehicles</em></td>
+</tr>
+</tbody>
+</table>
+<p>Nevertheless, the nominal driving direction of the lane segments in respect to the direction
+of the road area have to be preserved to allow RSS to decide if a vehicle is driving in wrong direction. The direction of the road area is determined by the driving direction of the vehicles.</p>
+<table>
+<thead>
+<tr>
+<th><img alt="Road Area: opposite direction" src="../../images/road_area_and_driving_direction_opposite_direction.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>In opposite direction use-case, where both vehicles are approaching each other, the direction is determined by the driving direction of the ego-vehicle</em></td>
+</tr>
+</tbody>
+</table>
+<p>In intersection constellations, both vehicles approach from different roads. Therefore, two road areas have to be taken into account which end in an overlapping area at the intersection.</p>
+<table>
+<thead>
+<tr>
+<th><img alt="Road Area: opposite direction" src="../../images/road_area_and_lane_segment_type_intersection.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Construction of the constellation-specific Road Area in case of an intersection: Each vehicle gets its own road area. The lane segments within the intersection are marked as such. Be aware: The lane segment type intersection is only provided for lane segments of the intersection under consideration within the current constellation.</em></td>
+</tr>
+</tbody>
+</table>
+<h3 id="conversion-of-the-vehicle-data-in-respect-to-the-road-area">Conversion of the vehicle data in respect to the Road Area  <a name="convertvehicledata"></a><a class="headerlink" href="#conversion-of-the-vehicle-data-in-respect-to-the-road-area" title="Permanent link">&para;</a></h3>
+<p>Having the constellations and the respective Road Area(s) constructed, the vehicle data has to be
+converted into the desired RSS object format <code>ad::rss::world::Object</code>. The main aspects of this
+are the conversion of the velocity and of the bounding box.</p>
+<h4 id="conversion-of-the-vehicle-velocity-within-the-road-area">Conversion of the vehicle velocity within the road area<a class="headerlink" href="#conversion-of-the-vehicle-velocity-within-the-road-area" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th><img alt="Velocity conversion overview" src="../../images/lane_coordinate_system_velocity_overview.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Example road area for velocity conversion</em></td>
+</tr>
+</tbody>
+</table>
+<p>To convert the velocity of a vehicle within the constellation, one can take the center point of the vehicle and the vehicle orientation in respect to the road area driving direction
+as basis to split the vehicle speed into its lateral and longitudinal components in respect to the borders of the road area.</p>
+<p>Having a detailed look at the left vehicle within the above sketched constellation. Let it drive with 10m/s
+in parallel to the lanes. The split of the velocity leads to longitudinal velocity component of <span class="arithmatex"><span class="MathJax_Preview">v_{lon} = 10 m/s</span><script type="math/tex">v_{lon} = 10 m/s</script></span> and a lateral velocity component of <span class="arithmatex"><span class="MathJax_Preview">v_{lat} = 0 m/s</span><script type="math/tex">v_{lat} = 0 m/s</script></span>.</p>
+<table>
+<thead>
+<tr>
+<th><img alt="Velocity conversion straight lanes" src="../../images/lane_coordinate_system_velocity_straight.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Vehicle velocity conversion on straight lanes</em></td>
+</tr>
+</tbody>
+</table>
+<p>This becomes different, when the lane is not straight anymore. When driving with <span class="arithmatex"><span class="MathJax_Preview">20\circ</span><script type="math/tex">20\circ</script></span> in
+respect to the lane at the center point. For the center point one gets a longitudinal velocity component of <span class="arithmatex"><span class="MathJax_Preview">v_{lon} = \cos(20\circ) * 10 m/s = 9.4 m/s</span><script type="math/tex">v_{lon} = \cos(20\circ) * 10 m/s = 9.4 m/s</script></span> and a lateral velocity component
+of <span class="arithmatex"><span class="MathJax_Preview">v_{lat} = \sin(20\circ) * 10 m/s = 3.4 m/s</span><script type="math/tex">v_{lat} = \sin(20\circ) * 10 m/s = 3.4 m/s</script></span>.</p>
+<table>
+<thead>
+<tr>
+<th><img alt="Velocity conversion curve" src="../../images/lane_coordinate_system_velocity_curve.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Vehicle velocity conversion in curves</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="construction-of-the-constellation-specific-bounding-box-of-the-vehicles-within-the-road-area">Construction of the constellation-specific bounding box of the vehicles within the road area<a class="headerlink" href="#construction-of-the-constellation-specific-bounding-box-of-the-vehicles-within-the-road-area" title="Permanent link">&para;</a></h4>
+<p>Based on the Road Area, the individual bounding box of the vehicles are calculated.</p>
+<table>
+<thead>
+<tr>
+<th><img alt="Road Area: Lane ids" src="../images/rss_constellation_base_coordinate_system_road_area_with_lane_ids.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Road Area with lane Ids assigned</em></td>
+</tr>
+</tbody>
+</table>
+<p>For this, the <code>ad::map::match::LaneOccupiedRegionList</code> with the occupied regions calculated on basis of
+the real lane geometries (see <em>ad_map_access</em> for reference) is transformed into the
+<code>ad::rss:world::OccupiedRegionVector</code> mainly by:</p>
+<ul>
+<li>consider only lanes present in the Road Area</li>
+<li>adapt the parametric range in respect to the driving direction of the lane segment
+  within the Road Area</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><img alt="Occupied Regions" src="../../images/occupied_regions.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Example occupied regions for two vehicles within a Road Area</em></td>
+</tr>
+</tbody>
+</table>
+<p>On the one hand side this step is simple in calculation, but because of the representation of the lane segments within the Constellation-specific Lane Coordinate System (minimal/maximal width and length)
+and the use of the constellation-specific worst-case lateral and longitudinal border values of the
+vehicles within the RSS calculations, the vehicle bounding boxes are enlarged finally as depicted in
+the following image:</p>
+<table>
+<thead>
+<tr>
+<th><img alt="Creation of the vehicle bounding box" src="../../images/rss_constellation_specific_lane_coordinate_system_creation_vehicle_bounding_box.svg" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Creation of the constellation-specific lane coordinate system: Worst-case transformation of the vehicle bounding box. The metric road on the left leads to transformed vehicles and their bounding boxes (red) on the right, sketched for a narrowing road area at the top and a curve at the bottom.</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="calculation-of-metric-distances-within-the-road-area">Calculation of Metric distances within the Road Area<a class="headerlink" href="#calculation-of-metric-distances-within-the-road-area" title="Permanent link">&para;</a></h4>
+<p>The minimal (maximal) metric position <span class="arithmatex"><span class="MathJax_Preview">p^{lon}_{min}</span><script type="math/tex">p^{lon}_{min}</script></span> (<span class="arithmatex"><span class="MathJax_Preview">p^{lon}_{max}</span><script type="math/tex">p^{lon}_{max}</script></span>) in longitudinal direction of a vehicle within the road area
+is calculated by taking the sum of all minimal (maximal) metric lengths of all previous road segments,
+plus the parametric scaled minimal (maximal) length of the first road segment it touches (explained in detail in the subsections below).
+Like this, the <span class="arithmatex"><span class="MathJax_Preview">\Delta</span><script type="math/tex">\Delta</script></span> of every part of the road segment up to the vehicle is finally incorporated into it's
+metric length within the road area <span class="arithmatex"><span class="MathJax_Preview">l = p^{lon}_{max} - p^{lon}_{min}</span><script type="math/tex">l = p^{lon}_{max} - p^{lon}_{min}</script></span>: The vehicle gets stretched by each of the <span class="arithmatex"><span class="MathJax_Preview">\Delta</span><script type="math/tex">\Delta</script></span>.</p>
+<p>To calculate the longitudinal distance of two vehicles towards each other the maximum position of the vehicle at the back is
+subtracted from the minimum position of the vehicle in front: <span class="arithmatex"><span class="MathJax_Preview">d^{lon} = p^{lon}_{front,min} - p^{lon}_{back,max}</span><script type="math/tex">d^{lon} = p^{lon}_{front,min} - p^{lon}_{back,max}</script></span>
+This happens in a similar way in lateral direction and with the distance towards the intersection.
+Because the <em>ad_rss</em> implementation takes all parts of the road area into account as
+provided from outside (i.e. does <em>not</em> cut-off the road area before the first car),
+the <span class="arithmatex"><span class="MathJax_Preview">\Delta</span><script type="math/tex">\Delta</script></span> is incorporated as negative component into <span class="arithmatex"><span class="MathJax_Preview">d^{lon}</span><script type="math/tex">d^{lon}</script></span>.
+The following Figure provides an example:</p>
+<table>
+<thead>
+<tr>
+<th><img alt="Example on restricting the extend of the road area" src="../images/constellation_creation_cut_required.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Example: Let the actual distance of the two cars be <span class="arithmatex"><span class="MathJax_Preview">d^{lon}_{real} = 17\,m</span><script type="math/tex">d^{lon}_{real} = 17\,m</script></span>. Further let the right border of the road area curve within the intersection be <span class="arithmatex"><span class="MathJax_Preview">15\,m</span><script type="math/tex">15\,m</script></span> and the outer border be <span class="arithmatex"><span class="MathJax_Preview">23\,m</span><script type="math/tex">23\,m</script></span>. With the transformation into </em>ad_rss<em> constellation-specific lane coordinate system the information on the actual road geometry gets lost, so that the difference of the border length of <span class="arithmatex"><span class="MathJax_Preview">6\,m</span><script type="math/tex">6\,m</script></span> in a road segment at the beginning leads to a decreased metric distance of the two cars of <span class="arithmatex"><span class="MathJax_Preview">d^{lon}_{RoadArea} = 11\,m</span><script type="math/tex">d^{lon}_{RoadArea} = 11\,m</script></span>. Cutting the road area after the (red) vehicle in the back would lead to <span class="arithmatex"><span class="MathJax_Preview">d^{lon}_{RoadArea} = d^{lon}_{real} = 17\,m</span><script type="math/tex">d^{lon}_{RoadArea} = d^{lon}_{real} = 17\,m</script></span>.</em></td>
+</tr>
+</tbody>
+</table>
+<p>To understand the details of why it is important to restrict the road area in its extend,
+the actual realized calculation of metric bounding box and metric distances within the road area within <em>ad_rss</em> are sketched in the following sections.</p>
+<h5 id="metrics-of-road-segments-within-road-area">Metrics of road segments within Road Area<a class="headerlink" href="#metrics-of-road-segments-within-road-area" title="Permanent link">&para;</a></h5>
+<p>The overall metric minima/maxima of the road segment at index r (<span class="arithmatex"><span class="MathJax_Preview">RS_{min}^r, RS_{max}^r</span><script type="math/tex">RS_{min}^r, RS_{max}^r</script></span>) is calculated by combination of the minima/maxima (<span class="arithmatex"><span class="MathJax_Preview">LS_{min},LS_{max}</span><script type="math/tex">LS_{min},LS_{max}</script></span>) of the contained lane segments:</p>
+<p><span class="arithmatex"><span class="MathJax_Preview">RS_{lon,min}^r = \min\limits_{l}⁡(LS_{lon,min}^{r,l})</span><script type="math/tex">RS_{lon,min}^r = \min\limits_{l}⁡(LS_{lon,min}^{r,l})</script></span></p>
+<p><span class="arithmatex"><span class="MathJax_Preview">RS_{lon,max}^r= \max\limits_{l}⁡(LS_{lon,max}^{r,l})</span><script type="math/tex">RS_{lon,max}^r= \max\limits_{l}⁡(LS_{lon,max}^{r,l})</script></span></p>
+<p><span class="arithmatex"><span class="MathJax_Preview">RS_{lat,min}^r=0</span><script type="math/tex">RS_{lat,min}^r=0</script></span></p>
+<p><span class="arithmatex"><span class="MathJax_Preview">RS_{lat,max}^r= \sum_{l}LS_{lat,max}^{r,l}</span><script type="math/tex">RS_{lat,max}^r= \sum_{l}LS_{lat,max}^{r,l}</script></span> ⁡</p>
+<p>The overall minima/maxima dimensions of the road area (<span class="arithmatex"><span class="MathJax_Preview">RA_{min}, RA_{max}</span><script type="math/tex">RA_{min}, RA_{max}</script></span>) are calculated by the combinations of the minima/maxima of the road segments:</p>
+<p><span class="arithmatex"><span class="MathJax_Preview">RA_{lon,min} = \sum_r RS_{lon,min}^r</span><script type="math/tex">RA_{lon,min} = \sum_r RS_{lon,min}^r</script></span></p>
+<p><span class="arithmatex"><span class="MathJax_Preview">RA_{lon,max} = \sum_r RS_{lon,max}^r</span><script type="math/tex">RA_{lon,max} = \sum_r RS_{lon,max}^r</script></span></p>
+<p><span class="arithmatex"><span class="MathJax_Preview">RA_{lat,min} = \min\limits_{r}⁡ (RS_{lat,min}^r)=0</span><script type="math/tex">RA_{lat,min} = \min\limits_{r}⁡ (RS_{lat,min}^r)=0</script></span></p>
+<p><span class="arithmatex"><span class="MathJax_Preview">RA_{lat,max} = \max\limits_{r}⁡ (RS_{lat,max}^r)</span><script type="math/tex">RA_{lat,max} = \max\limits_{r}⁡ (RS_{lat,max}^r)</script></span></p>
+<h5 id="metrics-bounding-box-of-vehicles-within-road-area">Metrics bounding box of vehicles within Road Area<a class="headerlink" href="#metrics-bounding-box-of-vehicles-within-road-area" title="Permanent link">&para;</a></h5>
+<p>In a similar manner the vehicle parametric bounding box definitions (<span class="arithmatex"><span class="MathJax_Preview">PBB</span><script type="math/tex">PBB</script></span>) can be used to calculate
+the minimal and maximal metric position in longitudinal direction of the vehicle within of the whole road area: the minimal longitudinal position of a vehicle (<span class="arithmatex"><span class="MathJax_Preview">BB_{min}^{lon}</span><script type="math/tex">BB_{min}^{lon}</script></span>) is calculated by taking the sum of all minimal metric lengths of all previous road segments, plus the parametric scaled minimal length of the first road segment it touches.</p>
+<p><span class="arithmatex"><span class="MathJax_Preview">BB_{lon,min} = \sum_{r=0}^{i-1} RS_{lon,min}^r + \min\limits_{l}⁡ ( PBB_{lon,min}^{i,l} * LS_{lon,min}^{i,l} )</span><script type="math/tex">BB_{lon,min} = \sum_{r=0}^{i-1} RS_{lon,min}^r + \min\limits_{l}⁡ ( PBB_{lon,min}^{i,l} * LS_{lon,min}^{i,l} )</script></span> , with i: first road segment the vehicle touches.</p>
+<p><span class="arithmatex"><span class="MathJax_Preview">BB_{lon,max} = \sum_{r=0}^{i-1} RS_{lon,max}^r + \max\limits_{l} ( PBB_{lon,max}^{i,l} * LS_{(lon,max}^{i,l})</span><script type="math/tex">BB_{lon,max} = \sum_{r=0}^{i-1} RS_{lon,max}^r + \max\limits_{l} ( PBB_{lon,max}^{i,l} * LS_{(lon,max}^{i,l})</script></span> , with i: last road segment the vehicle touches.</p>
+<p><span class="arithmatex"><span class="MathJax_Preview">BB_{lat,min} = \min\limits_{r}⁡ (\sum_{l=0}^{i-1} LS_{lat,min}^{r,l} + (PBB_{lat,min}^{r,i}* LS_{lat,min}^{r,i}) )</span><script type="math/tex">BB_{lat,min} = \min\limits_{r}⁡ (\sum_{l=0}^{i-1} LS_{lat,min}^{r,l} + (PBB_{lat,min}^{r,i}* LS_{lat,min}^{r,i}) )</script></span> , with i: first lane segment within road segment r the vehicle touches.</p>
+<p><span class="arithmatex"><span class="MathJax_Preview">BB_{lat,max} = \max\limits_{r}⁡ (\sum_{l=0}^{i-1} LS_{lat,max}^{r,l} + (PBB_{lat,max}^{r,i} * LS_{lat,max}^{r,i})</span><script type="math/tex">BB_{lat,max} = \max\limits_{r}⁡ (\sum_{l=0}^{i-1} LS_{lat,max}^{r,l} + (PBB_{lat,max}^{r,i} * LS_{lat,max}^{r,i})</script></span>, with i: last lane segment within road segment r the vehicle touches.</p>
+<h5 id="metrics-distances-between-vehicles">Metrics distances between vehicles<a class="headerlink" href="#metrics-distances-between-vehicles" title="Permanent link">&para;</a></h5>
+<p>Having the vehicles metric bounding boxes within the road area at hand, it is straight forward to calculate the current longitudinal and lateral distances of the vehicles towards each other. Let A be the upper left vehicle and B the lower right vehicle in the sketched road area above, then the distances are defined by:</p>
+<p><span class="arithmatex"><span class="MathJax_Preview">d_{lon} = BB_{lon,min}^B - BB_{lon,max}^A</span><script type="math/tex">d_{lon} = BB_{lon,min}^B - BB_{lon,max}^A</script></span></p>
+<p><span class="arithmatex"><span class="MathJax_Preview">d_{lat} = BB_{lat,min}^B - BB_{lat,max}^A</span><script type="math/tex">d_{lat} = BB_{lat,min}^B - BB_{lat,max}^A</script></span></p>
+<h5 id="metrics-distances-in-respect-to-the-intersection">Metrics distances in respect to the intersection<a class="headerlink" href="#metrics-distances-in-respect-to-the-intersection" title="Permanent link">&para;</a></h5>
+<p>The calculation of the intersection distance of a vehicle can then be performed in the following way:</p>
+<p><span class="arithmatex"><span class="MathJax_Preview">d_{enter} = \sum_{r=0}^{i-1} RS_{lon,min}^r -BB_{lon,max}</span><script type="math/tex">d_{enter} = \sum_{r=0}^{i-1} RS_{lon,min}^r -BB_{lon,max}</script></span> , with i: first road segment within the intersection.</p>
+<p><span class="arithmatex"><span class="MathJax_Preview">d_{exit} = \sum_{r=0}^i RS_{lon,max}^r - BB_{lon,min}</span><script type="math/tex">d_{exit} = \sum_{r=0}^i RS_{lon,max}^r - BB_{lon,min}</script></span> , with i: last road segment within the intersection.</p>
+<p>Having the vehicles metric bounding boxes and the distances to the intersection at hand, it is straight forward to calculate the current longitudinal distance of the vehicles towards each other in respect to the intersection. Let A be the vehicle coming from west and B the vehicle coming from south in the figure above with <span class="arithmatex"><span class="MathJax_Preview">d_{enter}^A &gt; d_{enter}^B</span><script type="math/tex">d_{enter}^A > d_{enter}^B</script></span>, then the distance can be calculated by:</p>
+<p><span class="arithmatex"><span class="MathJax_Preview">d_{lon} = \max⁡ (0, d_{enter}^A - d_{enter}^B - (BB_{lon,max}^B -BB_{lon,min}^B))</span><script type="math/tex">d_{lon} = \max⁡ (0, d_{enter}^A - d_{enter}^B - (BB_{lon,max}^B -BB_{lon,min}^B))</script></span></p>
+<h3 id="consider-speed-limits">Consider speed limits <a name="considerspeedlimits"></a><a class="headerlink" href="#consider-speed-limits" title="Permanent link">&para;</a></h3>
+<p>The <a href="https://arxiv.org/abs/1708.06374">RSS paper</a> is assuming reasonable behavior of
+other traffic participants. By the general RSS formulas, vehicles are allowed to accelerate with maximum possible acceleration
+within their reaction time. Especially in urban scenarios this can lead to unnecessarily big safety
+distances if expecting that fast driving vehicles will accelerate even further beyond the speed limits within their reaction time.
+As it's unreasonable behavior of others to accelerate far beyond the maximum allowed speed,
+the construction of the constellations with <code>ad::rss::map::RssWorldModelCreation::appendConstellations()</code> supports
+to select between different modes ad::rss:<img alt="🗺️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f5fa.png" title=":map:" />:RssRestrictSpeedLimitMode' to consider the speed limit within RSS accelerated movement,
+by setting the <code>ad::rss::world::RssDynamics</code> dynamics accordingly:</p>
+<ul>
+<li><code>None</code>: Do not change the objects maxSpeedOnAcceleration parameter of the RssDynamics</li>
+<li><code>ExactSpeedLimit</code>: Set the objects maxSpeedOnAcceleration parameter of the RssDynamics to the maximal
+  allowed speed of the relevant road section</li>
+<li><code>IncreasedSpeedLimit5</code>: Set the objects maxSpeedOnAcceleration parameter of the RssDynamics to the maximal
+  allowed speed of the relevant road section + 5 percent</li>
+<li><code>IncreasedSpeedLimit10</code>: Set the objects maxSpeedOnAcceleration parameter of the RssDynamics to the maximal
+  allowed speed of the relevant road section + 10 percent</li>
+</ul>
+<p>In general, this extends the scope of the RSS paper, but might be a reasonable change to improve
+acceptance within society.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Main/" class="btn btn-neutral float-left" title="Overview"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../HandleRoadBoundaries/" class="btn btn-neutral float-right" title="Handling of road boundaries">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/intel/ad-rss-lib" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../Main/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../HandleRoadBoundaries/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

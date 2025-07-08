@@ -1,0 +1,31 @@
+Metadata-Version: 2.1
+Name: colcon-package-selection
+Version: 0.2.10
+Summary: Extension for colcon to select the packages to process.
+Home-page: https://colcon.readthedocs.io
+Author: Dirk Thomas
+Author-email: web@dirk-thomas.net
+Maintainer: Dirk Thomas
+Maintainer-email: web@dirk-thomas.net
+License: Apache License, Version 2.0
+Project-URL: Changelog, https://github.com/colcon/colcon-package-selection/milestones?direction=desc&sort=due_date&state=closed
+Project-URL: GitHub, https://github.com/colcon/colcon-package-selection/
+Keywords: colcon
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Plugins
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: MacOS
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX
+Classifier: Programming Language :: Python
+Classifier: Topic :: Software Development :: Build Tools
+Requires-Dist: colcon-core (>=0.3.19)
+
+colcon-package-selection
+========================
+
+An extension for `colcon-core <https://github.com/colcon/colcon-core>`_ to select a subset of packages for processing.
+
+

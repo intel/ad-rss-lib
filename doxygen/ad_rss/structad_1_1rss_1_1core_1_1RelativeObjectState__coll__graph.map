@@ -1,0 +1,10 @@
+<map id="ad::rss::core::RelativeObjectState" name="ad::rss::core::RelativeObjectState">
+<area shape="rect" id="node1" title="DataType RelativeObjectState." alt="" coords="811,73,1016,115"/>
+<area shape="rect" id="node2" href="$structad_1_1rss_1_1core_1_1StructuredObjectState.html" title="DataType StructuredObjectState." alt="" coords="415,5,591,47"/>
+<area shape="rect" id="node3" href="$structad_1_1rss_1_1world_1_1Velocity.html" title="DataType Velocity." alt="" coords="21,11,191,38"/>
+<area shape="rect" id="node4" href="$structad_1_1rss_1_1world_1_1ObjectState.html" title="DataType ObjectState." alt="" coords="406,81,599,107"/>
+<area shape="rect" id="node5" href="$structad_1_1rss_1_1world_1_1RssDynamics.html" title="DataType RssDynamics." alt="" coords="400,133,605,159"/>
+<area shape="rect" id="node6" href="$structad_1_1rss_1_1world_1_1LateralRssAccelerationValues.html" title="DataType LateralRssAccelerationValues." alt="" coords="13,63,199,104"/>
+<area shape="rect" id="node7" href="$structad_1_1rss_1_1world_1_1LongitudinalRssAccelerationValues.html" title="DataType LongitudinalRssAccelerationValues." alt="" coords="7,128,205,169"/>
+<area shape="rect" id="node8" href="$structad_1_1rss_1_1world_1_1UnstructuredSettings.html" title="DataType UnstructuredSettings." alt="" coords="5,193,207,235"/>
+</map>

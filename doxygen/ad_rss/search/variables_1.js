@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['begin_697',['begin',['../structad_1_1rss_1_1state_1_1HeadingRange.html#a8df85b1bfa8c52e37fd503422050735b',1,'ad::rss::state::HeadingRange']]],
-  ['brakemax_698',['brakeMax',['../structad_1_1rss_1_1world_1_1LongitudinalRssAccelerationValues.html#a11c7e3faad039dca72a185c8c87914e6',1,'ad::rss::world::LongitudinalRssAccelerationValues']]],
-  ['brakemin_699',['brakeMin',['../structad_1_1rss_1_1world_1_1LateralRssAccelerationValues.html#a4c90c88c445ebe9702c21a793d940745',1,'ad::rss::world::LateralRssAccelerationValues::brakeMin()'],['../structad_1_1rss_1_1world_1_1LongitudinalRssAccelerationValues.html#ad7bbe74bd9701a1ce831db6febf6b925',1,'ad::rss::world::LongitudinalRssAccelerationValues::brakeMin()']]],
-  ['brakemincorrect_700',['brakeMinCorrect',['../structad_1_1rss_1_1world_1_1LongitudinalRssAccelerationValues.html#ad39c68ebbba1bc59fd574a5df7d30dff',1,'ad::rss::world::LongitudinalRssAccelerationValues']]],
-  ['braketrajectoryset_701',['brakeTrajectorySet',['../structad_1_1rss_1_1state_1_1UnstructuredSceneStateInformation.html#a5d898e07e2e4d46ce6a0622db127e95f',1,'ad::rss::state::UnstructuredSceneStateInformation']]]
+  ['brake_5fmax_872',['brake_max',['../structad_1_1rss_1_1world_1_1LongitudinalRssAccelerationValues.html#af5c681a3651cf39903f4047e28edd38e',1,'ad::rss::world::LongitudinalRssAccelerationValues']]],
+  ['brake_5fmin_873',['brake_min',['../structad_1_1rss_1_1world_1_1LateralRssAccelerationValues.html#ac4a5529807313bf1d6358b7f71b972ea',1,'ad::rss::world::LateralRssAccelerationValues::brake_min()'],['../structad_1_1rss_1_1world_1_1LongitudinalRssAccelerationValues.html#a01851af99d4493a5cf93d849a54df50c',1,'ad::rss::world::LongitudinalRssAccelerationValues::brake_min()']]],
+  ['brake_5fmin_5fcorrect_874',['brake_min_correct',['../structad_1_1rss_1_1world_1_1LongitudinalRssAccelerationValues.html#af45681553406856670022a3faf4a43d3',1,'ad::rss::world::LongitudinalRssAccelerationValues']]],
+  ['brake_5ftrajectory_5fset_875',['brake_trajectory_set',['../structad_1_1rss_1_1state_1_1UnstructuredConstellationStateInformation.html#a43aa4de8943587feb8f48f593babc48e',1,'ad::rss::state::UnstructuredConstellationStateInformation']]]
 ];

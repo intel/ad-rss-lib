@@ -1,0 +1,7 @@
+<map id="ad::rss::map::RssCheckResult" name="ad::rss::map::RssCheckResult">
+<area shape="rect" id="node1" title=" " alt="" coords="90,228,305,255"/>
+<area shape="rect" id="node2" href="$structad_1_1rss_1_1map_1_1RssRouteCheckResultAnalysis.html" title="DataType RssRouteCheckResultAnalysis." alt="" coords="5,124,216,165"/>
+<area shape="rect" id="node3" href="$structad_1_1rss_1_1map_1_1RssRoute.html" title="DataType RssRoute." alt="" coords="240,131,411,158"/>
+<area shape="rect" id="node4" href="$structad_1_1rss_1_1map_1_1RssEgoVehicleDynamicsOnRoute.html" title="DataType RssEgoVehicleDynamicsOnRoute." alt="" coords="109,5,313,47"/>
+<area shape="rect" id="node5" href="$structad_1_1rss_1_1map_1_1RssObjectDataOnRoute.html" title="DataType RssObjectDataOnRoute." alt="" coords="337,5,543,47"/>
+</map>

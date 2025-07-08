@@ -72,7 +72,7 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../ad_rss_map_integration/Main/">Overview</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../ad_rss_map_integration/ConstructRSSScenes/">Construction of the RSS Scenes</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ad_rss_map_integration/ConstructRSSConstellations/">Construction of the RSS Constellations</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../ad_rss_map_integration/HandleRoadBoundaries/">Handling of road boundaries</a>
                   </li>
@@ -271,10 +271,9 @@ of the <em>Plan Subsystem</em>.</p>
 </tr>
 </tbody>
 </table>
-<h4 id="extract-situations">Extract Situations<a class="headerlink" href="#extract-situations" title="Permanent link">&para;</a></h4>
-<p>The <em>Extract Situations</em> entity transforms the world model data into individual RssSituations between
-the ego vehicle and each of the objects. For every scene <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1Scene.html">ad::rss::world::Scene</a> of the input world model data the individual
-(relative) situation <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1situation_1_1Situation.html">ad::rss::situation::Situation</a> is calculated.</p>
+<h4 id="extract-situation">Extract Situation<a class="headerlink" href="#extract-situation" title="Permanent link">&para;</a></h4>
+<p>The <em>Extract Situation</em> entity transforms the world model data into relative constellations between
+the ego vehicle and each of the objects for RSS internal calculations. For every constellation <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1Constellation.html">ad::rss::world::Constellation</a> of the input world model data the relative constellation <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1core_1_1RelativeConstellation.html">ad::rss::core::RelativeConstellation</a> is calculated.</p>
 <table>
 <thead>
 <tr>
@@ -287,18 +286,18 @@ the ego vehicle and each of the objects. For every scene <a href="https://intel.
 <tr>
 <td>Input</td>
 <td>rssWorldModelData</td>
-<td>Lane based world model scenes on the surrounding environment required to create the situation based coordinate system. Requires local map data (i.e. lane segments and semantics on intersections and priority rules), ego vehicle and object (i.e. position, velocity and RSS dynamics) information.</td>
+<td>Lane based world model constellations on the surrounding environment required to create the relative constellations. Requires local map data (i.e. lane segments and semantics on intersections and priority rules), ego vehicle and object (i.e. position, velocity and RSS dynamics) information.</td>
 </tr>
 <tr>
 <td>Output</td>
-<td>rssSituations</td>
-<td>A list of individual RSS Situations between the ego vehicle and each of the objects. Each situation is formulated within its own situation based coordinate system. EgoVehicle and Objects: i.e. (relative) position, velocity, priority flag, situation specific RSS acceleration values.</td>
+<td>rssSituationSnapshot</td>
+<td>A list of relative RSS constellations between the ego vehicle and each of the objects. Each relative constellation is formulated within its own constellation based coordinate system. EgoVehicle and Objects: i.e. relative position, velocity, priority flag, constellation specific RSS acceleration values.</td>
 </tr>
 </tbody>
 </table>
-<h4 id="check-situations">Check Situations<a class="headerlink" href="#check-situations" title="Permanent link">&para;</a></h4>
-<p>The <em>Check Situations</em> entity performs the RSS check on all incoming individual RssSituations and creates the
-RssStates <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1RssState.html">ad::rss::state::RssState</a> containing the required responses if dangerous situations are detected.</p>
+<h4 id="check-situation">Check Situation<a class="headerlink" href="#check-situation" title="Permanent link">&para;</a></h4>
+<p>The <em>Check Situation</em> entity performs the RSS check on all incoming relative constellations and creates the
+RssStateSnapshot <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1RssStateSnapshot.html">ad::rss::state::RssState</a> containing the required individual responses for the detected dangerous constellations.</p>
 <table>
 <thead>
 <tr>
@@ -310,20 +309,19 @@ RssStates <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_
 <tbody>
 <tr>
 <td>Input</td>
-<td>rssSituations</td>
-<td>A list of individual RSS Situations between the ego vehicle and each of the objects.</td>
+<td>rssSituationSnapshot</td>
+<td>A list of relative RSS constellations between the ego vehicle and each of the objects.</td>
 </tr>
 <tr>
 <td>Output</td>
-<td>rssStates</td>
-<td>A list of RSS states in respect to the individual RSS Situations including situation specific responses.</td>
+<td>rssStateSnapshot</td>
+<td>A list of RSS states in respect to the relative RSS constellations including the constellation specific responses.</td>
 </tr>
 </tbody>
 </table>
 <h4 id="resolve-and-transform-responses">Resolve and Transform Responses<a class="headerlink" href="#resolve-and-transform-responses" title="Permanent link">&para;</a></h4>
-<p>The <em>Resolve and Transform Responses</em> entity handles conflicts of the incoming RssStates. It combines the individual
-situation specific responses into one single overall RssProperResponse <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1ProperResponse.html">ad::rss::state::ProperResponse</a> and transforms
-these into RssAccelerationRestrictions <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1AccelerationRestriction.html">ad::rss::world::AccelerationRestriction</a> for the actuator commands.</p>
+<p>The <em>Resolve and Transform Responses</em> entity handles conflicts of the incoming RSS states of the RssStateSnapshot. It combines the individual
+constellation specific responses into one single overall ProperResponse <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1state_1_1ProperResponse.html">ad::rss::state::ProperResponse</a> and provides the related AccelerationRestrictions <a href="https://intel.github.io/ad-rss-lib/doxygen/ad_rss/structad_1_1rss_1_1world_1_1AccelerationRestriction.html">ad::rss::world::AccelerationRestriction</a> for the actuator commands.</p>
 <table>
 <thead>
 <tr>
@@ -335,18 +333,13 @@ these into RssAccelerationRestrictions <a href="https://intel.github.io/ad-rss-l
 <tbody>
 <tr>
 <td>Input</td>
-<td>rssStates</td>
-<td>A list of RssStates in respect to the individual RssSituations</td>
+<td>rssStateSnapshot</td>
+<td>A list of RSS states in respect to the relative constellations</td>
 </tr>
 <tr>
 <td>Output</td>
 <td>rssProperResponse</td>
-<td>Resulting combined overall proper response</td>
-</tr>
-<tr>
-<td>Output</td>
-<td>rssAccelerationRestrictions</td>
-<td>The resulting restrictions of the actuator control command</td>
+<td>Resulting combined overall proper response including the resulting restrictions of the actuator control command</td>
 </tr>
 </tbody>
 </table>
@@ -394,8 +387,8 @@ acceleration, braking and steering to execute the plan.</p>
 </tr>
 <tr>
 <td>Input</td>
-<td>rssAccelerationRestrictions</td>
-<td>The restrictions on the acceleration for the vehicle calculated by RSS.</td>
+<td>rssProperResponse</td>
+<td>The proper resonse including the restrictions on the acceleration for the vehicle calculated by RSS.</td>
 </tr>
 <tr>
 <td>Output</td>
@@ -421,8 +414,8 @@ the RSS integration efforts into the ADS.</p>
 <tbody>
 <tr>
 <td>Input</td>
-<td>rssAccelerationRestrictions</td>
-<td>The restrictions on the acceleration for the vehicle calculated by RSS.</td>
+<td>rssProperResponse</td>
+<td>The proper resonse including the restrictions on the acceleration for the vehicle calculated by RSS.</td>
 </tr>
 <tr>
 <td>Input</td>

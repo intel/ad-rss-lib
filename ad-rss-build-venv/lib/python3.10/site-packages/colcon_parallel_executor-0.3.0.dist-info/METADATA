@@ -1,0 +1,47 @@
+Metadata-Version: 2.1
+Name: colcon-parallel-executor
+Version: 0.3.0
+Summary: Extension for colcon to process packages in parallel.
+Home-page: https://colcon.readthedocs.io
+Author: Dirk Thomas
+Author-email: web@dirk-thomas.net
+Maintainer: Dirk Thomas
+Maintainer-email: web@dirk-thomas.net
+License: Apache License, Version 2.0
+Project-URL: Changelog, https://github.com/colcon/colcon-parallel-executor/milestones?direction=desc&sort=due_date&state=closed
+Project-URL: GitHub, https://github.com/colcon/colcon-parallel-executor/
+Keywords: colcon
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Plugins
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: MacOS
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX
+Classifier: Programming Language :: Python
+Classifier: Topic :: Software Development :: Build Tools
+License-File: LICENSE
+Requires-Dist: colcon-core (>=0.3.15)
+Provides-Extra: test
+Requires-Dist: flake8 (>=3.6.0) ; extra == 'test'
+Requires-Dist: flake8-blind-except ; extra == 'test'
+Requires-Dist: flake8-builtins ; extra == 'test'
+Requires-Dist: flake8-class-newline ; extra == 'test'
+Requires-Dist: flake8-comprehensions ; extra == 'test'
+Requires-Dist: flake8-deprecated ; extra == 'test'
+Requires-Dist: flake8-docstrings ; extra == 'test'
+Requires-Dist: flake8-import-order ; extra == 'test'
+Requires-Dist: flake8-quotes ; extra == 'test'
+Requires-Dist: pep8-naming ; extra == 'test'
+Requires-Dist: pylint ; extra == 'test'
+Requires-Dist: pytest ; extra == 'test'
+Requires-Dist: pytest-cov ; extra == 'test'
+Requires-Dist: scspell3k (>=2.2) ; extra == 'test'
+
+colcon-parallel-executor
+========================
+
+An extension for `colcon-core <https://github.com/colcon/colcon-core>`_ to process packages in parallel.
+
+

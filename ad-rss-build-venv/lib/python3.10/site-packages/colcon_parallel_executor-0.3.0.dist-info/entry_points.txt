@@ -1,0 +1,3 @@
+[colcon_core.executor]
+parallel = colcon_parallel_executor.executor.parallel:ParallelExecutorExtension
+

@@ -1,0 +1,3 @@
+[colcon_core.extension_point]
+_colcon_cd = colcon_cd:NonFunctionalExtensionPoint
+

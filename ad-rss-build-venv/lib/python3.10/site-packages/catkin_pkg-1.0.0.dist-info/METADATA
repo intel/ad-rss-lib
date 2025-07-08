@@ -1,0 +1,35 @@
+Metadata-Version: 2.1
+Name: catkin-pkg
+Version: 1.0.0
+Summary: catkin package library
+Home-page: http://wiki.ros.org/catkin_pkg
+Author: Dirk Thomas
+Author-email: dthomas@osrfoundation.org
+Maintainer: ROS Infrastructure Team
+License: BSD
+Project-URL: Source code, https://github.com/ros-infrastructure/catkin_pkg
+Project-URL: Issue tracker, https://github.com/ros-infrastructure/catkin_pkg/issues
+Keywords: catkin,ROS
+Platform: UNKNOWN
+Classifier: Programming Language :: Python
+Classifier: License :: OSI Approved :: BSD License
+Requires-Python: >=3.6
+License-File: LICENSE
+Requires-Dist: docutils
+Requires-Dist: python-dateutil
+Requires-Dist: pyparsing
+Requires-Dist: setuptools
+Provides-Extra: test
+Requires-Dist: flake8 ; extra == 'test'
+Requires-Dist: flake8-blind-except ; extra == 'test'
+Requires-Dist: flake8-builtins ; extra == 'test'
+Requires-Dist: flake8-class-newline ; extra == 'test'
+Requires-Dist: flake8-comprehensions ; extra == 'test'
+Requires-Dist: flake8-deprecated ; extra == 'test'
+Requires-Dist: flake8-docstrings ; extra == 'test'
+Requires-Dist: flake8-import-order ; extra == 'test'
+Requires-Dist: flake8-quotes ; extra == 'test'
+Requires-Dist: pytest ; extra == 'test'
+
+Library for retrieving information about catkin packages.
+

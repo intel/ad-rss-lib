@@ -1,0 +1,14 @@
+[colcon_core.event_handler]
+desktop_notification = colcon_notification.event_handler.desktop_notification:DesktopNotificationEventHandler
+status = colcon_notification.event_handler.status:StatusEventHandler
+terminal_title = colcon_notification.event_handler.terminal_title:TerminalTitleEventHandler
+
+[colcon_core.extension_point]
+colcon_notification.desktop_notification = colcon_notification.desktop_notification:DesktopNotificationExtensionPoint
+
+[colcon_notification.desktop_notification]
+notify2 = colcon_notification.desktop_notification.notify2:Notify2DesktopNotification
+notify_send = colcon_notification.desktop_notification.notify_send:NotifySendDesktopNotification
+terminal_notifier = colcon_notification.desktop_notification.terminal_notifier:TerminalNotifierDesktopNotification
+win32 = colcon_notification.desktop_notification.win32:Win32DesktopNotification
+

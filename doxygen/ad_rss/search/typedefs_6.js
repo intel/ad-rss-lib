@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['scenevector_805',['SceneVector',['../namespacead_1_1rss_1_1world.html#a61430982ad2e06b79674d3f4e9f15c50',1,'ad::rss::world']]],
-  ['situationid_806',['SituationId',['../namespacead_1_1rss_1_1situation.html#a2befdc031cf3cff6fe4868dd806e57e7',1,'ad::rss::situation']]],
-  ['situationvector_807',['SituationVector',['../namespacead_1_1rss_1_1situation.html#ad8ebf8ce9900082976aecaa2f582897d',1,'ad::rss::situation']]]
+  ['unstructuredtrajectoryset_999',['UnstructuredTrajectorySet',['../namespacead_1_1rss_1_1state.html#a46294faf814a20bd1701ccb1d1f69063',1,'ad::rss::state']]]
 ];

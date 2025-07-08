@@ -1,0 +1,8 @@
+[colcon_core.event_handler]
+console_cohesion = colcon_output.event_handler.console_cohesion:ConsoleCohesionEventHandler
+console_package_list = colcon_output.event_handler.console_package_list:ConsolePackageListEventHandler
+console_stderr = colcon_output.event_handler.console_stderr:ConsoleStderrEventHandler
+event_log = colcon_output.event_handler.event_log:EventLogEventHandler
+log = colcon_output.event_handler.log:LogEventHandler
+summary = colcon_output.event_handler.summary:SummaryHandler
+

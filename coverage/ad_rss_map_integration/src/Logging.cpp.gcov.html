@@ -32,17 +32,17 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntry">10</td>
-            <td class="headerCovTableEntry">10</td>
-            <td class="headerCovTableEntryHi">100.0 %</td>
+            <td class="headerCovTableEntry">18</td>
+            <td class="headerCovTableEntryLo">55.6 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2025-07-01 07:46:49</td>
+            <td class="headerValue">2025-07-08 06:34:20</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">4</td>
-            <td class="headerCovTableEntry">4</td>
-            <td class="headerCovTableEntryHi">100.0 %</td>
+            <td class="headerCovTableEntry">7</td>
+            <td class="headerCovTableEntryLo">57.1 %</td>
           </tr>
           <tr>
             <td></td>
@@ -50,8 +50,8 @@
             <td></td>
             <td class="headerItem">Branches:</td>
             <td class="headerCovTableEntry">6</td>
-            <td class="headerCovTableEntry">12</td>
-            <td class="headerCovTableEntryLo">50.0 %</td>
+            <td class="headerCovTableEntry">18</td>
+            <td class="headerCovTableEntryLo">33.3 %</td>
           </tr>
           <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -103,11 +103,11 @@
 <a name="32"><span class="lineNum">      32 </span>                :            :   ~Logging();</a>
 <a name="33"><span class="lineNum">      33 </span>                :            : };</a>
 <a name="34"><span class="lineNum">      34 </span>                :            : </a>
-<a name="35"><span class="lineNum">      35 </span>                :<span class="lineCov">       1996 : Logging &amp;Logging::instance()</span></a>
+<a name="35"><span class="lineNum">      35 </span>                :<span class="lineCov">       4138 : Logging &amp;Logging::instance()</span></a>
 <a name="36"><span class="lineNum">      36 </span>                :            : {</a>
-<a name="37"><span class="lineNum">      37 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 1995 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">       1996 :   static Logging singleton;</span></a>
+<a name="37"><span class="lineNum">      37 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 4137 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">       4138 :   static Logging singleton;</span></a>
 <span class="lineNum">         </span>   <span class="branchCov" title="Branch 4 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>]
-<a name="38"><span class="lineNum">      38 </span>                :<span class="lineCov">       1996 :   return singleton;</span></a>
+<a name="38"><span class="lineNum">      38 </span>                :<span class="lineCov">       4138 :   return singleton;</span></a>
 <a name="39"><span class="lineNum">      39 </span>                :            : }</a>
 <a name="40"><span class="lineNum">      40 </span>                :            : </a>
 <a name="41"><span class="lineNum">      41 </span>                :<span class="lineCov">          1 : Logging::Logging()</span></a>
@@ -119,14 +119,29 @@
 <a name="47"><span class="lineNum">      47 </span>                :            : {</a>
 <a name="48"><span class="lineNum">      48 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="49"><span class="lineNum">      49 </span>                :            : </a>
-<a name="50"><span class="lineNum">      50 </span>                :<span class="lineCov">       1996 : std::shared_ptr&lt;spdlog::logger&gt; getLogger()</span></a>
+<a name="50"><span class="lineNum">      50 </span>                :<span class="lineCov">       4138 : std::shared_ptr&lt;spdlog::logger&gt; getLogger()</span></a>
 <a name="51"><span class="lineNum">      51 </span>                :            : {</a>
-<a name="52"><span class="lineNum">      52 </span>                :<span class="lineCov">       1996 :   return Logging::instance().mLogger;</span></a>
+<a name="52"><span class="lineNum">      52 </span>                :<span class="lineCov">       4138 :   return Logging::instance().mLogger;</span></a>
 <a name="53"><span class="lineNum">      53 </span>                :            : }</a>
 <a name="54"><span class="lineNum">      54 </span>                :            : </a>
-<a name="55"><span class="lineNum">      55 </span>                :            : } // namespace map</a>
-<a name="56"><span class="lineNum">      56 </span>                :            : } // namespace rss</a>
-<a name="57"><span class="lineNum">      57 </span>                :            : } // namespace ad</a>
+<a name="55"><span class="lineNum">      55 </span>                :<span class="lineNoCov">          0 : spdlog::level::level_enum getLogLevel()</span></a>
+<a name="56"><span class="lineNum">      56 </span>                :            : {</a>
+<a name="57"><span class="lineNum">      57 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   return getLogger()-&gt;level();</span></a>
+<a name="58"><span class="lineNum">      58 </span>                :            : }</a>
+<a name="59"><span class="lineNum">      59 </span>                :            : </a>
+<a name="60"><span class="lineNum">      60 </span>                :<span class="lineNoCov">          0 : void setLogLevel(spdlog::level::level_enum const logLevel)</span></a>
+<a name="61"><span class="lineNum">      61 </span>                :            : {</a>
+<a name="62"><span class="lineNum">      62 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   getLogger()-&gt;set_level(logLevel);</span></a>
+<a name="63"><span class="lineNum">      63 </span>                :<span class="lineNoCov">          0 : }</span></a>
+<a name="64"><span class="lineNum">      64 </span>                :            : </a>
+<a name="65"><span class="lineNum">      65 </span>                :<span class="lineNoCov">          0 : void setLogLevel(std::string const &amp;logLevel)</span></a>
+<a name="66"><span class="lineNum">      66 </span>                :            : {</a>
+<a name="67"><span class="lineNum">      67 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :   getLogger()-&gt;set_level(spdlog::level::from_str(logLevel));</span></a>
+<a name="68"><span class="lineNum">      68 </span>                :<span class="lineNoCov">          0 : }</span></a>
+<a name="69"><span class="lineNum">      69 </span>                :            : </a>
+<a name="70"><span class="lineNum">      70 </span>                :            : } // namespace map</a>
+<a name="71"><span class="lineNum">      71 </span>                :            : } // namespace rss</a>
+<a name="72"><span class="lineNum">      72 </span>                :            : } // namespace ad</a>
 </pre>
       </td>
     </tr>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['situationtype_818',['SituationType',['../namespacead_1_1rss_1_1situation.html#abc84e194db29a5fe35e669411b480470',1,'ad::rss::situation']]]
+  ['objecttype_1009',['ObjectType',['../namespacead_1_1rss_1_1world.html#a6432f1ef8d0657b4f21ed5966aca1625',1,'ad::rss::world']]]
 ];

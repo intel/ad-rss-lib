@@ -1,0 +1,15 @@
+[colcon_core.event_handler]
+store_result = colcon_package_selection.package_selection.previous.event_handler:StoreResultEventHandler
+
+[colcon_core.package_augmentation]
+ignore = colcon_package_selection.package_discovery.ignore:IgnorePackageDiscovery
+
+[colcon_core.package_discovery]
+ignore = colcon_package_selection.package_discovery.ignore:IgnorePackageDiscovery
+
+[colcon_core.package_selection]
+dependencies = colcon_package_selection.package_selection.dependencies:DependenciesPackageSelection
+previous = colcon_package_selection.package_selection.previous.package_selection:PreviousPackageSelectionExtension
+select_skip = colcon_package_selection.package_selection.select_skip:SelectSkipPackageSelectionExtension
+start_end = colcon_package_selection.package_selection.start_end:StartEndPackageSelection
+

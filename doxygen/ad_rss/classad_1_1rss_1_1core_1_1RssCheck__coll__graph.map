@@ -1,0 +1,6 @@
+<map id="ad::rss::core::RssCheck" name="ad::rss::core::RssCheck">
+<area shape="rect" id="node1" title="RssCheck." alt="" coords="393,78,565,105"/>
+<area shape="rect" id="node2" href="$classad_1_1rss_1_1core_1_1RssResponseResolving.html" title="RssResponseResolving." alt="" coords="5,5,200,47"/>
+<area shape="rect" id="node3" href="$classad_1_1rss_1_1core_1_1RssSituationChecking.html" title="class RssSituationChecking" alt="" coords="7,71,198,112"/>
+<area shape="rect" id="node4" href="$classad_1_1rss_1_1core_1_1RssSituationExtraction.html" title="class RssSituationExtraction" alt="" coords="7,136,198,177"/>
+</map>

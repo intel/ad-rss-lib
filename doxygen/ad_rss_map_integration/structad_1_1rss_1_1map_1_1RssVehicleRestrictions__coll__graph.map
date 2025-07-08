@@ -1,0 +1,5 @@
+<map id="ad::rss::map::RssVehicleRestrictions" name="ad::rss::map::RssVehicleRestrictions">
+<area shape="rect" id="node1" title="DataType RssVehicleRestrictions." alt="" coords="121,124,301,165"/>
+<area shape="rect" id="node2" href="$structad_1_1rss_1_1map_1_1RssVehicleAccelerationRestrictions.html" title="DataType RssVehicleAccelerationRestrictions." alt="" coords="5,5,185,47"/>
+<area shape="rect" id="node3" href="$structad_1_1rss_1_1map_1_1RouteAccelerations.html" title="DataType RouteAccelerations." alt="" coords="209,13,445,39"/>
+</map>

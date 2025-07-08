@@ -1,0 +1,5 @@
+<map id="ad::rss::world::RoadSegment" name="ad::rss::world::RoadSegment">
+<area shape="rect" id="node1" title="DataType RoadSegment." alt="" coords="5,199,213,225"/>
+<area shape="rect" id="node2" title=" " alt="" coords="20,95,199,136"/>
+<area shape="rect" id="node3" href="$structad_1_1rss_1_1world_1_1LaneSegment.html" title="DataType LaneSegment." alt="" coords="6,5,213,32"/>
+</map>

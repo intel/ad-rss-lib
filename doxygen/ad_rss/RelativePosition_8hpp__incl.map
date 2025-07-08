@@ -1,11 +1,13 @@
-<map id="generated/include/ad/rss/situation/RelativePosition.hpp" name="generated/include/ad/rss/situation/RelativePosition.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="344,5,588,47"/>
-<area shape="rect" id="node2" title=" " alt="" coords="90,184,170,211"/>
-<area shape="rect" id="node3" title=" " alt="" coords="503,102,562,129"/>
-<area shape="rect" id="node4" title=" " alt="" coords="304,184,382,211"/>
-<area shape="rect" id="node5" title=" " alt="" coords="586,102,660,129"/>
-<area shape="rect" id="node6" title=" " alt="" coords="685,102,865,129"/>
-<area shape="rect" id="node7" href="$LateralRelativePosition_8hpp.html" title=" " alt="" coords="258,95,428,136"/>
-<area shape="rect" id="node9" href="$LongitudinalRelativePosition_8hpp.html" title=" " alt="" coords="26,95,233,136"/>
-<area shape="rect" id="node8" title=" " alt="" coords="208,184,267,211"/>
+<map id="generated/include/ad/rss/core/RelativePosition.hpp" name="generated/include/ad/rss/core/RelativePosition.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="289,5,503,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="107,184,187,211"/>
+<area shape="rect" id="node3" title=" " alt="" coords="519,102,577,129"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,184,83,211"/>
+<area shape="rect" id="node5" title=" " alt="" coords="601,102,676,129"/>
+<area shape="rect" id="node6" title=" " alt="" coords="701,102,881,129"/>
+<area shape="rect" id="node7" href="$LateralRelativePosition_8hpp.html" title=" " alt="" coords="298,95,494,136"/>
+<area shape="rect" id="node11" href="$LongitudinalRelativePosition_8hpp.html" title=" " alt="" coords="97,95,274,136"/>
+<area shape="rect" id="node8" title=" " alt="" coords="211,184,269,211"/>
+<area shape="rect" id="node9" title=" " alt="" coords="294,184,426,211"/>
+<area shape="rect" id="node10" title=" " alt="" coords="450,184,574,211"/>
 </map>

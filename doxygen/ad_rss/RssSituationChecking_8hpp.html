@@ -72,64 +72,75 @@ $(function() {
 <div class="title">RssSituationChecking.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;memory&gt;</code><br />
-<code>#include &quot;<a class="el" href="SituationSnapshot_8hpp_source.html">ad/rss/situation/SituationSnapshot.hpp</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="RssSituationSnapshot_8hpp_source.html">ad/rss/core/RssSituationSnapshot.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="RssStateSnapshot_8hpp_source.html">ad/rss/state/RssStateSnapshot.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="RssIntersectionConstellationChecker_8hpp_source.html">ad/rss/structured/RssIntersectionConstellationChecker.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="RssNonIntersectionConstellationChecker_8hpp_source.html">ad/rss/structured/RssNonIntersectionConstellationChecker.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="RssUnstructuredConstellationChecker_8hpp_source.html">ad/rss/unstructured/RssUnstructuredConstellationChecker.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for RssSituationChecking.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="RssSituationChecking_8hpp__incl.png" border="0" usemap="#ainclude_2ad_2rss_2core_2RssSituationChecking_8hpp" alt=""/></div>
 <map name="ainclude_2ad_2rss_2core_2RssSituationChecking_8hpp" id="ainclude_2ad_2rss_2core_2RssSituationChecking_8hpp">
-<area shape="rect" title=" " alt="" coords="1428,5,1623,47"/>
-<area shape="rect" title=" " alt="" coords="3533,623,3611,650"/>
-<area shape="rect" href="SituationSnapshot_8hpp.html" title=" " alt="" coords="1188,95,1372,136"/>
-<area shape="rect" href="RssStateSnapshot_8hpp.html" title=" " alt="" coords="1402,191,1649,218"/>
-<area shape="rect" title=" " alt="" coords="5228,623,5308,650"/>
-<area shape="rect" title=" " alt="" coords="1856,623,1915,650"/>
-<area shape="rect" title=" " alt="" coords="1939,623,2013,650"/>
-<area shape="rect" href="SituationVector_8hpp.html" title=" " alt="" coords="1703,184,1887,225"/>
-<area shape="rect" href="RssDynamics_8hpp.html" title=" " alt="" coords="1136,445,1357,471"/>
-<area shape="rect" href="TimeIndex_8hpp.html" title=" " alt="" coords="237,273,440,300"/>
-<area shape="rect" title=" " alt="" coords="5870,355,5933,382"/>
-<area shape="rect" href="Situation_8hpp.html" title=" " alt="" coords="1689,273,1901,300"/>
-<area shape="rect" href="RelativePosition_8hpp.html" title=" " alt="" coords="3522,437,3702,479"/>
-<area shape="rect" href="SituationId_8hpp.html" title=" " alt="" coords="565,437,749,479"/>
-<area shape="rect" href="SituationType_8hpp.html" title=" " alt="" coords="5496,527,5680,568"/>
-<area shape="rect" href="VehicleState_8hpp.html" title=" " alt="" coords="1584,348,1757,389"/>
-<area shape="rect" href="ObjectId_8hpp.html" title=" " alt="" coords="773,445,960,471"/>
-<area shape="rect" title=" " alt="" coords="299,623,479,650"/>
-<area shape="rect" href="LateralRelativePosition_8hpp.html" title=" " alt="" coords="4760,527,4931,568"/>
-<area shape="rect" href="LongitudinalRelativePosition_8hpp.html" title=" " alt="" coords="4529,527,4735,568"/>
-<area shape="rect" title=" " alt="" coords="4816,623,4875,650"/>
-<area shape="rect" title=" " alt="" coords="5,623,72,650"/>
-<area shape="rect" href="VelocityRange_8hpp.html" title=" " alt="" coords="3077,527,3256,568"/>
-<area shape="rect" href="ObjectState_8hpp.html" title=" " alt="" coords="843,534,1053,561"/>
-<area shape="rect" href="ObjectType_8hpp.html" title=" " alt="" coords="5165,534,5371,561"/>
-<area shape="rect" title=" " alt="" coords="3065,623,3269,650"/>
-<area shape="rect" title=" " alt="" coords="1672,623,1832,650"/>
-<area shape="rect" title=" " alt="" coords="1426,623,1649,650"/>
-<area shape="rect" title=" " alt="" coords="969,623,1180,650"/>
-<area shape="rect" title=" " alt="" coords="1203,623,1402,650"/>
-<area shape="rect" title=" " alt="" coords="783,623,945,650"/>
-<area shape="rect" title=" " alt="" coords="96,623,275,650"/>
-<area shape="rect" href="LateralRssAccelerationValues_8hpp.html" title=" " alt="" coords="2577,527,2831,568"/>
-<area shape="rect" href="LongitudinalRssAccelerationValues_8hpp.html" title=" " alt="" coords="2856,527,3053,568"/>
-<area shape="rect" href="UnstructuredSettings_8hpp.html" title=" " alt="" coords="629,527,819,568"/>
-<area shape="rect" title=" " alt="" coords="2719,623,2923,650"/>
-<area shape="rect" title=" " alt="" coords="503,623,758,650"/>
-<area shape="rect" href="RssStateVector_8hpp.html" title=" " alt="" coords="3988,273,4215,300"/>
-<area shape="rect" href="UnstructuredSceneStateInformation_8hpp.html" title=" " alt="" coords="3735,527,3934,568"/>
-<area shape="rect" href="RssState_8hpp.html" title=" " alt="" coords="3211,355,3397,382"/>
-<area shape="rect" href="LateralRssState_8hpp.html" title=" " alt="" coords="2956,445,3188,471"/>
-<area shape="rect" href="LongitudinalRssState_8hpp.html" title=" " alt="" coords="3213,437,3395,479"/>
-<area shape="rect" href="UnstructuredSceneRssState_8hpp.html" title=" " alt="" coords="3727,437,3913,479"/>
-<area shape="rect" href="LateralResponse_8hpp.html" title=" " alt="" coords="4059,534,4298,561"/>
-<area shape="rect" href="RssStateInformation_8hpp.html" title=" " alt="" coords="1889,534,2151,561"/>
-<area shape="rect" href="LongitudinalResponse_8hpp.html" title=" " alt="" coords="4322,527,4505,568"/>
-<area shape="rect" href="HeadingRange_8hpp.html" title=" " alt="" coords="2277,534,2502,561"/>
-<area shape="rect" href="UnstructuredSceneResponse_8hpp.html" title=" " alt="" coords="4955,527,5141,568"/>
-<area shape="rect" href="UnstructuredTrajectorySet_8hpp.html" title=" " alt="" coords="3740,616,3929,657"/>
-<area shape="rect" title=" " alt="" coords="3724,705,3945,732"/>
+<area shape="rect" title=" " alt="" coords="4340,5,4535,47"/>
+<area shape="rect" href="RssSituationSnapshot_8hpp.html" title=" " alt="" coords="2963,95,3141,136"/>
+<area shape="rect" href="RssStateSnapshot_8hpp.html" title=" " alt="" coords="1037,199,1283,225"/>
+<area shape="rect" href="RssIntersectionConstellationChecker_8hpp.html" title=" " alt="" coords="4644,191,4879,233"/>
+<area shape="rect" href="RssNonIntersectionConstellationChecker_8hpp.html" title=" " alt="" coords="4305,191,4569,233"/>
+<area shape="rect" href="RssUnstructuredConstellationChecker_8hpp.html" title=" " alt="" coords="4903,184,5121,240"/>
+<area shape="rect" title=" " alt="" coords="3040,653,3120,679"/>
+<area shape="rect" title=" " alt="" coords="712,653,771,679"/>
+<area shape="rect" title=" " alt="" coords="3641,653,3719,679"/>
+<area shape="rect" title=" " alt="" coords="1609,653,1684,679"/>
+<area shape="rect" href="RelativeConstellationVector_8hpp.html" title=" " alt="" coords="3012,191,3249,233"/>
+<area shape="rect" href="RssDynamics_8hpp.html" title=" " alt="" coords="943,474,1164,501"/>
+<area shape="rect" href="TimeIndex_8hpp.html" title=" " alt="" coords="4647,295,4849,322"/>
+<area shape="rect" title=" " alt="" coords="1442,474,1505,501"/>
+<area shape="rect" href="RelativeConstellation_8hpp.html" title=" " alt="" coords="3895,295,4161,322"/>
+<area shape="rect" href="RelativeConstellationId_8hpp.html" title=" " alt="" coords="4293,467,4531,508"/>
+<area shape="rect" href="RelativeObjectState_8hpp.html" title=" " alt="" coords="2503,377,2697,419"/>
+<area shape="rect" href="RelativePosition_8hpp.html" title=" " alt="" coords="3734,474,3965,501"/>
+<area shape="rect" href="ConstellationType_8hpp.html" title=" " alt="" coords="4479,556,4670,597"/>
+<area shape="rect" href="ObjectId_8hpp.html" title=" " alt="" coords="4555,474,4741,501"/>
+<area shape="rect" href="WorldModelIndexVector_8hpp.html" title=" " alt="" coords="2209,377,2428,419"/>
+<area shape="rect" title=" " alt="" coords="4877,653,4944,679"/>
+<area shape="rect" href="StructuredObjectState_8hpp.html" title=" " alt="" coords="1543,556,1750,597"/>
+<area shape="rect" href="ObjectState_8hpp.html" title=" " alt="" coords="1774,563,1983,590"/>
+<area shape="rect" href="ObjectType_8hpp.html" title=" " alt="" coords="4199,563,4404,590"/>
+<area shape="rect" title=" " alt="" coords="229,653,409,679"/>
+<area shape="rect" title=" " alt="" coords="1005,653,1165,679"/>
+<area shape="rect" title=" " alt="" coords="4113,653,4172,679"/>
+<area shape="rect" title=" " alt="" coords="5,653,184,679"/>
+<area shape="rect" title=" " alt="" coords="951,563,1113,590"/>
+<area shape="rect" href="LateralRssAccelerationValues_8hpp.html" title=" " alt="" coords="2483,556,2738,597"/>
+<area shape="rect" href="LongitudinalRssAccelerationValues_8hpp.html" title=" " alt="" coords="2160,556,2357,597"/>
+<area shape="rect" href="UnstructuredSettings_8hpp.html" title=" " alt="" coords="465,556,655,597"/>
+<area shape="rect" title=" " alt="" coords="2333,653,2537,679"/>
+<area shape="rect" title=" " alt="" coords="433,653,687,679"/>
+<area shape="rect" href="LateralRelativePosition_8hpp.html" title=" " alt="" coords="3675,556,3871,597"/>
+<area shape="rect" href="LongitudinalRelativePosition_8hpp.html" title=" " alt="" coords="3895,556,4073,597"/>
+<area shape="rect" href="RssStateVector_8hpp.html" title=" " alt="" coords="1391,295,1617,322"/>
+<area shape="rect" href="UnstructuredConstellationStateInformation_8hpp.html" title=" " alt="" coords="679,556,926,597"/>
+<area shape="rect" href="RssState_8hpp.html" title=" " alt="" coords="3472,385,3659,411"/>
+<area shape="rect" href="LateralRssState_8hpp.html" title=" " alt="" coords="3376,474,3608,501"/>
+<area shape="rect" href="LongitudinalRssState_8hpp.html" title=" " alt="" coords="3169,467,3351,508"/>
+<area shape="rect" href="UnstructuredConstellationRssState_8hpp.html" title=" " alt="" coords="2747,467,2941,508"/>
+<area shape="rect" href="UnstructuredTrajectorySet_8hpp.html" title=" " alt="" coords="795,645,981,687"/>
+<area shape="rect" title=" " alt="" coords="777,735,999,761"/>
+<area shape="rect" title=" " alt="" coords="4924,295,4975,322"/>
+<area shape="rect" title=" " alt="" coords="5100,295,5367,322"/>
+<area shape="rect" href="shared__lock__guard_8hpp.html" title=" " alt="" coords="5391,288,5532,329"/>
+<area shape="rect" title=" " alt="" coords="5485,385,5549,411"/>
+<area shape="rect" title=" " alt="" coords="5347,385,5461,411"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="RssSituationChecking_8hpp__dep__incl.png" border="0" usemap="#ainclude_2ad_2rss_2core_2RssSituationChecking_8hppdep" alt=""/></div>
+<map name="ainclude_2ad_2rss_2core_2RssSituationChecking_8hppdep" id="ainclude_2ad_2rss_2core_2RssSituationChecking_8hppdep">
+<area shape="rect" title=" " alt="" coords="5,5,200,47"/>
+<area shape="rect" href="RssCheck_8hpp.html" title=" " alt="" coords="31,95,175,136"/>
 </map>
 </div>
 </div>
@@ -148,9 +159,6 @@ Namespaces</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespacead_1_1rss"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss.html">ad::rss</a></td></tr>
 <tr class="memdesc:namespacead_1_1rss"><td class="mdescLeft">&#160;</td><td class="mdescRight">namespace rss <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacead_1_1rss_1_1situation"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html">ad::rss::situation</a></td></tr>
-<tr class="memdesc:namespacead_1_1rss_1_1situation"><td class="mdescLeft">&#160;</td><td class="mdescRight">namespace situation <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespacead_1_1rss_1_1core"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1core.html">ad::rss::core</a></td></tr>
 <tr class="memdesc:namespacead_1_1rss_1_1core"><td class="mdescLeft">&#160;</td><td class="mdescRight">namespace core <br /></td></tr>

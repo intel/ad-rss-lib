@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['speed_102',['speed',['../structad_1_1rss_1_1map_1_1RssObjectData.html#afcf3d62c03111fcd6ddd114d644b6ff2',1,'ad::rss::map::RssObjectData']]],
-  ['steeringangle_103',['steeringAngle',['../structad_1_1rss_1_1map_1_1RssObjectData.html#a64c721b4ae7e69bc9a170392932ad1f0',1,'ad::rss::map::RssObjectData']]]
+  ['ego_5fvehicle_5fdynamics_674',['ego_vehicle_dynamics',['../structad_1_1rss_1_1map_1_1RssConstellationConfiguration.html#a2c965cf7f4d36375fb550985c7bbd6e6',1,'ad::rss::map::RssConstellationConfiguration']]]
 ];

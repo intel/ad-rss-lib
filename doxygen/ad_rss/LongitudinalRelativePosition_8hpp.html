@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ad_rss: generated/include/ad/rss/situation/LongitudinalRelativePosition.hpp File Reference</title>
+<title>ad_rss: generated/include/ad/rss/core/LongitudinalRelativePosition.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,11 +61,12 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_84fc5dba3506812825191c0c043e3c97.html">generated</a></li><li class="navelem"><a class="el" href="dir_24c9f63f161698e833b9baedb24b859b.html">include</a></li><li class="navelem"><a class="el" href="dir_abaa66552cda5912106532614814b822.html">ad</a></li><li class="navelem"><a class="el" href="dir_599fdbd0b656d682ea5784a63b853627.html">rss</a></li><li class="navelem"><a class="el" href="dir_0f0abd98a53d5ddab3670df892b5bdb0.html">situation</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_84fc5dba3506812825191c0c043e3c97.html">generated</a></li><li class="navelem"><a class="el" href="dir_24c9f63f161698e833b9baedb24b859b.html">include</a></li><li class="navelem"><a class="el" href="dir_abaa66552cda5912106532614814b822.html">ad</a></li><li class="navelem"><a class="el" href="dir_599fdbd0b656d682ea5784a63b853627.html">rss</a></li><li class="navelem"><a class="el" href="dir_78fbd87bb8eea861c972780daf59e307.html">core</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
@@ -77,40 +78,53 @@ $(function() {
 <div class="textblock"><code>#include &lt;iostream&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
+<code>#include &quot;spdlog/fmt/ostr.h&quot;</code><br />
+<code>#include &quot;spdlog/spdlog.h&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for LongitudinalRelativePosition.hpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="LongitudinalRelativePosition_8hpp__incl.png" border="0" usemap="#agenerated_2include_2ad_2rss_2situation_2LongitudinalRelativePosition_8hpp" alt=""/></div>
-<map name="agenerated_2include_2ad_2rss_2situation_2LongitudinalRelativePosition_8hpp" id="agenerated_2include_2ad_2rss_2situation_2LongitudinalRelativePosition_8hpp">
-<area shape="rect" title=" " alt="" coords="53,5,243,61"/>
+<div class="center"><img src="LongitudinalRelativePosition_8hpp__incl.png" border="0" usemap="#agenerated_2include_2ad_2rss_2core_2LongitudinalRelativePosition_8hpp" alt=""/></div>
+<map name="agenerated_2include_2ad_2rss_2core_2LongitudinalRelativePosition_8hpp" id="agenerated_2include_2ad_2rss_2core_2LongitudinalRelativePosition_8hpp">
+<area shape="rect" title=" " alt="" coords="133,5,347,61"/>
 <area shape="rect" title=" " alt="" coords="5,109,85,136"/>
 <area shape="rect" title=" " alt="" coords="109,109,187,136"/>
 <area shape="rect" title=" " alt="" coords="211,109,269,136"/>
+<area shape="rect" title=" " alt="" coords="294,109,426,136"/>
+<area shape="rect" title=" " alt="" coords="450,109,574,136"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><img src="LongitudinalRelativePosition_8hpp__dep__incl.png" border="0" usemap="#agenerated_2include_2ad_2rss_2situation_2LongitudinalRelativePosition_8hppdep" alt=""/></div>
-<map name="agenerated_2include_2ad_2rss_2situation_2LongitudinalRelativePosition_8hppdep" id="agenerated_2include_2ad_2rss_2situation_2LongitudinalRelativePosition_8hppdep">
-<area shape="rect" title=" " alt="" coords="180,5,371,61"/>
-<area shape="rect" href="LongitudinalRelativePositionValidInputRange_8hpp.html" title=" " alt="" coords="5,109,268,165"/>
-<area shape="rect" href="RelativePosition_8hpp.html" title=" " alt="" coords="292,117,536,158"/>
-<area shape="rect" href="RelativePositionValidInputRange_8hpp.html" title=" " alt="" coords="70,213,286,269"/>
-<area shape="rect" href="SituationValidInputRange_8hpp.html" title=" " alt="" coords="78,317,278,373"/>
-<area shape="rect" href="SituationVectorValidInputRange_8hpp.html" title=" " alt="" coords="73,421,283,477"/>
-<area shape="rect" href="SituationSnapshotValidInputRange_8hpp.html" title=" " alt="" coords="64,525,292,581"/>
-<area shape="rect" href="Situation_8hpp.html" title=" " alt="" coords="316,221,512,262"/>
-<area shape="rect" href="SituationVector_8hpp.html" title=" " alt="" coords="301,325,537,366"/>
-<area shape="rect" href="SituationSnapshot_8hpp.html" title=" " alt="" coords="307,429,563,470"/>
-<area shape="rect" href="RssCheck_8hpp.html" title=" " alt="" coords="317,533,461,574"/>
-<area shape="rect" href="RssSituationChecking_8hpp.html" title=" " alt="" coords="485,533,679,574"/>
-<area shape="rect" href="RssSituationExtraction_8hpp.html" title=" " alt="" coords="704,533,905,574"/>
+<div class="center"><img src="LongitudinalRelativePosition_8hpp__dep__incl.png" border="0" usemap="#agenerated_2include_2ad_2rss_2core_2LongitudinalRelativePosition_8hppdep" alt=""/></div>
+<map name="agenerated_2include_2ad_2rss_2core_2LongitudinalRelativePosition_8hppdep" id="agenerated_2include_2ad_2rss_2core_2LongitudinalRelativePosition_8hppdep">
+<area shape="rect" title=" " alt="" coords="243,5,458,61"/>
+<area shape="rect" href="LongitudinalRelativePositionValidInputRange_8hpp.html" title=" " alt="" coords="125,109,339,165"/>
+<area shape="rect" href="RelativePosition_8hpp.html" title=" " alt="" coords="363,117,578,158"/>
+<area shape="rect" href="RelativePositionValidInputRange_8hpp.html" title=" " alt="" coords="123,213,341,269"/>
+<area shape="rect" href="RelativeConstellationValidInputRange_8hpp.html" title=" " alt="" coords="55,317,276,373"/>
+<area shape="rect" href="RelativeConstellationVectorValidInputRange_8hpp.html" title=" " alt="" coords="5,421,227,477"/>
+<area shape="rect" href="RssSituationSnapshotValidInputRange_8hpp.html" title=" " alt="" coords="53,525,275,581"/>
+<area shape="rect" href="RelativeConstellation_8hpp.html" title=" " alt="" coords="437,221,686,262"/>
+<area shape="rect" href="RelativeConstellationVector_8hpp.html" title=" " alt="" coords="300,317,521,373"/>
+<area shape="rect" href="RssIntersectionConstellationChecker_8hpp.html" title=" " alt="" coords="525,429,816,470"/>
+<area shape="rect" href="RssNonIntersectionConstellationChecker_8hpp.html" title=" " alt="" coords="841,421,1079,477"/>
+<area shape="rect" href="RssUnstructuredConstellationChecker_8hpp.html" title=" " alt="" coords="932,325,1231,366"/>
+<area shape="rect" href="RssSituationSnapshot_8hpp.html" title=" " alt="" coords="251,429,501,470"/>
+<area shape="rect" href="RssSituationChecking_8hpp.html" title=" " alt="" coords="573,533,768,574"/>
+<area shape="rect" href="RssSituationExtraction_8hpp.html" title=" " alt="" coords="311,533,513,574"/>
+<area shape="rect" href="RssCheck_8hpp.html" title=" " alt="" coords="487,629,631,671"/>
 </map>
 </div>
 </div>
 <p><a href="LongitudinalRelativePosition_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfmt_1_1formatter_3_1_1ad_1_1rss_1_1core_1_1LongitudinalRelativePosition_01_4.html">fmt::formatter&lt;::ad::rss::core::LongitudinalRelativePosition &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">overload of fmt::formatter calling std::to_string  <a href="structfmt_1_1formatter_3_1_1ad_1_1rss_1_1core_1_1LongitudinalRelativePosition_01_4.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespacead"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead.html">ad</a></td></tr>
@@ -119,56 +133,56 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespacead_1_1rss"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss.html">ad::rss</a></td></tr>
 <tr class="memdesc:namespacead_1_1rss"><td class="mdescLeft">&#160;</td><td class="mdescRight">namespace rss <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacead_1_1rss_1_1situation"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html">ad::rss::situation</a></td></tr>
-<tr class="memdesc:namespacead_1_1rss_1_1situation"><td class="mdescLeft">&#160;</td><td class="mdescRight">namespace situation <br /></td></tr>
+<tr class="memitem:namespacead_1_1rss_1_1core"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1core.html">ad::rss::core</a></td></tr>
+<tr class="memdesc:namespacead_1_1rss_1_1core"><td class="mdescLeft">&#160;</td><td class="mdescRight">namespace core <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a0910f8ac79380fdb42fc227709c62008"><td class="memItemLeft" align="right" valign="top"><a id="a0910f8ac79380fdb42fc227709c62008"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LongitudinalRelativePosition_8hpp.html#a0910f8ac79380fdb42fc227709c62008">GEN_GUARD_AD_RSS_SITUATION_LONGITUDINALRELATIVEPOSITION</a></td></tr>
-<tr class="memdesc:a0910f8ac79380fdb42fc227709c62008"><td class="mdescLeft">&#160;</td><td class="mdescRight">protect the definition of functions from duplicates by typedef usage within other data types <br /></td></tr>
-<tr class="separator:a0910f8ac79380fdb42fc227709c62008"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30f587524497493abb4ca0b3f9a72c8d"><td class="memItemLeft" align="right" valign="top"><a id="a30f587524497493abb4ca0b3f9a72c8d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LongitudinalRelativePosition_8hpp.html#a30f587524497493abb4ca0b3f9a72c8d">GEN_GUARD_AD_RSS_CORE_LONGITUDINALRELATIVEPOSITION</a></td></tr>
+<tr class="memdesc:a30f587524497493abb4ca0b3f9a72c8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">protect the definition of functions from duplicates by typedef usage within other data types <br /></td></tr>
+<tr class="separator:a30f587524497493abb4ca0b3f9a72c8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a960eb154dc8043ed23a149a9f5b99e39"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#a960eb154dc8043ed23a149a9f5b99e39">ad::rss::situation::LongitudinalRelativePosition</a> : int32_t { <br />
-&#160;&#160;<a class="el" href="namespacead_1_1rss_1_1situation.html#a960eb154dc8043ed23a149a9f5b99e39a61a044779e25e0a7be62e82ee9c8699e">ad::rss::situation::InFront</a> = 0
-, <a class="el" href="namespacead_1_1rss_1_1situation.html#a960eb154dc8043ed23a149a9f5b99e39a0dc08f185832cf1c66dd3fd74939fad8">ad::rss::situation::OverlapFront</a> = 1
-, <a class="el" href="namespacead_1_1rss_1_1situation.html#a960eb154dc8043ed23a149a9f5b99e39a2359a16283d7b4bfaaff2f6e90cbd116">ad::rss::situation::Overlap</a> = 2
-, <a class="el" href="namespacead_1_1rss_1_1situation.html#a960eb154dc8043ed23a149a9f5b99e39a15215e1bf306155fc302985a94929c29">ad::rss::situation::OverlapBack</a> = 3
+<tr class="memitem:a7b123d2b25f07872a1cf30f8922ff9e3"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1core.html#a7b123d2b25f07872a1cf30f8922ff9e3">ad::rss::core::LongitudinalRelativePosition</a> : int32_t { <br />
+&#160;&#160;<a class="el" href="namespacead_1_1rss_1_1core.html#a7b123d2b25f07872a1cf30f8922ff9e3a61a044779e25e0a7be62e82ee9c8699e">ad::rss::core::InFront</a> = 0
+, <a class="el" href="namespacead_1_1rss_1_1core.html#a7b123d2b25f07872a1cf30f8922ff9e3a0dc08f185832cf1c66dd3fd74939fad8">ad::rss::core::OverlapFront</a> = 1
+, <a class="el" href="namespacead_1_1rss_1_1core.html#a7b123d2b25f07872a1cf30f8922ff9e3a2359a16283d7b4bfaaff2f6e90cbd116">ad::rss::core::Overlap</a> = 2
+, <a class="el" href="namespacead_1_1rss_1_1core.html#a7b123d2b25f07872a1cf30f8922ff9e3a15215e1bf306155fc302985a94929c29">ad::rss::core::OverlapBack</a> = 3
 , <br />
-&#160;&#160;<a class="el" href="namespacead_1_1rss_1_1situation.html#a960eb154dc8043ed23a149a9f5b99e39ac317829b18bc07290d16226802631fbb">ad::rss::situation::AtBack</a> = 4
+&#160;&#160;<a class="el" href="namespacead_1_1rss_1_1core.html#a7b123d2b25f07872a1cf30f8922ff9e3ac317829b18bc07290d16226802631fbb">ad::rss::core::AtBack</a> = 4
 <br />
  }</td></tr>
-<tr class="memdesc:a960eb154dc8043ed23a149a9f5b99e39"><td class="mdescLeft">&#160;</td><td class="mdescRight">DataType LongitudinalRelativePosition.  <a href="namespacead_1_1rss_1_1situation.html#a960eb154dc8043ed23a149a9f5b99e39">More...</a><br /></td></tr>
-<tr class="separator:a960eb154dc8043ed23a149a9f5b99e39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memdesc:a7b123d2b25f07872a1cf30f8922ff9e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">DataType LongitudinalRelativePosition.  <a href="namespacead_1_1rss_1_1core.html#a7b123d2b25f07872a1cf30f8922ff9e3">More...</a><br /></td></tr>
+<tr class="separator:a7b123d2b25f07872a1cf30f8922ff9e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a277574c4e3a2d6d0c6f0773dea4cb963"><td class="memItemLeft" align="right" valign="top"><a id="a277574c4e3a2d6d0c6f0773dea4cb963"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LongitudinalRelativePosition_8hpp.html#a277574c4e3a2d6d0c6f0773dea4cb963">toString</a> (::<a class="el" href="namespacead_1_1rss_1_1situation.html#a960eb154dc8043ed23a149a9f5b99e39">ad::rss::situation::LongitudinalRelativePosition</a> const e)</td></tr>
-<tr class="memdesc:a277574c4e3a2d6d0c6f0773dea4cb963"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion of <a class="el" href="namespacead_1_1rss_1_1situation.html#a960eb154dc8043ed23a149a9f5b99e39" title="DataType LongitudinalRelativePosition.">ad::rss::situation::LongitudinalRelativePosition</a> to std::string helper. <br /></td></tr>
-<tr class="separator:a277574c4e3a2d6d0c6f0773dea4cb963"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cb874f764daca6daee2c03ad03eca33"><td class="memItemLeft" align="right" valign="top"><a id="a9cb874f764daca6daee2c03ad03eca33"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LongitudinalRelativePosition_8hpp.html#a9cb874f764daca6daee2c03ad03eca33">toString</a> (::<a class="el" href="namespacead_1_1rss_1_1core.html#a7b123d2b25f07872a1cf30f8922ff9e3">ad::rss::core::LongitudinalRelativePosition</a> const e)</td></tr>
+<tr class="memdesc:a9cb874f764daca6daee2c03ad03eca33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion of <a class="el" href="namespacead_1_1rss_1_1core.html#a7b123d2b25f07872a1cf30f8922ff9e3" title="DataType LongitudinalRelativePosition.">ad::rss::core::LongitudinalRelativePosition</a> to std::string helper. <br /></td></tr>
+<tr class="separator:a9cb874f764daca6daee2c03ad03eca33"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f27b88c1ff34782cd8e98a09e2871cb"><td class="memTemplParams" colspan="2">template&lt;typename EnumType &gt; </td></tr>
 <tr class="memitem:a0f27b88c1ff34782cd8e98a09e2871cb"><td class="memTemplItemLeft" align="right" valign="top">EnumType&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="LongitudinalRelativePosition_8hpp.html#a0f27b88c1ff34782cd8e98a09e2871cb">fromString</a> (std::string const &amp;str)</td></tr>
 <tr class="memdesc:a0f27b88c1ff34782cd8e98a09e2871cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion from std::string to enum type T helper.  <a href="LongitudinalRelativePosition_8hpp.html#a0f27b88c1ff34782cd8e98a09e2871cb">More...</a><br /></td></tr>
 <tr class="separator:a0f27b88c1ff34782cd8e98a09e2871cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4ab3a21f9d67c826edd5d584b86ae77"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
-<tr class="memitem:ab4ab3a21f9d67c826edd5d584b86ae77"><td class="memTemplItemLeft" align="right" valign="top">::<a class="el" href="namespacead_1_1rss_1_1situation.html#a960eb154dc8043ed23a149a9f5b99e39">ad::rss::situation::LongitudinalRelativePosition</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="LongitudinalRelativePosition_8hpp.html#ab4ab3a21f9d67c826edd5d584b86ae77">fromString</a> (std::string const &amp;str)</td></tr>
-<tr class="memdesc:ab4ab3a21f9d67c826edd5d584b86ae77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion from std::string to enum type T helper.  <a href="LongitudinalRelativePosition_8hpp.html#ab4ab3a21f9d67c826edd5d584b86ae77">More...</a><br /></td></tr>
-<tr class="separator:ab4ab3a21f9d67c826edd5d584b86ae77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00caf01cac03f97cc2ea60354e6feeac"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1situation.html#a00caf01cac03f97cc2ea60354e6feeac">ad::rss::situation::operator&lt;&lt;</a> (std::ostream &amp;os, LongitudinalRelativePosition const &amp;value)</td></tr>
-<tr class="memdesc:a00caf01cac03f97cc2ea60354e6feeac"><td class="mdescLeft">&#160;</td><td class="mdescRight">standard ostream operator  <a href="namespacead_1_1rss_1_1situation.html#a00caf01cac03f97cc2ea60354e6feeac">More...</a><br /></td></tr>
-<tr class="separator:a00caf01cac03f97cc2ea60354e6feeac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad9d8fdeed57750625cbc1795852a7666"><td class="memItemLeft" align="right" valign="top"><a id="ad9d8fdeed57750625cbc1795852a7666"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LongitudinalRelativePosition_8hpp.html#ad9d8fdeed57750625cbc1795852a7666">std::to_string</a> (::<a class="el" href="namespacead_1_1rss_1_1situation.html#a960eb154dc8043ed23a149a9f5b99e39">ad::rss::situation::LongitudinalRelativePosition</a> const &amp;value)</td></tr>
-<tr class="memdesc:ad9d8fdeed57750625cbc1795852a7666"><td class="mdescLeft">&#160;</td><td class="mdescRight">overload of the std::to_string for LongitudinalRelativePosition <br /></td></tr>
-<tr class="separator:ad9d8fdeed57750625cbc1795852a7666"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71ef5e4aa589b31aa2c6ba7c8834e406"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a71ef5e4aa589b31aa2c6ba7c8834e406"><td class="memTemplItemLeft" align="right" valign="top">::<a class="el" href="namespacead_1_1rss_1_1core.html#a7b123d2b25f07872a1cf30f8922ff9e3">ad::rss::core::LongitudinalRelativePosition</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="LongitudinalRelativePosition_8hpp.html#a71ef5e4aa589b31aa2c6ba7c8834e406">fromString</a> (std::string const &amp;str)</td></tr>
+<tr class="memdesc:a71ef5e4aa589b31aa2c6ba7c8834e406"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion from std::string to enum type T helper.  <a href="LongitudinalRelativePosition_8hpp.html#a71ef5e4aa589b31aa2c6ba7c8834e406">More...</a><br /></td></tr>
+<tr class="separator:a71ef5e4aa589b31aa2c6ba7c8834e406"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04566df9181d8a45768b9045a4178a9c"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacead_1_1rss_1_1core.html#a04566df9181d8a45768b9045a4178a9c">ad::rss::core::operator&lt;&lt;</a> (std::ostream &amp;os, LongitudinalRelativePosition const &amp;value)</td></tr>
+<tr class="memdesc:a04566df9181d8a45768b9045a4178a9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">standard ostream operator  <a href="namespacead_1_1rss_1_1core.html#a04566df9181d8a45768b9045a4178a9c">More...</a><br /></td></tr>
+<tr class="separator:a04566df9181d8a45768b9045a4178a9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a402a69db6a9fe52121e9b508254a985d"><td class="memItemLeft" align="right" valign="top"><a id="a402a69db6a9fe52121e9b508254a985d"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LongitudinalRelativePosition_8hpp.html#a402a69db6a9fe52121e9b508254a985d">std::to_string</a> (::<a class="el" href="namespacead_1_1rss_1_1core.html#a7b123d2b25f07872a1cf30f8922ff9e3">ad::rss::core::LongitudinalRelativePosition</a> const &amp;value)</td></tr>
+<tr class="memdesc:a402a69db6a9fe52121e9b508254a985d"><td class="mdescLeft">&#160;</td><td class="mdescRight">overload of the std::to_string for LongitudinalRelativePosition <br /></td></tr>
+<tr class="separator:a402a69db6a9fe52121e9b508254a985d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Generated file</p>
-<p>Generator Version : 11.0.0-1997 </p>
+<p>Generator Version : 11.0.0-2046 </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a0f27b88c1ff34782cd8e98a09e2871cb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0f27b88c1ff34782cd8e98a09e2871cb">&#9670;&nbsp;</a></span>fromString() <span class="overload">[1/2]</span></h2>
@@ -210,8 +224,8 @@ template&lt;typename EnumType &gt; </div>
 </div><!-- fragment --> 
 </div>
 </div>
-<a id="ab4ab3a21f9d67c826edd5d584b86ae77"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab4ab3a21f9d67c826edd5d584b86ae77">&#9670;&nbsp;</a></span>fromString() <span class="overload">[2/2]</span></h2>
+<a id="a71ef5e4aa589b31aa2c6ba7c8834e406"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71ef5e4aa589b31aa2c6ba7c8834e406">&#9670;&nbsp;</a></span>fromString() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -219,7 +233,7 @@ template&lt;typename EnumType &gt; </div>
 template&lt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">::<a class="el" href="namespacead_1_1rss_1_1situation.html#a960eb154dc8043ed23a149a9f5b99e39">ad::rss::situation::LongitudinalRelativePosition</a> fromString </td>
+          <td class="memname">::<a class="el" href="namespacead_1_1rss_1_1core.html#a7b123d2b25f07872a1cf30f8922ff9e3">ad::rss::core::LongitudinalRelativePosition</a> fromString </td>
           <td>(</td>
           <td class="paramtype">std::string const &amp;&#160;</td>
           <td class="paramname"><em>str</em></td><td>)</td>

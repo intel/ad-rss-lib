@@ -1,0 +1,6 @@
+[colcon_core.package_augmentation]
+python_setup_py = colcon_python_setup_py.package_augmentation.python_setup_py:PythonPackageAugmentation
+
+[colcon_core.package_identification]
+python_setup_py = colcon_python_setup_py.package_identification.python_setup_py:PythonPackageIdentification
+

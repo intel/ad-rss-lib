@@ -1,7 +1,5 @@
 <map id="ad::rss::state::ProperResponse" name="ad::rss::state::ProperResponse">
-<area shape="rect" id="node1" title="DataType ProperResponse." alt="" coords="732,78,951,105"/>
-<area shape="rect" id="node2" title=" " alt="" coords="335,5,516,47"/>
-<area shape="rect" id="node3" href="$structad_1_1rss_1_1state_1_1HeadingRange.html" title="DataType HeadingRange." alt="" coords="5,13,215,39"/>
-<area shape="rect" id="node4" title=" " alt="" coords="349,71,502,112"/>
-<area shape="rect" id="node5" href="$structad_1_1rss_1_1state_1_1AccelerationRestriction.html" title="DataType AccelerationRestriction." alt="" coords="328,136,523,177"/>
+<area shape="rect" id="node1" title="DataType ProperResponse." alt="" coords="71,109,290,136"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,159,47"/>
+<area shape="rect" id="node3" href="$structad_1_1rss_1_1state_1_1AccelerationRestriction.html" title="DataType AccelerationRestriction." alt="" coords="183,5,378,47"/>
 </map>

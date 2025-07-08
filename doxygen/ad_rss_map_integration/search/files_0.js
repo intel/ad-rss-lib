@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['logging_2ehpp_66',['Logging.hpp',['../Logging_8hpp.html',1,'']]]
+  ['connectingroutescache_2ehpp_451',['ConnectingRoutesCache.hpp',['../ConnectingRoutesCache_8hpp.html',1,'']]]
 ];

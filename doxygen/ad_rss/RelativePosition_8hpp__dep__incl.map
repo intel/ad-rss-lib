@@ -1,13 +1,16 @@
-<map id="generated/include/ad/rss/situation/RelativePosition.hpp" name="generated/include/ad/rss/situation/RelativePosition.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="112,5,356,47"/>
-<area shape="rect" id="node2" href="$RelativePositionValidInputRange_8hpp.html" title=" " alt="" coords="11,95,227,151"/>
-<area shape="rect" id="node6" href="$Situation_8hpp.html" title=" " alt="" coords="252,102,448,143"/>
-<area shape="rect" id="node3" href="$SituationValidInputRange_8hpp.html" title=" " alt="" coords="19,199,219,255"/>
-<area shape="rect" id="node4" href="$SituationVectorValidInputRange_8hpp.html" title=" " alt="" coords="15,303,224,359"/>
-<area shape="rect" id="node5" href="$SituationSnapshotValidInputRange_8hpp.html" title=" " alt="" coords="5,407,233,463"/>
-<area shape="rect" id="node7" href="$SituationVector_8hpp.html" title=" " alt="" coords="243,206,479,247"/>
-<area shape="rect" id="node8" href="$SituationSnapshot_8hpp.html" title=" " alt="" coords="249,310,505,351"/>
-<area shape="rect" id="node9" href="$RssCheck_8hpp.html" title=" " alt="" coords="258,414,402,455"/>
-<area shape="rect" id="node10" href="$RssSituationChecking_8hpp.html" title=" " alt="" coords="426,414,621,455"/>
-<area shape="rect" id="node11" href="$RssSituationExtraction_8hpp.html" title=" " alt="" coords="645,414,847,455"/>
+<map id="generated/include/ad/rss/core/RelativePosition.hpp" name="generated/include/ad/rss/core/RelativePosition.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="254,5,469,47"/>
+<area shape="rect" id="node2" href="$RelativeConstellation_8hpp.html" title=" " alt="" coords="399,102,649,143"/>
+<area shape="rect" id="node14" href="$RelativePositionValidInputRange_8hpp.html" title=" " alt="" coords="123,95,341,151"/>
+<area shape="rect" id="node3" href="$RelativeConstellationValidInputRange_8hpp.html" title=" " alt="" coords="55,199,276,255"/>
+<area shape="rect" id="node6" href="$RelativeConstellationVector_8hpp.html" title=" " alt="" coords="300,199,521,255"/>
+<area shape="rect" id="node11" href="$RssIntersectionConstellationChecker_8hpp.html" title=" " alt="" coords="525,310,816,351"/>
+<area shape="rect" id="node12" href="$RssNonIntersectionConstellationChecker_8hpp.html" title=" " alt="" coords="841,303,1079,359"/>
+<area shape="rect" id="node13" href="$RssUnstructuredConstellationChecker_8hpp.html" title=" " alt="" coords="932,206,1231,247"/>
+<area shape="rect" id="node4" href="$RelativeConstellationVectorValidInputRange_8hpp.html" title=" " alt="" coords="5,303,227,359"/>
+<area shape="rect" id="node5" href="$RssSituationSnapshotValidInputRange_8hpp.html" title=" " alt="" coords="53,407,275,463"/>
+<area shape="rect" id="node7" href="$RssSituationSnapshot_8hpp.html" title=" " alt="" coords="251,310,501,351"/>
+<area shape="rect" id="node8" href="$RssSituationChecking_8hpp.html" title=" " alt="" coords="573,414,768,455"/>
+<area shape="rect" id="node10" href="$RssSituationExtraction_8hpp.html" title=" " alt="" coords="311,414,513,455"/>
+<area shape="rect" id="node9" href="$RssCheck_8hpp.html" title=" " alt="" coords="487,511,631,552"/>
 </map>

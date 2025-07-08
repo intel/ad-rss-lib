@@ -1,0 +1,6 @@
+[colcon_core.argument_parser]
+colcon = colcon_defaults.argument_parser.defaults:DefaultArgumentsArgumentParserDecorator
+
+[colcon_core.environment_variable]
+defaults = colcon_defaults.argument_parser.defaults:DEFAULTS_FILE_ENVIRONMENT_VARIABLE
+

@@ -1,0 +1,34 @@
+Metadata-Version: 2.1
+Name: colcon-metadata
+Version: 0.2.5
+Summary: Extension for colcon to read package metadata from files.
+Home-page: https://colcon.readthedocs.io
+Author: Dirk Thomas
+Author-email: web@dirk-thomas.net
+Maintainer: Dirk Thomas
+Maintainer-email: web@dirk-thomas.net
+License: Apache License, Version 2.0
+Project-URL: Changelog, https://github.com/colcon/colcon-metadata/milestones?direction=desc&sort=due_date&state=closed
+Project-URL: GitHub, https://github.com/colcon/colcon-metadata/
+Keywords: colcon
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Plugins
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: MacOS
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX
+Classifier: Programming Language :: Python
+Classifier: Topic :: Software Development :: Build Tools
+Requires-Dist: PyYAML
+Requires-Dist: colcon-core
+
+colcon-metadata
+===============
+
+An extension for `colcon-core <https://github.com/colcon/colcon-core>`_ to fetch and manage package metadata from repositories.
+
+For an example repository containing metadata see `colcon-metadata-repository <https://github.com/colcon/colcon-metadata-repository>`_.
+
+

@@ -70,7 +70,7 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../ad_rss_map_integration/Main/">Overview</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../ad_rss_map_integration/ConstructRSSScenes/">Construction of the RSS Scenes</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../ad_rss_map_integration/ConstructRSSConstellations/">Construction of the RSS Constellations</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../ad_rss_map_integration/HandleRoadBoundaries/">Handling of road boundaries</a>
                   </li>
@@ -135,11 +135,71 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h2 id="latest-changes">Latest changes<a class="headerlink" href="#latest-changes" title="Permanent link">&para;</a></h2>
+                <h2 id="release-500">Release 5.0.0<a class="headerlink" href="#release-500" title="Permanent link">&para;</a></h2>
+<h4 id="new-features"><img alt="🚀" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f680.png" title=":rocket:" /> New Features<a class="headerlink" href="#new-features" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Added a min_longitudinal_safety_distance to world::RssDynamics structure parameter to provide a lower bound for the resulting longitudinal safe distance</li>
+<li>Extend capabilities for system integration:<ul>
+<li>Added ad::rss:<img alt="🗺️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f5fa.png" title=":map:" />:RssObjectAdapter classes as generic data inferfaces to the user implementation for RSS checks</li>
+<li>Added ad::rss:<img alt="🗺️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f5fa.png" title=":map:" />:RssRouteCheckerObjectData classes interacting with respective ad::rss:<img alt="🗺️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f5fa.png" title=":map:" />:RssObjectAdapter classes
+  to handle apspects like map matching, route prediction/route planning along a given set of routing targets,
+  route shortening/extending, calculating vehicle dynamics on the route.</li>
+<li>Added ad::rss:<img alt="🗺️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f5fa.png" title=":map:" />:RssRouteChecker class to handle RSS checks on multiple routes in an efficient manner
+  with support for multiple ego-vehicles at once. The class takes care on variying numbers of route predictions
+  over time (duplicating rss checkers if required) to support more than one RSS situation per ego vehicle
+  (one RSS situation per ego-route prediction). This opens the possiblilty for RSS checking on global scope
+  i.e. from an infrastructure point of view, where a concrete ego-route might not be available.
+  Includes artificial object injection callback to inject artificial objects into the calculation.</li>
+<li>Mechanisms to speed up:<ul>
+<li>Added mechanisms to improve reusability of calculated data (speed up)</li>
+<li>Added possibililty to restrict operation on certain map areas (speed up)</li>
+<li>Enabled parallel calculations</li>
+</ul>
+</li>
+<li>Allow injection of artificial objects (e.g. to handle occlusions based on ad:<img alt="🗺️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f5fa.png" title=":map:" />:match::LaneOccupiedRegionList)</li>
+<li>RssReachableSetsCalculation: Allow injection of method to calculate/manipulate the unstructured trajectory sets (e.g. to cut off parts outside the road)</li>
+<li>Introduced :<img alt="🇦🇩" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f1e6-1f1e9.png" title=":ad:" />:rss::world::ObjectType::Bicycle</li>
+</ul>
+</li>
+</ul>
 <h4 id="maintenance"><img alt="👻" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f47b.png" title=":ghost:" /> Maintenance<a class="headerlink" href="#maintenance" title="Permanent link">&para;</a></h4>
 <ul>
+<li>Support newer colcon, cmake, boost, gcc-13, clang-18 and Ubuntu 24.04</li>
+<li>Support newer spdlog: adding formatters for datatype logging</li>
+<li>Harmonize CXX standard to 17</li>
+<li>Covering Python versions 3.10-3.13</li>
+<li>Disable outdated Ubuntu builds (18.04, 20.04)</li>
 <li>Improve security of github actions</li>
-<li>Disable Ubuntu 18.04 builds</li>
+<li>Adapt naming to conform to the well defined terms of 'situation' and 'scene' within the context of AD (see e.g. SAE J3131).
+  In general, the input to the core RSS calculations, the ad::rss::world::WorldModel describes a RSS situation
+  which contains constellations describing the ego vehicle in respect to one other object.
+  The constellation can be of structured or unstructured nature. This clarification has a bigger influence on the naming
+  of functions, variables, and class members:<ul>
+<li>Removed the namespace 'situation' and distributed the content into the namespaces 'core', 'structured' and 'unstructured'</li>
+<li>Most occurances of 'situation', 'Situation', 'scene' or 'Scene' within any naming have been replaced
+  by the term 'constellation' in case the usage of them didn't match the general meaning of these terms as stated above</li>
+<li>ad/rss/situation/Phyisc.hpp -&gt; ad/rss/core/Phyisc.hpp</li>
+<li>ad/rss/situation/RssFormulas.hpp -&gt; ad/rss/structured/RssFormulas.hpp</li>
+<li>Most prominent type changes:<ul>
+<li>ad::rss::situation::SituationSnapshot -&gt; ad::rss::core::RssSituationSnapshot</li>
+<li>ad::rss::world::Scene -&gt; ad::rss::world::Constellation (describing the constellation from outside point of view)</li>
+<li>ad::rss::situation::SituationType -&gt; ad::rss::world::ConstellationType</li>
+<li>ad::rss::situation::Situation -&gt; ad::rss::core::RelativeConstellation (describing the constellation in relative form for usage inside core calculations)</li>
+<li>ad::rss::situation::SituationId -&gt; ad::rss::core::RelativeConstellationId</li>
+<li>ad::rss::situation::VehicleState -&gt; ad::rss::core::RelativeObjectState (describing the object in relative form for usage inside core calculations)
+  where the old members of VehicleState only relevant in structured constellations are now collected wihin the new ad::rss::core::StructuredObjectState</li>
+<li>'UnstructuredScene' -&gt; 'UnstructuredConstellation'</li>
+<li>ad::rss:<img alt="🗺️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f5fa.png" title=":map:" />:RssSceneCreation -&gt; ad::rss:<img alt="🗺️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f5fa.png" title=":map:" />:RssWorldModelCreation  (appendScenes() -&gt; appendConstellations())</li>
+<li>ad::rss:<img alt="🗺️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f5fa.png" title=":map:" />:RssSceneCreation::RestrictSpeedLimitMode -&gt; ad::rss:<img alt="🗺️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f5fa.png" title=":map:" />:RssRestrictSpeedLimitMode</li>
+<li>ad::rss:<img alt="🗺️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f5fa.png" title=":map:" />:RssSceneCreation::AppendRoadBoundariesMode -&gt; ad::rss:<img alt="🗺️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f5fa.png" title=":map:" />:RssAppendRoadBoundariesMode</li>
+<li>ad::rss:<img alt="🗺️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f5fa.png" title=":map:" />:RssMode -&gt; ad::rss:<img alt="🗺️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f5fa.png" title=":map:" />:RssConstellationCreationMode</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Move headers of ad_rss into the public folders and removed unnecessary std::unique_ptr from implemenation. This enables to create
+straight forward copies of the :<img alt="🇦🇩" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f1e6-1f1e9.png" title=":ad:" />:rss::core::RssCheck objects.</li>
+<li>Move some geometry calculations</li>
 </ul>
 <h2 id="release-453">Release 4.5.3<a class="headerlink" href="#release-453" title="Permanent link">&para;</a></h2>
 <h4 id="maintenance_1"><img alt="👻" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f47b.png" title=":ghost:" /> Maintenance<a class="headerlink" href="#maintenance_1" title="Permanent link">&para;</a></h4>
@@ -159,7 +219,7 @@
 <li>Update map to v2.6.0</li>
 </ul>
 <h2 id="release-450">Release 4.5.0<a class="headerlink" href="#release-450" title="Permanent link">&para;</a></h2>
-<h4 id="new-features"><img alt="🚀" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f680.png" title=":rocket:" /> New Features<a class="headerlink" href="#new-features" title="Permanent link">&para;</a></h4>
+<h4 id="new-features_1"><img alt="🚀" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f680.png" title=":rocket:" /> New Features<a class="headerlink" href="#new-features_1" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Remove Ubuntu 16.04 support</li>
 <li>Add creation of python wheels</li>
@@ -184,8 +244,7 @@
 <li>Updated ad_map_access to v2.4.5</li>
 <li>Use target python version for build</li>
 <li>Fix: Ensure maxSpeedOnAcceleration only limits the actual acceleration while reponse time.</li>
-<li><code>python_wrapper_helper.py</code> is now generated by cmake so that it uses the
-proper C++ standard.</li>
+<li><code>python_wrapper_helper.py</code> is now generated by cmake so that it uses the proper C++ standard.</li>
 </ul>
 <h2 id="release-440">Release 4.4.0<a class="headerlink" href="#release-440" title="Permanent link">&para;</a></h2>
 <h4 id="maintenance_7"><img alt="👻" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f47b.png" title=":ghost:" /> Maintenance<a class="headerlink" href="#maintenance_7" title="Permanent link">&para;</a></h4>
@@ -218,7 +277,7 @@ proper C++ standard.</li>
 <li>Fixed version number of ad_rss_map_integration</li>
 </ul>
 <h2 id="release-400">Release 4.0.0<a class="headerlink" href="#release-400" title="Permanent link">&para;</a></h2>
-<h4 id="new-features_1"><img alt="🚀" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f680.png" title=":rocket:" /> New Features<a class="headerlink" href="#new-features_1" title="Permanent link">&para;</a></h4>
+<h4 id="new-features_2"><img alt="🚀" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f680.png" title=":rocket:" /> New Features<a class="headerlink" href="#new-features_2" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Support of unstructured scenes/pedestrians<ul>
 <li>Extended <code>ad::rss::situation::SituationType</code> by <code>Unstructured</code> value</li>
@@ -266,7 +325,7 @@ proper C++ standard.</li>
 <li>Fixed clang-8 and gcc-9 build</li>
 </ul>
 <h2 id="release-300">Release 3.0.0<a class="headerlink" href="#release-300" title="Permanent link">&para;</a></h2>
-<h4 id="new-features_2"><img alt="🚀" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f680.png" title=":rocket:" /> New Features<a class="headerlink" href="#new-features_2" title="Permanent link">&para;</a></h4>
+<h4 id="new-features_3"><img alt="🚀" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f680.png" title=":rocket:" /> New Features<a class="headerlink" href="#new-features_3" title="Permanent link">&para;</a></h4>
 <ul>
 <li>In preparation of the integration of unstructured scenes:<ul>
 <li>Deceleration values are given as negative values from now on</li>
@@ -296,7 +355,7 @@ proper C++ standard.</li>
 <li>Adaptions for python binding built to support newer boost versions as well as multiple python versions at the same time</li>
 </ul>
 <h2 id="release-200">Release 2.0.0<a class="headerlink" href="#release-200" title="Permanent link">&para;</a></h2>
-<h4 id="new-features_3"><img alt="🚀" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f680.png" title=":rocket:" /> New Features<a class="headerlink" href="#new-features_3" title="Permanent link">&para;</a></h4>
+<h4 id="new-features_4"><img alt="🚀" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f680.png" title=":rocket:" /> New Features<a class="headerlink" href="#new-features_4" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Added Integrating RSS with automated driving maps (ad_rss_map_integration)</li>
 <li>Added logging support with spdlog</li>
@@ -321,7 +380,7 @@ proper C++ standard.</li>
 <li>Added ObjectIDVector support to Python binding</li>
 </ul>
 <h2 id="release-160">Release 1.6.0<a class="headerlink" href="#release-160" title="Permanent link">&para;</a></h2>
-<h4 id="new-features_4"><img alt="🚀" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f680.png" title=":rocket:" /> New Features<a class="headerlink" href="#new-features_4" title="Permanent link">&para;</a></h4>
+<h4 id="new-features_5"><img alt="🚀" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f680.png" title=":rocket:" /> New Features<a class="headerlink" href="#new-features_5" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Added Python binding</li>
 </ul>

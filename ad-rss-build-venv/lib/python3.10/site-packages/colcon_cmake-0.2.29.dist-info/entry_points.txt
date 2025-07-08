@@ -1,0 +1,26 @@
+[colcon_argcomplete.argcomplete_completer]
+cmake_args = colcon_cmake.argcomplete_completer.cmake_args:CmakeArgcompleteCompleter
+
+[colcon_core.environment]
+cmake_module_path = colcon_cmake.environment.cmake_module_path:CmakeModulePathEnvironment
+cmake_prefix_path = colcon_cmake.environment.cmake_prefix_path:CmakePrefixPathEnvironment
+
+[colcon_core.environment_variable]
+cmake_command = colcon_cmake.task.cmake:CMAKE_COMMAND_ENVIRONMENT_VARIABLE
+ctest_command = colcon_cmake.task.cmake:CTEST_COMMAND_ENVIRONMENT_VARIABLE
+
+[colcon_core.event_handler]
+compile_commands = colcon_cmake.event_handler.compile_commands:CompileCommandsEventHandler
+
+[colcon_core.package_identification]
+cmake = colcon_cmake.package_identification.cmake:CmakePackageIdentification
+
+[colcon_core.task.build]
+cmake = colcon_cmake.task.cmake.build:CmakeBuildTask
+
+[colcon_core.task.test]
+cmake = colcon_cmake.task.cmake.test:CmakeTestTask
+
+[colcon_test_result.test_result]
+ctest = colcon_cmake.test_result.ctest:CtestTestResult
+

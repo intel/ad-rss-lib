@@ -1,0 +1,6 @@
+[colcon_core.environment_variable]
+powershell_command = colcon_powershell.shell.powershell:POWERSHELL_COMMAND_ENVIRONMENT_VARIABLE
+
+[colcon_core.shell]
+powershell = colcon_powershell.shell.powershell:PowerShellExtension
+

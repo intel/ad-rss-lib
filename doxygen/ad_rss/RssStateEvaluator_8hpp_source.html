@@ -72,7 +72,7 @@ $(function() {
 <a href="RssStateEvaluator_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * ----------------- BEGIN LICENSE BLOCK ---------------------------------</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * Copyright (C) 2018-2020 Intel Corporation</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * Copyright (C) 2018-2022 Intel Corporation</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> *</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> * SPDX-License-Identifier: LGPL-2.1-only</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> *</span></div>
@@ -84,70 +84,81 @@ $(function() {
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacead.html">ad</a> {</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">namespace </span>rss {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">namespace </span>state {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5">   41</a></span>&#160;<span class="keyword">enum class</span> <a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5">RssStateEvaluator</a> : int32_t</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;{</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0,</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5a058b337860ed84be29a53dfe791ff63a">LongitudinalDistanceOppositeDirectionEgoCorrectLane</a> = 1,</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5a7094123a0b1571ac7d987fdbbe6cd564">LongitudinalDistanceOppositeDirection</a> = 2,</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5a99ce2e77797bc64afe07ce8a9616d36f">LongitudinalDistanceSameDirectionEgoFront</a> = 3,</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5a53abeab5ba270ac66ca20d37de72090c">LongitudinalDistanceSameDirectionOtherInFront</a> = 4,</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5a741358c1526273b8b66d7f2aedc76c69">LateralDistance</a> = 5,</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  <a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5aacdadb9f62be8fc92f4f9dce042ba1ef">IntersectionOtherPriorityEgoAbleToStop</a> = 6,</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  <a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5a66942e92e2e117d3327ee6d387aafe35">IntersectionEgoPriorityOtherAbleToStop</a> = 7,</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  <a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5aa1dc72fc9124fbabf282d36bf9475183">IntersectionEgoInFront</a> = 8,</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  <a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5a1d101460d912711d6cce551a2882a7bf">IntersectionOtherInFront</a> = 9,</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5ac2398a0e94327b9e5e5b0de3b662bfd4">IntersectionOverlap</a> = 10</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;};</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;} <span class="comment">// namespace state</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;} <span class="comment">// namespace rss</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;} <span class="comment">// namespace ad</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="RssStateEvaluator_8hpp.html#a90d6dbe475d1fc881053e4350777537a">  105</a></span>&#160;<span class="comment"></span>std::string <a class="code" href="RssStateEvaluator_8hpp.html#a90d6dbe475d1fc881053e4350777537a">toString</a>(::<a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5">ad::rss::state::RssStateEvaluator</a> <span class="keyword">const</span> e);</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00125"></a><span class="lineno"><a class="line" href="RssStateEvaluator_8hpp.html#a0f27b88c1ff34782cd8e98a09e2871cb">  125</a></span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> EnumType&gt; EnumType <a class="code" href="RssStateEvaluator_8hpp.html#a0f27b88c1ff34782cd8e98a09e2871cb">fromString</a>(std::string <span class="keyword">const</span> &amp;str);</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
-<div class="line"><a name="l00145"></a><span class="lineno"><a class="line" href="RssStateEvaluator_8hpp.html#adb4816e68c2b866f5c94694aa21d2b1a">  145</a></span>&#160;<a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5">template &lt;&gt;::ad::rss::state::RssStateEvaluator</a> <a class="code" href="RssStateEvaluator_8hpp.html#a0f27b88c1ff34782cd8e98a09e2871cb">fromString</a>(std::string <span class="keyword">const</span> &amp;str);</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="preprocessor">#ifndef GEN_GUARD_AD_RSS_STATE_RSSSTATEEVALUATOR</span></div>
-<div class="line"><a name="l00151"></a><span class="lineno"><a class="line" href="RssStateEvaluator_8hpp.html#adb05d251c1413eceb2ab8650bf53e7b5">  151</a></span>&#160;<span class="preprocessor">#define GEN_GUARD_AD_RSS_STATE_RSSSTATEEVALUATOR</span></div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacead.html">ad</a> {</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="keyword">namespace </span>rss {</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="keyword">namespace </span>state {</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
-<div class="line"><a name="l00174"></a><span class="lineno"><a class="line" href="namespacead_1_1rss_1_1state.html#af8f4f3af5bea6a27957f1b16eb9fefed">  174</a></span>&#160;<span class="keyword">inline</span> std::ostream &amp;<a class="code" href="namespacead_1_1rss_1_1state.html#abfd72a8b98d9be6ce688d67d4f098899">operator&lt;&lt;</a>(std::ostream &amp;os, <a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5">RssStateEvaluator</a> <span class="keyword">const</span> &amp;value)</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;{</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;  <span class="keywordflow">return</span> os &lt;&lt; <a class="code" href="RssStateEvaluator_8hpp.html#a90d6dbe475d1fc881053e4350777537a">toString</a>(value);</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;}</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160; </div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;} <span class="comment">// namespace state</span></div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;} <span class="comment">// namespace rss</span></div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;} <span class="comment">// namespace ad</span></div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160; </div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;<span class="keyword">namespace </span>std {</div>
-<div class="line"><a name="l00187"></a><span class="lineno"><a class="line" href="RssStateEvaluator_8hpp.html#ac7121593975f5ef5182b140aa0a271a6">  187</a></span>&#160;<span class="keyword">inline</span> std::string <a class="code" href="LateralRelativePosition_8hpp.html#ab3bd76bb498071eaf34f45371cc19c03">to_string</a>(::<a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5">ad::rss::state::RssStateEvaluator</a> <span class="keyword">const</span> &amp;value)</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;{</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;  <a class="code" href="RssStateEvaluator_8hpp.html#a90d6dbe475d1fc881053e4350777537a">return ::toString</a>(value);</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;}</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;} <span class="comment">// namespace std</span></div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// GEN_GUARD_AD_RSS_STATE_RSSSTATEEVALUATOR</span></div>
-<div class="ttc" id="aLateralRelativePosition_8hpp_html_ab3bd76bb498071eaf34f45371cc19c03"><div class="ttname"><a href="LateralRelativePosition_8hpp.html#ab3bd76bb498071eaf34f45371cc19c03">std::to_string</a></div><div class="ttdeci">std::string to_string(::ad::rss::situation::LateralRelativePosition const &amp;value)</div><div class="ttdoc">overload of the std::to_string for LateralRelativePosition</div><div class="ttdef"><b>Definition:</b> LateralRelativePosition.hpp:160</div></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &quot;spdlog/fmt/ostr.h&quot;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &quot;spdlog/spdlog.h&quot;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacead.html">ad</a> {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">namespace </span>rss {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">namespace </span>state {</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5">   43</a></span>&#160;<span class="keyword">enum class</span> <a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5">RssStateEvaluator</a> : int32_t</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;{</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0,</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5a058b337860ed84be29a53dfe791ff63a">LongitudinalDistanceOppositeDirectionEgoCorrectLane</a> = 1,</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5a7094123a0b1571ac7d987fdbbe6cd564">LongitudinalDistanceOppositeDirection</a> = 2,</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5a99ce2e77797bc64afe07ce8a9616d36f">LongitudinalDistanceSameDirectionEgoFront</a> = 3,</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5a53abeab5ba270ac66ca20d37de72090c">LongitudinalDistanceSameDirectionOtherInFront</a> = 4,</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5a741358c1526273b8b66d7f2aedc76c69">LateralDistance</a> = 5,</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5aacdadb9f62be8fc92f4f9dce042ba1ef">IntersectionOtherPriorityEgoAbleToStop</a> = 6,</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5a66942e92e2e117d3327ee6d387aafe35">IntersectionEgoPriorityOtherAbleToStop</a> = 7,</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  <a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5aa1dc72fc9124fbabf282d36bf9475183">IntersectionEgoInFront</a> = 8,</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  <a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5a1d101460d912711d6cce551a2882a7bf">IntersectionOtherInFront</a> = 9,</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  <a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5ac2398a0e94327b9e5e5b0de3b662bfd4">IntersectionOverlap</a> = 10</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;};</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;} <span class="comment">// namespace state</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;} <span class="comment">// namespace rss</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;} <span class="comment">// namespace ad</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="RssStateEvaluator_8hpp.html#a90d6dbe475d1fc881053e4350777537a">  107</a></span>&#160;<span class="comment"></span>std::string <a class="code" href="RssStateEvaluator_8hpp.html#a90d6dbe475d1fc881053e4350777537a">toString</a>(::<a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5">ad::rss::state::RssStateEvaluator</a> <span class="keyword">const</span> e);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00127"></a><span class="lineno"><a class="line" href="RssStateEvaluator_8hpp.html#a0f27b88c1ff34782cd8e98a09e2871cb">  127</a></span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> EnumType&gt; EnumType <a class="code" href="RssStateEvaluator_8hpp.html#a0f27b88c1ff34782cd8e98a09e2871cb">fromString</a>(std::string <span class="keyword">const</span> &amp;str);</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
+<div class="line"><a name="l00147"></a><span class="lineno"><a class="line" href="RssStateEvaluator_8hpp.html#adb4816e68c2b866f5c94694aa21d2b1a">  147</a></span>&#160;<a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5">template &lt;&gt;::ad::rss::state::RssStateEvaluator</a> <a class="code" href="RssStateEvaluator_8hpp.html#a0f27b88c1ff34782cd8e98a09e2871cb">fromString</a>(std::string <span class="keyword">const</span> &amp;str);</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="preprocessor">#ifndef GEN_GUARD_AD_RSS_STATE_RSSSTATEEVALUATOR</span></div>
+<div class="line"><a name="l00153"></a><span class="lineno"><a class="line" href="RssStateEvaluator_8hpp.html#adb05d251c1413eceb2ab8650bf53e7b5">  153</a></span>&#160;<span class="preprocessor">#define GEN_GUARD_AD_RSS_STATE_RSSSTATEEVALUATOR</span></div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacead.html">ad</a> {</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="keyword">namespace </span>rss {</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="keyword">namespace </span>state {</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160; </div>
+<div class="line"><a name="l00176"></a><span class="lineno"><a class="line" href="namespacead_1_1rss_1_1state.html#af8f4f3af5bea6a27957f1b16eb9fefed">  176</a></span>&#160;<span class="keyword">inline</span> std::ostream &amp;<a class="code" href="namespacead_1_1rss_1_1state.html#abfd72a8b98d9be6ce688d67d4f098899">operator&lt;&lt;</a>(std::ostream &amp;os, <a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5">RssStateEvaluator</a> <span class="keyword">const</span> &amp;value)</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;{</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;  <span class="keywordflow">return</span> os &lt;&lt; <a class="code" href="RssStateEvaluator_8hpp.html#a90d6dbe475d1fc881053e4350777537a">toString</a>(value);</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;}</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; </div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;} <span class="comment">// namespace state</span></div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;} <span class="comment">// namespace rss</span></div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;} <span class="comment">// namespace ad</span></div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; </div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;<span class="keyword">namespace </span>std {</div>
+<div class="line"><a name="l00189"></a><span class="lineno"><a class="line" href="RssStateEvaluator_8hpp.html#ac7121593975f5ef5182b140aa0a271a6">  189</a></span>&#160;<span class="keyword">inline</span> std::string <a class="code" href="LateralRelativePosition_8hpp.html#a66101ee8166a3476ff840449b40c4006">to_string</a>(::<a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5">ad::rss::state::RssStateEvaluator</a> <span class="keyword">const</span> &amp;value)</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;{</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;  <a class="code" href="RssStateEvaluator_8hpp.html#a90d6dbe475d1fc881053e4350777537a">return ::toString</a>(value);</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;}</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;} <span class="comment">// namespace std</span></div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160; </div>
+<div class="line"><a name="l00198"></a><span class="lineno"><a class="line" href="structfmt_1_1formatter_3_1_1ad_1_1rss_1_1state_1_1RssStateEvaluator_01_4.html">  198</a></span>&#160;<span class="keyword">template</span> &lt;&gt; <span class="keyword">struct </span>fmt::formatter&lt;::<a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5">ad::rss::state::RssStateEvaluator</a>&gt; : formatter&lt;string_view&gt;</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;{</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> FormatContext&gt; <span class="keyword">auto</span> format(::<a class="code" href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5">ad::rss::state::RssStateEvaluator</a> <span class="keyword">const</span> &amp;value, FormatContext &amp;ctx)</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;  {</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    <span class="keywordflow">return</span> formatter&lt;string_view&gt;::format(std::to_string(value), ctx);</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;  }</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;};</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160; </div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// GEN_GUARD_AD_RSS_STATE_RSSSTATEEVALUATOR</span></div>
+<div class="ttc" id="aLateralRelativePosition_8hpp_html_a66101ee8166a3476ff840449b40c4006"><div class="ttname"><a href="LateralRelativePosition_8hpp.html#a66101ee8166a3476ff840449b40c4006">std::to_string</a></div><div class="ttdeci">std::string to_string(::ad::rss::core::LateralRelativePosition const &amp;value)</div><div class="ttdoc">overload of the std::to_string for LateralRelativePosition</div><div class="ttdef"><b>Definition:</b> LateralRelativePosition.hpp:162</div></div>
 <div class="ttc" id="aRssStateEvaluator_8hpp_html_a0f27b88c1ff34782cd8e98a09e2871cb"><div class="ttname"><a href="RssStateEvaluator_8hpp.html#a0f27b88c1ff34782cd8e98a09e2871cb">fromString</a></div><div class="ttdeci">EnumType fromString(std::string const &amp;str)</div><div class="ttdoc">Conversion from std::string to enum type T helper.</div></div>
 <div class="ttc" id="aRssStateEvaluator_8hpp_html_a90d6dbe475d1fc881053e4350777537a"><div class="ttname"><a href="RssStateEvaluator_8hpp.html#a90d6dbe475d1fc881053e4350777537a">toString</a></div><div class="ttdeci">std::string toString(::ad::rss::state::RssStateEvaluator const e)</div><div class="ttdoc">Conversion of ad::rss::state::RssStateEvaluator to std::string helper.</div></div>
-<div class="ttc" id="anamespacead_1_1rss_1_1state_html_a5b007993305e5a954a3f844b9af9fdc5"><div class="ttname"><a href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5">ad::rss::state::RssStateEvaluator</a></div><div class="ttdeci">RssStateEvaluator</div><div class="ttdoc">DataType RssStateEvaluator.</div><div class="ttdef"><b>Definition:</b> RssStateEvaluator.hpp:42</div></div>
+<div class="ttc" id="anamespacead_1_1rss_1_1state_html_a5b007993305e5a954a3f844b9af9fdc5"><div class="ttname"><a href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5">ad::rss::state::RssStateEvaluator</a></div><div class="ttdeci">RssStateEvaluator</div><div class="ttdoc">DataType RssStateEvaluator.</div><div class="ttdef"><b>Definition:</b> RssStateEvaluator.hpp:44</div></div>
 <div class="ttc" id="anamespacead_1_1rss_1_1state_html_a5b007993305e5a954a3f844b9af9fdc5a058b337860ed84be29a53dfe791ff63a"><div class="ttname"><a href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5a058b337860ed84be29a53dfe791ff63a">ad::rss::state::RssStateEvaluator::LongitudinalDistanceOppositeDirectionEgoCorrectLane</a></div><div class="ttdeci">@ LongitudinalDistanceOppositeDirectionEgoCorrectLane</div></div>
 <div class="ttc" id="anamespacead_1_1rss_1_1state_html_a5b007993305e5a954a3f844b9af9fdc5a1d101460d912711d6cce551a2882a7bf"><div class="ttname"><a href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5a1d101460d912711d6cce551a2882a7bf">ad::rss::state::RssStateEvaluator::IntersectionOtherInFront</a></div><div class="ttdeci">@ IntersectionOtherInFront</div></div>
 <div class="ttc" id="anamespacead_1_1rss_1_1state_html_a5b007993305e5a954a3f844b9af9fdc5a53abeab5ba270ac66ca20d37de72090c"><div class="ttname"><a href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5a53abeab5ba270ac66ca20d37de72090c">ad::rss::state::RssStateEvaluator::LongitudinalDistanceSameDirectionOtherInFront</a></div><div class="ttdeci">@ LongitudinalDistanceSameDirectionOtherInFront</div></div>
@@ -160,7 +171,7 @@ $(function() {
 <div class="ttc" id="anamespacead_1_1rss_1_1state_html_a5b007993305e5a954a3f844b9af9fdc5aacdadb9f62be8fc92f4f9dce042ba1ef"><div class="ttname"><a href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5aacdadb9f62be8fc92f4f9dce042ba1ef">ad::rss::state::RssStateEvaluator::IntersectionOtherPriorityEgoAbleToStop</a></div><div class="ttdeci">@ IntersectionOtherPriorityEgoAbleToStop</div></div>
 <div class="ttc" id="anamespacead_1_1rss_1_1state_html_a5b007993305e5a954a3f844b9af9fdc5ac2398a0e94327b9e5e5b0de3b662bfd4"><div class="ttname"><a href="namespacead_1_1rss_1_1state.html#a5b007993305e5a954a3f844b9af9fdc5ac2398a0e94327b9e5e5b0de3b662bfd4">ad::rss::state::RssStateEvaluator::IntersectionOverlap</a></div><div class="ttdeci">@ IntersectionOverlap</div></div>
 <div class="ttc" id="anamespacead_1_1rss_1_1state_html_abfd72a8b98d9be6ce688d67d4f098899"><div class="ttname"><a href="namespacead_1_1rss_1_1state.html#abfd72a8b98d9be6ce688d67d4f098899">ad::rss::state::operator&lt;&lt;</a></div><div class="ttdeci">std::ostream &amp; operator&lt;&lt;(std::ostream &amp;os, AccelerationRestriction const &amp;_value)</div><div class="ttdoc">standard ostream operator</div><div class="ttdef"><b>Definition:</b> AccelerationRestriction.hpp:164</div></div>
-<div class="ttc" id="anamespacead_html"><div class="ttname"><a href="namespacead.html">ad</a></div><div class="ttdoc">namespace ad</div><div class="ttdef"><b>Definition:</b> LateralRelativePosition.hpp:26</div></div>
+<div class="ttc" id="anamespacead_html"><div class="ttname"><a href="namespacead.html">ad</a></div><div class="ttdoc">namespace ad</div><div class="ttdef"><b>Definition:</b> LateralRelativePosition.hpp:28</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

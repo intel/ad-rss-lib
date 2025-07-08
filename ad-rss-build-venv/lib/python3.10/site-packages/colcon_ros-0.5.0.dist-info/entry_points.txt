@@ -1,0 +1,33 @@
+[colcon_argcomplete.argcomplete_completer]
+catkin_cmake_args = colcon_ros.argcomplete_completer.catkin_cmake_args:CatkinCmakeArgcompleteCompleter
+
+[colcon_core.package_augmentation]
+ros = colcon_ros.package_identification.ros:RosPackageIdentification
+ros_ament_python = colcon_ros.package_augmentation.ros_ament_python:RosAmentPythonPackageAugmentation
+
+[colcon_core.package_identification]
+ignore_ament_install = colcon_ros.package_identification.ignore:IgnorePackageIdentification
+ros = colcon_ros.package_identification.ros:RosPackageIdentification
+
+[colcon_core.prefix_path]
+ament = colcon_ros.prefix_path.ament:AmentPrefixPath
+catkin = colcon_ros.prefix_path.catkin:CmakePrefixPath
+
+[colcon_core.shell.find_installed_packages]
+ament = colcon_ros.installed_packages:AmentInstalledPackageFinder
+
+[colcon_core.task.build]
+ros.ament_cmake = colcon_ros.task.ament_cmake.build:AmentCmakeBuildTask
+ros.ament_python = colcon_ros.task.ament_python.build:AmentPythonBuildTask
+ros.catkin = colcon_ros.task.catkin.build:CatkinBuildTask
+ros.cmake = colcon_ros.task.cmake.build:CmakeBuildTask
+
+[colcon_core.task.test]
+ros.ament_cmake = colcon_ros.task.ament_cmake.test:AmentCmakeTestTask
+ros.ament_python = colcon_ros.task.ament_python.test:AmentPythonTestTask
+ros.catkin = colcon_ros.task.catkin.test:CatkinTestTask
+ros.cmake = colcon_ros.task.cmake.test:CmakeTestTask
+
+[colcon_installed_package_information.package_augmentation]
+ros_ament_index = colcon_ros.package_augmentation.ros_ament_index:RosAmentIndexPackageAugmentation
+

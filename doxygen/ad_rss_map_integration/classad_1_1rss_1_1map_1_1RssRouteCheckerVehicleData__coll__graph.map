@@ -1,0 +1,12 @@
+<map id="ad::rss::map::RssRouteCheckerVehicleData&lt; OBJECT_INSTANCE_TYPE &gt;" name="ad::rss::map::RssRouteCheckerVehicleData&lt; OBJECT_INSTANCE_TYPE &gt;">
+<area shape="rect" id="node1" title="Class to store data of RssVehicleAdapter." alt="" coords="1160,97,1449,139"/>
+<area shape="rect" id="node2" href="$classad_1_1rss_1_1map_1_1RssRouteCheckerObjectData.html" title="Class to store data of RssObjectAdapter." alt="" coords="773,5,996,47"/>
+<area shape="rect" id="node3" href="$structad_1_1rss_1_1map_1_1RssObjectData.html" title="DataType RssObjectData." alt="" coords="405,13,612,39"/>
+<area shape="rect" id="node4" title=" " alt="" coords="806,71,963,98"/>
+<area shape="rect" id="node5" title=" " alt="" coords="489,71,528,98"/>
+<area shape="rect" id="node6" title=" " alt="" coords="808,123,961,164"/>
+<area shape="rect" id="node7" href="$structad_1_1rss_1_1map_1_1RssRoute.html" title="DataType RssRoute." alt="" coords="423,130,594,157"/>
+<area shape="rect" id="node8" href="$structad_1_1rss_1_1map_1_1RssEgoVehicleDynamicsOnRoute.html" title="DataType RssEgoVehicleDynamicsOnRoute." alt="" coords="7,89,211,131"/>
+<area shape="rect" id="node9" href="$structad_1_1rss_1_1map_1_1RssObjectDataOnRoute.html" title="DataType RssObjectDataOnRoute." alt="" coords="5,155,212,196"/>
+<area shape="rect" id="node10" title=" " alt="" coords="803,188,966,229"/>
+</map>

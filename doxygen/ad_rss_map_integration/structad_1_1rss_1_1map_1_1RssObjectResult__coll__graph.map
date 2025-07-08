@@ -1,0 +1,10 @@
+<map id="ad::rss::map::RssObjectResult" name="ad::rss::map::RssObjectResult">
+<area shape="rect" id="node1" title="DataType RssObjectResult." alt="" coords="189,436,405,463"/>
+<area shape="rect" id="node2" title=" " alt="" coords="65,332,289,373"/>
+<area shape="rect" id="node3" href="$structad_1_1rss_1_1map_1_1RssRouteCheckResult.html" title="DataType RssRouteCheckResult." alt="" coords="72,228,283,269"/>
+<area shape="rect" id="node4" href="$structad_1_1rss_1_1map_1_1RssRouteCheckResultAnalysis.html" title="DataType RssRouteCheckResultAnalysis." alt="" coords="5,124,216,165"/>
+<area shape="rect" id="node5" href="$structad_1_1rss_1_1map_1_1RssRoute.html" title="DataType RssRoute." alt="" coords="240,131,411,158"/>
+<area shape="rect" id="node6" href="$structad_1_1rss_1_1map_1_1RssEgoVehicleDynamicsOnRoute.html" title="DataType RssEgoVehicleDynamicsOnRoute." alt="" coords="109,5,313,47"/>
+<area shape="rect" id="node7" href="$structad_1_1rss_1_1map_1_1RssObjectDataOnRoute.html" title="DataType RssObjectDataOnRoute." alt="" coords="337,5,543,47"/>
+<area shape="rect" id="node8" href="$structad_1_1rss_1_1map_1_1RssObjectData.html" title="DataType RssObjectData." alt="" coords="314,339,521,366"/>
+</map>

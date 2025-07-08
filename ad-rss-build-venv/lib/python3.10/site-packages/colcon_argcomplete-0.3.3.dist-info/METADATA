@@ -1,0 +1,31 @@
+Metadata-Version: 2.1
+Name: colcon-argcomplete
+Version: 0.3.3
+Summary: Completion for colcon command lines using argcomplete.
+Home-page: https://colcon.readthedocs.io
+Author: Dirk Thomas
+Author-email: web@dirk-thomas.net
+Maintainer: Dirk Thomas
+Maintainer-email: web@dirk-thomas.net
+License: Apache License, Version 2.0
+Project-URL: Changelog, https://github.com/colcon/colcon-argcomplete/milestones?direction=desc&sort=due_date&state=closed
+Project-URL: GitHub, https://github.com/colcon/colcon-argcomplete/
+Keywords: colcon
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Plugins
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: MacOS
+Classifier: Operating System :: POSIX
+Classifier: Programming Language :: Python
+Classifier: Topic :: Software Development :: Build Tools
+Requires-Dist: argcomplete
+Requires-Dist: colcon-core
+
+colcon-argcomplete
+==================
+
+An extension for `colcon-core <https://github.com/colcon/colcon-core>`_ to provide command line completion using `argcomplete <https://github.com/kislyuk/argcomplete>`_.
+
+
