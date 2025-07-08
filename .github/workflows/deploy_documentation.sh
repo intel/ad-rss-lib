@@ -34,7 +34,7 @@ rm -rf build
 rm -rf coverage_tmp
 rm -rf install
 rm -rf log
-rm -rf as-rss-build-venv
+rm -rf ad-rss-build-venv
 
 # commit
 git add -f .
