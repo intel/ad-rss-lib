@@ -8,3 +8,8 @@ updates:
     directory: /.github/
     schedule:
       interval: weekly
+
+  - package-ecosystem: pip
+    directory: /.github/workflows
+    schedule:
+      interval: daily
