@@ -74,4 +74,4 @@ jobs:
         if: ${{ github.event_name == 'release'}}
         with:
           packages-dir: wheelhouse/ad_rss
-          repository-url: https://pypi.org/p/ad-rss/
+          repository-url: https://upload.pypi.org/legacy/ad-rss/

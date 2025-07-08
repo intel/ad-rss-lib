@@ -74,4 +74,4 @@ jobs:
         if: ${{ github.event_name == 'release'}}
         with:
           packages-dir: wheelhouse/ad_rss_map_integration
-          repository-url: https://pypi.org/p/ad-rss-map-integration/
+          repository-url: https://upload.pypi.org/legacy/ad-rss-map-integration/
