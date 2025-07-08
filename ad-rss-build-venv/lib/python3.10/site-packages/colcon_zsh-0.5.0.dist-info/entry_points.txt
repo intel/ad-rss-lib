@@ -1,3 +1,0 @@
-[colcon_core.shell]
-zsh = colcon_zsh.shell.zsh:ZShell
-

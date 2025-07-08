@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2025-07-08 14:32:08</td>
+            <td class="headerValue">2025-07-08 15:32:41</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">4</td>
@@ -112,7 +112,7 @@
 <a name="41"><span class="lineNum">      41 </span>                :<span class="lineCov">         28 :       bool vehicleTriggeredLongitudinalResponse = false;</span></a>
 <a name="42"><span class="lineNum">      42 </span>        [<span class="branchCov" title="Branch 0 was taken 46 times"> + </span><span class="branchCov" title="Branch 1 was taken 27 times"> + </span>]:<span class="lineCov">         74 :       for (auto const &amp;state : situationCheckResult.rss_state_snapshot.individual_responses)</span></a>
 <a name="43"><span class="lineNum">      43 </span>                :            :       {</a>
-<a name="44"><span class="lineNum">      44 </span>        [<span class="branchCov" title="Branch 0 was taken 13 times"> + </span><span class="branchCov" title="Branch 1 was taken 33 times"> + </span>]:<span class="lineCov">         46 :         if (::ad::rss::state::isDangerous(state))</span></a>
+<a name="44"><span class="lineNum">      44 </span>        [<span class="branchCov" title="Branch 0 was taken 13 times"> + </span><span class="branchCov" title="Branch 1 was taken 33 times"> + </span>]:<span class="lineCov">         45 :         if (::ad::rss::state::isDangerous(state))</span></a>
 <a name="45"><span class="lineNum">      45 </span>                :            :         {</a>
 <a name="46"><span class="lineNum">      46 </span>                :<span class="lineCov">         13 :           situationCheckResult.result_analysis.dangerous_state = true;</span></a>
 <a name="47"><span class="lineNum">      47 </span>                :            :           auto dangerousSitationIter</a>
@@ -170,8 +170,8 @@
 <a name="99"><span class="lineNum">      99 </span>                :            :       }</a>
 <a name="100"><span class="lineNum">     100 </span>                :            : </a>
 <a name="101"><span class="lineNum">     101 </span>                :            :       // border are restricting potentially too much, fix this</a>
-<a name="102"><span class="lineNum">     102 </span>        [<span class="branchCov" title="Branch 0 was taken 18 times"> + </span><span class="branchCov" title="Branch 1 was taken 9 times"> + </span>]:<span class="lineCov">         27 :       if (!vehicleTriggeredLongitudinalResponse</span></a>
-<a name="103"><span class="lineNum">     103 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 18 times"> + </span>]:<span class="lineCov">         18 :           &amp;&amp; (situationCheckResult.proper_response.longitudinal_response</span></a>
+<a name="102"><span class="lineNum">     102 </span>        [<span class="branchCov" title="Branch 0 was taken 19 times"> + </span><span class="branchCov" title="Branch 1 was taken 8 times"> + </span>]:<span class="lineCov">         27 :       if (!vehicleTriggeredLongitudinalResponse</span></a>
+<a name="103"><span class="lineNum">     103 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 19 times"> + </span>]:<span class="lineCov">         19 :           &amp;&amp; (situationCheckResult.proper_response.longitudinal_response</span></a>
 <a name="104"><span class="lineNum">     104 </span>                :            :               != ::ad::rss::state::LongitudinalResponse::None))</a>
 <a name="105"><span class="lineNum">     105 </span>                :            :       {</a>
 <a name="106"><span class="lineNum">     106 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :         getLogger()-&gt;debug(</span></a>
@@ -217,7 +217,7 @@
 <a name="146"><span class="lineNum">     146 </span>                :            :       }</a>
 <a name="147"><span class="lineNum">     147 </span>                :            :       else</a>
 <a name="148"><span class="lineNum">     148 </span>                :            :       {</a>
-<a name="149"><span class="lineNum">     149 </span>        [<span class="branchCov" title="Branch 0 was taken 14 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         29 :         getLogger()-&gt;trace(&quot;RssRouteChecker::analyseResults[{}:{}] RouteResponse: {}\n {}&quot;,</span></a>
+<a name="149"><span class="lineNum">     149 </span>        [<span class="branchCov" title="Branch 0 was taken 15 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         29 :         getLogger()-&gt;trace(&quot;RssRouteChecker::analyseResults[{}:{}] RouteResponse: {}\n {}&quot;,</span></a>
 <a name="150"><span class="lineNum">     150 </span>                :<span class="lineCov">         15 :                            ego_vehicle.mRssObjectData.id,</span></a>
 <a name="151"><span class="lineNum">     151 </span>                :<span class="lineCov">         15 :                            situationCheckResult.rss_route.route_id,</span></a>
 <a name="152"><span class="lineNum">     152 </span>        [<span class="branchCov" title="Branch 0 was taken 15 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         15 :                            situationCheckResult.proper_response,</span></a>
@@ -237,7 +237,7 @@
 <a name="166"><span class="lineNum">     166 </span>                :            :     }</a>
 <a name="167"><span class="lineNum">     167 </span>                :<span class="lineCov">         17 :     auto &amp;egoVehicleData = egoVehicleFindResult-&gt;second;</span></a>
 <a name="168"><span class="lineNum">     168 </span>                :            : </a>
-<a name="169"><span class="lineNum">     169 </span>        [<span class="branchCov" title="Branch 0 was taken 28 times"> + </span><span class="branchCov" title="Branch 1 was taken 17 times"> + </span>]:<span class="lineCov">         44 :     for (auto &amp;situationCheckResult : objectResult.situation_check_results)</span></a>
+<a name="169"><span class="lineNum">     169 </span>        [<span class="branchCov" title="Branch 0 was taken 28 times"> + </span><span class="branchCov" title="Branch 1 was taken 17 times"> + </span>]:<span class="lineCov">         45 :     for (auto &amp;situationCheckResult : objectResult.situation_check_results)</span></a>
 <a name="170"><span class="lineNum">     170 </span>                :            :     {</a>
 <a name="171"><span class="lineNum">     171 </span>        [<span class="branchCov" title="Branch 0 was taken 28 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         28 :       auto rssCheckFindResult = egoVehicleData.mRssRouteCheckMap.find(situationCheckResult.rss_route.route_id);</span></a>
 <a name="172"><span class="lineNum">     172 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 28 times"> + </span>]:<span class="lineCov">         28 :       if (rssCheckFindResult == egoVehicleData.mRssRouteCheckMap.end())</span></a>
@@ -275,8 +275,8 @@
 <a name="204"><span class="lineNum">     204 </span>        [<span class="branchCov" title="Branch 0 was taken 28 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         28 :       if (situationCheckResult.is_valid)</span></a>
 <a name="205"><span class="lineNum">     205 </span>                :            :       {</a>
 <a name="206"><span class="lineNum">     206 </span>                :<span class="lineCov">         28 :         situationCheckResult.is_valid = rssCheck-&gt;mResponseResolving.provideProperResponse(</span></a>
-<a name="207"><span class="lineNum">     207 </span>        [<span class="branchCov" title="Branch 0 was taken 27 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         28 :           situationCheckResult.rss_state_snapshot, situationCheckResult.proper_response);</span></a>
-<a name="208"><span class="lineNum">     208 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 27 times"> + </span>]:<span class="lineCov">         27 :         if (!situationCheckResult.is_valid)</span></a>
+<a name="207"><span class="lineNum">     207 </span>        [<span class="branchCov" title="Branch 0 was taken 28 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         28 :           situationCheckResult.rss_state_snapshot, situationCheckResult.proper_response);</span></a>
+<a name="208"><span class="lineNum">     208 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 28 times"> + </span>]:<span class="lineCov">         28 :         if (!situationCheckResult.is_valid)</span></a>
 <a name="209"><span class="lineNum">     209 </span>                :            :         {</a>
 <a name="210"><span class="lineNum">     210 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :           getLogger()-&gt;warn(&quot;RssRouteChecker::ParallelChecker[{}:{}] provideProperResponse failed {}!&quot;,</span></a>
 <a name="211"><span class="lineNum">     211 </span>                :<span class="lineNoCov">          0 :                             objectResult.object_data.id,</span></a>
@@ -285,7 +285,7 @@
 <a name="214"><span class="lineNum">     214 </span>                :            :         }</a>
 <a name="215"><span class="lineNum">     215 </span>                :            :       }</a>
 <a name="216"><span class="lineNum">     216 </span>                :            : </a>
-<a name="217"><span class="lineNum">     217 </span>        [<span class="branchCov" title="Branch 0 was taken 27 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         27 :       analyseResultOfRoute(egoVehicleData, situationCheckResult);</span></a>
+<a name="217"><span class="lineNum">     217 </span>        [<span class="branchCov" title="Branch 0 was taken 28 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         28 :       analyseResultOfRoute(egoVehicleData, situationCheckResult);</span></a>
 <a name="218"><span class="lineNum">     218 </span>                :            :     }</a>
 <a name="219"><span class="lineNum">     219 </span>                :            :   }</a>
 <a name="220"><span class="lineNum">     220 </span>                :            : </a>

@@ -1,3 +1,0 @@
-[colcon_core.environment]
-pkg_config = colcon_pkg_config.environment.pkg_config:PkgConfigEnvironment
-

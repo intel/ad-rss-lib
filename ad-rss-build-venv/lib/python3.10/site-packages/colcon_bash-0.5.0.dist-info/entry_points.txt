@@ -1,3 +1,0 @@
-[colcon_core.shell]
-bash = colcon_bash.shell.bash:BashShell
-

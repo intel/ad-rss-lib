@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2025-07-08 14:29:35</td>
+            <td class="headerValue">2025-07-08 15:30:10</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">2</td>
@@ -89,10 +89,10 @@
 <a name="18"><span class="lineNum">      18 </span>                :            : #include &quot;ad/rss/state/RssStateEvaluator.hpp&quot;</a>
 <a name="19"><span class="lineNum">      19 </span>                :            : #include &lt;stdexcept&gt;</a>
 <a name="20"><span class="lineNum">      20 </span>                :            : </a>
-<a name="21"><span class="lineNum">      21 </span>                :<span class="lineCov">        157 : std::string toString(::ad::rss::state::RssStateEvaluator const e)</span></a>
+<a name="21"><span class="lineNum">      21 </span>                :<span class="lineCov">        158 : std::string toString(::ad::rss::state::RssStateEvaluator const e)</span></a>
 <a name="22"><span class="lineNum">      22 </span>                :            : {</a>
-<a name="23"><span class="lineNum">      23 </span>  [<span class="branchCov" title="Branch 0 was taken 68 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchCov" title="Branch 3 was taken 13 times"> + </span> :<span class="lineCov">        157 :   switch (e)</span></a>
-<span class="lineNum">         </span><span class="branchCov" title="Branch 4 was taken 15 times"> + </span><span class="branchCov" title="Branch 5 was taken 52 times"> + </span><span class="branchCov" title="Branch 6 was taken 1 time"> + </span><span class="branchCov" title="Branch 7 was taken 1 time"> + </span><span class="branchCov" title="Branch 8 was taken 1 time"> + </span> 
+<a name="23"><span class="lineNum">      23 </span>  [<span class="branchCov" title="Branch 0 was taken 68 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchCov" title="Branch 3 was taken 13 times"> + </span> :<span class="lineCov">        158 :   switch (e)</span></a>
+<span class="lineNum">         </span><span class="branchCov" title="Branch 4 was taken 15 times"> + </span><span class="branchCov" title="Branch 5 was taken 53 times"> + </span><span class="branchCov" title="Branch 6 was taken 1 time"> + </span><span class="branchCov" title="Branch 7 was taken 1 time"> + </span><span class="branchCov" title="Branch 8 was taken 1 time"> + </span> 
 <span class="lineNum">         </span>      <span class="branchCov" title="Branch 9 was taken 1 time"> + </span><span class="branchCov" title="Branch 10 was taken 1 time"> + </span><span class="branchCov" title="Branch 11 was taken 2 times"> + </span>]
 <a name="24"><span class="lineNum">      24 </span>                :            :   {</a>
 <a name="25"><span class="lineNum">      25 </span>                :<span class="lineCov">         68 :     case ::ad::rss::state::RssStateEvaluator::None:</span></a>
@@ -109,8 +109,8 @@
 <a name="36"><span class="lineNum">      36 </span>                :<span class="lineCov">         15 :     case ::ad::rss::state::RssStateEvaluator::LongitudinalDistanceSameDirectionOtherInFront:</span></a>
 <a name="37"><span class="lineNum">      37 </span>                :            :       return std::string(</a>
 <a name="38"><span class="lineNum">      38 </span>                :<span class="lineCov">         15 :         &quot;::ad::rss::state::RssStateEvaluator::LongitudinalDistanceSameDirectionOtherInFront&quot;); // LCOV_EXCL_BR_LINE</span></a>
-<a name="39"><span class="lineNum">      39 </span>                :<span class="lineCov">         52 :     case ::ad::rss::state::RssStateEvaluator::LateralDistance:</span></a>
-<a name="40"><span class="lineNum">      40 </span>                :<span class="lineCov">         52 :       return std::string(&quot;::ad::rss::state::RssStateEvaluator::LateralDistance&quot;); // LCOV_EXCL_BR_LINE</span></a>
+<a name="39"><span class="lineNum">      39 </span>                :<span class="lineCov">         53 :     case ::ad::rss::state::RssStateEvaluator::LateralDistance:</span></a>
+<a name="40"><span class="lineNum">      40 </span>                :<span class="lineCov">         53 :       return std::string(&quot;::ad::rss::state::RssStateEvaluator::LateralDistance&quot;); // LCOV_EXCL_BR_LINE</span></a>
 <a name="41"><span class="lineNum">      41 </span>                :<span class="lineCov">          1 :     case ::ad::rss::state::RssStateEvaluator::IntersectionOtherPriorityEgoAbleToStop:</span></a>
 <a name="42"><span class="lineNum">      42 </span>                :            :       return std::string(</a>
 <a name="43"><span class="lineNum">      43 </span>                :<span class="lineCov">          1 :         &quot;::ad::rss::state::RssStateEvaluator::IntersectionOtherPriorityEgoAbleToStop&quot;); // LCOV_EXCL_BR_LINE</span></a>

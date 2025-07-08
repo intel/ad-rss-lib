@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2025-07-08 14:29:35</td>
+            <td class="headerValue">2025-07-08 15:30:10</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">6</td>
@@ -49,9 +49,9 @@
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">108</td>
+            <td class="headerCovTableEntry">107</td>
             <td class="headerCovTableEntry">148</td>
-            <td class="headerCovTableEntryLo">73.0 %</td>
+            <td class="headerCovTableEntryLo">72.3 %</td>
           </tr>
           <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -86,14 +86,14 @@
 <a name="15"><span class="lineNum">      15 </span>                :            : namespace rss {</a>
 <a name="16"><span class="lineNum">      16 </span>                :            : namespace structured {</a>
 <a name="17"><span class="lineNum">      17 </span>                :            : </a>
-<a name="18"><span class="lineNum">      18 </span>                :<span class="lineCov">      66190 : bool RssNonIntersectionConstellationChecker::calculateRssStateNonIntersection(</span></a>
+<a name="18"><span class="lineNum">      18 </span>                :<span class="lineCov">      66191 : bool RssNonIntersectionConstellationChecker::calculateRssStateNonIntersection(</span></a>
 <a name="19"><span class="lineNum">      19 </span>                :            :   world::TimeIndex const &amp;time_index, core::RelativeConstellation const &amp;constellation, state::RssState &amp;rssState)</a>
 <a name="20"><span class="lineNum">      20 </span>                :            : {</a>
-<a name="21"><span class="lineNum">      21 </span>        [<span class="branchCov" title="Branch 0 was taken 3109 times"> + </span><span class="branchCov" title="Branch 1 was taken 63081 times"> + </span>]:<span class="lineCov">      66190 :   if (time_index != mCurrentTimeIndex)</span></a>
+<a name="21"><span class="lineNum">      21 </span>        [<span class="branchCov" title="Branch 0 was taken 3109 times"> + </span><span class="branchCov" title="Branch 1 was taken 63082 times"> + </span>]:<span class="lineCov">      66191 :   if (time_index != mCurrentTimeIndex)</span></a>
 <a name="22"><span class="lineNum">      22 </span>                :            :   {</a>
 <a name="23"><span class="lineNum">      23 </span>                :<span class="lineCov">       3109 :     mLastStatesBeforeDangerThresholdTime.swap(mNewStatesBeforeDangerThresholdTime);</span></a>
 <a name="24"><span class="lineNum">      24 </span>                :<span class="lineCov">       3109 :     mNewStatesBeforeDangerThresholdTime.clear();</span></a>
-<a name="25"><span class="lineNum">      25 </span>                :<span class="lineCov">       3110 :     mCurrentTimeIndex = time_index;</span></a>
+<a name="25"><span class="lineNum">      25 </span>                :<span class="lineCov">       3109 :     mCurrentTimeIndex = time_index;</span></a>
 <a name="26"><span class="lineNum">      26 </span>                :            :   }</a>
 <a name="27"><span class="lineNum">      27 </span>                :            : </a>
 <a name="28"><span class="lineNum">      28 </span>                :<span class="lineCov">      66191 :   rssState.constellation_id = constellation.constellation_id;</span></a>
@@ -135,13 +135,13 @@
 <a name="64"><span class="lineNum">      64 </span>                :            :   // second calculate proper response in respect to the state before danger threshold according to definition 10 of the</a>
 <a name="65"><span class="lineNum">      65 </span>                :            :   // RSS paper v6</a>
 <a name="66"><span class="lineNum">      66 </span>                :<span class="lineCov">      66191 :   RssSafeState lastStateBeforeDangerThresholdTimeToRemember;</span></a>
-<a name="67"><span class="lineNum">      67 </span>        [<span class="branchCov" title="Branch 0 was taken 13313 times"> + </span><span class="branchCov" title="Branch 1 was taken 52877 times"> + </span>]:<span class="lineCov">      66191 :   if (isDangerous(rssState))</span></a>
+<a name="67"><span class="lineNum">      67 </span>        [<span class="branchCov" title="Branch 0 was taken 13314 times"> + </span><span class="branchCov" title="Branch 1 was taken 52877 times"> + </span>]:<span class="lineCov">      66191 :   if (isDangerous(rssState))</span></a>
 <a name="68"><span class="lineNum">      68 </span>                :            :   {</a>
 <a name="69"><span class="lineNum">      69 </span>                :            :     auto const previousLastStateBeforeDangerThresholdTime</a>
-<a name="70"><span class="lineNum">      70 </span>        [<span class="branchCov" title="Branch 0 was taken 13313 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">      13313 :       = mLastStatesBeforeDangerThresholdTime.find(rssState.constellation_id);</span></a>
-<a name="71"><span class="lineNum">      71 </span>        [<span class="branchCov" title="Branch 0 was taken 1277 times"> + </span><span class="branchCov" title="Branch 1 was taken 12036 times"> + </span>]:<span class="lineCov">      13313 :     if (previousLastStateBeforeDangerThresholdTime != mLastStatesBeforeDangerThresholdTime.end())</span></a>
+<a name="70"><span class="lineNum">      70 </span>        [<span class="branchCov" title="Branch 0 was taken 13314 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">      13314 :       = mLastStatesBeforeDangerThresholdTime.find(rssState.constellation_id);</span></a>
+<a name="71"><span class="lineNum">      71 </span>        [<span class="branchCov" title="Branch 0 was taken 1278 times"> + </span><span class="branchCov" title="Branch 1 was taken 12036 times"> + </span>]:<span class="lineCov">      13314 :     if (previousLastStateBeforeDangerThresholdTime != mLastStatesBeforeDangerThresholdTime.end())</span></a>
 <a name="72"><span class="lineNum">      72 </span>                :            :     {</a>
-<a name="73"><span class="lineNum">      73 </span>                :<span class="lineCov">       1277 :       lastStateBeforeDangerThresholdTimeToRemember = previousLastStateBeforeDangerThresholdTime-&gt;second;</span></a>
+<a name="73"><span class="lineNum">      73 </span>                :<span class="lineCov">       1278 :       lastStateBeforeDangerThresholdTimeToRemember = previousLastStateBeforeDangerThresholdTime-&gt;second;</span></a>
 <a name="74"><span class="lineNum">      74 </span>                :            :     }</a>
 <a name="75"><span class="lineNum">      75 </span>                :            :     else</a>
 <a name="76"><span class="lineNum">      76 </span>                :            :     {</a>
@@ -177,7 +177,7 @@
 <a name="106"><span class="lineNum">     106 </span>                :<span class="lineCov">      52877 :     lastStateBeforeDangerThresholdTimeToRemember.lateralSafe = isLateralSafe(rssState);</span></a>
 <a name="107"><span class="lineNum">     107 </span>                :            :   }</a>
 <a name="108"><span class="lineNum">     108 </span>                :            : </a>
-<a name="109"><span class="lineNum">     109 </span>        [<span class="branchCov" title="Branch 0 was taken 1537 times"> + </span><span class="branchCov" title="Branch 1 was taken 64653 times"> + </span>]:<span class="lineCov">      66190 :   if ((lastStateBeforeDangerThresholdTimeToRemember.lateralSafe)</span></a>
+<a name="109"><span class="lineNum">     109 </span>        [<span class="branchCov" title="Branch 0 was taken 1537 times"> + </span><span class="branchCov" title="Branch 1 was taken 64654 times"> + </span>]:<span class="lineCov">      66191 :   if ((lastStateBeforeDangerThresholdTimeToRemember.lateralSafe)</span></a>
 <a name="110"><span class="lineNum">     110 </span>        [<span class="branchCov" title="Branch 0 was taken 321 times"> + </span><span class="branchCov" title="Branch 1 was taken 1216 times"> + </span>]:<span class="lineCov">       1537 :       &amp;&amp; (lastStateBeforeDangerThresholdTimeToRemember.longitudinalSafe))</span></a>
 <a name="111"><span class="lineNum">     111 </span>                :            :   {</a>
 <a name="112"><span class="lineNum">     112 </span>                :            :     // Both longitudinal and lateral distances became dangerous at the same time</a>
@@ -190,7 +190,7 @@
 <a name="119"><span class="lineNum">     119 </span>                :            :         rssState);</a>
 <a name="120"><span class="lineNum">     120 </span>                :            :     }</a>
 <a name="121"><span class="lineNum">     121 </span>                :            :   }</a>
-<a name="122"><span class="lineNum">     122 </span>        [<span class="branchCov" title="Branch 0 was taken 1216 times"> + </span><span class="branchCov" title="Branch 1 was taken 64653 times"> + </span>]:<span class="lineCov">      65869 :   else if (lastStateBeforeDangerThresholdTimeToRemember.lateralSafe)</span></a>
+<a name="122"><span class="lineNum">     122 </span>        [<span class="branchCov" title="Branch 0 was taken 1216 times"> + </span><span class="branchCov" title="Branch 1 was taken 64654 times"> + </span>]:<span class="lineCov">      65870 :   else if (lastStateBeforeDangerThresholdTimeToRemember.lateralSafe)</span></a>
 <a name="123"><span class="lineNum">     123 </span>                :            :   {</a>
 <a name="124"><span class="lineNum">     124 </span>                :            :     // @todo: Handling of a cut-in by a leading vehicle as stated in definitions 11-13 of the RSS paper v6</a>
 <a name="125"><span class="lineNum">     125 </span>                :            :     //        will be handled outside of this function. As a consequence.</a>
@@ -205,18 +205,18 @@
 <a name="134"><span class="lineNum">     134 </span>                :            :                               rssState);</a>
 <a name="135"><span class="lineNum">     135 </span>                :            :     }</a>
 <a name="136"><span class="lineNum">     136 </span>                :            :   }</a>
-<a name="137"><span class="lineNum">     137 </span>                :<span class="lineCov">     129306 :   else if (lastStateBeforeDangerThresholdTimeToRemember.longitudinalSafe</span></a>
-<a name="138"><span class="lineNum">     138 </span>  [<span class="branchCov" title="Branch 0 was taken 64588 times"> + </span><span class="branchCov" title="Branch 1 was taken 65 times"> + </span><span class="branchCov" title="Branch 2 was taken 64586 times"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">      64653 :            &amp;&amp; (getRightBorderObjectId() != rssState.object_id) &amp;&amp; (getLeftBorderObjectId() != rssState.object_id))</span></a>
-<span class="lineNum">         </span>   <span class="branchCov" title="Branch 4 was taken 64587 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 64587 times"> + </span><span class="branchCov" title="Branch 7 was taken 66 times"> + </span>]
+<a name="137"><span class="lineNum">     137 </span>                :<span class="lineCov">     129308 :   else if (lastStateBeforeDangerThresholdTimeToRemember.longitudinalSafe</span></a>
+<a name="138"><span class="lineNum">     138 </span>  [<span class="branchCov" title="Branch 0 was taken 64589 times"> + </span><span class="branchCov" title="Branch 1 was taken 65 times"> + </span><span class="branchCov" title="Branch 2 was taken 64588 times"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span> :<span class="lineCov">      64654 :            &amp;&amp; (getRightBorderObjectId() != rssState.object_id) &amp;&amp; (getLeftBorderObjectId() != rssState.object_id))</span></a>
+<span class="lineNum">         </span>   <span class="branchCov" title="Branch 4 was taken 64588 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 64588 times"> + </span><span class="branchCov" title="Branch 7 was taken 66 times"> + </span>]
 <a name="139"><span class="lineNum">     139 </span>                :            :   {</a>
-<a name="140"><span class="lineNum">     140 </span>                :<span class="lineCov">      64587 :     rssState.lateral_state_left.response = state::LateralResponse::None;</span></a>
-<a name="141"><span class="lineNum">     141 </span>                :<span class="lineCov">      64587 :     rssState.lateral_state_right.response = state::LateralResponse::None;</span></a>
-<a name="142"><span class="lineNum">     142 </span>        [<span class="branchCov" title="Branch 0 was taken 13050 times"> + </span><span class="branchCov" title="Branch 1 was taken 51537 times"> + </span>]:<span class="lineCov">      64587 :     if (isDangerous(rssState))</span></a>
+<a name="140"><span class="lineNum">     140 </span>                :<span class="lineCov">      64588 :     rssState.lateral_state_left.response = state::LateralResponse::None;</span></a>
+<a name="141"><span class="lineNum">     141 </span>                :<span class="lineCov">      64588 :     rssState.lateral_state_right.response = state::LateralResponse::None;</span></a>
+<a name="142"><span class="lineNum">     142 </span>        [<span class="branchCov" title="Branch 0 was taken 13051 times"> + </span><span class="branchCov" title="Branch 1 was taken 51537 times"> + </span>]:<span class="lineCov">      64588 :     if (isDangerous(rssState))</span></a>
 <a name="143"><span class="lineNum">     143 </span>                :            :     {</a>
-<a name="144"><span class="lineNum">     144 </span>  [<span class="branchCov" title="Branch 0 was taken 13049 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 13051 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">      26099 :       core::getLogger()-&gt;info(</span></a>
+<a name="144"><span class="lineNum">     144 </span>  [<span class="branchCov" title="Branch 0 was taken 13051 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 13051 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">      26102 :       core::getLogger()-&gt;info(</span></a>
 <a name="145"><span class="lineNum">     145 </span>                :            :         &quot;RssNonIntersectionConstellationChecker[{}-&gt;{}]&gt;&gt; State is dangerous (t_b == t_b,lon) No lateral response: {}&quot;,</a>
-<a name="146"><span class="lineNum">     146 </span>                :<span class="lineCov">      13050 :         rssState.ego_id,</span></a>
-<a name="147"><span class="lineNum">     147 </span>        [<span class="branchCov" title="Branch 0 was taken 13049 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">      13050 :         rssState.object_id,</span></a>
+<a name="146"><span class="lineNum">     146 </span>                :<span class="lineCov">      13051 :         rssState.ego_id,</span></a>
+<a name="147"><span class="lineNum">     147 </span>        [<span class="branchCov" title="Branch 0 was taken 13051 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">      13051 :         rssState.object_id,</span></a>
 <a name="148"><span class="lineNum">     148 </span>                :            :         rssState);</a>
 <a name="149"><span class="lineNum">     149 </span>                :            :     }</a>
 <a name="150"><span class="lineNum">     150 </span>                :            :   }</a>
@@ -253,11 +253,11 @@
 <a name="181"><span class="lineNum">     181 </span>                :            :   core::RelativeConstellation const &amp;constellation, state::RssState &amp;rssState)</a>
 <a name="182"><span class="lineNum">     182 </span>                :            : {</a>
 <a name="183"><span class="lineNum">     183 </span>                :<span class="lineCov">      65123 :   bool result = calculateLongitudinalRssStateSameDirection(constellation, rssState.longitudinal_state);</span></a>
-<a name="184"><span class="lineNum">     184 </span>        [<span class="branchCov" title="Branch 0 was taken 53123 times"> + </span><span class="branchCov" title="Branch 1 was taken 12000 times"> + </span>]:<span class="lineCov">      65123 :   if (result)</span></a>
+<a name="184"><span class="lineNum">     184 </span>        [<span class="branchCov" title="Branch 0 was taken 53122 times"> + </span><span class="branchCov" title="Branch 1 was taken 12001 times"> + </span>]:<span class="lineCov">      65123 :   if (result)</span></a>
 <a name="185"><span class="lineNum">     185 </span>                :            :   {</a>
-<a name="186"><span class="lineNum">     186 </span>                :<span class="lineCov">      53123 :     result = calculateLateralRssState(constellation, rssState.lateral_state_left, rssState.lateral_state_right);</span></a>
+<a name="186"><span class="lineNum">     186 </span>                :<span class="lineCov">      53122 :     result = calculateLateralRssState(constellation, rssState.lateral_state_left, rssState.lateral_state_right);</span></a>
 <a name="187"><span class="lineNum">     187 </span>                :            :   }</a>
-<a name="188"><span class="lineNum">     188 </span>                :<span class="lineCov">      65122 :   return result;</span></a>
+<a name="188"><span class="lineNum">     188 </span>                :<span class="lineCov">      65123 :   return result;</span></a>
 <a name="189"><span class="lineNum">     189 </span>                :            : }</a>
 <a name="190"><span class="lineNum">     190 </span>                :            : </a>
 <a name="191"><span class="lineNum">     191 </span>                :<span class="lineCov">       1068 : bool RssNonIntersectionConstellationChecker::calculateRssStateOppositeDirection(</span></a>
@@ -385,9 +385,9 @@
 <a name="312"><span class="lineNum">     312 </span>        [<span class="branchCov" title="Branch 0 was taken 906 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        906 :                                       rssStateRight.rss_state_information.safe_distance,</span></a>
 <a name="313"><span class="lineNum">     313 </span>                :            :                                       isDistanceSafe);</a>
 <a name="314"><span class="lineNum">     314 </span>                :            :   }</a>
-<a name="315"><span class="lineNum">     315 </span>                :<span class="lineCov">     106563 :   else if ((core::LateralRelativePosition::AtRight == constellation.relative_position.lateral_position)</span></a>
-<a name="316"><span class="lineNum">     316 </span>  [<span class="branchCov" title="Branch 0 was taken 52196 times"> + </span><span class="branchCov" title="Branch 1 was taken 1086 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 52195 times"> + </span> :<span class="lineCov">      53282 :            || (getLeftBorderObjectId() == constellation.object_id))</span></a>
-<span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 1086 times"> + </span><span class="branchCov" title="Branch 5 was taken 52195 times"> + </span>]
+<a name="315"><span class="lineNum">     315 </span>                :<span class="lineCov">     106564 :   else if ((core::LateralRelativePosition::AtRight == constellation.relative_position.lateral_position)</span></a>
+<a name="316"><span class="lineNum">     316 </span>  [<span class="branchCov" title="Branch 0 was taken 52196 times"> + </span><span class="branchCov" title="Branch 1 was taken 1086 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 52196 times"> + </span> :<span class="lineCov">      53282 :            || (getLeftBorderObjectId() == constellation.object_id))</span></a>
+<span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 1086 times"> + </span><span class="branchCov" title="Branch 5 was taken 52196 times"> + </span>]
 <a name="317"><span class="lineNum">     317 </span>                :            :   {</a>
 <a name="318"><span class="lineNum">     318 </span>                :<span class="lineCov">       1086 :     rssStateRight.rss_state_information.evaluator = state::RssStateEvaluator::None;</span></a>
 <a name="319"><span class="lineNum">     319 </span>                :<span class="lineCov">       1086 :     rssStateRight.rss_state_information.current_distance = std::numeric_limits&lt;physics::Distance&gt;::max();</span></a>
@@ -404,44 +404,44 @@
 <a name="330"><span class="lineNum">     330 </span>                :            :   }</a>
 <a name="331"><span class="lineNum">     331 </span>                :            :   else</a>
 <a name="332"><span class="lineNum">     332 </span>                :            :   {</a>
-<a name="333"><span class="lineNum">     333 </span>                :<span class="lineCov">      52195 :     rssStateLeft.rss_state_information.evaluator = state::RssStateEvaluator::LateralDistance;</span></a>
-<a name="334"><span class="lineNum">     334 </span>                :<span class="lineCov">      52195 :     rssStateLeft.rss_state_information.current_distance = physics::Distance(0);</span></a>
-<a name="335"><span class="lineNum">     335 </span>                :<span class="lineCov">      52195 :     rssStateLeft.rss_state_information.safe_distance = physics::Distance(0);</span></a>
-<a name="336"><span class="lineNum">     336 </span>                :<span class="lineCov">      52195 :     rssStateRight.rss_state_information.evaluator = state::RssStateEvaluator::LateralDistance;</span></a>
-<a name="337"><span class="lineNum">     337 </span>                :<span class="lineCov">      52195 :     rssStateRight.rss_state_information.current_distance = physics::Distance(0);</span></a>
+<a name="333"><span class="lineNum">     333 </span>                :<span class="lineCov">      52196 :     rssStateLeft.rss_state_information.evaluator = state::RssStateEvaluator::LateralDistance;</span></a>
+<a name="334"><span class="lineNum">     334 </span>                :<span class="lineCov">      52196 :     rssStateLeft.rss_state_information.current_distance = physics::Distance(0);</span></a>
+<a name="335"><span class="lineNum">     335 </span>                :<span class="lineCov">      52196 :     rssStateLeft.rss_state_information.safe_distance = physics::Distance(0);</span></a>
+<a name="336"><span class="lineNum">     336 </span>                :<span class="lineCov">      52196 :     rssStateRight.rss_state_information.evaluator = state::RssStateEvaluator::LateralDistance;</span></a>
+<a name="337"><span class="lineNum">     337 </span>                :<span class="lineCov">      52196 :     rssStateRight.rss_state_information.current_distance = physics::Distance(0);</span></a>
 <a name="338"><span class="lineNum">     338 </span>                :<span class="lineCov">      52196 :     rssStateRight.rss_state_information.safe_distance = physics::Distance(0);</span></a>
 <a name="339"><span class="lineNum">     339 </span>                :            : </a>
 <a name="340"><span class="lineNum">     340 </span>                :            :     // lateral distance is zero, never safe</a>
-<a name="341"><span class="lineNum">     341 </span>                :<span class="lineCov">      52195 :     result = true;</span></a>
+<a name="341"><span class="lineNum">     341 </span>                :<span class="lineCov">      52196 :     result = true;</span></a>
 <a name="342"><span class="lineNum">     342 </span>                :            :   }</a>
 <a name="343"><span class="lineNum">     343 </span>                :            : </a>
-<a name="344"><span class="lineNum">     344 </span>        [<span class="branchCov" title="Branch 0 was taken 1339 times"> + </span><span class="branchCov" title="Branch 1 was taken 52848 times"> + </span>]:<span class="lineCov">      54187 :   if (isDistanceSafe)</span></a>
+<a name="344"><span class="lineNum">     344 </span>        [<span class="branchCov" title="Branch 0 was taken 1339 times"> + </span><span class="branchCov" title="Branch 1 was taken 52849 times"> + </span>]:<span class="lineCov">      54188 :   if (isDistanceSafe)</span></a>
 <a name="345"><span class="lineNum">     345 </span>                :            :   {</a>
 <a name="346"><span class="lineNum">     346 </span>                :<span class="lineCov">       1339 :     rssStateLeft.is_safe = true;</span></a>
 <a name="347"><span class="lineNum">     347 </span>                :<span class="lineCov">       1339 :     rssStateLeft.response = state::LateralResponse::None;</span></a>
 <a name="348"><span class="lineNum">     348 </span>                :<span class="lineCov">       1339 :     rssStateRight.is_safe = true;</span></a>
 <a name="349"><span class="lineNum">     349 </span>                :<span class="lineCov">       1339 :     rssStateRight.response = state::LateralResponse::None;</span></a>
 <a name="350"><span class="lineNum">     350 </span>                :            :   }</a>
-<a name="351"><span class="lineNum">     351 </span>                :<span class="lineCov">     105696 :   else if ((core::LateralRelativePosition::AtLeft == constellation.relative_position.lateral_position)</span></a>
+<a name="351"><span class="lineNum">     351 </span>                :<span class="lineCov">     105698 :   else if ((core::LateralRelativePosition::AtLeft == constellation.relative_position.lateral_position)</span></a>
 <a name="352"><span class="lineNum">     352 </span>        [<span class="branchCov" title="Branch 0 was taken 52566 times"> + </span><span class="branchCov" title="Branch 1 was taken 126 times"> + </span>]:<span class="lineCov">      52692 :            || (core::LateralRelativePosition::OverlapLeft == constellation.relative_position.lateral_position)</span></a>
-<a name="353"><span class="lineNum">     353 </span>  [<span class="branchCov" title="Branch 0 was taken 52692 times"> + </span><span class="branchCov" title="Branch 1 was taken 156 times"> + </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span><span class="branchCov" title="Branch 3 was taken 52564 times"> + </span> :<span class="lineCov">     105540 :            || (getRightBorderObjectId() == constellation.object_id))</span></a>
-<span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 284 times"> + </span><span class="branchCov" title="Branch 5 was taken 52564 times"> + </span>]
+<a name="353"><span class="lineNum">     353 </span>  [<span class="branchCov" title="Branch 0 was taken 52692 times"> + </span><span class="branchCov" title="Branch 1 was taken 157 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchCov" title="Branch 3 was taken 52565 times"> + </span> :<span class="lineCov">     105541 :            || (getRightBorderObjectId() == constellation.object_id))</span></a>
+<span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 284 times"> + </span><span class="branchCov" title="Branch 5 was taken 52565 times"> + </span>]
 <a name="354"><span class="lineNum">     354 </span>                :            :   {</a>
 <a name="355"><span class="lineNum">     355 </span>                :            :     // ego is the left vehicle, so the collision is on the right side</a>
 <a name="356"><span class="lineNum">     356 </span>                :<span class="lineCov">        284 :     rssStateLeft.is_safe = true;</span></a>
 <a name="357"><span class="lineNum">     357 </span>                :<span class="lineCov">        284 :     rssStateLeft.response = state::LateralResponse::None;</span></a>
 <a name="358"><span class="lineNum">     358 </span>                :            :   }</a>
-<a name="359"><span class="lineNum">     359 </span>                :<span class="lineCov">     105128 :   else if ((core::LateralRelativePosition::AtRight == constellation.relative_position.lateral_position)</span></a>
+<a name="359"><span class="lineNum">     359 </span>                :<span class="lineCov">     105130 :   else if ((core::LateralRelativePosition::AtRight == constellation.relative_position.lateral_position)</span></a>
 <a name="360"><span class="lineNum">     360 </span>        [<span class="branchCov" title="Branch 0 was taken 51960 times"> + </span><span class="branchCov" title="Branch 1 was taken 110 times"> + </span>]:<span class="lineCov">      52070 :            || (core::LateralRelativePosition::OverlapRight == constellation.relative_position.lateral_position)</span></a>
-<a name="361"><span class="lineNum">     361 </span>  [<span class="branchCov" title="Branch 0 was taken 52070 times"> + </span><span class="branchCov" title="Branch 1 was taken 494 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchCov" title="Branch 3 was taken 51959 times"> + </span> :<span class="lineCov">     104634 :            || (getLeftBorderObjectId() == constellation.object_id))</span></a>
-<span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 605 times"> + </span><span class="branchCov" title="Branch 5 was taken 51959 times"> + </span>]
+<a name="361"><span class="lineNum">     361 </span>  [<span class="branchCov" title="Branch 0 was taken 52070 times"> + </span><span class="branchCov" title="Branch 1 was taken 495 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 51960 times"> + </span> :<span class="lineCov">     104635 :            || (getLeftBorderObjectId() == constellation.object_id))</span></a>
+<span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 605 times"> + </span><span class="branchCov" title="Branch 5 was taken 51960 times"> + </span>]
 <a name="362"><span class="lineNum">     362 </span>                :            :   {</a>
 <a name="363"><span class="lineNum">     363 </span>                :            :     // ego is the right vehicle, so the collision is on the left side</a>
 <a name="364"><span class="lineNum">     364 </span>                :<span class="lineCov">        605 :     rssStateRight.is_safe = true;</span></a>
 <a name="365"><span class="lineNum">     365 </span>                :<span class="lineCov">        605 :     rssStateRight.response = state::LateralResponse::None;</span></a>
 <a name="366"><span class="lineNum">     366 </span>                :            :   }</a>
 <a name="367"><span class="lineNum">     367 </span>                :            : </a>
-<a name="368"><span class="lineNum">     368 </span>                :<span class="lineCov">      54187 :   return result;</span></a>
+<a name="368"><span class="lineNum">     368 </span>                :<span class="lineCov">      54188 :   return result;</span></a>
 <a name="369"><span class="lineNum">     369 </span>                :            : }</a>
 <a name="370"><span class="lineNum">     370 </span>                :            : </a>
 <a name="371"><span class="lineNum">     371 </span>                :            : } // namespace structured</a>

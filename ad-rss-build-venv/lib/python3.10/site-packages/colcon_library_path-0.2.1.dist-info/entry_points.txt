@@ -1,3 +1,0 @@
-[colcon_core.environment]
-library_path = colcon_library_path.environment.library_path:LibraryPathEnvironment
-

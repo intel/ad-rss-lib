@@ -1,1 +1,0 @@
-@(type_);@(name);@(value)

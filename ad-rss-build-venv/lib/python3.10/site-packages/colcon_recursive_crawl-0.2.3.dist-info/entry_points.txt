@@ -1,3 +1,0 @@
-[colcon_core.package_discovery]
-recursive = colcon_recursive_crawl.package_discovery.recursive_crawl:RecursiveDiscoveryExtension
-
