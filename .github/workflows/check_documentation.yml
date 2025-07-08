@@ -7,7 +7,7 @@ on:
     branches: main
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   documentationjob:
@@ -59,3 +59,5 @@ jobs:
         source ad-rss-build-venv/bin/activate
         mkdocs build
         if [ ${{ github.event_name }} != 'pull_request' ]; then bash .github/workflows/deploy_documentation.sh true; else bash .github/workflows/deploy_documentation.sh false; fi
+
+
