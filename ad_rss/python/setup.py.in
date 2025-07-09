@@ -38,10 +38,9 @@ setup(
     author='Intel Corporation',
     author_email='bernd.gassmann@intel.com',
     license="LGPL-2.1-only",
+    platforms="manylinux_2_35_x86_64",
     classifiers=[
-        programming_language_classifier,
-        "License-Expression :: LGPL-2.1-only",
-        "Supported-Platform :: manylinux_2_35_x86_64",
+        programming_language_classifier
     ],
     url="https://intel.github.io/ad-rss-lib/",
     description="python binding of the C++ Library implementation of the Responsibility Sensitive Safety model",
