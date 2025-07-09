@@ -33,6 +33,7 @@ jobs:
       PYTHONNOUSERSITE: 1
     environment:
       name: pypi
+      url: https://pypi.org/p/ad-rss-map-integration
     permissions:
       id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
     steps:
@@ -74,4 +75,3 @@ jobs:
         if: ${{ github.event_name == 'release'}}
         with:
           packages-dir: wheelhouse/ad_rss_map_integration
-          repository-url: https://upload.pypi.org/legacy/ad-rss-map-integration/
