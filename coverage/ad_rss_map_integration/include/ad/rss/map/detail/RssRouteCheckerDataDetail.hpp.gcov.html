@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2025-07-09 09:47:40</td>
+            <td class="headerValue">2025-07-15 04:37:36</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">11</td>
@@ -216,7 +216,7 @@
 <a name="143"><span class="lineNum">     143 </span>                :            :   }</a>
 <a name="144"><span class="lineNum">     144 </span>                :            : </a>
 <a name="145"><span class="lineNum">     145 </span>                :<span class="lineCov">         16 :   auto routeIndex = 0u;</span></a>
-<a name="146"><span class="lineNum">     146 </span>        [<span class="branchCov" title="Branch 0 was taken 29 times"> + </span><span class="branchCov" title="Branch 1 was taken 15 times"> + </span>]:<span class="lineCov">         44 :   while (routeIndex &lt; mRoutes.size())</span></a>
+<a name="146"><span class="lineNum">     146 </span>        [<span class="branchCov" title="Branch 0 was taken 29 times"> + </span><span class="branchCov" title="Branch 1 was taken 16 times"> + </span>]:<span class="lineCov">         45 :   while (routeIndex &lt; mRoutes.size())</span></a>
 <a name="147"><span class="lineNum">     147 </span>                :            :   {</a>
 <a name="148"><span class="lineNum">     148 </span>  [<span class="branchCov" title="Branch 0 was taken 29 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 29 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         58 :     getLogger()-&gt;trace(&quot;RssVehicleAdapter::shortenRoutes[{}:{}] call shorten route with {} and  {}&quot;,</span></a>
 <a name="149"><span class="lineNum">     149 </span>                :<span class="lineCov">         29 :                        mRssObjectData.id,</span></a>
@@ -239,16 +239,16 @@
 <a name="166"><span class="lineNum">     166 </span>                :            :     }</a>
 <a name="167"><span class="lineNum">     167 </span>                :            :     else</a>
 <a name="168"><span class="lineNum">     168 </span>                :            :     {</a>
-<a name="169"><span class="lineNum">     169 </span>  [<span class="branchCov" title="Branch 0 was taken 25 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 26 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         52 :       getLogger()-&gt;trace(&quot;RssVehicleAdapter::shortenRoutes[{}:{}] shorten current route succeeded {}&quot;,</span></a>
+<a name="169"><span class="lineNum">     169 </span>  [<span class="branchCov" title="Branch 0 was taken 26 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 26 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         52 :       getLogger()-&gt;trace(&quot;RssVehicleAdapter::shortenRoutes[{}:{}] shorten current route succeeded {}&quot;,</span></a>
 <a name="170"><span class="lineNum">     170 </span>                :<span class="lineCov">         26 :                          mRssObjectData.id,</span></a>
 <a name="171"><span class="lineNum">     171 </span>        [<span class="branchCov" title="Branch 0 was taken 26 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         26 :                          mRoutes[routeIndex].route_id,</span></a>
-<a name="172"><span class="lineNum">     172 </span>                :<span class="lineCov">         25 :                          mRoutes[routeIndex].route);</span></a>
+<a name="172"><span class="lineNum">     172 </span>                :<span class="lineCov">         26 :                          mRoutes[routeIndex].route);</span></a>
 <a name="173"><span class="lineNum">     173 </span>        [<span class="branchCov" title="Branch 0 was taken 26 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         26 :       auto findWaypointResult = findNearestWaypoint(allLaneMatches, mRoutes[routeIndex].route);</span></a>
 <a name="174"><span class="lineNum">     174 </span>        [<span class="branchCov" title="Branch 0 was taken 26 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         26 :       mRoutes[routeIndex].progress_on_route = calcLength(findWaypointResult);</span></a>
-<a name="175"><span class="lineNum">     175 </span>                :<span class="lineCov">         25 :       routeIndex++;</span></a>
+<a name="175"><span class="lineNum">     175 </span>                :<span class="lineCov">         26 :       routeIndex++;</span></a>
 <a name="176"><span class="lineNum">     176 </span>                :            :     }</a>
 <a name="177"><span class="lineNum">     177 </span>                :            :   }</a>
-<a name="178"><span class="lineNum">     178 </span>                :<span class="lineCov">         15 : }</span></a>
+<a name="178"><span class="lineNum">     178 </span>                :<span class="lineCov">         16 : }</span></a>
 <a name="179"><span class="lineNum">     179 </span>                :            : </a>
 <a name="180"><span class="lineNum">     180 </span>                :            : template &lt;class OBJECT_INSTANCE_TYPE&gt;</a>
 <a name="181"><span class="lineNum">     181 </span>                :<span class="lineCov">         16 : void RssRouteCheckerVehicleData&lt;OBJECT_INSTANCE_TYPE&gt;::extendRoutes(</span></a>
@@ -393,8 +393,8 @@
 <a name="319"><span class="lineNum">     319 </span>                :<span class="lineCov">         50 :       auto routingStartPoint = ::ad::map::route::planning::createRoutingPoint(</span></a>
 <a name="320"><span class="lineNum">     320 </span>        [<span class="branchCov" title="Branch 0 was taken 50 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         50 :         projectedStartPoint, mRssObjectData.match_object.enu_position.heading);</span></a>
 <a name="321"><span class="lineNum">     321 </span>                :            : </a>
-<a name="322"><span class="lineNum">     322 </span>  [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 50 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">         50 :       if (!mRoutingTargets.empty() &amp;&amp; ad::map::point::isValid(mRoutingTargets))</span></a>
-<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchCov" title="Branch 7 was taken 50 times"> + </span>]
+<a name="322"><span class="lineNum">     322 </span>  [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 49 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">         50 :       if (!mRoutingTargets.empty() &amp;&amp; ad::map::point::isValid(mRoutingTargets))</span></a>
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchCov" title="Branch 7 was taken 49 times"> + </span>]
 <a name="323"><span class="lineNum">     323 </span>                :            :       {</a>
 <a name="324"><span class="lineNum">     324 </span>                :<span class="lineNoCov">          0 :         auto newRoute = ::ad::map::route::planning::planRoute(</span></a>
 <a name="325"><span class="lineNum">     325 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :           routingStartPoint, mRoutingTargets, ::ad::map::route::RouteCreationMode::AllRoutableLanes);</span></a>
@@ -415,7 +415,7 @@
 <a name="340"><span class="lineNum">     340 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :                             mRoutingTargets);</span></a>
 <a name="341"><span class="lineNum">     341 </span>                :            :         }</a>
 <a name="342"><span class="lineNum">     342 </span>                :<span class="lineNoCov">          0 :       }</span></a>
-<a name="343"><span class="lineNum">     343 </span>        [<span class="branchCov" title="Branch 0 was taken 50 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         50 :       else if (mRouteExtensionMode != RouteExtensionMode::eAllowOnlyTargetRoute)</span></a>
+<a name="343"><span class="lineNum">     343 </span>        [<span class="branchCov" title="Branch 0 was taken 50 times"> + </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineCov">         49 :       else if (mRouteExtensionMode != RouteExtensionMode::eAllowOnlyTargetRoute)</span></a>
 <a name="344"><span class="lineNum">     344 </span>                :            :       {</a>
 <a name="345"><span class="lineNum">     345 </span>                :            :         // better prefer longer routes to ensure back of the vehicle is in</a>
 <a name="346"><span class="lineNum">     346 </span>        [<span class="branchCov" title="Branch 0 was taken 50 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">         50 :         auto newRoutesFromCurrentStart = ::ad::map::route::planning::predictRoutesOnDistance(</span></a>
